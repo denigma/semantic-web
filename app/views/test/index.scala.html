@@ -1,0 +1,16 @@
+@(lst:List[org.openrdf.model.Statement])(implicit request: RequestHeader)
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+<h1>Just a test page to see if BigData is working</h1>
+<table border>
+    <tr><th>Subject</th><th>Predicate</th><th>Object</th></tr>
+    @for(item <- lst) {
+    <tr><td>@item.getSubject()</td><td>@item.getPredicate()</td><td>@item.getObject()</td></tr>
+    }
+</table>
+</ul>
+</body>
+</html>

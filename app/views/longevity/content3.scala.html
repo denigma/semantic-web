@@ -1,0 +1,45 @@
+@()(implicit request: RequestHeader)
+
+
+<div class="ui content">
+    <section class="ui vertices segment">
+        <h2 class="ui inverted teal center aligned header">
+            Recent Activity
+
+        </h2> <h5 class="sub header">What is new?</h5>
+
+        @longevity.middle()
+
+        </section>
+
+    <section class="ui blue raised incoming segment">
+
+        <h2 class="ui inverted blue center aligned header">
+            About us
+
+
+        </h2><h5 class="sub header">International Longevity Alliance</h5>
+        <img src="@routes.Assets.at("images/ILA.svg")">
+        <p data-mercury="html" data-event-onfocus="controller.showEditor" data-event-onblur="controller.hideEditor">The International Longevity Alliance promotes the social struggle against the deteriorative aging process and for healthy and productive longevity for all, through scientific research, technological development, medical treatment, public health and education measures, and social activism. [...]</p>
+        @graphs.incoming()
+    </section>
+
+    <section data-mercury="html" data-event-onfocus="controller.showEditor" data-event-onblur="controller.hideEditor" class="ui outgoing green raised segment">
+        <h2 class="ui inverted  positive center aligned header">
+            Take action
+
+        </h2> <h5 class="sub header">How can I contribute?</h5>
+        <img src="http://longevityalliance.org/images/take-action2.jpg">
+
+        <span class="value" data-event-click="controller.showEditor" data-event-onfocus="controller.showEditor" data-event-onblur="controller.hideEditor" >Some value!!!</span>
+        <p>
+            1. Register at this site to become a member and/or receive updates.
+            2. Join Longevity Alliance groups in social networks. The list can be found here.
+            3. If there is no related social network in your area, start one!
+            4. Organize live local meetings of supporters. [...]</p>
+
+        @graphs.outgoing()
+    </section>
+
+
+</div>

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "species.js",
+  "sourceRoot": "",
+  "sources": [
+    "species.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;CAAA,CAAM,KAAO;CACX;;;CAAA;CAIa,CAAe,CAAf,CAAA,IAAA,CAAA,CAAA,OAAE;CAA0C,EAA1C,CAAA,EAAD,IAA2C;CAAA,EAA7B,CAAA,EAAD,GAA8B;CAAA,EAAjB,CAAA,EAAD,EAAkB;CAAA,EAAN,CAAA,EAAD;CAJlD,IAIa;;CAJb;;CADF;CAAA"
+}

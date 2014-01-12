@@ -1,0 +1,18 @@
+@()(implicit request: RequestHeader)
+
+
+<div class="ui content">
+
+
+    @longevity.middle()
+    <section class="details">
+        <div id="graph-container"></div>
+        <section class="links">
+            @graphs.incoming()
+            @graphs.outgoing()
+        </section>
+
+    </section>
+
+
+</div>

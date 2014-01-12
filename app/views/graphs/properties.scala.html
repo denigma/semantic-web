@@ -1,0 +1,14 @@
+@(owner:String)(implicit request: RequestHeader)
+
+    <header class="active title">
+            Properties
+        <i class="dropdown icon"></i>
+    </header>
+    <div class="active content">
+        <div class="props" data-foreach-prop="@{owner}.properties">
+
+
+                <b class="key" data-bind="prop.name"></b>
+                <span  data-mercury="full" class="value" data-bind="prop.value" data-event-onfocus="showEditor" data-event-onblur="controller.hideEditor"></span>
+        </div>
+    </div>

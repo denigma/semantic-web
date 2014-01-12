@@ -1,0 +1,33 @@
+@(implicit content:Items, request: RequestHeader)
+<header class="ui green menu">
+    <nav class="ui inverted menu">
+        <a class="active item">
+            <h3 class="ui teal header"><i class="home icon"></i> Home</h3>
+        </a>
+
+        <a class="item" data-foreach-item="controllers.graph.menu" data-bind="item"><h4 class="ui inverted header"></h4></a>
+
+        <div class="right menu">
+            <div class="green item">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search...">
+                    <i class="search icon"></i>
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui positive button">Sign Up</div>
+            </div>
+        </div>
+
+    </nav>
+
+</header>
+@if(content.flags.length>0){
+<section id="flags" class="ui bottom green segment menu">
+    <div class="right menu">
+    @for(flag <- content.flags) {
+     <img class="item" src="@routes.Assets.at("images/flags/small/" +flag+".png")">
+    }
+    </div>
+</section>
+}

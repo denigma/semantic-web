@@ -1,0 +1,19 @@
+@(content:Items, id:String="TestRoot")(implicit request: RequestHeader)
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Denigma Knowledge Management System</title>
+        @libs()
+        @app(graphs.setup())
+    </head>
+    <body>
+
+        @header(content,request)
+    <section class="graph" data-yield="main">
+    </section>
+
+    </body>
+
+</html>

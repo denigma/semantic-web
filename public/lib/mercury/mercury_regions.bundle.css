@@ -1,0 +1,78 @@
+/*!!
+Mercury Editor is a Coffeescript and jQuery based WYSIWYG editor released under the MIT License.
+Documentation and other useful information can be found at https://github.com/jejacks0n/mercury
+
+Copyright (c) 2013 Jeremy Jackson
+
+This file contains all of the required css for the Mercury interface as well as the region css.
+*/
+@font-face{font-family:"mercury-icons";src:url(/assets/mercury-icons.eot);src:url(/assets/mercury-icons.eot?#iefix) format("embedded-opentype"),url(/assets/mercury-icons.woff) format("woff"),url(/assets/mercury-icons.ttf) format("truetype"),url(/assets/mercury-icons.svg#mercury-icons) format("svg");font-weight:normal;font-style:normal}
+.mercury-icon-character:before{content:"\f100"}
+.mercury-icon-file:before{content:"\f101"}
+.mercury-icon-history:before{content:"\f102"}
+.mercury-icon-link:before{content:"\f103"}
+.mercury-icon-notes:before{content:"\f104"}
+.mercury-icon-preview-alt:before{content:"\f105"}
+.mercury-icon-preview:before{content:"\f106"}
+.mercury-icon-redo:before{content:"\f107"}
+.mercury-icon-save:before{content:"\f108"}
+.mercury-icon-snippets:before{content:"\f109"}
+.mercury-icon-spinner:before{content:"\f10a"}
+.mercury-icon-table:before{content:"\f10b"}
+.mercury-icon-undo:before{content:"\f10c"}
+.mercury-icon-upload:before,.mercury-gallery-region+.mercury-region-drop-indicator:before,.mercury-html-region+.mercury-region-drop-indicator:before,.mercury-image-region+.mercury-region-drop-indicator:before,.mercury-markdown-region+.mercury-region-drop-indicator:before,.mercury-snippet-region+.mercury-region-drop-indicator:before{content:"\f10d"}
+.mercury-clearfix:before,.mercury-clearfix:after{content:" ";display:table}
+.mercury-clearfix:after{clear:both}
+.mercury-clearfix{*zoom:1}
+.mercury-gallery-region{position:relative;width:100%;background:black}
+.mercury-gallery-region:focus{outline-offset:0;outline:0;-webkit-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;-moz-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;box-shadow:0 0 7px #00bce5,0 0 2px #003e4c}
+.mercury-gallery-region[data-mercury-region]{min-height:300px}
+.mercury-gallery-region+.mercury-region-drop-indicator{-webkit-transition:opacity 250ms ease 0,visibility 0 ease 250ms;transition:opacity 250ms ease 0,visibility 0 ease 250ms;opacity:0;visibility:hidden;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;display:none;opacity:0;position:absolute;z-index:20;top:30px;left:30px;width:60px;height:60px;margin:-30px;background:rgba(0,0,0,0.75);color:rgba(255,255,255,0.85);pointer-events:none}
+.mercury-gallery-region+.mercury-region-drop-indicator:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:relative;display:inline-block;font-family:"mercury-icons";width:60px;height:56px;font-size:32px;line-height:60px;font-weight:normal;font-variant:normal;text-transform:none;text-align:center;speak:none;vertical-align:top;-webkit-font-smoothing:antialiased}
+.mercury-gallery-region+.mercury-region-drop-indicator.mercury-region-snippet-drop-indicator:before{content:"\f109"}
+.mercury-gallery-region+.mercury-region-drop-indicator.mercury-shown{-webkit-transition-delay:0;transition-delay:0;visibility:visible;opacity:1}
+.mercury-gallery-region .mercury-gallery-region-controls{-webkit-user-select:none;-moz-user-select:none;user-select:none;cursor:default;display:none;position:absolute;z-index:20;top:0;left:0;width:126px;margin:10px;max-height:560px;overflow-y:auto;padding:10px 10px 5px 10px;list-style:none;background:rgba(0,0,0,0.75);border-radius:5px;text-align:center;font-size:0}
+.mercury-gallery-region .mercury-gallery-region-controls li{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:relative;width:100%;height:68px;padding:4px;margin-bottom:5px;background:rgba(255,255,255,0.4);text-align:center}
+.mercury-gallery-region .mercury-gallery-region-controls img{max-width:100px;max-height:60px;cursor:pointer}
+.mercury-gallery-region .mercury-gallery-region-controls em{position:absolute;display:block;left:-4px;top:-4px;width:15px;height:15px;line-height:15px;background:#000;border:1px solid #ddd;border-radius:20px;font-style:normal;font-size:12px;color:#ddd;cursor:pointer}
+.mercury-gallery-region .slides{position:relative;width:100%;min-height:300px;max-height:600px;overflow:hidden;font-size:0}
+.mercury-gallery-region .slides .slide{width:100%;height:100%;background:black;text-align:center}
+.mercury-gallery-region .slides .slide img{height:600px}
+.mercury-gallery-region .paginator{position:absolute;z-index:19;bottom:5px;width:100%;text-align:center}
+.mercury-gallery-region .paginator span{margin:0 8px;text-shadow:0 0 3px black;font-size:30px;color:#666}
+.mercury-gallery-region .paginator .active{color:white}
+.mercury-html-region:focus{outline-offset:0;outline:0;-webkit-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;-moz-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;box-shadow:0 0 7px #00bce5,0 0 2px #003e4c}
+.mercury-html-region[data-mercury-region]{min-width:5px;min-height:20px}
+.mercury-html-region+.mercury-region-drop-indicator{-webkit-transition:opacity 250ms ease 0,visibility 0 ease 250ms;transition:opacity 250ms ease 0,visibility 0 ease 250ms;opacity:0;visibility:hidden;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;display:none;opacity:0;position:absolute;z-index:20;top:30px;left:30px;width:60px;height:60px;margin:-30px;background:rgba(0,0,0,0.75);color:rgba(255,255,255,0.85);pointer-events:none}
+.mercury-html-region+.mercury-region-drop-indicator:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:relative;display:inline-block;font-family:"mercury-icons";width:60px;height:56px;font-size:32px;line-height:60px;font-weight:normal;font-variant:normal;text-transform:none;text-align:center;speak:none;vertical-align:top;-webkit-font-smoothing:antialiased}
+.mercury-html-region+.mercury-region-drop-indicator.mercury-region-snippet-drop-indicator:before{content:"\f109"}
+.mercury-html-region+.mercury-region-drop-indicator.mercury-shown{-webkit-transition-delay:0;transition-delay:0;visibility:visible;opacity:1}
+.mercury-html-region table{border:1px solid #333;border-collapse:collapse}
+.mercury-html-region table th,.mercury-html-region table td{min-width:10px;border:1px solid #666}
+.mercury-image-region:focus{outline-offset:0;outline:0;-webkit-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;-moz-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;box-shadow:0 0 7px #00bce5,0 0 2px #003e4c}
+.mercury-image-region[data-mercury-region]{min-width:20px;min-height:20px}
+.mercury-image-region+.mercury-region-drop-indicator{-webkit-transition:opacity 250ms ease 0,visibility 0 ease 250ms;transition:opacity 250ms ease 0,visibility 0 ease 250ms;opacity:0;visibility:hidden;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;display:none;opacity:0;position:absolute;z-index:20;top:30px;left:30px;width:60px;height:60px;margin:-30px;background:rgba(0,0,0,0.75);color:rgba(255,255,255,0.85);pointer-events:none}
+.mercury-image-region+.mercury-region-drop-indicator:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:relative;display:inline-block;font-family:"mercury-icons";width:60px;height:56px;font-size:32px;line-height:60px;font-weight:normal;font-variant:normal;text-transform:none;text-align:center;speak:none;vertical-align:top;-webkit-font-smoothing:antialiased}
+.mercury-image-region+.mercury-region-drop-indicator.mercury-region-snippet-drop-indicator:before{content:"\f109"}
+.mercury-image-region+.mercury-region-drop-indicator.mercury-shown{-webkit-transition-delay:0;transition-delay:0;visibility:visible;opacity:1}
+.mercury-markdown-region[data-mercury-region]{min-width:5px;min-height:20px}
+.mercury-markdown-region+.mercury-region-drop-indicator{-webkit-transition:opacity 250ms ease 0,visibility 0 ease 250ms;transition:opacity 250ms ease 0,visibility 0 ease 250ms;opacity:0;visibility:hidden;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;display:none;opacity:0;position:absolute;z-index:20;top:30px;left:30px;width:60px;height:60px;margin:-30px;background:rgba(0,0,0,0.75);color:rgba(255,255,255,0.85);pointer-events:none}
+.mercury-markdown-region+.mercury-region-drop-indicator:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:relative;display:inline-block;font-family:"mercury-icons";width:60px;height:56px;font-size:32px;line-height:60px;font-weight:normal;font-variant:normal;text-transform:none;text-align:center;speak:none;vertical-align:top;-webkit-font-smoothing:antialiased}
+.mercury-markdown-region+.mercury-region-drop-indicator.mercury-region-snippet-drop-indicator:before{content:"\f109"}
+.mercury-markdown-region+.mercury-region-drop-indicator.mercury-shown{-webkit-transition-delay:0;transition-delay:0;visibility:visible;opacity:1}
+.mercury-markdown-region textarea.mercury-markdown-region-textarea{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;outline:0;border:0;margin:0;padding:0;white-space:pre;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;color:inherit;resize:vertical}
+.mercury-markdown-region textarea.mercury-markdown-region-textarea:focus{outline-offset:0;outline:0;-webkit-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;-moz-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;box-shadow:0 0 7px #00bce5,0 0 2px #003e4c}
+.mercury-plain-region:focus{outline-offset:0;outline:0;-webkit-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;-moz-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;box-shadow:0 0 7px #00bce5,0 0 2px #003e4c}
+.mercury-plain-region[data-mercury-region]{min-width:5px;min-height:20px}
+.mercury-snippet-region:focus{outline-offset:0;outline:0;-webkit-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;-moz-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;box-shadow:0 0 7px #00bce5,0 0 2px #003e4c}
+.mercury-snippet-region[data-mercury-region]:empty:before{overflow:hidden;content:attr(data-placeholder);color:#bbb}
+.mercury-snippet-region[data-mercury-region]{min-width:5px;min-height:20px}
+.mercury-snippet-region+.mercury-region-drop-indicator{-webkit-transition:opacity 250ms ease 0,visibility 0 ease 250ms;transition:opacity 250ms ease 0,visibility 0 ease 250ms;opacity:0;visibility:hidden;-webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px;display:none;opacity:0;position:absolute;z-index:20;top:30px;left:30px;width:60px;height:60px;margin:-30px;background:rgba(0,0,0,0.75);color:rgba(255,255,255,0.85);pointer-events:none}
+.mercury-snippet-region+.mercury-region-drop-indicator:before{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;position:relative;display:inline-block;font-family:"mercury-icons";width:60px;height:56px;font-size:32px;line-height:60px;font-weight:normal;font-variant:normal;text-transform:none;text-align:center;speak:none;vertical-align:top;-webkit-font-smoothing:antialiased}
+.mercury-snippet-region+.mercury-region-drop-indicator.mercury-region-snippet-drop-indicator:before{content:"\f109"}
+.mercury-snippet-region+.mercury-region-drop-indicator.mercury-shown{-webkit-transition-delay:0;transition-delay:0;visibility:visible;opacity:1}
+.mercury-text-region textarea.mercury-text-region-textarea{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;outline:0;border:0;margin:0;padding:0;background:transparent;font-family:inherit;font-size:inherit;font-weight:inherit;line-height:inherit;color:inherit;resize:vertical}
+.mercury-text-region textarea.mercury-text-region-textarea:focus{outline-offset:0;outline:0;-webkit-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;-moz-box-shadow:0 0 7px #00bce5,0 0 2px #003e4c;box-shadow:0 0 7px #00bce5,0 0 2px #003e4c}
+.mercury-unknown-region[data-mercury-region]:empty:before{overflow:hidden;content:attr(data-placeholder);color:#bbb}
+.mercury-unknown-region[data-mercury-region]{min-width:5px;min-height:20px}
+.mercury-unknown-region:focus{outline:0;-webkit-box-shadow:0 0 7px red,0 0 2px red / 3;-moz-box-shadow:0 0 7px red,0 0 2px red / 3;box-shadow:0 0 7px red,0 0 2px red / 3}

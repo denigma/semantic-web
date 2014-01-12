@@ -1,0 +1,32 @@
+@()(implicit request: RequestHeader)
+<section class="incoming ui teal" data-view="EdgesView">
+    <h4 class="ui top attached inverted teal header">Incoming</h4>
+    <p style="ui segment attached centered">some incoming nodes</p>
+    <div class="ui accordion">
+        <section class="e" data-foreach-edge="controllers.graph.inE" data-view="EdgeView">
+
+            <div class="name active title" data-bind="edge.label"></div>
+
+            <div class="active content">
+                <section class="ui accordion">
+                    @properties("edge")
+
+                    <header class="active title"> <i class="dropdown icon"></i>
+
+                        Incoming vertices:
+
+                    </header>
+                    <div class="active content">
+
+                        <div class="props" data-foreach-vertex="edge.incoming" data-addclass-chosen="vertex.selected"  data-removeclass-chosen="vertex.unselected">
+                            <div class="name" data-bind="vertex.name"></div>
+                            <div class="description" data-bind="vertex.description"></div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+
+        </section>
+    </div>
+</section>

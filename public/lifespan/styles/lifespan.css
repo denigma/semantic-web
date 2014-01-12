@@ -1,0 +1,28 @@
+/*ivory;*/
+.chart {
+  background-color: #ffffff;
+  border: 1px #4a86e8;
+  margin: 2px;
+  padding: 3px;
+  text-align: center;
+}
+#generator {
+  background-color: #4a86e8;
+  border-width: 1px;
+  width: 95%;
+}
+.axis path,
+.xAxis path,
+.yAxis path,
+.axis line,
+.xAxis line,
+.yAxis line {
+  fill: none;
+  shape-rendering: crispEdges;
+}
+.axis text,
+.xAxis text,
+.yAxis text {
+  font-family: sans-serif;
+  font-size: 11px;
+}
