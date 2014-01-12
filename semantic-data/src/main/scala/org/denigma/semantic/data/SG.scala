@@ -57,8 +57,8 @@ class SG(implicit lg:org.slf4j.Logger)  {
     props.setProperty("com.bigdata.rdf.store.AbstractTripleStore.statementIdentifiers","true")
     props.setProperty("com.bigdata.rdf.store.AbstractTripleStore.textIndex","true")
     props.setProperty("com.bigdata.journal.AbstractJournal.file",SG.url+"/bigdata.jnl")
-    props.setProperty("com.bigdata.journal.AbstractJournal.initialExtent","209715200")
-    props.setProperty("com.bigdata.journal.AbstractJournal.maximumExtent","209715200")
+    //props.setProperty("com.bigdata.journal.AbstractJournal.initialExtent","209715200")
+    //props.setProperty("com.bigdata.journal.AbstractJournal.maximumExtent","209715200")
     props
   }
 

@@ -1,16 +1,25 @@
-@(lst:List[org.openrdf.model.Statement])(implicit request: RequestHeader)
+@(content:Items,lst:List[org.openrdf.model.Statement])(implicit request: RequestHeader)
 <html>
 <head>
-    <title></title>
+    <title>Just a test page to see if BigData is working</title>
+    @libs()
 </head>
 <body>
+
+@header(content,request)
 <h1>Just a test page to see if BigData is working</h1>
-<table border>
+<table class="ui table segment" border>
     <tr><th>Subject</th><th>Predicate</th><th>Object</th></tr>
     @for(item <- lst) {
     <tr><td>@item.getSubject()</td><td>@item.getPredicate()</td><td>@item.getObject()</td></tr>
     }
 </table>
+
 </ul>
+
+
 </body>
+
+
 </html>
+

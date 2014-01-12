@@ -1,0 +1,38 @@
+@(menu:Items,query:String,titles:List[String],rows:List[Map[String,String]])(implicit request: RequestHeader)
+<html>
+<head>
+    <title>Just a test page to see if BigData is working</title>
+    @libs()
+</head>
+<body>
+
+@header(menu,request)
+<h1>Just a test page to see if BigData is working</h1>
+<table class="ui table segment" border>
+    <tr>
+        @for(title <- titles) {
+    <th>@title</th>
+        }
+    </tr>
+    @for(row <- rows) {
+    <tr>
+        @for(title <- titles) {
+            <td>@{row.get(title).getOrElse("N/A")}</td>
+        }
+    </tr>
+    }
+</table>
+
+</ul>
+
+<textarea id="query" height="200px">
+    @Html(query)
+</textarea>
+
+</body>
+<script language="JavaScript">
+    var myCodeMirror = CodeMirror.fromTextArea(query);
+</script>
+
+</html>
+
