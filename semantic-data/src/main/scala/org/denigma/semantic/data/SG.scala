@@ -2,15 +2,18 @@ package org.denigma.semantic.data
 
 import java.util.Properties
 import java.io._
+import scala.collection.immutable.List
+
 //import org.apache.log4j.Logger
 import com.bigdata.rdf.sail.{BigdataSailRepositoryConnection, BigdataSailRepository, BigdataSail}
 import org.openrdf.model.impl.{StatementImpl, URIImpl}
 import scala.util.Try
 import org.openrdf.repository.RepositoryResult
-import org.openrdf.model.Statement
+import org.openrdf.model._
 import org.apache.commons.io.FileUtils
 import play.api.Play
 import play.api.Play.current
+import scala.collection.JavaConversions._
 
 
 
@@ -38,7 +41,65 @@ object SG{
   }
   def conf =  Play.current.configuration
 
+  /*
+ reads relationship from the repository
+  */
+  def withRel(rel:URI,inferred:Boolean=true) = {
+    db.read{
+      implicit r=>
+        val iter: RepositoryResult[Statement] = r.getStatements(null,rel,null,inferred)
+        iter.asList().toList
+    }.getOrElse(List.empty)
+  }
+
+
+  def withSubject(sub:URI,inferred:Boolean=true) = {
+    db.read{
+      implicit r=>
+        val iter: RepositoryResult[Statement] = r.getStatements(sub,null,null,inferred)
+        iter.asList().toList
+    }.getOrElse(List.empty)
+  }
+
+
+  def withObject(obj:URI,inferred:Boolean=true) = {
+    db.read{
+      implicit r=>
+        val iter: RepositoryResult[Statement] = r.getStatements(null,null,obj,inferred)
+        iter.asList().toList
+    }.getOrElse(List.empty)
+  }
+
+  def withSubRel(sub:URI,rel:URI,inferred:Boolean=true) = {
+    db.read{
+      implicit r=>
+        val iter: RepositoryResult[Statement] = r.getStatements(sub,rel,null,inferred)
+        iter.asList().toList
+    }.getOrElse(List.empty)
+  }
+
+  def withRelObj(rel:URI,obj:URI,inferred:Boolean=true) = {
+    db.read{
+      implicit r=>
+        val iter: RepositoryResult[Statement] = r.getStatements(null,rel,obj,inferred)
+        iter.asList().toList
+    }.getOrElse(List.empty)
+  }
+
+  implicit class MagicUri(uri:URI) {
+
+    def ~>(inferred:Boolean=true) = withSubject(uri,inferred)
+    def <~(inferred:Boolean=true) = withObject(uri,inferred)
+    def <~(rel:URI) = withRelObj(rel,uri)
+    def ~>(rel:URI) = withSubRel(uri,rel)
+
+
+
+  }
+
 }
+
+
 
 
 /**
@@ -123,6 +184,8 @@ class SG(implicit lg:org.slf4j.Logger)  {
     con.close()
     res
   }
+
+
 
 
   /*

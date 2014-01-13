@@ -1,20 +1,18 @@
 package controllers
 
-import play.api._
 import play.api.mvc._
-import play.api.libs.json._
-import org.openrdf.model.impl.{StatementImpl, URIImpl}
+import org.openrdf.model.impl.URIImpl
 import org.openrdf.repository.RepositoryResult
 import org.openrdf.model.Statement
-import org.denigma.semantic.data.SG
+import org.denigma.semantic.data.{LoveHater, SG}
 import SG.db
 import scala.collection.JavaConversions._
-import scala.collection.JavaConverters._
 import scala.collection.immutable._
-import java.util
 import org.openrdf.query.{BindingSet, TupleQueryResult, QueryLanguage}
+import org.openrdf.model._
 
-object Application extends Controller {
+
+object Application extends Controller with LoveHater{
   def index = Action {
     implicit request=>
       val flags = List()//List("United Kingdom","Russia","Ukraine","Israel","Germany","France","Italy","United States","China","Turkey","Spain","Austria").sorted
@@ -40,30 +38,7 @@ object Application extends Controller {
 
   }
 
-  /*
-  just a function for testing
-   */
-  def addRel(sub:String,rel:String,obj:String) = {
-    val s: URIImpl = new URIImpl(s"http://denigma.org/actors#$sub")
-    val p: URIImpl = new URIImpl(s"http://denigma.org/relations#$rel")
-    val o: URIImpl = new URIImpl(s"http://denigma.org/actors#$obj")
 
-    db.write{
-      implicit con=>
-        val st = new StatementImpl(s, p, o)
-        con.add(st)
-    }
-  }
-
-  def addTestRels() = {
-    this.addRel("Daniel","loves","RDF")
-    this.addRel("Anton","hates","RDF")
-    this.addRel("Daniel","loves","Immortality")
-    this.addRel("Liz","loves","Immortality")
-    this.addRel("Anton","loves","Immortality")
-    this.addRel("Ilia","loves","Immortality")
-    this.addRel("Edouard","loves","Immortality")
-  }
 
   def query = Action {
     implicit request=>
@@ -76,7 +51,7 @@ object Application extends Controller {
         """
            SELECT ?subject ?object WHERE
            {
-              ?subject <http://denigma.org/relations#loves> ?object.
+              ?subject <http://denigma.org/relations/resources/loves> ?object.
 
            }
         """
