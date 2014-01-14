@@ -1,4 +1,4 @@
-@(implicit content:Items, request: RequestHeader)
+@(implicit request: RequestHeader)
 <header class="ui green menu">
     <nav class="ui inverted menu">
         <a class="active item">
@@ -22,12 +22,3 @@
     </nav>
 
 </header>
-@if(content.flags.length>0){
-<section id="flags" class="ui bottom green segment menu">
-    <div class="right menu">
-    @for(flag <- content.flags) {
-     <img class="item" src="@routes.Assets.at("images/flags/small/" +flag+".png")">
-    }
-    </div>
-</section>
-}

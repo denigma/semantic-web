@@ -1,4 +1,4 @@
-@(menu:Items,query:String,titles:List[String],rows:List[Map[String,String]])(implicit request: RequestHeader)
+@(results:org.denigma.semantic.data.QueryResult)(implicit request: RequestHeader)
 <html>
 <head>
     <title>Just a test page to see if BigData is working</title>
@@ -6,17 +6,17 @@
 </head>
 <body>
 
-@header(menu,request)
+@header(request)
 <h1>Just a test page to see if BigData is working</h1>
 <table class="ui table segment" border>
     <tr>
-        @for(title <- titles) {
+        @for(title <- results.names) {
     <th>@title</th>
         }
     </tr>
-    @for(row <- rows) {
+    @for(row <- results.rows) {
     <tr>
-        @for(title <- titles) {
+        @for(title <- results.names) {
             <td>@{row.get(title).getOrElse("N/A")}</td>
         }
     </tr>
@@ -26,13 +26,14 @@
 </ul>
 
 <textarea id="query" height="200px">
-    @Html(query)
+    @Html(results.query)
 </textarea>
 
 </body>
 <script language="JavaScript">
     var myCodeMirror = CodeMirror.fromTextArea(query);
 </script>
+<button onclick="JavaScript:alert('not implemented yet!')" class="ui green button">Send Request</button>
 
 </html>
 

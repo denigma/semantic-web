@@ -15,9 +15,6 @@ import org.openrdf.model._
 object Application extends Controller with LoveHater{
   def index = Action {
     implicit request=>
-      val flags = List()//List("United Kingdom","Russia","Ukraine","Israel","Germany","France","Italy","United States","China","Turkey","Spain","Austria").sorted
-    val items = List("About","Blog","ILA Manifesto","Take Action","Projects")
-      val cont = Items(items,flags)
 
       val s: URIImpl = new URIImpl("http://www.bigdata.com/rdf#Daniel")
 
@@ -34,56 +31,29 @@ object Application extends Controller with LoveHater{
           iter.asList().toList
       }.getOrElse(List.empty)
 
-      Ok(views.html.index(cont,res))
+      Ok(views.html.index(res))
 
   }
 
-
-
-  def query = Action {
-    implicit request=>
-      this.addTestRels()
-
-      val flags = List()//List("United Kingdom","Russia","Ukraine","Israel","Germany","France","Italy","United States","China","Turkey","Spain","Austria").sorted
-      val items = List("About","Blog","ILA Manifesto","Take Action","Projects")
-      val menu = Items(items,flags)
-      val query:String =
-        """
+  val defQ:String="""
            SELECT ?subject ?object WHERE
            {
               ?subject <http://denigma.org/relations/resources/loves> ?object.
-
            }
-        """
-      val (titles,content) = db.read{
-        implicit r=>
+           """
 
 
 
-          val q = r.prepareTupleQuery(
-            QueryLanguage.SPARQL,query
-          )
+  def query(query:String=defQ) = Action {
+    implicit request=>
+      this.addTestRels()
 
-          val results: TupleQueryResult = q.evaluate()
-          val names = results.getBindingNames.toList
+      val results = SG.db.query(query)
 
-          var re: List[Map[String,String]] = List.empty[Map[String,String]]
-          while(results.hasNext){
-            re = binding2List(names,results.next())::re
-          }
-          (names,re.reverse)
-
-      }.getOrElse((List.empty[String],List.empty[Map[String,String]]))
-
-      Ok(views.html.query(menu,query,titles,content))
+      Ok(views.html.query(results))
 
   }
 
-  def binding2List(names:List[String],b:BindingSet):Map[String,String] = {
-    names.map{
-      case name=> (name,b.getValue(name).stringValue())
-    }.toMap
 
-  }
 
 }

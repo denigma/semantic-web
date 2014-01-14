@@ -6,8 +6,9 @@ import play.api.libs.json._
 import org.joda.time.DateTimeZone
 
 
-case class Items(menu:List[String],flags:List[String])
-
+/*
+coopy-pasted from one of previous projects, should be changed a lot
+ */
 object Graphs extends Controller with GenGraph{
 
   DateTimeZone.setDefault(DateTimeZone.UTC)
@@ -16,11 +17,7 @@ object Graphs extends Controller with GenGraph{
     implicit request =>
 
 
-      val flags = List()//List("United Kingdom","Russia","Ukraine","Israel","Germany","France","Italy","United States","China","Turkey","Spain","Austria").sorted
-    val items = List("About","Blog","ILA Manifesto","Take Action","Projects")
-      val res = Items(items,flags)
-
-      Ok(views.html.graphs.index(res,if(id=="")"TestRoot" else id)) //Ok(views.html.page("node","menu","0"))
+      Ok(views.html.graphs.index(if(id=="")"TestRoot" else id)) //Ok(views.html.page("node","menu","0"))
   }
 
 

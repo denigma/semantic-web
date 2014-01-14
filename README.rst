@@ -18,7 +18,11 @@ To set up the project you need to (most of instructions are for Deiban/Ubuntu ba
     - install coffeescript with
         $  sudo npm install -g coffee-script
 * Install Sass and Compass:
-    - you may need to install ruby2 and gems first ( see http://gorails.com/setup/ubuntu/13.10 )
+    - you may need to install ruby2 and gems first ( see http://gorails.com/setup/ubuntu/13.10 ), and then:
+    $ sudo gem install compass --pre
 * Install following Compass libs:
-    $ gem install semantic-ui-sass
-    $ gem install singularitygs
+    $ sudo gem install semantic-ui-sass
+    $ sudo gem install singularitygs
+* run tests:
+    $ play test
+* Check if app runs without errors and with semantic-ui styles. I added index.png pic to show how the styles may look like

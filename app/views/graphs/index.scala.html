@@ -1,7 +1,4 @@
-@(content:Items, id:String="TestRoot")(implicit request: RequestHeader)
-
-<!DOCTYPE html>
-
+@(id:String="TestRoot")(implicit request: RequestHeader)
 <html>
     <head>
         <title>Denigma Knowledge Management System</title>
@@ -10,7 +7,7 @@
     </head>
     <body>
 
-        @header(content,request)
+        @header(request)
     <section class="graph" data-yield="main">
     </section>
 

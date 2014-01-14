@@ -2,19 +2,19 @@ package org.denigma.semantic.data
 
 import java.util.Properties
 import java.io._
-import scala.collection.immutable.List
-
+import scala.collection.immutable.Map
 //import org.apache.log4j.Logger
 import com.bigdata.rdf.sail.{BigdataSailRepositoryConnection, BigdataSailRepository, BigdataSail}
-import org.openrdf.model.impl.{StatementImpl, URIImpl}
 import scala.util.Try
-import org.openrdf.repository.RepositoryResult
-import org.openrdf.model._
 import org.apache.commons.io.FileUtils
 import play.api.Play
 import play.api.Play.current
+import org.openrdf.repository.RepositoryResult
+import SG.db
 import scala.collection.JavaConversions._
-
+import scala.collection.immutable._
+import org.openrdf.query.{BindingSet, TupleQueryResult, QueryLanguage}
+import org.openrdf.model._
 
 
 object SG{
@@ -40,6 +40,8 @@ object SG{
     this.cleanLocalDb()
   }
   def conf =  Play.current.configuration
+
+
 
   /*
  reads relationship from the repository
@@ -207,5 +209,30 @@ class SG(implicit lg:org.slf4j.Logger)  {
     }
   }
 
+  /*
+  runs query over db
+   */
+  def query(str:String, lan: QueryLanguage= QueryLanguage.SPARQL):QueryResult = db.read{
+    implicit r=>
+      val q = r.prepareTupleQuery(
+        lan,str
+      )
+
+      val results: TupleQueryResult = q.evaluate()
+      val names = results.getBindingNames.toList
+
+      var re: List[Map[String,String]] = List.empty[Map[String,String]]
+      while(results.hasNext){
+        re = binding2List(names,results.next())::re
+      }
+      QueryResult(str,names,re.reverse)
+
+  }.getOrElse(QueryResult(str,List.empty[String],List.empty[Map[String,String]]))
+
+  def binding2List(names:List[String],b:BindingSet):Map[String,String] = {
+    names.map{
+      case name=> (name,b.getValue(name).stringValue())
+    }.toMap
+  }
 
 }

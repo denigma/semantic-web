@@ -3,8 +3,11 @@
 # ~~~~
 
 # Home page
-GET        /                    controllers.Application.index
-GET        /query               controllers.Application.query
+GET        /               controllers.Application.query()
+GET        /all                    controllers.Application.index
+#GET        /sparql                      controllers.Graphs.vertices(id:String ="")
+#GET        /sparql/:id                  controllers.Graphs.vertices(id:String)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
@@ -16,18 +19,18 @@ GET        /test/sigma                    controllers.Tests.sigma
 # Graphs
 
 #GET        /                              controllers.Graphs.index(id:String="")
-GET        /:id                           controllers.Graphs.index(id:String)
-GET        /graph/content.html            controllers.Graphs.content
-GET        /graph                         controllers.Graphs.index(id:String="")
+#GET        /:id                           controllers.Graphs.index(id:String)
+#GET        /graph/content.html            controllers.Graphs.content
+#GET        /graph                         controllers.Graphs.index(id:String="")
 #GET        /graph/*id                     controllers.Graphs.node(id)
 
 
-GET        /vertices                      controllers.Graphs.vertices(id:String ="")
-GET        /vertices/:id                  controllers.Graphs.vertices(id:String)
-GET        /incoming/                     controllers.Graphs.incoming(id:String ="")
-GET        /incoming/:id                  controllers.Graphs.incoming(id:String)
-GET        /outgoing/                     controllers.Graphs.outgoing(id:String ="")
-GET        /outgoing/:id                  controllers.Graphs.outgoing(id:String)
+#GET        /vertices                      controllers.Graphs.vertices(id:String ="")
+#GET        /vertices/:id                  controllers.Graphs.vertices(id:String)
+#GET        /incoming/                     controllers.Graphs.incoming(id:String ="")
+#GET        /incoming/:id                  controllers.Graphs.incoming(id:String)
+#GET        /outgoing/                     controllers.Graphs.outgoing(id:String ="")
+#GET        /outgoing/:id                  controllers.Graphs.outgoing(id:String)
 
 
 # Map static resources from the /public folder to the /assets URL path
