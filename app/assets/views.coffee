@@ -45,3 +45,4 @@ class Denigma.Accordion extends Batman.View
 
 class Denigma.EdgesView extends Denigma.Accordion
 class Denigma.VerticesView extends Denigma.Accordion
+

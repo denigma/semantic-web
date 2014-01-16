@@ -3,18 +3,22 @@
 # ~~~~
 
 # Home page
-GET        /               controllers.Application.query()
-GET        /all                    controllers.Application.index
+#GET         /    controllers.Application.lifespan
+GET         /                    controllers.Application.query()
+GET         /all                 controllers.Application.index
 #GET        /sparql                      controllers.Graphs.vertices(id:String ="")
 #GET        /sparql/:id                  controllers.Graphs.vertices(id:String)
 
+#GET        /upload             controllers.Application.testUpload
+POST        /upload              controllers.Application.upload
+
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /assets/*file        controllers.Assets.at(path="/public", file)
 
-GET        /test                          controllers.Tests.sigma
-GET        /test/editor                   controllers.Tests.editor
-GET        /test/sigma                    controllers.Tests.sigma
+GET         /test                controllers.Tests.sigma
+GET         /test/editor         controllers.Tests.editor
+GET         /test/sigma          controllers.Tests.sigma
 
 # Graphs
 
@@ -34,10 +38,9 @@ GET        /test/sigma                    controllers.Tests.sigma
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file                  controllers.Assets.at(path="/public", file)
-GET        /public/*file                  controllers.Assets.at(path="/public", file)
-GET        /*file                         controllers.Assets.at(path="/public", file)
-
+GET         /assets/*file        controllers.Assets.at(path="/public", file)
+GET         /public/*file        controllers.Assets.at(path="/public", file)
+GET         /*file               controllers.Assets.at(path="/public", file)
 
 
 

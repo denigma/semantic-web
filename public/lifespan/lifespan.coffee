@@ -5,7 +5,7 @@ class Denigma.LifeSpan extends Batman.Object
 
   fixture: undefined
   barcharts: undefined
-  @w: 640
+  @w: 1024
   @h: 640
 
   @main: ->

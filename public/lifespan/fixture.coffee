@@ -10,10 +10,10 @@ class Denigma.Fixture extends Batman.Object
   manipulation: undefined
 
   constructor: ->
-    @species = new Denigma.Species("mouse","mus",18,"mouse.svg") #in months
+    @species = new Denigma.Species("mice","mus",18,"mouse.svg") #in months
     @manipulation = new Denigma.Manipulation("radiaction", "test grouped lived and mutated inside the reactor", "radiation.svg")
 
-  rand: (min, max) -> Math.round(Math.random() * (max - min) + min)
+  rand: (min, max) -> Math.round(Math.random() * max + min)
 
   rnd_snd: ->   (Math.random() * 2 - 1) + (Math.random() * 2 - 1) + (Math.random() * 2 - 1)
 
@@ -50,8 +50,8 @@ class Denigma.Fixture extends Batman.Object
   generate: (num)->
     @clean()
     num = 10 unless num?
-    mean = @rand(10,14)
-    stdev = @rand(10,14)
+    mean =  @rand(500,1200)
+    stdev = @rand(300,500)
     for i in [0..num]
       testOrganisms = @genOrganisms(mean,stdev)
       test = new Denigma.Experiment("Chernobyl mouse",testOrganisms)

@@ -7,7 +7,14 @@
 <body>
 
 @header(request)
-<h1>Just a test page to see if BigData is working</h1>
+<h1 class="ui header">Query page</h1>
+@files.uploader()
+
+<textarea id="query">
+    @Html(results.query)
+</textarea>
+<button onclick="JavaScript:alert('not implemented yet!')" class="ui green button">Send Request</button>
+
 <table class="ui table segment" border>
     <tr>
         @for(title <- results.names) {
@@ -23,17 +30,15 @@
     }
 </table>
 
-</ul>
 
-<textarea id="query" height="200px">
-    @Html(results.query)
-</textarea>
 
-</body>
+
 <script language="JavaScript">
     var myCodeMirror = CodeMirror.fromTextArea(query);
+    $('.ui.accordion').accordion();
 </script>
-<button onclick="JavaScript:alert('not implemented yet!')" class="ui green button">Send Request</button>
 
-</html>
+
+
+
 

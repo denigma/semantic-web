@@ -21,7 +21,7 @@
 
     LifeSpan.prototype.barcharts = void 0;
 
-    LifeSpan.w = 640;
+    LifeSpan.w = 1024;
 
     LifeSpan.h = 640;
 

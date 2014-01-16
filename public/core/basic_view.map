@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "basic_view.js",
+  "sourceRoot": "",
+  "sources": [
+    "basic_view.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;CAAA,CAAM,KAAO;CACE,EAAA,CAAA,CAAA,cAAE;CAAO,EAAP,CAAA,CAAO,CAAR;CAAd,IAAa;;CAAb,EAEQ,EAAA,CAAR,GAAS;CAAgB,EAAR,IAAO,MAAP,gBAAA;CAFjB,IAEQ;;CAFR,EAIQ,GAAR,GAAS;CAAc,EAAR,IAAO,MAAP,UAAA;CAJf,IAIQ;;CAJR;;CADF;CAAA"
+}

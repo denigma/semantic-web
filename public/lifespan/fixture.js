@@ -23,12 +23,12 @@
     Fixture.prototype.manipulation = void 0;
 
     function Fixture() {
-      this.species = new Denigma.Species("mouse", "mus", 18, "mouse.svg");
+      this.species = new Denigma.Species("mice", "mus", 18, "mouse.svg");
       this.manipulation = new Denigma.Manipulation("radiaction", "test grouped lived and mutated inside the reactor", "radiation.svg");
     }
 
     Fixture.prototype.rand = function(min, max) {
-      return Math.round(Math.random() * (max - min) + min);
+      return Math.round(Math.random() * max + min);
     };
 
     Fixture.prototype.rnd_snd = function() {
@@ -89,8 +89,8 @@
       if (num == null) {
         num = 10;
       }
-      mean = this.rand(10, 14);
-      stdev = this.rand(10, 14);
+      mean = this.rand(500, 1200);
+      stdev = this.rand(300, 500);
       for (i = _i = 0; 0 <= num ? _i <= num : _i >= num; i = 0 <= num ? ++_i : --_i) {
         testOrganisms = this.genOrganisms(mean, stdev);
         test = new Denigma.Experiment("Chernobyl mouse", testOrganisms);
