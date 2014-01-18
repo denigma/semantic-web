@@ -6,4 +6,4 @@ class Denigma.Result extends Batman.Model
   #@encode 'name','label'
 
   @storageKey: 'results'
-  @persist Batman.RestStorage
+  @persist Denigma.SparqlStorage

@@ -1,0 +1,1 @@
+class Denigma.SparqlStorage extends Batman.RestStorage

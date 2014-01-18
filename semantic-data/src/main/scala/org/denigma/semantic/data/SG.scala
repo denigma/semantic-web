@@ -20,6 +20,7 @@ import scala.collection.immutable._
 import org.openrdf.query.{BindingSet, TupleQueryResult, QueryLanguage}
 import org.openrdf.model._
 import org.openrdf.model.vocabulary._
+import scala.util.{Try, Success, Failure}
 
 
 
@@ -194,8 +195,34 @@ class SG(implicit lg:org.slf4j.Logger)  {
     val res = Try {
       action(con)
     }
+
     con.close()
+    res.recoverWith{case
+      e=>
+      play.Logger.error("readonly transaction from database failed because of \n"+e.getMessage)
+      res
+    }
+  }
+
+
+  /*
+  writes something and then closes the connection
+   */
+  def readWrite[T](action:BigdataSailRepositoryConnection=>T):Try[T] =
+  {
+    val con = repo.getReadOnlyConnection
+    con.setAutoCommit(false)
+    val res = Try {
+      val r = action(con)
+      con.commit()
+      r
+    }
+    con.close()
+    res.recoverWith{case
+    e=>
+    play.Logger.error("read/write transaction from database failed because of \n"+e.getMessage)
     res
+  }
   }
 
 
@@ -204,20 +231,10 @@ class SG(implicit lg:org.slf4j.Logger)  {
   /*
   writes something and then closes the connection
    */
-  def write(action:BigdataSailRepositoryConnection=>Unit):Boolean =
+  def write(action:BigdataSailRepositoryConnection=>Unit):Boolean = this.readWrite[Unit](action) match
   {
-    val con = repo.getConnection
-    con.setAutoCommit(false)
-    Try {
-      action(con)
-      con.commit()
-      con.close()
-      true
-    }.getOrElse{
-        lg.error(s"operation failed")
-        con.close()
-        false
-    }
+    case Success(_)=>true
+    case Failure(e)=>false
   }
 
 
@@ -274,7 +291,7 @@ class SG(implicit lg:org.slf4j.Logger)  {
   /*
   runs query over db
    */
-  def query(str:String, lan: QueryLanguage= QueryLanguage.SPARQL):QueryResult = db.read{
+  def query(str:String, lan: QueryLanguage= QueryLanguage.SPARQL):Try[QueryResult] = db.readWrite{
     implicit r=>
       val q = r.prepareTupleQuery(
         lan,str
@@ -289,7 +306,7 @@ class SG(implicit lg:org.slf4j.Logger)  {
       }
       QueryResult(str,names,re.reverse)
 
-  }.getOrElse(QueryResult(str,List.empty[String],List.empty[Map[String,String]]))
+  }//.getOrElse(QueryResult(str,List.empty[String],List.empty[Map[String,String]]))
 
   def binding2List(names:List[String],b:BindingSet):Map[String,String] = {
     names.map{

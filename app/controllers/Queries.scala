@@ -30,23 +30,22 @@ object  Queries extends PJaxController("query") with LoveHater{
        Ok(pj("main",views.html.queries.main(query)))
   }
 
-  def toProp(kv:(String,String)): JsObject = Json.obj("name"->kv._1,"value"->kv._2)
+  def toProp(kv:(String,String)): JsObject = Json.obj("name"->kv._1,"value"->kv._2,"id"->kv.hashCode())
   def toProps(mp:Map[String,String]): JsValue = Json.obj("id"->mp.hashCode(),"properties"->mp.map(toProp).toList)
 
   def query(query:String=defQ) = Action {
     implicit request=>
       //this.addTestRels()
-      val results: QueryResult = SG.db.query(query)
-      Ok(Json.obj("results" ->  Json.toJson(results.rows.map(toProps)) )).as("application/json")
+      SG.db.query(query).map{
+        results=>Ok(Json.obj("results" ->  Json.toJson(results.rows.map(toProps)) )).as("application/json")
+      }.recover{
+        case e=>
+          val er = e.getMessage
+          play.Logger.info(s"Query failed \n $query \n with the following error $er")
+          Ok(Json.obj("results" ->  Json.arr(), "errors"->Json.arr(er) )).as("application/json")
+      }.get
   }
 
-
-  def results = Action {
-    implicit request=>
-    //this.addTestRels()
-      val results: QueryResult = SG.db.query(defQ)
-      Ok(Json.obj("results" ->  Json.toJson(results.rows.map(toProps)) )).as("application/json")
-  }
 
   def all = Action {
     implicit request=>

@@ -6,7 +6,7 @@ GET         /                     controllers.Application.index(controller="quer
 GET         /query                controllers.Queries.main()
 GET         /query/main           controllers.Queries.main()
 GET         /models/sparql        controllers.Queries.query(query:String)
-GET         /results              controllers.Queries.results()
+#GET         /results              controllers.Queries.results()
 GET         /all                  controllers.Queries.all
 #GET        /sparql                      controllers.Graphs.vertices(id:String ="")
 #GET        /sparql/:id                  controllers.Graphs.vertices(id:String)
