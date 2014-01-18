@@ -1,0 +1,15 @@
+@(query:String)(implicit request: RequestHeader)
+
+<h1 class="ui header">Query page</h1>
+@files.uploader()
+<section id="query" data-view="QueryView">
+
+</section>
+
+<button data-event-click="controllers.query.reset" class="ui green button">Reset</button>
+<button data-event-click="controllers.query.submit" class="ui green button">Send Request</button>
+<table class="ui table segment" border>
+    <tr data-foreach-result="controllers.query.results">
+        <td data-foreach-prop="result.properties" data-bind="prop.value"></td>
+    </tr>
+</table>

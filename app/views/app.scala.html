@@ -1,11 +1,20 @@
-@(setup: Html)(implicit request: RequestHeader)
+@(controller:String,action:String)(implicit request: RequestHeader)
 @*<link rel="stylesheet" href="@routes.Assets.at("longevity.css")" type="text/css">*@
 <script type="text/javascript" src="@routes.Assets.at("denigma.js")"></script>
+<link rel="stylesheet" href="@routes.Assets.at("denigma.css")" type="text/css">
 <script type="text/javascript" src="@routes.Assets.at("models/item.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("models/property.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("models/vertex.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("models/edge.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("models/result.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("views.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("controllers/graph_controller.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("controllers/query_controller.js")"></script>
+<script language="JavaScript">
+Denigma.root("@{controller+'#'+action}");
+</script>
+
+
+
+@*<script type="text/javascript" src="@routes.Assets.at("models/vertex.js")"></script>*@
+@*<script type="text/javascript" src="@routes.Assets.at("models/edge.js")"></script>*@
+@*<script type="text/javascript" src="@routes.Assets.at("views.js")"></script>*@
+@*<script type="text/javascript" src="@routes.Assets.at("controllers/graph_controller.js")"></script>*@
 @*<script type="text/javascript" src="@routes.Assets.at("controllers/longevity_controller.js")"></script>*@
-@setup

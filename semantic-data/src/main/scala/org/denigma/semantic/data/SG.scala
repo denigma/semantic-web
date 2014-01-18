@@ -3,6 +3,10 @@ package org.denigma.semantic.data
 import java.util.Properties
 import java.io._
 import scala.collection.immutable.Map
+import org.openrdf.model.impl.StatementImpl
+import com.bigdata.rdf.internal.IV
+import com.bigdata.rdf.model.BigdataValue
+
 //import org.apache.log4j.Logger
 import com.bigdata.rdf.sail.{BigdataSailRepositoryConnection, BigdataSailRepository, BigdataSail}
 import scala.util.Try
@@ -15,6 +19,9 @@ import scala.collection.JavaConversions._
 import scala.collection.immutable._
 import org.openrdf.query.{BindingSet, TupleQueryResult, QueryLanguage}
 import org.openrdf.model._
+import org.openrdf.model.vocabulary._
+
+
 
 
 object SG{
@@ -49,6 +56,10 @@ object SG{
   def withRel(rel:URI,inferred:Boolean=true) = {
     db.read{
       implicit r=>
+        //Resource subject, URI predicate, Value object
+        //val st = v.createStatement(v.createURI("",""),v.createURI("",""),v.createURI("","")).getModified
+        //val i: IV[_ <: BigdataValue, _] =   st.getStatementIdentifier
+
         val iter: RepositoryResult[Statement] = r.getStatements(null,rel,null,inferred)
         iter.asList().toList
     }.getOrElse(List.empty)
@@ -207,6 +218,57 @@ class SG(implicit lg:org.slf4j.Logger)  {
         con.close()
         false
     }
+  }
+
+
+
+  def lookup(str:String,predicate:String,obj:String) = this.query{
+    s"""
+    prefix bd: <http://www.bigdata.com/rdf/search#>
+    select ?s
+      where {
+        ?s bd:search "${str}" .
+        ?s ${predicate} ${obj} .
+      }
+    """
+  }
+
+  def searchTerm(str:String,minRelevance:Double=0.25,maxRank:Int=1000) = this.query{
+    s"""
+      prefix bd: <http://www.bigdata.com/rdf/search#>
+      select ?s, ?p, ?o, ?score, ?rank
+      where {
+        ?o bd:search "${str}" .
+        ?o bd:minRelevance "${minRelevance}" .
+        ?o bd:maxRank "${maxRank}" .
+      }
+    """
+  }
+
+  def search(str:String,minRelevance:Double=0.25,maxRank:Int=1000) = this.query{
+    s"""
+      prefix bd: <http://www.bigdata.com/rdf/search#>
+      select ?s, ?p, ?o, ?score, ?rank
+      where {
+        ?o bd:search "${str}" .
+        ?o bd:matchAllTerms "true" .
+        ?o bd:minRelevance "${minRelevance}" .
+        ?o bd:relevance ?score .
+        ?o bd:maxRank "${maxRank}" .
+        ?o bd:rank ?rank .
+        ?s ?p ?o .
+      }
+    """
+  }
+
+  def lookupTerm(str:String) = this.query{
+    s"""
+    prefix bd: <http://www.bigdata.com/rdf/search#>
+    select ?o
+      where {
+        ?o bd:search "${str}" .
+      }
+    """
   }
 
   /*

@@ -26,3 +26,9 @@ To set up the project you need to (most of instructions are for Deiban/Ubuntu ba
 * run tests:
     $ play test
 * Check if app runs without errors and with semantic-ui styles. I added index.png pic to show how the styles may look like
+
+Notes
+-----
+
+As the code is young there are many rough edges. For instance because of weird PlaySass configuration
+I had to put some semantic ui folders (images and fonts) to the root, otherwise they did not compile

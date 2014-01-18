@@ -15,59 +15,21 @@ import play.api.Play
 import play.api.Play.current
 
 
-object Application extends Controller with LoveHater{
-
+object Application extends PJaxController("")
+{
   def lifespan= Action {
     implicit request=>
       Ok(views.html.lifespan.lifespan())
   }
 
-  def index = Action {
+  def index(controller:String,action:String) = Action {
     implicit request=>
-
-      val s: URIImpl = new URIImpl("http://www.bigdata.com/rdf#Daniel")
-
-      //      db.write{
-      //        implicit con=>
-      //          val p =  new URIImpl("http://www.bigdata.com/rdf#loves")
-      //          val o = new URIImpl("http://www.bigdata.com/rdf#RDF")
-      //          val st = new StatementImpl(s, p, o)
-      //          con.add(st)
-      //      }
-      val res: scala.List[Statement] = db.read{
-        implicit r=>
-          val iter: RepositoryResult[Statement] = r.getStatements(null,null,null,true)
-          iter.asList().toList
-      }.getOrElse(List.empty)
-
-      Ok(views.html.index(res))
+      Ok(views.html.index(controller,action,views.html.main()))
 
   }
-
-  val defQ:String="""
-           SELECT ?subject ?object WHERE
-           {
-              ?subject <http://denigma.org/relations/resources/loves> ?object.
-           }
-           """
-
-
-
-  def query(query:String=defQ) = Action {
-    implicit request=>
-      this.addTestRels()
-
-      val results = SG.db.query(query)
-
-      Ok(views.html.query(results))
-
-  }
-
-  def testUpload = Action { implicit request =>
-    val body = request.body
-  Ok("wef")
-  }
-
+  /*
+   TODO: improve upload code
+    */
   def upload = Action(parse.multipartFormData) { implicit request =>
     import Json._
     val uploads = Play.getFile("public/uploads/")
@@ -116,41 +78,4 @@ object Application extends Controller with LoveHater{
     val res = Json.obj("files" -> Json.toJson(files))
     Ok(res)
   }
-
-  /*
-  {"files": [
-  {
-    "name": "picture1.jpg",
-    "size": 902604,
-    "url": "http:\/\/example.org\/files\/picture1.jpg",
-    "thumbnailUrl": "http:\/\/example.org\/files\/thumbnail\/picture1.jpg",
-    "deleteUrl": "http:\/\/example.org\/files\/picture1.jpg",
-    "deleteType": "DELETE"
-  },
-  {
-    "name": "picture2.jpg",
-    "size": 841946,
-    "url": "http:\/\/example.org\/files\/picture2.jpg",
-    "thumbnailUrl": "http:\/\/example.org\/files\/thumbnail\/picture2.jpg",
-    "deleteUrl": "http:\/\/example.org\/files\/picture2.jpg",
-    "deleteType": "DELETE"
-  }
-]}
-
-{"files": [
-  {
-    "name": "picture1.jpg",
-    "size": 902604,
-    "error": "Filetype not allowed"
-  },
-  {
-    "name": "picture2.jpg",
-    "size": 841946,
-    "error": "Filetype not allowed"
-  }
-]}
-   */
-
-
-
 }

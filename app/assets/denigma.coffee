@@ -10,7 +10,6 @@
 Batman.config.minificationErrors = false
 
 class Denigma extends Batman.App
-  #@route
 
   ###
   Application object of the chat
@@ -31,6 +30,17 @@ Batman.config =
 
   minificationErrors: false
   protectFromCSRF: false
+
+fetchHTML2 =  (path) ->
+  new Batman.Request
+    url: Batman.Navigator.normalizePath(Batman.config.pathToHTML, "#{path}")
+    type: 'html'
+    success: (response) => @set(path, response)
+    error: (response) -> throw new Error("Could not load html from #{path}")
+Batman.HTMLStore::fetchHTML= fetchHTML2
+
+$.ajaxSetup headers:
+  "X-PJAX": "X-PJAX"
 
   #add listener to the window object to fire run when everything has been loaded
 if(window?)

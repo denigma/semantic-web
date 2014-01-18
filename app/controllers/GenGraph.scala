@@ -41,11 +41,4 @@ trait GenGraph extends Controller {
   }
 
 
-
-
-  def hallo = Action {
-    implicit request =>
-      Ok(views.html.hallo()) //Ok(views.html.page("node","menu","0"))
-  }
-
 }

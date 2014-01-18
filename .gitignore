@@ -15,4 +15,5 @@ dist
 /.settings
 /.sass-cache
 db
+#/public/uploads/
 

@@ -52,6 +52,7 @@ override def semanticDataAppPath = "./semantic-data"
 
   ).settings( play.Project.playScalaSettings ++
     SassPlugin.sassSettings ++
+    //Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass")):_* )
     Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass", "-r","singularitygs")):_* )
     .dependsOn(semanticData)
 
