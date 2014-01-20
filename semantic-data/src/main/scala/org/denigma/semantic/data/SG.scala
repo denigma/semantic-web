@@ -5,10 +5,15 @@ import java.io._
 import scala.collection.immutable.Map
 import org.openrdf.model.impl.StatementImpl
 import com.bigdata.rdf.internal.IV
-import com.bigdata.rdf.model.BigdataValue
+import com.bigdata.rdf.model._
+import java.util
+import scala.util.Failure
+import scala.collection.immutable.::
+import scala.util.Success
+import org.denigma.semantic.data._
 
 //import org.apache.log4j.Logger
-import com.bigdata.rdf.sail.{BigdataSailRepositoryConnection, BigdataSailRepository, BigdataSail}
+import com.bigdata.rdf.sail._
 import scala.util.Try
 import org.apache.commons.io.FileUtils
 import play.api.Play
@@ -17,8 +22,9 @@ import org.openrdf.repository.RepositoryResult
 import SG.db
 import scala.collection.JavaConversions._
 import scala.collection.immutable._
-import org.openrdf.query.{BindingSet, TupleQueryResult, QueryLanguage}
+import org.openrdf.query.{TupleQuery, BindingSet, TupleQueryResult, QueryLanguage}
 import org.openrdf.model._
+
 import org.openrdf.model.vocabulary._
 import scala.util.{Try, Success, Failure}
 
@@ -293,25 +299,13 @@ class SG(implicit lg:org.slf4j.Logger)  {
    */
   def query(str:String, lan: QueryLanguage= QueryLanguage.SPARQL):Try[QueryResult] = db.readWrite{
     implicit r=>
-      val q = r.prepareTupleQuery(
+      val q: TupleQuery = r.prepareTupleQuery(
         lan,str
       )
-
       val results: TupleQueryResult = q.evaluate()
-      val names = results.getBindingNames.toList
+      QueryResult.parse(str,results)
 
-      var re: List[Map[String,String]] = List.empty[Map[String,String]]
-      while(results.hasNext){
-        re = binding2List(names,results.next())::re
-      }
-      QueryResult(str,names,re.reverse)
 
   }//.getOrElse(QueryResult(str,List.empty[String],List.empty[Map[String,String]]))
-
-  def binding2List(names:List[String],b:BindingSet):Map[String,String] = {
-    names.map{
-      case name=> (name,b.getValue(name).stringValue())
-    }.toMap
-  }
 
 }

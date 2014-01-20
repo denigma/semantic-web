@@ -5,11 +5,21 @@
 <section id="query" data-view="QueryView">
 
 </section>
-
+<section class="" data-showif="controller.hasErrors">
+    <div class="ui piled segment">
+        <p data-bind="controller.errors"></p>
+    </div>
+</section>
 <button data-event-click="controllers.query.reset" class="ui green button">Reset</button>
 <button data-event-click="controllers.query.submit" class="ui green button">Send Request</button>
+
 <table class="ui table segment" border>
+    <tr>
+        <th data-foreach-title="Result.head" data-bind="title">
+        </th>
+    </tr>
+
     <tr data-foreach-result="controllers.query.results">
-        <td data-foreach-prop="result.properties" data-bind="prop.value"></td>
+        <td data-foreach-key="result.bindings" data-bind="result.bindings[key].value"></td>
     </tr>
 </table>

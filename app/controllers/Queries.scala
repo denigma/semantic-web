@@ -37,12 +37,12 @@ object  Queries extends PJaxController("query") with LoveHater{
     implicit request=>
       //this.addTestRels()
       SG.db.query(query).map{
-        results=>Ok(Json.obj("results" ->  Json.toJson(results.rows.map(toProps)) )).as("application/json")
+        results=>Ok(results.asJson).as("application/json")
       }.recover{
         case e=>
           val er = e.getMessage
           play.Logger.info(s"Query failed \n $query \n with the following error $er")
-          Ok(Json.obj("results" ->  Json.arr(), "errors"->Json.arr(er) )).as("application/json")
+          Ok(QueryResult.badRequest(query,er)).as("application/sparql-results+json")
       }.get
   }
 

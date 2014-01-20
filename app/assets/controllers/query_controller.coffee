@@ -5,6 +5,8 @@ class Denigma.QueryController extends Batman.Controller
   constructor: ->
     super
     @set("query", @defQuery)
+    @set("headers", new Batman.Set())
+    @set("errors","")
 
   ###
     default query to be called
@@ -13,16 +15,21 @@ class Denigma.QueryController extends Batman.Controller
 
 
   @accessor 'results', -> Denigma.Result.get('loaded')
+  @accessor 'hasErrors', -> @get("errors")?
 
   main: ->
     @submit()
 
   reset: ->
+    @set("errors","")
     @set("query",@defQuery)
 
   submit: ->
+    @set("errors","")
     Denigma.Result.clear()
-    Denigma.Result.loadWithOptions({url:"models/sparql?query=#{@get("query")}"})
+    fun = (err, records, env)=>
+      @set("errors",err)
+    Denigma.Result.loadWithOptions {url:"models/sparql?query=#{@get("query")}"}, (err, records, env)->fun(err, records, env)
 
 
   all: ->
