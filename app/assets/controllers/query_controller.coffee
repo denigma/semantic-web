@@ -11,7 +11,8 @@ class Denigma.QueryController extends Batman.Controller
   ###
     default query to be called
   ###
-  defQuery:"SELECT ?subject ?pred WHERE { ?subject ?pred <http://denigma.org/resource/Aging>.}"
+  #defQuery:"SELECT ?subject ?pred WHERE { ?subject ?pred <http://denigma.org/resource/Aging>.}"
+  defQuery: "PREFIX bds: <http://www.bigdata.com/rdf/search#> SELECT ?subject ?property ?object WHERE { ?object bds:search \"aging\" . ?subject ?property ?object . }"
 
 
   @accessor 'results', -> Denigma.Result.get('loaded')
@@ -21,15 +22,17 @@ class Denigma.QueryController extends Batman.Controller
     @submit()
 
   reset: ->
-    @set("errors","")
+    @set("errors",null)
     @set("query",@defQuery)
+
+  @accessor 'safeQuery', -> encodeURIComponent(@get("query"))
 
   submit: ->
     @set("errors","")
     Denigma.Result.clear()
     fun = (err, records, env)=>
       @set("errors",err)
-    Denigma.Result.loadWithOptions {url:"models/sparql?query=#{@get("query")}"}, (err, records, env)->fun(err, records, env)
+    Denigma.Result.loadWithOptions {url:"models/sparql?query=#{@get("safeQuery")}"}, (err, records, env)->fun(err, records, env)
 
 
   all: ->
