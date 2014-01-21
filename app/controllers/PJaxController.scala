@@ -23,4 +23,7 @@ class PJaxController(val name:String) extends Controller{
   def pj[T](controller:String,action:String,html:Html)(implicit req:Request[T]): Html =
     if(req.headers.keys("X-PJAX")) html  else views.html.index(controller,action,html)
 
+
+
+
 }

@@ -8,7 +8,6 @@ import com.bigdata.rdf.sail._
 import org.apache.commons.io.FileUtils
 import play.api.Play
 import play.api.Play.current
-import SG.db
 import org.openrdf.query.{TupleQuery, TupleQueryResult, QueryLanguage}
 import org.openrdf.model._
 
@@ -17,7 +16,7 @@ import scala.util.{Try, Success, Failure}
 
 
 
-object SG extends SemanticQuery{
+object SG extends SemanticHelper{
 
   def inTest = Play.isTest
   def inDev = Play.isDev
@@ -163,19 +162,6 @@ class SG(implicit lg:org.slf4j.Logger) extends SemanticStore{
     """
   }
 
-  /*
-  runs query over db
-   */
-  def query(str:String, lan: QueryLanguage= QueryLanguage.SPARQL):Try[QueryResult] = db.readWrite{
-    implicit r=>
-      val q: TupleQuery = r.prepareTupleQuery(
-        lan,str
-      )
-      val results: TupleQueryResult = q.evaluate()
-      QueryResult.parse(str,results)
-
-
-  }//.getOrElse(QueryResult(str,List.empty[String],List.empty[Map[String,String]]))
 
 
 

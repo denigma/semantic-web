@@ -35,6 +35,15 @@ object QueryResult {
     }.toMap
 
 }
+object AskResult{
+  def unapply(a: AskResult): Option[(String, Boolean)] = Some(a.query -> a.bool)
+  def apply(query:String,bool:Boolean) = new AskResult(query,bool)
+}
+class AskResult(str:String, val bool:Boolean) extends QueryResult(str,List.empty,List.empty)
+{
+
+  override lazy val asJson = Json.obj("query"->query,"boolean"->bool)
+}
 
 case class QueryResult(query:String,vars:scala.Seq[String],bindings:List[Map[String,JsObject]])
 {

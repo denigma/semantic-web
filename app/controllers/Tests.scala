@@ -24,5 +24,11 @@ object Tests  extends Controller{
       Ok(views.html.test.sigma()) //Ok(views.html.page("node","menu","0"))
   }
 
+  def sparql = Action {
+    implicit request =>
+      val res = SG.db.safeQuery("hello")
+      Ok(res)
+  }
+
 
 }

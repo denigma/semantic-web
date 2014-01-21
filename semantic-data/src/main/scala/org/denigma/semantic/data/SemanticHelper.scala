@@ -1,6 +1,11 @@
 package org.denigma.semantic.data
 
 import scala.collection.immutable.List
+import org.openrdf.query.parser.{ParsedGraphQuery, ParsedTupleQuery, QueryParserUtil}
+import org.openrdf.query.{TupleQueryResult, QueryLanguage}
+import arq.query
+import org.openrdf.repository.sail.SailTupleQuery
+import org.openrdf.query.algebra.{QueryRoot, QueryModelVisitor}
 
 
 //import org.apache.log4j.Logger
@@ -10,7 +15,7 @@ import org.openrdf.model._
 import scala.collection.immutable.List
 
 
-abstract class SemanticQuery {
+abstract class SemanticHelper {
 
   type Store <:  SemanticStore
 
@@ -63,4 +68,6 @@ abstract class SemanticQuery {
         iter.asList().toList
     }.getOrElse(List.empty)
   }
+
 }
+
