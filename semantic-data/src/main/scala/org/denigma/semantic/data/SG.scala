@@ -6,7 +6,7 @@ import java.io._
 //import org.apache.log4j.Logger
 import com.bigdata.rdf.sail._
 import org.apache.commons.io.FileUtils
-import play.api.Play
+import play.api.{Configuration, Play}
 import play.api.Play.current
 import org.openrdf.query.{TupleQuery, TupleQueryResult, QueryLanguage}
 import org.openrdf.model._
@@ -27,13 +27,17 @@ object SG extends SemanticHelper{
 
   type Store = SG
 
-
   var db:Store = null
 
   lazy val url:String = if(Play.isTest)
       conf.getString("repo.test.url").get
     else if(Play.isDev) conf.getString("repo.dev.url").get
     else conf.getString("repo.prod.url").get
+
+  lazy val dbConf: Configuration =  if(Play.isTest)   conf.getConfig("repo.test").get else if(Play.isDev) conf.getConfig("repo.dev").get   else conf.getConfig("repo.prod").get
+
+  lazy val limit: Long = this.dbConf.getLong("limit").getOrElse(50)
+
 
   def cleanLocalDb()=  FileUtils.cleanDirectory(new File(url))
 
@@ -65,9 +69,12 @@ object SG extends SemanticHelper{
 /**
  * Created by antonkulaga on 1/12/14.
  */
-class SG(implicit lg:org.slf4j.Logger) extends SemanticStore{
+class SG(implicit val lg:org.slf4j.Logger) extends SemanticStore{
+
+
 
   val dbFileName = "bigdata.jnl"
+
 
   /*
   BigData settings
@@ -81,36 +88,6 @@ class SG(implicit lg:org.slf4j.Logger) extends SemanticStore{
     //props.setProperty("com.bigdata.journal.AbstractJournal.initialExtent","209715200")
     //props.setProperty("com.bigdata.journal.AbstractJournal.maximumExtent","209715200")
     props
-  }
-
-
-  val sail: BigdataSail = {
-    //val log =  Logger.getLogger(classOf[BigdataSail])
-
-    // create a backing file for the database
-    //val journal = File.createTempFile("bigdata", ".jnl")
-
-    if (properties.getProperty(com.bigdata.journal.Options.FILE) == null) {
-      val journal = new File(this.dbFileName)
-      if(!journal.exists())journal.createNewFile()
-
-      //val oFile = new FileOutputStream(journal, false)
-
-      //log.info(journal.getAbsolutePath)
-      properties.setProperty(BigdataSail.Options.DEFAULT_FILE, journal.getAbsolutePath)
-    }
-
-
-    new BigdataSail(properties)
-  }
-
-  /*
-  Bigdata Sesame repository
-   */
-  lazy val repo: BigdataSailRepository = {
-    val repo = new BigdataSailRepository(sail)
-    repo.initialize()
-    repo
   }
 
   def lookup(str:String,predicate:String,obj:String) = this.query{

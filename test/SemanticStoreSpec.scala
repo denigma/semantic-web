@@ -19,7 +19,7 @@ import org.openrdf.model.vocabulary._
 tests BigDataWrapper
  */
 @RunWith(classOf[JUnitRunner])
-class BigDataSpec  extends Specification with LoveHater {
+class SemanticStoreSpec  extends Specification with LoveHater {
   val self = this
 
   /*
@@ -35,7 +35,7 @@ class BigDataSpec  extends Specification with LoveHater {
     this.addRel("Edouard","loves","Immortality")
   }
 
-  "BigData wrapper" should {
+  "SemanticStore BigData wrapper" should {
 
 
     "write and read triples" in new WithApplication() {
@@ -53,6 +53,27 @@ class BigDataSpec  extends Specification with LoveHater {
       self.getRel(hates).length shouldEqual(1)
 
     }
+
+    "query with limits and offsets" in {
+      self.addTestRels()
+      val query = "SELECT ?s ?o WHERE { ?s <http://denigma.org/relations/resources/loves>  ?o }"
+
+      val resFull = SG.db.query(query)
+      resFull.isSuccess shouldEqual(true)
+      resFull.get.bindings.length shouldEqual(6)
+
+      val resLimited= SG.db.safeQuery(query,2,0)
+      resLimited.isSuccess shouldEqual(true)
+      resLimited.get.bindings.length shouldEqual(2)
+
+      val resOffset= SG.db.safeQuery(query,0,5)
+      resLimited.isSuccess shouldEqual(true)
+      resLimited.get.bindings.length shouldEqual(2)
+
+
+    }
+
+
 
 //    "do text search well" in new WithApplication(){
 //      val loves ="<http://denigma.org/relations/resources/loves>"

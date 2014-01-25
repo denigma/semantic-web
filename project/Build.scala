@@ -24,7 +24,7 @@ override def semanticDataAppPath = "./semantic-data"
   val appName         = "denigma"
   val appVersion      = "0.03"
 
-  val appDependencies = Seq(
+  val appDependencies: Seq[ModuleID] = Seq(
     ///Add your project dependencies here,
 
 
@@ -68,7 +68,7 @@ trait SemanticData extends Macro {
 
   def semanticDataAppPath = "."
 
-  val semanticDataAppDependencies = Seq(
+  val semanticDataAppDependencies: Seq[ModuleID] = Seq(
     "com.bigdata" % "bigdata" % bigDataVersion,
 
 //    "org.openrdf.sesame" % "sesame" % sesameVersion,
@@ -83,7 +83,8 @@ trait SemanticData extends Macro {
     "org.apache.jena" % "apache-jena-libs" % "2.11.0" ,//excludeAll(ExclusionRule(organization = "org.slf4j")),
     "ch.qos.logback" % "logback-classic" % "1.0.7" % "provided",
     "com.fasterxml" % "aalto-xml" % "0.9.7",
-    "org.scalaz" %% "scalaz-core" % "7.0.4"
+    "org.scalaz" %% "scalaz-core" % "7.0.4",
+    "org.topbraid" % "spin" % "1.3.1"
 
 
   )
@@ -98,6 +99,7 @@ trait SemanticData extends Macro {
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
     resolvers += "apache-repo-releases" at "http://repository.apache.org/content/repositories/releases/",
     resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
+    resolvers += "org.topbraid" at "http://topquadrant.com/repository/spin",
     //compiler options
     scalacOptions ++= Seq( "-feature", "-language:_" ),
 
@@ -116,7 +118,6 @@ trait SemanticData extends Macro {
     organization := "org.denigma"
 
   ).dependsOn(macroses)
-
 }
 
 trait Macro{

@@ -13,6 +13,8 @@ import play.api.libs.json.{JsValue, JsNull, JsObject, Json}
 import play.api.Play
 import play.api.Play.current
 import play.api.templates.Html
+import scala.util.Try
+import com.bigdata.rdf.sparql.ast.IQueryNode
 
 
 object  Queries extends PJaxController("query") with LoveHater{
@@ -36,7 +38,7 @@ object  Queries extends PJaxController("query") with LoveHater{
   def query(query:String=defQ) = Action {
     implicit request=>
       //this.addTestRels()
-      SG.db.query(query).map{
+      SG.db.safeQuery(query,SG.limit,0).map{
         results=>Ok(results.asJson).as("application/json")
       }.recover{
         case e=>

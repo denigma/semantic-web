@@ -32,6 +32,8 @@ class Denigma.QueryController extends Batman.Controller
     Denigma.Result.clear()
     fun = (err, records, env)=>
       @set("errors",err)
+
+      if env.data?.query? then @set("query",env.data.query)
     Denigma.Result.loadWithOptions {url:"models/sparql?query=#{@get("safeQuery")}"}, (err, records, env)->fun(err, records, env)
 
 
@@ -40,3 +42,53 @@ class Denigma.QueryController extends Batman.Controller
 
   @accessor 'results', ->
     Denigma.Result.get("loaded")
+
+
+  #  page_size: 15
+  #  scroll_threshold: 80 #when to load new portion of records
+
+  #  with_pagination: (str)=>
+  #    switch str
+  #      when str==null then "?page_size=#{@page}"
+  #      when str.contains? !str.contains("page_size") && str.contains("?") then str+"&page_size=#{@page}"
+  #      else str
+
+
+  #  addScrolling: ->
+  #    ###
+  #      adds custom mscrolling to the grid
+  #    ###
+  #    callback = (e)=>
+  #      if e.topPct>@scroll_threshold
+  #        model = @model()
+  #        if(model.page?)
+  #          p = model.page
+  #          unless p.loading==true
+  #            if p.next?
+  #              options = @with_pagination(p.next.substring(p.next.indexOf("?")+1)+"")
+  #              fun = (err, records, env)->#console.log(records)
+  #              model.load(options,fun)
+  #              #model.load()
+  #              p.loading = true
+  #        else
+  #          console.log("no scroll")
+  #
+  #
+  #    params =
+  #      theme:"dark-thick"
+  #      advanced:
+  #        updateOnContentResize: true
+  #        autoScrollOnFocus: true
+  #        updateOnBrowserResize:true
+  #        autoHideScrollbar:true
+  #        contentTouchScroll:true
+  #      scrollButtons:
+  #        enable: true
+  #      callbacks:
+  #        whileScrolling: callback
+  #
+  #    verParams = params
+  #    $("section.tbody").mCustomScrollbar(verParams)
+  #
+  #    horParams = params
+  #    horParams.horizontalScroll = true

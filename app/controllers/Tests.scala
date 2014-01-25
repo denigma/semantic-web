@@ -26,8 +26,8 @@ object Tests  extends Controller{
 
   def sparql = Action {
     implicit request =>
-      val res = SG.db.safeQuery("hello")
-      Ok(res)
+      //val res = SG.db.safeQuery("hello")
+      Ok("tests")
   }
 
 
