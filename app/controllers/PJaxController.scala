@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._
 import org.openrdf.model.impl.URIImpl
 import org.openrdf.repository.RepositoryResult
-import org.denigma.semantic.data.{LoveHater, SG}
+import org.denigma.semantic.SG
 import SG.db
 import scala.collection.JavaConversions._
 import scala.collection.immutable._

@@ -1,9 +1,10 @@
-package org.denigma.semantic.data
-import org.denigma.semantic.data.SG._
+package org.denigma.semantic
+
 import org.openrdf.model.impl.{StatementImpl, URIImpl}
 import org.openrdf.model.{Statement, URI}
 import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
+import SG._
 import scala.collection.JavaConversions._
 
 /**

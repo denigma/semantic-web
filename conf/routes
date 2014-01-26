@@ -19,7 +19,7 @@ POST        /upload               controllers.Application.upload
 GET         /assets/*file         controllers.Assets.at(path="/public", file)
 
 
-#GET         /test                 controllers.Tests.sigma
+GET         /test                 controllers.Tests.test
 GET         /test/editor          controllers.Tests.editor
 GET         /test/sigma           controllers.Tests.sigma
 

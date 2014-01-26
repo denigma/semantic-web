@@ -36,7 +36,7 @@ abstract class SemanticHelper {
   }
 
 
-  def withSubject(sub:URI,inferred:Boolean=true) = {
+  def withSubject(sub:URI,inferred:Boolean=true): List[Statement] = {
     db.read{
       implicit r=>
         val iter: RepositoryResult[Statement] = r.getStatements(sub,null,null,inferred)
@@ -53,7 +53,7 @@ abstract class SemanticHelper {
     }.getOrElse(List.empty)
   }
 
-  def withSubRel(sub:URI,rel:URI,inferred:Boolean=true) = {
+  def withSubRel(sub:URI,rel:URI,inferred:Boolean=true): List[Statement] = {
     db.read{
       implicit r=>
         val iter: RepositoryResult[Statement] = r.getStatements(sub,rel,null,inferred)
@@ -61,7 +61,7 @@ abstract class SemanticHelper {
     }.getOrElse(List.empty)
   }
 
-  def withRelObj(rel:URI,obj:URI,inferred:Boolean=true) = {
+  def withRelObj(rel:URI,obj:URI,inferred:Boolean=true): List[Statement] = {
     db.read{
       implicit r=>
         val iter: RepositoryResult[Statement] = r.getStatements(null,rel,obj,inferred)

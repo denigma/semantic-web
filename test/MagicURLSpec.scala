@@ -1,7 +1,8 @@
 import com.bigdata.rdf.inf.RdfTypeRdfsResourceFilter
 import com.bigdata.rdf.model.BigdataStatementImpl
-import org.denigma.semantic.data.{SG, LoveHater}
-import org.denigma.semantic.data.SG._
+import org.denigma.semantic.SG
+import org.denigma.semantic.SG._
+import org.denigma.semantic.LoveHater
 import org.openrdf.model.impl.{URIImpl, StatementImpl}
 import org.openrdf.model.Statement
 import org.openrdf.repository.RepositoryResult
@@ -12,6 +13,7 @@ import play.api.test.WithApplication
 import scala.collection.immutable.List
 import scala.collection.JavaConversions._
 import org.openrdf.model._
+import SG._
 
 
 /**
@@ -95,6 +97,14 @@ class MagicURLSpec  extends Specification with LoveHater {
       (Immortality ~> loves size) shouldEqual 0
       (Immortality <~ loves size) shouldEqual 5
       (Immortality <~ (false) size) shouldEqual 5
+
+
+    }
+
+
+    "from sparql to spint and back" in new WithApplication(){
+      import SG._
+
 
 
     }

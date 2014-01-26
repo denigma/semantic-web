@@ -2,19 +2,19 @@ package controllers
 import play.api.mvc._
 import org.openrdf.model.impl.URIImpl
 import org.openrdf.repository.RepositoryResult
-import org.denigma.semantic.data.{QueryResult, LoveHater, SG}
-import SG.db
 import scala.collection.JavaConversions._
 import scala.collection.immutable._
 import org.openrdf.model._
 import java.io.File
 import org.openrdf.rio.RDFFormat
 import play.api.libs.json.{JsValue, JsNull, JsObject, Json}
-import play.api.Play
 import play.api.Play.current
 import play.api.templates.Html
 import scala.util.Try
 import com.bigdata.rdf.sparql.ast.IQueryNode
+import org.topbraid.spin._
+import org.denigma.semantic.{SG, LoveHater}
+import org.denigma.semantic.data.QueryResult
 
 
 object  Queries extends PJaxController("query") with LoveHater{
@@ -51,7 +51,7 @@ object  Queries extends PJaxController("query") with LoveHater{
 
   def all = Action {
     implicit request=>
-      val res: scala.List[Statement] = db.read{
+      val res: scala.List[Statement] = SG.db.read{
         implicit r=>
           val iter: RepositoryResult[Statement] = r.getStatements(null,null,null,true)
           iter.asList().toList
@@ -60,5 +60,6 @@ object  Queries extends PJaxController("query") with LoveHater{
       Ok(views.html.queries.all(res))
 
   }
+
 
 }

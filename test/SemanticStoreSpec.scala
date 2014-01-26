@@ -1,7 +1,8 @@
 import com.bigdata.rdf.inf.RdfTypeRdfsResourceFilter
 import com.bigdata.rdf.model.BigdataStatementImpl
-import org.denigma.semantic.data.{SG, LoveHater}
-import org.denigma.semantic.data.SG._
+import org.denigma.semantic.SG
+import org.denigma.semantic.SG._
+import org.denigma.semantic.LoveHater
 import org.openrdf.model.impl.{URIImpl, StatementImpl}
 import org.openrdf.model.Statement
 import org.openrdf.repository.RepositoryResult
@@ -54,7 +55,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
     }
 
-    "query with limits and offsets" in {
+    "query with limits and offsets" in new WithApplication() {
       self.addTestRels()
       val query = "SELECT ?s ?o WHERE { ?s <http://denigma.org/relations/resources/loves>  ?o }"
 

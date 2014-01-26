@@ -4,7 +4,7 @@ import play.api.mvc._
 import org.openrdf.model.impl.{StatementImpl, URIImpl}
 import org.openrdf.repository.RepositoryResult
 import org.openrdf.model.Statement
-import org.denigma.semantic.data.SG
+import org.denigma.semantic.SG
 import SG.db
 import scala.collection.JavaConversions._
 import org.openrdf.query.{BindingSet, TupleQueryResult, QueryLanguage}
@@ -24,10 +24,24 @@ object Tests  extends Controller{
       Ok(views.html.test.sigma()) //Ok(views.html.page("node","menu","0"))
   }
 
-  def sparql = Action {
+  def test = Action {
     implicit request =>
-      //val res = SG.db.safeQuery("hello")
-      Ok("tests")
+      val str =
+        """
+          |PREFIX  bds:  <http://www.bigdata.com/rdf/search#>
+          |
+          |SELECT  ?subject ?property ?object
+          |WHERE
+          |  { ?object bds:search "aging" .
+          |    ?subject ?property ?object
+          |  }
+          |LIMIT   50
+          |
+        """.stripMargin
+    val sp = SG.db.asTemplate(str,"testTemplate")
+//    val sp = SG.db.asSpin(str)
+
+      Ok(sp)
   }
 
 

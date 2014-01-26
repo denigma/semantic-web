@@ -1,25 +1,26 @@
 @(query:String)(implicit request: RequestHeader)
 
-<h1 class="ui header">Query page</h1>
-@files.uploader()
-<section id="query" data-view="QueryView">
+<section data-view="QueryView">
+    <h1 class="ui header">Query page</h1>
+    @files.uploader()
+    <section id="query" data-view="EditorView">
 
+    </section>
+    <section class="" data-showif="hasErrors">
+        <div class="ui piled segment">
+            <p data-bind="errors"></p>
+        </div>
+    </section>
+    <button data-event-click="reset" class="ui green button">Reset</button>
+    <button data-event-click="submit" class="ui green button">Send Request</button>
+        <table class="ui table segment" border>
+            <tr>
+                <th data-foreach-title="Result.head" data-bind="title">
+                </th>
+            </tr>
+
+            <tr data-foreach-result="results">
+                <td data-foreach-key="result.bindings" data-bind="result.bindings[key].value"></td>
+            </tr>
+        </table>
 </section>
-<section class="" data-showif="controller.hasErrors">
-    <div class="ui piled segment">
-        <p data-bind="controller.errors"></p>
-    </div>
-</section>
-<button data-event-click="controllers.query.reset" class="ui green button">Reset</button>
-<button data-event-click="controllers.query.submit" class="ui green button">Send Request</button>
-
-<table class="ui table segment" border>
-    <tr>
-        <th data-foreach-title="Result.head" data-bind="title">
-        </th>
-    </tr>
-
-    <tr data-foreach-result="controllers.query.results">
-        <td data-foreach-key="result.bindings" data-bind="result.bindings[key].value"></td>
-    </tr>
-</table>

@@ -1,12 +1,14 @@
 @(controller:String,action:String)(implicit request: RequestHeader)
 @*<link rel="stylesheet" href="@routes.Assets.at("longevity.css")" type="text/css">*@
+@files.libs()
 <script type="text/javascript" src="@routes.Assets.at("denigma.js")"></script>
 <link rel="stylesheet" href="@routes.Assets.at("denigma.css")" type="text/css">
 <script type="text/javascript" src="@routes.Assets.at("semantic/sparql_storage.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("models/item.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("models/property.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("models/result.js")"></script>
-<script type="text/javascript" src="@routes.Assets.at("views.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("views/views.js")"></script>
+<script type="text/javascript" src="@routes.Assets.at("views/query_view.js")"></script>
 <script type="text/javascript" src="@routes.Assets.at("controllers/query_controller.js")"></script>
 <script language="JavaScript">
 Denigma.root("@{controller+'#'+action}");

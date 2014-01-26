@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._
 import org.openrdf.model.impl.URIImpl
 import org.openrdf.repository.RepositoryResult
-import org.denigma.semantic.data.{LoveHater, SG}
+import org.denigma.semantic.SG
 import SG.db
 import scala.collection.JavaConversions._
 import scala.collection.immutable._
@@ -13,6 +13,7 @@ import org.openrdf.rio.RDFFormat
 import play.api.libs.json.{JsObject, Json}
 import play.api.Play
 import play.api.Play.current
+import org.denigma.semantic.SG
 
 
 object Application extends PJaxController("")
@@ -53,7 +54,7 @@ object Application extends PJaxController("")
       if(fname.contains(".ttl"))
         if(SG.db.write{
           con=>
-            con.add(file,null,RDFFormat.TURTLE)
+            con.add(file,SG.db.WI,RDFFormat.TURTLE)
             val a=1
         })
           obj
@@ -62,7 +63,7 @@ object Application extends PJaxController("")
           obj + ("error"->toJson("wrong TURTLE file"))
         }
       else if(fname.contains(".rdf") || fname.contains(".owl"))
-        if(SG.db.write{con=>  con.add(file,null,RDFFormat.RDFXML)})
+        if(SG.db.write{con=>  con.add(file,SG.db.WI,RDFFormat.RDFXML)})
         {
           obj
         }

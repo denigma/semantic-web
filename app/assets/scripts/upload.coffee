@@ -13,7 +13,6 @@ $ ->
       #        data.context = $("<p/>").text("Uploading...").replaceAll($(this))
       #        data.submit()
       #      )
-
     done: (e, data) ->
 
       fs = data.result.files

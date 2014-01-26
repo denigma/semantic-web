@@ -1,7 +1,7 @@
-package org.denigma.semantic.data
+package org.denigma.semantic
 
-import play.api.{Logger, Plugin}
-import play.Play
+import play.api.Plugin
+import org.topbraid.spin.system.SPINModuleRegistry
 
 /**
  * Neo4j plugin to stop server.
@@ -14,6 +14,7 @@ class BigDataPlugin(app: play.api.Application) extends Plugin {
   override def onStart{
     lg.debug("Starting  BigData plugin")
     SG.cleanIfInTest()
+    SPINModuleRegistry.get.init()
     SG.db = new SG()
   }
 
