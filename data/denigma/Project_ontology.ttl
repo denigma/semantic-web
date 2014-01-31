@@ -1,0 +1,293 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://denigma.org/resource/> .
+
+# T-Box:
+:Investigation rdfs:subClassOf :Work ;
+    :definition "The work of inquiring into something thoroughly and systematically" ;
+    :realizes :Plan .
+   # :has continuant parts
+   # :has boundaries
+    #:has_specific_dependents
+
+:Project rdfs:subClassOf :Work ;
+    :definition "Any piece of work that is undertaken or attempted" .
+
+:Project_Resource rdfs:subClassOf :Resource ;
+    :concretizes :Plan .
+:Project_Boundary rdfs:subClassOf :Boundary ;
+    :description "The project boundary is defined by Project's Scope" ;
+     :is_defined_by :Project_Scope .
+:Project_Life rdfs:subClassOf :Planned_Process ;
+    rdfs:seeAlso <http://en.wikibooks.org/wiki/Development_Cooperation_Handbook/Designing_and_Executing_Projects/Project_Phases> .
+:Project_Planning rdfs:subClassOf :Process, :Planning ;
+    :is_part_of :Project_Life .
+:Project_Execution rdfs:subClassOf :Process, :Execution ;
+    :is_part_of :Project_Life .
+:Project_Monitoring rdfs:subClassOf :Process, :Monitoring ;
+    :is_part_of :Project_Life . 
+:Project_Control rdfs:subClassOf :Process, :Control ;
+    :is_part_of :Project_Life .
+:Project_Completion rdfs:subClassOf :Process, :Completion ;
+    :is_part_of :Project_Life .
+:Project_Metric rdfs:subClassOf :Relational_Quality .
+
+:Open-Source_Project rdfs:subClassOf :Project .
+:Research_Project rdfs:subClassOf :Research, :Project ;
+    :synonym "Scientific Research" ; # Perhaps use this a main designation
+    :definition "Research into question posed by scientific theories and hypothesis" ;
+    :definition "A research project is a defined and often well-coordinated research endeavor to achieve a particular aim for scientific advancement." ;
+    rdfs:seeAlso <http://denigma.de/links/category/research-project/> .
+:Intergovernmental_Project  rdfs:subClassOf :Project  ;
+    :definition "A project that is set up by an agency of two or more states which carry out projects and plans in common interest." ;
+    rdfs:seeAlso <http://denigma.delinks/category/intergovernmental-project/> .
+
+:Open_Source rdfs:subClassOf  :Movement ;
+    :description "In production and development, open source as a development model promotes: a) universal access via free license to a product's design or blueprint, and b) universal distribution of that design or blueprint, including subsquent improvements to it by anyone." ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/Open_source> .   
+
+:Open_Science rdfs:subClassOf :Movement ;
+    :description "Open science is the umbrella term of the movement to make scientific research, data and dissemination to all levels of an inquiring society, amateur or professional." ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/Open_science> .
+
+:Open_Distributed_Science rdfs:subClassOf :Open_Science, :Distributed_Science, :Project .
+
+:Atlas a owl:Class .
+
+:Phase a owl:Class .
+:Pilot_Phase rdfs:subClassOf :Phase .
+
+:Campaign rdfs:subClassOf :Project .
+
+:Pilot_Project rdfs:subClassOf :Project .
+
+:Scope rdfs:subClassOf :Extent ;
+    :synonym "Range", "Reach", "Orbit", "Compass", "Orbit" ;
+    :definition "An area in which something acts or operates or has power or control" .
+
+:Progress rdfs:subClassOf :Development ;
+    :synonym "Advancement";
+    :definition "Gradual improvement or growth or development" .
+:Goal-Directed_Progress rdfs:subClassOf :Progress ;
+   :synonym "Goal-Oriented Progress", "Goal Oriented Progress", "Translational Progress" .
+:Advance rdfs:subClassOf :Progress .
+:Theoretical_Advance rdfs:subClassOf :Advance .
+
+:Management rdfs:subClassOf :Administration .
+:Quality_Management rdfs:subClassOf :Management .
+:Project_Management rdfs:subClassOf :Management .
+:Micromanagement rdfs:subClassOf :Management ;
+    :description "Micromanagement is a style where a manager closely observes or contorlos the work of subordniates or employess." ;
+   rdfs:seeAlso <http://en.wikipedia.org/wiki/Micromanagement> .
+
+:Project_Management_Application rdfs:subClassOf :Application ;
+    :for :Project_Management .
+
+:Nationally-Funded_Research_Project rdfs:subClassOf :Research_Project .
+:Institutionally-Funded_Research_Project rdfs:subClassOf :Research_Project .
+
+
+# A-Box:
+:Human_Genome_Project a :Project .
+:1000_Genomes_Project a :Project .
+:Cancer_Genome_Atlas a :Project, :Atlas .
+
+:Systems_Biology_for_Healthy_Aging a :Research_Program ;
+   :code_name "GerontoSys" ;
+   rdfs:seeAlso <http://www.ptj.de/gerontosys> .
+
+:WholeCellViz a :Open_Source_Project ;
+    :by_the :Covert_Lab ;
+    :website <http://wholecellviz.stanford.edu/> ;
+    :is_about :Simulation .
+
+:New_England_Centenarian_Study a :Study ;
+   :initialism "NECS" .
+
+:Longevity_Genes_Project a :Project ;
+   :initialism "LGP" .
+
+:Paul_Allen_Brain_Atlas a :Project ;
+   :description "Atlases for both mice and humans in Seattle, WA, headed by Prof. Christof Koch of CalTech" .
+
+:Human_Brain_Project a :Project ;
+   :description "The Human Brain Project in Europe (1 billion Euros)." .
+
+:Human_Connectome_Project a :Project ;
+    :description "The Human Connectome Project (a five-year $38.5 million project funded by the NIMH to map structural connections in the brains of hundrets of healthy adults." .
+
+:OpenCog_Hong_Kong_Project a :Project ;
+   :email <hk@opencog.org> .
+
+:Longevity_Genes_Project a :Project ;
+   :institute :Albert_Einstein_College_of_Medicine ;
+   :coordinator :Nir_Barzilai .
+
+:Manhatten-Beach_Project a :Project ;
+    :website <http://www.manhattanbeachproject.com/> ;
+    rdfs:seeAlso <http://www.youtube.com/watch?v=J0astC2--5k> .
+
+:October_1st a :Project ;
+   rdfs:label "US petition" .
+
+:US_Petition a :Project .
+
+:Lobbying_European_Commission_Functional_Decline a :Project .
+:Linking_Researchers a :Project ;
+   :coordinated_by :Denigma ;
+   rdfs:seeAlso <http://hplusmagazine.com/2013/01/25/linking-researchers-revolutionizing-aging-research-with-tools-and-collaboration/> .
+
+:OntoLearn a :Project .
+
+:GENIA a :Project ;
+   :website <http://www.nactem.ac.uk/genia/home> .
+
+:GRANATUM a :Project ;
+  :logo "Think tank for biomedical progress" ;
+  :website <http://www.granatum.org/> ;
+  :definition "A social collaborative working space semantically interlinking biomedical researchers, knowledge and data for the design and execution of in-silico models and experiments in cancer chemoprevention" .
+
+:Collaborative_Aging_and_Memory_Project a :Project ;
+   :initialism "CAMP" .
+
+:HapMap a :Project ;
+  :website <http://www.hapmap.org/> ;
+  rdfs:seeAlso <http://hapmap.ncbi.nlm.nih.gov/> .
+
+:Apache_Mahout_Machine_Learning_Project a :Project .
+
+:Biomedical_Research_Accelerator a :Project ;
+   :acronym "BiRA" ;
+   rdfs:seeAlso <http://www.youtube.com/watch?v=kR7PfdIOhE0> .
+
+:BlackOps a :Project ;
+   rdfs:seeAlso <https://docs.google.com/presentation/d/1ZWCTE68LmfuahboYeIZohlPYydUpAIdpIySx168ZXQs/edit#slide=id.p30> .
+
+:Collaborative_Bio_Curation a :Project ;
+   :acronym "CBioC" ;
+   :definition "Collaboratively uncovering the nuggets of knowledge buried in millions of biomedical texts" .
+
+:Personal_BioMedicine a :Project .
+
+:Longevity_Intelligence_Communications a :Project ;
+   :website <http://lonintelcomms.tumblr.com/> ;
+   :adivsory_board_member :Alex_Zhavoronkov, :Aubrey_de_Grey, :Philippe_van_Nedervelde ;
+   :twitter <https://twitter.com/lonintelcomms> ;
+   :facebook <https://www.facebook.com/Lonintelcomms> .
+
+:Long-Lived_Species_Review a :Project ;
+    rdfs:seeAlso <http://denigma.de/experts/collaboration/8> ;
+    rdfs:seeAlso <http://denigma.de/data/entry/long-lived-species> ;
+   :coordinated_by :Denigma .
+
+:miRNA_Control_Aging_Review a :Project ;
+    rdfs:seeAlso <http://denigma.de/experts/collaboration/7> ;
+    rdfs:seeAlso <http://denigma.de/articles/miRNAs_Control_Aging> ;
+    :coordinated_by :Denigma .
+
+:in_situ_Rejuvenation_Review a :Project ;
+    rdfs:seeAlso <http://denigma.de/experts/collaboration/2> ;
+    rdfs:seeAlso <http://denigma.de/data/entry/in-situ-regeneration> ;
+    :coordinated_by :Denigma .
+
+:Neurogenesis_Review a :Project ;
+    :about :Neurogenesis ;
+    rdfs:seeAlso <http://denigma.org/data/Neurogenesis/proposal> ;
+    :coordinated_by :Denigma .
+
+:Biotrove_Investments a :Project ;
+    :definition "Connecting investors with biotechnology" ;
+    :website <http://biotroveinvestments.com/> .
+
+:NeOn a :Project ;
+   :website <http://www.neon-project.org/> .
+
+:Infrafrontier a :Project ;
+   :of_the :Human_Brain_Project ;
+   :website <http://www.infrafrontier.eu/> .
+
+:Human_Brain_Project a :FET_Project .
+
+:Knowing_Effects_on_Healthy_Life_Years a :Project ;
+    :initialism "KEHLY" ;
+    :website <https://webgate.ec.europa.eu/eipaha/initiative/index/show/id/5> .
+
+:Redmine a :Project_Management_Application ;
+   :website <http://www.redmine.org/> .
+
+:Personal_Genome_Project a :Project ;
+    :website <https://my.personalgenomes.org/> ;
+    rdfs:seeAlso <https://my.personalgenomes.org/profile/hu034DB1>, <https://my.personalgenomes.org/users> .
+
+:Apache_Mahout a :Project ;
+    :description "Apache Mahout is a new Apache TLP project to create scalable, machine learning algorithms under the Apache license." ;
+   rdfs:seeAlso <https://cwiki.apache.org/confluence/display/MAHOUT/Mahout+Wiki> ;
+    rdfs:seeAlso <https://cwiki.apache.org/confluence/display/MAHOUT/Algorithms> .
+
+:Nomand_Project a :Project ;
+   :website <http://www.nomad-project.eu/> .
+
+:Venus_Project a :Prjoect ;
+    :website <http://www.thevenusproject.com/> .
+
+:Macvia a :Project ; 
+   :definition "Fighting CD for an active and healthy ageing" ;
+   :website <http://macvia.cr-languedocroussillon.fr/index.php/en/> ;
+   :on :Aging .
+
+:Open_architecture_for_Accessible_Services_Integration_and_Standardization a :Project ;
+    :acronym "OASIS" ;
+    :website <http://www.oasis-project.eu/> .
+
+:Denigma_Legacy a :Project .
+:Denigma_Destiny a :Project .
+:FireFly a :Project .
+:Nomad a :Project .
+:Legal_Support_for_Longevity_Research a :Project .
+:Data_Editor a :Project .
+:Literature_Review a :Project .
+:Biogerontology_101 a :Project .
+:Graph_Visualization a :Project .
+:International_Longevity_Alliance a :Project .
+
+
+:Gene_Ontoloy_Next_Generation a :Project ;
+    :initialism "GONG" .
+
+:BioASQ a :Project ;
+   :website <http://www.bioasq.org/> ;
+   :is_about :Biomedical_Semantic_Indexing, :Question_Answering .
+
+:Large_Knowledge_Collider a :Research_Project ;
+    :acronym "LarKC" ;
+    :website <http://www.larkc.eu/> ;
+    rdfs:seeAlso <http://www.larkc.eu/> ;
+    :is_about :Semantic_Web, :Open_Linke_Data .
+
+:ENCODE a :Research_Project ;
+     :website <http://genome.ucsc.edu/ENCODE/> ;
+     :provides :Genome_Annotation .
+
+:Honeybee_Project a :Project ;
+    :description "I am so intrigued by the opportunity to elucidate life extension and killer genes using the honeybee due to the huge difference in lifespan of its queen versus the worker bees that I talked to some of my professors about this exciting opportunity.  As a result of which Dr. Yang made me aware that gene expression data for the honeybee already exists.  Could you please check it out to see if this data could potentially be of any use to us?  The project seems not to be active right now but I believe its authors would be happy to share information with us if we would ask them.  What do you think about this?" ;
+    rdfs:seeAlso <http://www.beespace.illinois.edu/> .
+
+:Increase_in_Computational_Resources a :Project ;
+   :description "Yesterday my technical director Dr. Williams promised me to provide me with an additional desktop with Ubuntu and Team Viewer for my office.  By early next week I am expecting to also have a new Windows XP machine.  I will set them up for unattended Team Viewer control, i.e. the password to log in will always be the same and thus you can use it any time you want.  Could anybody, who would like to use these additional computational resources, let me know so I can share access details?  Could you also please provide me with a list of programs you would like me to have installed on these computers?" .  
+
+:Dauer_Formation_and_Longevity a :Project ;
+   :is_about :Dauer_Formation, :Longevity ;
+   :website <http://www.age.mpg.de/science/research-labs/antebi/research/dauer-formation-and-longevity/> .
+
+:Gonadal_Longevity a :Project ;
+    :is_about :Longevity ;
+    :website <http://www.age.mpg.de/science/research-labs/antebi/research/gonadal-longevity/> .
+
+:Dietary_Control_of_Longevity a :Project ;
+    :is_about :Dietary_Restriction ;
+    :website <http://www.age.mpg.de/science/research-labs/antebi/research/dietary-control-of-longevity/> .
+
+:Developmental_Timing_Project a :Project ;
+    :is_about :Developmental_Timing ;
+    :webste <http://www.age.mpg.de/science/research-labs/antebi/research/developmental-timing/> .
+

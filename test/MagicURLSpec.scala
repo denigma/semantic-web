@@ -100,13 +100,5 @@ class MagicURLSpec  extends Specification with LoveHater {
 
 
     }
-
-
-    "from sparql to spint and back" in new WithApplication(){
-      import SG._
-
-
-
-    }
   }
 }

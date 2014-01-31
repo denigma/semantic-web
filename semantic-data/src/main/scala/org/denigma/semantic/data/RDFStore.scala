@@ -20,6 +20,9 @@ import com.bigdata.rdf.sail.sparql.ast.{ASTLimit, ASTQuery, ASTQueryContainer}
 import com.bigdata.bop.{BOp, IBindingSet}
 import com.bigdata.rdf.sparql.ast.eval.AST2BOpContext
 import com.bigdata.rdf.sail.sparql.BigdataASTContext
+import java.net.URL
+import org.openrdf.rio.Rio
+import com.bigdata.rdf.model.BigdataURI
 
 /**
  * Created by antonkulaga on 1/20/14.
@@ -65,6 +68,25 @@ abstract class RDFStore {
   }
 
   /*
+parses RDF file
+ */
+  def parseFile(path:String,contextStr:String="") = {
+    val url = new URL(path)
+    val inputStream = url.openStream()
+    val format = Rio.getParserFormatForFileName(url.toString)
+    val parser = Rio.createParser(format)
+    this.write{con=>
+      val context: BigdataURI = if(contextStr=="") null else con.getValueFactory.createURI(contextStr)
+      val r = new RdfReader(path,con,context)(lg)
+      parser.setRDFHandler(r)
+      parser.setParseErrorListener(r)
+      parser.parse(inputStream, url.toString)
+    }
+
+
+  }
+
+  /*
  Shutdown repository
   */
   def close()={
@@ -93,6 +115,9 @@ does something with Sesame connection and then closes it
     case Success(_)=>true
     case Failure(e)=>false
   }
+
+
+
 
 
 }

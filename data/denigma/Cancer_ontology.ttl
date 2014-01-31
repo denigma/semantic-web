@@ -1,0 +1,249 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://denigma.de/resource/> .
+
+:Cancer rdfs:subClassOf :Age-Related_Disease ;
+   :description """Cancer is the consequence of an aberrant gain of cellular fitness, wheras aging is characterize by a loss of fitness.
+
+Cancer and aging sare common origins. The time-dependent accumulation of cellular damage is widely considered to tbe the general cause of aging [Gems and Partridge, 2013; Kirkwood, 2005; Vijg and Campisi, 2008].""" .
+:Tumor rdfs:subClassOf :Growth ;
+   :synonym "Tumour" .
+:Metastatic_Tumor rdfs:subClassOf :Tumor .
+:Early-Onset_Tumor rdfs:subClassOf :Tumor .
+:Late-Onset_Tumor rdfs:subClassOf :Tumor . 
+:High-Risk_Tumor rdfs:subClassOf :Tumor .
+:Low-Risk_Tumor rdfs:subClassOf :Tumor .
+
+:Tumor_Sample rdfs:subClassOf :Sample .
+:Carcinogenesis rdfs:subClassOf :Biological_Process .
+
+:Passanger_Mutation rdfs:subClassOf :Mutation .
+
+:Gene a owl:Class .
+:Cancer-Related_Gene rdfs:subClassOf :Gene ;
+    :description "Cancer related are factors that are associated with tumorgenesis, i.e. uncontrolled cell proliferation and growth." ;
+    rdfs:label "Cancer-related" .
+:Proto-Oncogene rdfs:subClassOf :Gene ;
+    :description "A proto-oncogene is a normal gene that can become an oncogene due to mutations or increased expression." ;
+    :seeAlso <http://www.news-medical.net/health/What-are-Proto-Oncogenes.aspx> .
+:Oncogene rdfs:subClassOf :Cancer-Related_Gene ;
+    :description "Oncogenes are genes which when become overactive contribute to the production of cancer. Oncogenes are generally mutated forms of normal cellular genes (proto-oncogenes)." ;
+    :is_derived_from :Proto-Oncogene .
+:Tumor-Suppressor_Gene rdfs:subClassOf :Cancer-Related_Gene ;
+    :synonym "Tumor-Suppressor Gene", "Anti-Oncogene" ;
+    :description "Tumor-suppressors negatively regulate cancerogenesis, i.e. prevent and counteract cancer." ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/Tumor_suppressor_gene> .
+:Caretaker_Gene rdfs:subClassOf :Tumor-Suppressor_Gene ;
+    :description "Caretaker genes encode products that stabilize the genome. Mutations in caretaker genes lead to genomic instability" ;
+    rdfs:label "Caretaker" .
+:Gatekeeper_Gene rdfs:subClassOf :Tumor-Suppressor_Gene ;
+    :description "Gatekeeper genes encode genes that act to prevent growth of potential cancer cells and prevent accumulation of mutations that directly lead to increased cellular proliferation." ;
+    rdfs:label "Gatekeeper" .
+:Landscaper_Gene rdfs:subClassOf :Tumor-Suppressor_Gene ;
+    :description "Landscaper encode products that, when mutated, contribute to the neoplastic growth of cells by fostering a stromal environment conducive to unregulated cell proliferation." ;
+    rdfs:label "Landscaper" .
+
+
+:description a owl:ObjectProperty .
+:arises_from a owl:ObjectProperty .
+:synonym a owl:ObjectProperty .
+:causes a owl:ObjectProperty .
+
+:Genomic_Instability rdfs:subClassOf :Instability ;
+   :causes :Cancer .
+:Mutational_Instability rdfs:subClassOf :Genomic_Instability ;
+    :arises_from :DNA-Nucleotide_Sequence_Changes .
+:Chromosomal_Instability rdfs:subClassOf :Genomic_Instability ;
+    :arises_from :Improper_Rearrangement_of_Chromosomes .
+
+:Carcinogene rdfs:subClassOf :Molecule ;
+    :seeAlso <http://en.wikipedia.org/wiki/Carcinogen> .
+
+:Growth a :Biological_Process .
+:Proliferation a :Biological_Process .
+:Cell_Cycle a :Cellular_Process .
+:Cell_Cycle_Check_Point a owl:Class .
+
+:Skin_Cancer rdfs:subClassOf :Cancer .
+:Melanoma a :Skin_Cancer .
+
+:Terminal_Melanoma a owl:Class .
+:Medical_Diagnosis a owl:Class .
+:Surgery a owl:Class .
+:Diet a owl:Class .
+:Vegan_Diet a :Diet .
+:Angiogenesis a :Biological_Process .
+:Anti-Angiogenesis a owl:Class ;
+   :description "Preventin the growth of new blood vessels limits the size that tumors can reach." .
+
+:Immune_System :counteracts :Cancer ;
+   :description "In our body there are constantly cells becoming malignant, but our immune systems keeps them in check. Therefore, it is logical that boosting the immune system can eliminate cancer." .
+
+:Metastasis rdfs:subClassOf :Pathological_Process ;
+    :description "Metastasis is responsible for 90 percent of cancer-related deaths." .
+
+:Epithelial-Mesenchymal_Transition rdfs:subClassOf :Transition ;
+   :initialism "EMT" ;
+   :description "Epithelial-mesenchymal_transition is a process that occurs during embryogenesis when cells migrate and then grow into new organs during early development." .
+
+:Receptor-Tyrosine-Kinase-Like_Orphan_Receptor-1 a :Oncogene ; 
+    :symbol "ROR-1" ;
+    :description """ROR-1 is expressed during embryongenesis and by many different types of cancers, but not by normal post-partum tissues. Silencing the protein impairs the growth and survival of human breast cancer cells.
+
+High-level expression of ROR-1 in breast cancer cells correlates to higher rates of relapse and metastasis in patients with breand adenocarcinoma, a type of cancer that originates in glandualr tissue. Conversely, silencing expression of ROR-1 reverses EMT and inhibits the metasist spread of breast cnacer cells in animal model. Treatment with a monoclonal antibody targeting ROR-1 can inhibit the growth and spread of highly metastatic tumors that express ROR-1.
+
+ROR-1 is an oncogene and has some tumor initiation functions. ROR-1 also appears to allow transformed cells to invade other tissues ad to promote tumor expansion in both primary and tumor site and in distant organs.
+
+Because ROR-1 is expressed only in cancer cells, it presents a singlular, selective target for anti-cancer therapies that would leave normal cells unaffected.""" .
+
+:Anti-Cancer_Therapy rdfs:subClassOf :Therapy .
+:Transformed_Cell rdfs:subClassOf :Cell .
+:Tumor_Expansion a owl:Class .
+:invades a owl:ObjectProperty .
+:promotes a owl:ObjectProperty .
+:expresses a owl:ObjectProperty .
+:Primary_Tumor_Site rdfs:subClassOf :Site .
+:Distant_Organ rdfs:subClassOf :Organ .
+:Animal_Model rdfs:subClassOf :Model .
+:Culture a owl:Class .
+:Cell_Culture rdfs:subClassOf :Culture .
+
+:Invasive_Cancer rdfs:subClassOf :Cancer .
+:Cancer_Type a owl:Class .
+:Adenocarcinoma rdfs:subClassOf :Cancer_Type ;
+   :description "Adenocacinoma is a type of cancer that originates fromin glandular tissue" .
+
+:Local_Implementation rdfs:subClassOf :Implementation .
+
+:Genomic_Abnormality rdfs:subClassOf :Abnormality .
+:Somatic_Genomic_Abnormality rdfs:subClassOf 
+  :Genomic_Abnormality ;
+   :initialism "SGA" . 
+
+:Pancreatic_Ductal_Adenocarcinoma rdfs:subClassOf :Adenocacinoma ;
+   :intiailism "PDAC" .
+:Pancreatic_Cancer rdfs:subClassOf :Cancer .
+
+:Glandular_Tissue a :Tissue .
+
+:Brest_Cancer a :Cancer .
+:Colon_Cancer a :Cancer .
+:Prostate_Cancer a :Cancer .
+:Cancer_Type rdfs:subClassOf :Type .
+:Spread a owl:Class .
+
+
+:Chemotherapy rdfs:subClassOf :Therapy .
+:Radiation a owl:Class .
+:Survivor a :Person .
+:Cancer_Treatment rdfs:subClassOf :Treatment ;
+    :description "Some cancer treatment accelerate the aging process of organs [Dr. Hudson, of St. Jude and the University of Tennessee College of Medicine, Memphis, TN]." .
+
+:Incidence a owl:Class .
+:Cancer_Incidence rdfs:subClassOf :Incidence .
+:Tumor_Suppression rdfs:subClassOf :Suppression .
+:Uncontrolled_Cellular_Growth rdfs:subClassOf :Cellular_Growth ;
+   :description "Uncontrolled cellular growth is a primary hallmark of cancer cells." .
+
+:Short_Telomeres rdfs:subClassOf :Telomeres ;
+    :description "Short telomeres have been indentified in pancreatic, bone, prostate, bladder, lung, kindey and head and neck cancers." .
+:Cell_Growth_Arrest rdfs:subClassOf :Arrest .
+:Cell_Cycle_Phase rdfs:subClassOf :Phase ;
+   :synonym "Cell Cycle Stage" .
+:G1_Phase a :Cell_Cycle_Phase ;
+   :description "The G1 phase is the most protected stage of the cell cycle stage." .
+:Genomic_Instability rdfs:subClassOf :Instability .
+
+
+:Fibrosarcoma a :Cancer ;
+   :definition "A type of cancer that affects connective tissue" .
+
+:Blood_Cancer rdfs:subClassOf :Cancer .
+:Lymphoma rdfs:subClassOf :Cancer .
+:Leukemia rdfs:subClassOf :Cancer .
+
+:Deprotection a owl:Class .
+:Telomere_Deprotection rdfs:subClassOf :Deprotection ;
+    :description "Telomere deprotection results in a partial DNA damage resposne that only arrests cells in G1 through the p53 pathway, once cells lsoe o53 function telomere deprotection no longer arrests growth." ;
+    :arrests :Cell_Growth ;
+    :causes :Cell_Growth_Arrest ;
+    :results_in :DNA_Damage_Response .
+
+:Response a owl:Class .
+:Damage_Response rdfs:subClassOf :Response .
+:DNA_Damge_Response rdfs:subClassOf :Damage_Response .
+:Malignant_State rdfs:subClassOf :State .
+
+:CD47 a :Cluster_of_Differentiation ;
+   a :Monomer, :Multi-Pass_Membrane_Protein ;
+   :similar_to :Rh_Antigen ;
+   :contains :Ig-like_V-type_Domain ;
+   :description """CD47 lives on the sruface of all cancer cells and tricks the immune system by telling the body "not to eat it".""" ;
+   :uniprot "Q08722" ;
+   :entrez_gene_id 961 ; 
+   :kegg "hsa:961" ;
+   :omim 601028 ;
+   :prosite "PS50835" ;
+   :seeAlso <http://www.anvita.info/wiki/Cd47> .
+
+:CD47_Antibody a :Antibody ;
+   :synonym "Anti-CD47" ;
+   :description """The anti-CD47 antibody overides the "do not eat me" signal. Even after the tumor has taken hold, the antipody ca iether cure the tumor or slow its growth and prevent the cancer from spreading. So far, the antibody has minimal isde effects and has successfully destroyed all cancers it come across, including breast, ovarian, brain, and prostate cancer.""" ;
+   rdfs:seeAlso <ttp://sfbay.ca/2013/07/13/antibody-could-eliminate-cancer-researchers-say/#ixzz2Z2oRYVad> .
+
+:Clonal_Mosaic_Event rdfs:subClassOf :Mutation ;
+    :initialism "CME" ;
+    :description "Clonal mosaic events (CMEs) are defects that result in some cells having extra copies (or missing copies) of large chunks of DNA. They are very rae in young people but more common as we get older. Among those aged over 70, around 1 in 50 people have some of these mutations. People with CME's have a 10x higher risk of blood cancers. CME is 4x more common in people with Type-2 Diabetes." ;
+    :increases_with :Aging .
+
+:Clonal_Mosaic_Event_Increase rdfs:subClassOf :Age-Related_Change;
+    a :Increase .
+
+:Tumorgraft rdfs:subClassOf :Graft .
+
+:DNA-Damage :leads_to :Cancer .
+
+:Cancer_Prevention rdfs:subClassOf :Prevention .
+
+:Brain_Cancer rdfs:subClassOf :Cancer .
+:Astrocytoma rdfs:subClassOf :Brain_Cancer ;
+  rdfs:seeAlso <http://en.wikipedia.org/wiki/Astrocytoma> .
+:Ltr_Gytom_Astrocytoma rdfs:subClassOf :Astrocytoma .
+
+:Sarcoma rdfs:subClasssOf :Cancer ;
+   rdfs:seeAlso <http://en.wikipedia.org/wiki/Sarcoma> .
+
+:Breast_Cancer rdfs:subClassOf :Cancer ;
+   :description "Breast cancer is the most common cancer in women" .
+
+:Contact_Inhibition_Loss rdfs:subClassOf :Inhibition_Loss ;
+   :synonym "Loss of Contact Inhibition" .
+:Cell_Cycle_Disruption rdfs:subClassOf :Disruption .
+:Telomerase_Activation_Dysfunction rdfs:subClassOf :Dysfunction ;
+    :synonym "Disfunctional Telomerase Activation" .
+:Metastatic_Migration rdfs:subClassOf :Migration .
+
+:Aneuplody_Protection rdfs:subClassOf :Protection ;
+   :synonym "Protection Against Aneuplody" .
+
+:Cancer_Protection rdfs:subClassOf :Protection ;
+   :synonym "Protection Against Cancer" .
+
+:Inoculation rdfs:subClassOf :Immunization ;
+     :synonym "Vaccination" ;
+     :definition "Taking a vaccine as a precaution against contracting a disease" ;
+     rdfs:seeAlso <http://en.wikipedia.org/wiki/Inoculation> .
+
+:Vaccination rdfs:subClassOf :Adminstration ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/Vaccination> .
+
+:Vaccination_Scare rdfs:subClassOf :Scar ;
+    :synonym "Vaccination" ;
+    :definition "The scar left following inoculation with a vaccine" .
+
+:Cancer_Vaccination rdfs:subClassOf :Inoculation .
+
+:Mouse_Avatar a :Animal_Model ;
+    rdfs:seeAlso <http://www.nytimes.com/2012/09/26/business/mice-as-stand-ins-in-the-fight-against-disease.html?pagewanted=all&_moc.semityn.www&moc.semityn.www&_r=2&> .
+   
+:Cancerous_Lesion rdfs:subClassOf :Lesion .

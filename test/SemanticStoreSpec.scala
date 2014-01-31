@@ -74,6 +74,26 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
     }
 
+    "apply sorting" in new WithApplication(){
+
+    }
+
+//    "read files" in new WithApplication(){
+//      val q1 =
+//        """
+//          |PREFIX  de:   <http://denigma.org/resource/>
+//          |
+//          |SELECT  ?property ?object
+//          |WHERE
+//          |  { de:Genomic_Instability ?property ?object }
+//        """.stripMargin
+//
+//      SG.db.parseFile("./data/test/test_aging_ontology")
+//      val res = SG.db.query(q1)
+//      res.isSuccess should beTrue
+//      res.get.bindings.size shouldEqual(4)
+//
+//    }
 
 
 //    "do text search well" in new WithApplication(){

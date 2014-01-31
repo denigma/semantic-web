@@ -1,0 +1,76 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+@prefix void: <http://rdfs.org/ns/void#>.
+
+@prefix sp:	 <http://spinrdf.org/sp#> .
+@prefix spr: <http://spinrdf.org/spr#> .
+@prefix ui:  <http://uispin.org/ui#> .
+
+@prefix de: <http://denigma.org/resource/> .
+
+@prefix wi: <http://webintelligence/resource/> .
+@prefix conf: <http://webintelligence/config/> .
+@prefix pg: <http://webintelligence.eu/page/> .
+@prefix user: <http://webintelligence/resource/> .
+@prefix : <http://webintelligence/resource/> .
+
+
+:wi a void:Dataset;
+	dcterms:title "Web Intelligence";
+    dcterms:description "Web intelligence main vocabulary";
+	void:uriSpace "http://webintelligence/resource/";
+	void:uriSpace "http://webintelligence/page/";
+	void:uriSpace "http://webintelligence/user/";
+    foaf:homepage <http://webintelligence.eu>.
+
+user:User rdfs:subClassOf foaf:Person;
+		  rdfs:subClassOf dcterms:Agent;
+		  dcterms:description "User account" .
+
+user:Organization rdfs:subClassOf foaf:Organization;
+		  rdfs:subClassOf dcterms:Agent .
+
+pg:Page rdfs:subClassOf foaf:Document;
+  rdfs:label "Semantic page";
+  dcterms:description "Web page" .
+
+pg:creator rdfs:subPropertyOf dc:creator;
+    rdfs:domain  foaf:Document;
+    rdfs:range xsd:string .	
+
+pg:Query_Page rdfs:subClassOf pg:Semantic_Page;
+  rdfs:label "SPARQL query page";
+  rdfs:label "Page with query results" .
+
+pg:queryText a owl:DatatypeProperty;
+	rdfs:label "query text";
+	dcterms:description "Property describing query text, will be changed to SPIN in future";
+    rdfs:domain  pg:Query_Page;
+    rdfs:range xsd:string .
+
+
+pg:About_Web_Intelligence a foaf:Document;
+	rdfs:label "About web intelligence" .
+	
+
+wi:Web_Intelligence a sioc:Site;
+	conf:index pg:Web_Intelligence .
+
+conf:root a owl:ObjectProperty;
+	rdfs:domain  wi:Platform;
+    rdfs:range sioc:Site .	
+
+conf:index a owl:ObjectProperty;
+	rdfs:domain  sioc:Site;
+    rdfs:range pg:Page .	
+
+
+conf:Current_Platform a wi:Platform;
+	conf:root wi:Web_Intelligence .

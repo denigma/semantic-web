@@ -55,7 +55,6 @@ object Application extends PJaxController("")
         if(SG.db.write{
           con=>
             con.add(file,SG.db.WI,RDFFormat.TURTLE)
-            val a=1
         })
           obj
         else {

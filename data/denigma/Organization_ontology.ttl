@@ -1,0 +1,1189 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix : <http://denigma.org/resource/> .
+
+# T-Box:
+:Social_Group rdfs:subClassOf :Group .
+:Organization rdfs:subClassOf :Social_Group ;
+   :synonym "Organisation" .
+:Institute rdfs:subClassOf :Organization .
+:Initiative rdfs:subClassOf :Organization .
+:Internation_Initiative rdfs:subClassOf :Initative .
+:Laboratory rdfs:subClassOf :Organization ;
+   :acronym "Lab" .
+:Company rdfs:subClassOf :Organisation .
+
+:Institution rdfs:subClassOf :Organization ;
+    :synonym "Establishment" ;
+    :definition "An organization founded and united for a specific purpose" .
+:Academic_Institution rdfs:subClassOf :Institution .
+:Medical_Institution rdfs:subClassOf :Institution .
+
+:Clinic rdfs:subclassOf :Medical_Institution, :Medical_Building ;
+    :definition "A medical establishment run by a group of medical specialists; a health care facility that is primarily devoted to the care of outpatients." ;
+    rdfs:seeAlso <http://denigma.de/links/category/clinic/> .
+
+:Alliance rdfs:subClassOf :Organization .
+:Federation rdfs:subClassOf :Organization ;
+    :definition "An organization formed by merging serveral groups or parties" .
+:Committee rdfs:suClassOf :Organization .
+:Scientific_Committee rdfs:subClassOf :Committee .
+:Ethics_Committee rdfs:subClassOf :Committee .
+:Organizing_Committee rdfs:subClassOf :Committee .
+
+:Nation rdfs:subClassOf :Organization .
+:Industrialized_Nation rdfs:subClassOf :Nation .
+:Unindustrialized_Nation rdfs:subClassOf :Nation .
+:Profit_Organization rdfs:subClassOf :Organization .
+:Advocacy_Organization rdfs:subClassOf :Organization .
+
+:Governmental_Office rdfs:subClassOf :Office .
+:Government_Body rdfs:subClassOf :Body . 
+
+:Elderly_Association rdfs:subClassOf :Assocation .
+:Scientific_Society rdfs:subClassOf :Society .
+
+:Agency rdfs:subClassOf :Organization .
+
+
+
+:Internal_Resource rdfs:subClassOf :Resource .
+:Government_Program rdfs:subClassOf :Program ;
+   :such_as :Medicare .
+:Medicare rdfs:subClassOf :Government_Program .
+
+:Institutional_Review_Board rdfs:subClassOf :Review_Board .
+
+:Organization_Type rdfs:subClassOf :Type .
+:Organization_Level rdfs:subClassOf :Level .
+
+:Standardisation_Organization rdfs:subClassOf :Organization .
+:Governmental_Organization rdfs:subClassOf :Organization ;
+    :synonym "Government Organization" ;
+    :definition "A official constituted organization create by the government." ;
+    rdfs:seeAlso <http://denigma.de/links/category/governmental-organization/> .
+:Non-Governmental_Organization rdfs:subClassOf :Organization ;
+    :intialism "NGO" ;
+    :definition "A legally constituted organization created by natural or legal persons that operates independently from any form o government." ;
+    rdfs:seeAlso <http://denigma.de/links/category/non-governmental-organization/> .
+:Nonprofit_Organization rdfs:subClassOf :Organization ;
+     :synonym "Not-for-Profit Organization", "Nonprofit", "Not-for-Profit",  "Non-Commercial Organization" ;
+     :acronym "NPO", "NCO" ;
+     :definition "An organization chartered for other than profit-making activities" ;
+     rdfs:seeAlso <http://en.wikipedia.org/wiki/Nonprofit_organization> .
+:Non-Profit_Society rdfs:subClassOf :Society, :Nonprofit_Organization .
+:Intergovernmental_Organization rdfs:subClassOf :Organization .
+:Higher_Eduction_Organization rdfs:subClassOf :Organization .
+:European_Organization rdfs:subClassOf :Organization .
+:Local_Organization rdfs:subClassOf :Organization .
+:Central_Organization rdfs:subClassOf :Organization ;
+    :synonym "Federal Organization" .
+:National_Organization rdfs:subClassOf :Organization .
+:International_Organization rdfs:subClassOf :Organization .
+:Private_Organization rdfs:subClassOf :Organization .
+:Adovacy_organization rdfs:subClassOf :Organization .
+:Membership_Organization rdfs:subClassOf :Organization ;
+    :synonym "Membership-Based Organization" ;
+    :is_based_on :Membership .
+:Trade_Assocation rdfs:subClassOf :Association .
+:Professional_Assocation rdfs:subClassOf :Association .
+:GitHub_Organization rdfs:subClassOf :Organization ;
+    rdfs:seeAlso <https://github.com/blog/674-introducing-organizations> ;
+    rdfs:seeAlso <https://help.github.com/articles/converting-a-user-into-an-organization> .
+:Public_Sector rdfs:subClassOf :Sector ;
+   :definition "The public sector refers to the part of the economy concerend with providing basic government services" ;
+   rdfs:seeAlso <http://en.wikipedia.org/wiki/Public_sector> ;
+   :is_part_of :Economy ;
+   :is_concerned_with_providing :Basic_Government_Service .
+
+:Public_Sector_Body rdfs:subClassOf :Organiztion .
+
+:Ministry rdfs:subClassOf :Public_Sector_Body .
+:Regulatory_Agency rdfs:subClassOf :Agency .
+:Executive_Agency rdfs:subClassOf :Agency .
+:Standardisation_Agency rdfs:subClassOf :Agency .
+
+:Charity rdfs:subClassOf :Foundation ;
+    :definition "A foundation created to promote the public good (not for assistance or any particular individuals)" .
+:Funding_Charity rdfs:subClassOf :Charity ;
+    :definition "A non-profit organization that provides funds for research on a particular topic." ;
+    rdfs:seeAlso <http://denigma.de/links/category/funding-charity/> .
+
+:Research_Center rdfs:subClassOf :Center ;
+    :synonym "Resarch Facility" ;
+    :definition "A center where research is done" ;
+    :description "A research center is an established endowed for doing research. Research centers may specialize in basic research or may be orientated to applied research." ;
+    rdfs:seeAlso <http://denigma.de/links/category/research-center/> .
+
+:Research_Group rdfs:subClassOf :Group ;
+    :definition "A team of researches that investigate together a scientific problem; members usually complement each other and are lead by an principal investigator." ;
+    rdfs:seeAlso <http://denigma.de/links/category/research-group/> .
+
+
+:ISO a :Standardisation_Agency .
+:World_Wide_Web_Consortium a :Standardisation_Agency ;
+    :acronym "W3C" .
+
+:Membership a owl:Class .
+
+:Coalition rdfs:subClassOf :Organization ;
+    :synonym "An organization of people (or countries) involved in a pact or treaty" ;
+    :definition "A pact or treaty among individuals or groups, during which they cooperate in joint action, each in their own self-interest, joining forces together for a common cause." ;
+    rdfs:seeAlso <http://denigma.de/links/category/coalition/> .
+
+:Public_Coalition rdfs:subClassOf :Coalition .
+
+:Award a owl:Class .
+:Memorial_Fund rdfs:subClassOf :Fund .
+
+:Civil_Society rdfs:subClassOf :Society ;
+   rdfs:seeAlso <http://en.wikipedia.org/wiki/Civil_society> .
+
+# 30-June 2 next year in San Antonio, Texas.
+
+# A-Box:
+:United_Nation a :Organization ;
+  :intialism "UN" .
+
+:Food_and_Drug_Administration a :Organization, :Agency ;
+   :intialism "FDA" .
+
+:AGE_Platform_Europe a :Organization ;
+   :symbol "AGE" ;
+   :definition "Network association representing aged persons." ;
+   :description "The AGE is a a part of the European Commission that tries to align tech-minded people to causes like increasing workspan independently of changes in healthspan." ;
+
+   :website <http://www.age-platform.eu/> .
+:American_Aging_Association a :Organization ;
+   :symbol "AGE" ;
+   :initialsim "AAA" ;
+   :website <www.americanagingassociation.org> ;
+   :description "The American Aging Association (AGE) is a non-profit expert organization in the basic mechanisms of aging, founded in 1970. AGE is dedicated to harnessing the power of basic biomedical research to maintain, resotore and increase functional lifespan in older adults through research, education and advocacy in the field of biomedical gerontology." .
+
+:Heales a :Organization ;
+   :website <https://heales.org/> .
+
+:SENS_Research_Foundation a :Foundation ;
+    :acronym "SRF" ;
+    :synonym "SENS Foundation" ;
+    :description """The goal of the SENS Research Foundation is to combat aging and promote research dedicated to finding interventions of the aging process.
+* SRF leads the way in developing, promoting, and ensuring widespread access to treatments that repair the damage underlying the diseases of aging
+* the challenge is not small. We are proposing nothing less than a transformation of medicine; away from the increasingly burdensome and unprofitable chase to treat pathologicies, and towards a functional and, for society as a whole, more cost-effective approach to maintaining and extending individual health
+""" ;
+   :website <http://www.sens.org> ;
+   :address """SENS Foundation 
+110 Pioneer Way Ste. J 
+Mountain View, CA Fst94041""" ;
+   :post_code "95041" ;
+   :street "110 Pioneer Way Ste. J" ;
+   :state :California ;
+   :city :Mountain_View ;
+   :facebook <https://www.facebook.com/sensf> ;
+   :linkedin <http://www.linkedin.com/company/sens-foundation> ;
+   :twitter <https://twitter.com/senstweet> .
+
+:Ben-Gurion_University_of_the_Negev a :Institute ;
+    :abbreviation "BGU" ;
+    :location :Isreal .
+
+:Bar_Ilan_University a :University .
+
+:Department_of_Science_Technology_and_Society a :Department ;
+    :of_the :Bar_Ilan_University .
+
+
+:New_York_Stem_Cell_Foundation a :Institute .
+
+:Institute_for_Biomedicine_of_Ageing a :Institute ;
+    :located_in :Nuremberg ;
+    :acronym "IBA" .
+
+<http://gorbunova.biology.rochester.edu/> a :Laboratory ;
+    :about :Aging ;
+    :about :Cancer ;
+    :about :DNA-repair ;
+    :headed_by :Vera_Gorbunova .
+
+
+:Longevity_Alliance rdfs:subClassOf :Alliance .
+:International_Longevity_Alliance a :Organization, :Longevity_Alliance ;
+    :synonym "Longevity Alliance" ;
+    :website <http://longevityalliance.org/> ;
+    rdfs:seeAlso <https://docs.google.com/spreadsheet/ccc?key=0AioEs-YUCyBidEl2WjQxMmF5cXFXSkZqQzdua19TT1E#gid=0> .
+
+
+:Israeli_Longevity_Alliance a :Alliance .
+:Longevity_Finland a :Organization .
+:Canadian_Longevity_Alliance a :Alliance .
+:India_Future_Society a :Society ;
+   :website <http://indiafuturesociety.org/> .
+
+:Alliance_for_Aging_Research a :Organization ;
+    :description "The Alliance for Aging Research is the leading non-profit organization dedicated to accelerating the pace of scientific discoveries and their application to vastly improve the universal human experice of aging and health. The alliance was founded in 1986 in Washington, DC,and hase since become a valued advocacy organization an a respected inlfuential voice with policymakers." ;
+    :president :Dan_Perry ;
+    :ceo :Dan_Perry ;
+    :homepage <http://www.agingresearch.org/> ;
+    :whitepaper <http://www.healthspancampaign.org/wp-content/uploads/2012/03/HealthSpan_Whitepaper.pdf> ;
+    :mission <http://www.healthspancampaign.org/about-us/mission/> ;
+    :endorsers <http://www.healthspancampaign.org/research/endorsers/> ;
+    :research-agenda <http://www.healthspancampaign.org/research/research-agenda/> ;
+    :website <http://www.healthspancampaign.org/> ;
+    :initialism "AAR" .
+
+:Longevity_Dividend_Initiative_Consortium a :Organization;
+    :seeAlso <http://www.the-scientist.com/?articles.view/articleNo/23784/title/The-Longevity-Dividend/> .
+
+:Methuselah_Foundation a :Charity ;
+    :website <http://www.mfoundation.org/> .
+
+:National_Institute_of_Health a :Organization ;
+    :initialism "NIH" .
+:National_Institute_on_Aging a :Organization ;
+    :website <http://www.nia.nih.gov/> ;
+    :initialism "NIA" .
+
+:Aging_Biology_Division a :Research_Division ;
+    :website <http://www.nia.nih.gov/research/dab> .
+
+:Social_Network a owl:Class .
+:Society a owl:Class .
+:Israeli_Society_for_the_Biology_of_Aging a :Society .
+
+:Singularity_University a :Institution ;
+   :located_at :Silicon_Valley ;
+   :homepage <http://singularityu.org/> ;
+   :seeAlso <http://en.wikipedia.org/wiki/Singularity_University> .
+
+:Life_Extension_Foundation a :Foundation ;
+   :description "The Life Extension Foundation bases most of its products on supporting literature references. One can find endless examples of clinical efficacy behind supplement products by visiting the LEF website." ;
+    :website <http://lef.org/> .
+
+:Longevity_Dividend_Initiative_Consortium a :Consortium ;
+   :initialism "LDIC" ;
+   :definition "The Team -11" .
+
+:Healthspan_Campaign a :Campaign ;
+  :website <http://www.healthspancampaign.com/> .
+
+:Los_Angeles_Gerontology_Research_Group a :Research_Group ;   
+   :description "The Los Angeles-based Gerontology Research Group, is an organization of physicians, scientists, and demographers who validate supercentenarians, people 110 or older." ;
+   :definition "Track all the oldest people of the world." .
+
+:Geroscience_Interest_Group a :Group, :Organization ; # Merge?
+   :intialism "GIG" ;
+   :website <http://sigs.nih.gov/geroscience/Pages/default.aspx> ;
+   :coordinated_by :Felipe_Sierra ;
+   :intialism "GSIG" ;
+   :member :Felipe_Sierra ;
+   :description "The GeroScience Interest Group (GSIG) was formed to enhance opportunities for discussion of the intersection between the biology of aging and the biology of disease and conditions that are of interest across ICs.  It is focused on basic biology, but with a longer view towards translation." ;
+   :website <http://sigs.nih.gov/geroscience/Pages/default.aspx> ;
+   :videocast <http://videocast.nih.gov/> ;
+   :established_in "October 2011" ;
+   :definition "The Geroscience_Movement (of Buck Institute and the NIH/NIA)." .
+
+# The seminar will be videocast at http://videocast.nih.gov/ and archived in the GSIG web site.
+
+:National_Institutes_of_Health a :Organization ;
+   :initialism "NIH" .
+
+:American_Longevity_Alliance a :Organization ;
+    :description "The American Longevity Alliance is an amr of the International Longevity Alliance." ;
+    :member :Mallory_McLaren ;
+    :member :Tom_Mooney .
+
+<http://ec.europa.eu/research/innovation-union/index_en.cfm?section=active-healthy-ageing> a :Partnership ;
+   rdfs:label "European innovation partnership for healthy and active ageing" .
+
+<http://www.bioaging.org.il/> a :Society ;
+   rdfs:label "Israeli Society for the Biology of Aging" ;
+   :seeAlso <https://www.facebook.com/IsraeliSocietyForTheBiologyOfAging> .
+
+:World_Health_Organization a :Organization ;
+    :initialism "WHO" ;
+    :description "The world health organization rnakings are only 50% based on life expectancy [Steven B Harris]." .
+
+:Ageing_and_Life_Course_Department a :Department ;
+    :of_the :World_Health_Organization ;
+    rdfs:seeAlso <http://www.who.int/ageing/en/> .
+
+:Division_of_Aging_Biology a :Organization  ;
+   :initialism "DAB" .
+
+:Buck_Institute_for_Research_on_Aging a :Institute ;
+   :adress "8001 Redwood Boulevard" ;
+   :city :Novato ;
+   :state :California ; 
+   :post_code "94945" ;
+   :country :United_States_of_America .
+
+:Spanish_National_Centre_for_Cardiovascular_Research a :Research_Centre .
+
+:Carl_I_Bourhenne_Medical_Research_Foundation a :Foundation ;
+   :founder :Carl_I_Bourhenne .
+
+:European_Union a :Organization ;
+   :initialism "EU" .
+
+:European_Commission a :Commission ;
+   :initialism "EC" .
+
+:Lifestar_Institute a :Institute ;
+    :website <http://www.lifestarinstitute.org/> ;
+     :description "The website is based on Olrando, FL with many favorite researchers, but seems dated." .
+
+:Moscow_Institute_of_Physics_and_Technology a :Institute ;
+   :website <http://mipt.ru/en> ;
+   :country :Russia ;
+   :city :Moscow .
+
+:Institute_of_Advanced_Technology a :Institute .
+
+:Global_Alliance a :Alliance .
+
+:Non-University_Institution rdfs:subClassOf :Institution ;
+   :seeAlso  <http://dict.leo.org/forum/viewUnsolvedquery.php?idThread=99636&idForum=1&lang=de&lp=ende> ;
+   :seeAlso <http://www.gesundheitsforschung-bmbf.de/de/ausseruniversitaere-forschungseinrichtungen.php> .
+
+:University_of_California_Los_Angelas a :University .
+
+:Honey_Bee_Genome_Sequencing_Consortium a :Consortium .
+
+:Software_Engineering_Methods_and_Theory a :International_Initiative ;
+    :acronym "SEMAT" ;
+    :description "SEMAT (Software Engineering Methods and Theory) is an international intiative designed to identify a common ground, or universal standard, for software engineering." .
+
+:Frauenhofer_Institute_for_Algorithms_and_Scientific_Computing a :Insitute ;
+   :initialism "SCAI" ;
+   :website <http://www.scai.fraunhofer.de/> .
+
+:International_Association_of_Gerontology_and_Geriatrics a :Organization ;
+   :initialism "IAGG" ;
+   :website <http://www.iagg.info/> .
+
+:Human_Genome_Variation_Society a :Society .
+
+:IDIAP_Jordi_Gol a :Institute ;
+    :description "IDIAP Jordi Gol is a Primary Health Care University Institute   which main goal is to produce new knowledge and useful information, promoting, developing and managing research into Primary Health Care in Spain." ;
+    :website <http://www.idiapjgol.org> .
+
+:Alcor_Life_Extension_Foundation a :Foundation ;
+   rdfs:label "Alcor" ;
+   :website <http://www.alcor.org/> .
+
+:CodeAge a :Social_Network ;
+   :website <http://itn-codeage.uni-koeln.de/index.php> .
+
+:Cluster_of_Excellence_in_Ageing_Research a :Organization .
+
+:Cluster_of_Excellence_in_Cellular_Stress_Responses_in_Aging-Associated_Diseases a :Organization ;
+   :initialism "CECAD" ;
+   :website <http://www.cecad.uni-koeln.de/> .
+
+:Indian_Institute_of_Science a :Institute ;
+    :city :Bangalore ;
+    :country :India .
+
+:ATLAS-Biolabs a :GmbH ;
+    :webpage <www.atlas-biolabs.com> .
+
+:German_Center_for_Neurodegenerative_Diseases a :Research_Center ;
+   :initialism "DZNE" ;
+   :country :Germany .
+
+:Max_Delbrück_Center_for_Molecular_Medicine a :Research_Center ;
+   :abbreviation "MDC" ;
+   :country :Germany ;
+   :city :Berlin .
+
+:Babraham_Institute a :Institute ;
+   :country :United_Kingdom .
+
+:Delhi_Technological_University a :University ;
+   :initialism "DTU" ;
+   :country :India .
+
+:Max_Plank_Institute_of_Molecular_Plant_Physiology a :Institute ;
+   :initialism "MPIMP" .
+
+:University_of_Alabama_at_Birmingham a :University ;
+   :initialism "UAB" .
+
+<http://ailen.org/> a :Laboratory ;
+    rdfs:label "Artifical Intelligence, machine learning and nEural netowrks Laboratory" ;
+    :acronym "ALIEN Lab" .
+
+:European_Innovative_Partnership_Action_Group a :Group .
+
+:International_Association_of_Gerontology_and_Geriatrics a :International_Association ;
+   :initialism "IAGG" ;
+   :description """The International Association of Gerontology and Geriatrics (IAGG) builds a research network to exchange information related to Gerontology and Geriatrics, to highlight the importance of these issues in the world, to set up contacts between specialists, academics, industry, health authorities, other scientific networks. Specifically the IAGG builds up:
+
+* Global Aging Research Network (GARN) dedicated to basic sciences, biology, behavioral and clinical gerontology.
+* Global Social Initiative on Aging (GSIA) concerned by fostering collaborative, trans-national approaches to the creation and transfer of knowledge at the intersection of global trends and population ageing.""" ;
+   :website <http://www.iagg.info/> .
+
+:Longevity_Egypt a :Longevity_Party ;
+   :website <http://longevityegypt.wordpress.com/> .
+
+<http://japanlongevityalliance.org/> a :Longevity_Party ;
+   rdfs:label "Japan Longevity Alliance" .
+
+:Knoepfler_Lab a :Research_Group ;
+   :has_blog :Knoepfler_Lab_Stem_Cell_Blog .
+
+:BioCreative_Organizing_Committee a :Organization_Committe .
+
+:Seals_Longevity_Health  a :Professional_Association ;
+   :website <http://www.sceauxlongevitesante.org/> ;
+   :synonym "Sceaux Longevity Sante" ;
+   :initialism "SLS" .
+
+<http://longevite-et-sante.weebly.com> a :Politcal_Party ;
+   rdfs:label "ILA France" .
+
+:Methuselah_Foundation_Undergraduate_Research_Initiative a :Initiative ;
+   :initialism "MFURI" ;
+   :seeAlso <http://methuselahfoundation.org/new_newsletter/NovNL_KelseyMFURI.html> ;
+   :seeAlso <http://www.mfoundation.org/blog/2008/07/mfuri-the-methuselah-foundatio/> .
+
+:Supercentenarian_Research_Foundation a :Foundation ;
+   :website <http://www.supercentenarian-research-foundation.org/> .
+
+<http://www.longevityday.org/georgia.html> a :Political_Party ;
+    rdfs:label "International Longevity Georgia" .
+
+:Institute_for_Ethics_and_Emerging_Technologies a :Institute ;
+    :website  <http://www.ieet.org/> .
+
+:LifeBoat_Foundation a :Foundation ;
+   :website <http://lifeboat.com/> .
+
+
+:Laboratory_of_Pathophysiology_and_Immunology a :Laboratory ;
+   :is_part_of_the :D_F_Chebotarev_State_Institute_of_Gerontology_NAMS .
+
+:D_F_Chebotarev_State_Institute_of_Gerontology_NAMS a :Institute ;
+   rdfs:label "D.F. Chebotarev State Institute of Gerontology NAMS" ;
+   :is_located_in :Kiev ;
+   :postcode "04114" ;
+   :street "67 Vyshgorodska Str." ;
+   :country :Ukraine .
+
+:International_Association_of_Gerontology_and_Geriatrics_for_the_European_Region a :Professional_Association ;
+    :website <http://iagg-er.org/> .
+
+:Samsung_Advanced_Institute_of_Technology a :Institute .
+
+:Well-Aging_Research_Center a :Research_Center .
+
+:JULI_Lab a :Laboratory ;
+    :university :Friedrich-Schiller_University_Jena .
+
+:FBN_Dummerstorf a :Institute ;
+    :website <http://www.fbn-dummerstorf.de/index.php?lang=en> .
+
+:University_of_Oslo a :University ;
+    :website <http://www.fbn-dummerstorf.de/index.php?lang=en> .
+
+:Fritz-Lipmann-Institut_Jena a :Institute .
+
+:Institute_for_Biostatistics_and_Informatics_in_Medicine_and_Ageing  a :Institute ;
+    :acronym "IBIMA" ;
+    :of :University_of_Rostock .
+
+:European_Molecular_Biology_Laboratory a :Laboratory ;
+    :initialism "EMBL" .
+
+:Institutional_Animal_Care_and_Use_Committee a :Committee ;
+    rdfs:label "Institutional Animal Care and Use Committee" ;
+    :website <http://www.iacuc.org/> ;
+    :intialism :IUCAC .
+
+:Gerontological-Economic_Research_Organization a :Organization ;
+    :initialism "GERO" ;
+    :website <http://www.gero.org/> .
+
+:Longevity_Egypt a :Party ;
+    :website <www.longevityegypt.wordpress.com> .
+
+:Biogerontology_Research_Foundation a :Foundation .
+
+:Institute_for_Formal_Ontology_and_Medical_Information_Science a :Institute .
+
+:International_Longevity_Centre a :Research_Centre;
+    :definition "A think-tank impacting policy on longevity, ageing and population change" ;
+    :website <http://www.ilcuk.org.uk/> ;
+    :initialism "ILC" ;
+    :country :United_Kingdom .
+
+:Centers_for_Disease_Control_and_Prevention a :National_Public_Health_Institute, :Government_Public_Health_Agency ;
+    :acronym "CDC" ;
+    :website <http://www.cdc.gov/> ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/Centers_for_Disease_Control_and_Prevention> ;
+    :of_the :United_States .
+
+:Life_Extension_Foundation a :Foundation ;
+    :website <http://www.lifeextensionfoundation.org/> .
+
+:Integrative_Genomics_of_Ageing_Group a :Research_Group ;
+     :institute :Institute_of_Integrative_Biology ;
+     :univeristy :University_of_Liverpool ;
+     :city :Liverpool ;
+     :country :United_Kingdom .
+
+:Inequalities_in_Healthy_Longevity_Committee a :Committee ;
+   :member :Tom_Kirkwood, :Maria_Blasco, :Miroslav_Radman .
+
+:USC_Longevity_Institute a :Institute .
+
+
+:Minnesota_State_University a :University ;
+   :is_located_in :Mankato .
+
+:International_Federation_on_Ageing a :Federation ;
+    :website <http://www.ifa-fiv.org/> .
+
+:University_of_Toronto a :University ;
+   :country :Canada .
+
+
+:Biogerontology_Research_Foundation a :Foundation ;
+   :name "Институт бессмертия" ;
+   :website <http://www.eternalmind.ru/> .
+
+:Institute_of_Biology_of_Aging a :Institute ;
+   :website <http://www.bg-rf.org.uk/#!> .
+
+:Instituto_de_Investigacion_Sanitaria_INCLIVA a :Institute ;
+    :name "Instituto de Investigación Sanitaria INCLIVA" .
+
+:Management_Committee rdfs:subClassOf :Commitee .
+
+:University_of_Muenster a :University ;
+    :name "University of Münster" .
+
+:Syktyvkar_State_University a :University .
+
+:Ecological_Department a :Department ;
+    :unversity :Syktyvkar_State_University ;
+    :country :Russia ;
+    :city :Syktyvkar .
+
+:Laboratory_of_Genetics_of_Aging_and_Longevity a :Laboratory .
+:Moscow_Institute_of_Physics_and_Technology a :Institute .
+
+:Spanish_National_Centre_for_Cardiovascular_Research a :Research_Centre .
+
+:Department_of_Biochemistry_and_Molecular_Biology a :Department ;
+    :university :Uniersity_of_Arkansas_for_Medical_Sciences .
+
+:Longevity_and_Health a :Organization ;
+    :name "Longévité & Santé" ;
+    :country :France .
+
+:Victoria_Research_Laboratory a :Laboratory ;
+   :at :National_ICT_Australia .
+
+:Lisbon_Higher_School_of_Health_Technology a :School ;
+    :name "Escola Superior de Tecnologia da Saúde de LIsboa" ;
+    :at :Institut_Politechnic_of_Lisbon .
+
+:Institut_Politechnic_of_Lisbon a :Institute ;
+    :name "Instituto Politécnico de Lisboa" ;
+    :country :Portugal .
+
+:Training_Center_Way_of_Upgrade a :Training_Center ;
+   :name "Тренинг-центр Путь Апгрейда" ;
+   :country :Russia .
+
+:Integrative_Genomics_of_Aging_Research_Group a :Research_Group ;
+   :synonym "Integrative Genomics of Ageing Group" ;
+   :department :Department_of_Functional_and_Comparative_Genomics .
+
+:Department_of_Functional_and_Comparative_Genomics a :Department ;
+    :university :University_of_Liverpool .
+
+:Institute_of_Cardiovascular_Science a :Institute ;
+    :of_the :University_College_London .
+
+:Department_of_Biological_Sciences_at_Birkbeck a :Department ;
+   :university :University_of_London .
+
+:The_Faculty_of_Computer_Science a :Faculty ;
+   :university :Otto-von-Guericke-University_Magdeburg .
+
+:Otto-von-Guericke-University_Magdeburg a :University ;
+   :country :Germany .
+
+:Fraunhofer_Society a :Research_Organization ;
+   :name "Fraunhofer-Gesellschaft" ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/Fraunhofer_Society> ;
+   :country :Germany ;
+   :website <http://www.fraunhofer.de/en.html .
+
+:Translational_Centre_for_Regenerative_Medicine a :Translational_Centre ;
+    :university :University_Leipzig ;
+    :country :Germany .
+
+:Large_U_S_Health_Maintenance_Organization :subClassOf :Organization ;
+  :name "Large U.S. Health Maintenance Organization" .
+
+:Standardized_Health_Appraisal :subClassOf :Appraisal ;    
+     :at_a :Large_U_S_Health_Maintenance_Organization .
+
+:Ecological_Department a :Department ;
+    :unversity :Syktyvkar_State_University ;
+    :country :Russia ;
+    :city :Syktyvkar .
+
+:French_Transhumanist_Association a :Association .
+
+:Division_of_Aging_Biology a :Division ;
+   :of_the :National_Institute_of_Aging .
+
+:Max_Delbruck_Center_for_Molecular_Medicine  a :Research_Center ;
+   rdfs:label ":Max Delbrück Center for Molecular_Medicine" .
+
+:Luxembourg_Centre_for_Systems_Biomedicine a :Research_Centre ;
+    :initialism "LCSB" ;
+    :city :Luxembourg .
+
+:Bioinformatics_Core_Facility a :Core_Facility ;
+    :is_located_at :Luxembourg_Centre_for_Systems_Biomedicine .
+
+:Humboldt_University_of_Berlin a :University ;
+   :city :Berlin .
+
+:University_of_Valencia ;
+    :website <http://www.uv.es> ;
+    :city :Valencia ;
+    :country :Spain .
+
+:Technoprog a :Professional_Association ;
+    :website <http://transhumanistes.com> .
+
+:Center_for_Ethics_and_Law_in_the_Life_Sciences a :Research_Center ;
+   :acronym "CELLS" ;
+   :city :Hannover .
+
+:American_Medical_Association a :Professional_Association ;
+    :initialism "AMA" ;
+    :website <http://www.ama-assn.org/ama> .
+
+:Federal_Republic rdfs:subClassOf :Republic .
+:United_States a :Federal_Republic ;
+    :synonym "United States of America" ;
+    :initialism "US" ;
+    :acronym "U.S." ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/United_States> .
+
+:United_Nations_Eductional_Scientific_and_Cultural_Organization a :United_Nations_Agency ;
+    :acronym "UNESCO" ;
+    :definition "An agency of the United Nations that promotes decution and communication and the arts" ;
+    :website <http://en.unesco.org/> .
+
+:Institute_of_Biology_of_Ural_Department a :Institute ;
+   :of :Russian_Academy_of_Science .
+
+:Russian_Academy_of_Science a :Academy ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/Russian_Academy_of_Sciences> .
+
+:Fritz-Lipmann-Institut_Jena a :Institute ;
+    :city :Jena .
+
+:Leibniz_Institute_for_Age_Research a :Institute ;
+    :city :Jena .
+
+:Ulm_University rdfs:subClassOf :University ;
+    :synonym "University of Ulm" ;
+    rdfs:seeAlso <http://en.wikipedia.org/wiki/University_of_Ulm> .
+
+:ROSAge_Consortium a :Consortium .
+
+:Association_for_Computing_Machinery a :Professional_Association ;
+    :definition "Advacing Computing as a Science & Profession" ;
+    :description "ACM, the world’s largest educational and scientific computing society, delivers resources that advance computing as a science and a profession. ACM provides the computing field's premier Digital Library and serves its members and the computing profession with leading-edge publications, conferences, and career resources." ;
+    :website <http://www.acm.org/> .
+
+:Special_Interest_Group rdfs:subClassOf :Group .
+
+:Special_Interest_Group_on_Bioinformatics a :Special_Interest_Group ;
+    :website <http://www.sigbioinformatics.org/> ;
+    rdfs:seeAlso <http://www.acm.uiuc.edu/sigbio/> .
+
+:Ageing_Research_Group a :Research_Group ;
+    :researches_on :Aging, :Genomics ;
+    :description "The Ageing Research Group at the Uppsala University combines novel theory, experimental evolution, data sets from long-term field studies, quantitative genetics and the latest developments in genomics in order to provide a deeper understanding of why and how ageing evolves." ;
+    :website <http://www.ebc.uu.se/Research/groups/ageing/> ;
+    :contact :Urban_Friberg ;
+    :country :Sweden ;
+    rdfs:seeAlso <http://denigma.de/links/638> .
+
+:Aging_and_Immortalization_Laboratory a :Research_Group ;
+    :researches_on :Aging ;
+    :description """The aging and Immortalization Laboratory of the University of Calgary has contributed some key observations regarding aging and cancer in several related areas that include:
+
+* Cell Cycle Regulation
+* Transcriptional Regulation in Cell Aging
+* Aging an Telomere Dynamics""" ;
+    :website <http://www.ucalgary.ca/riabowol_lab/> ;
+    :contact_address <http_www_ucalgary_ca_riabowol_lab_reachingus> ;
+    :contact :Karl_Riabowol ;
+    :country :Canada ;
+    :of_the :University_of_Calgary ;
+    rdfs:seeAlso <http://denigma.de/links/647> .
+
+:Aging_Intervention_Foundation a :Foundation, :Non-Governmental_Organization ;
+    :is_about :Aging, :Research ;
+    :description "The Aging Intervention Foundation is a non-profit foundation developing new biomedical technologies to control the aging processes, and live long and stay young." ;
+    :website <http://aginginterventionfoundation.org/> ;
+    :contact :Stephen_L_Coles, :Johnny_Adams ;
+    :country :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/745> ;
+    rdfs:seeAlso <https://www.facebook.com/pages/Aging-Intervention-Foundation/100204326715366?fref=ts> .
+
+:Alliance_for_Aging_Research a :Non-Profit_Organization ;
+    :is_about :Advocacy, :Aging, :Lobbying ;
+    :description """Advancing Science. Enhancing Lives. The Alliance for Aging Research is the nations' leading non-profit organization dedicated to supporting and accelerating the pace of medical discovers to vastly improve the universal human experience of aging and health.
+
+The Alliance for Aging Research is a lobbyist organization working with the National Institute of Aging.""" ;
+    :website <http://www.agingresearch.org/> ;
+    :contact_address <http_www_agingresearch_org_section_aboutus_contact> ;
+    :contact :Debbie_Zeldow ;
+    :countrie :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/605> .
+
+:Albert_Einstein_College_of_Medicine_Institute_for_Aging_Research a :Research_Center ;
+    :researches_on :Aging ;
+    :description """The Einstein Institute of Aging Research's multidisciplinary scientific investigations into aging unite faculty with diverse scientific backgrounds and technological expertise to focus on three areas:
+
+1. Macromolecules, intracellular organelles, cells, and tissues
+2. Molecular physiology, nutrients, & energetics in whole animal models
+3. Genetics and genomics of aging in single cell cell animals models and aging humans.
+
+Aging is a complex, universal condition leading to the functional decline in all cells and organisms, and to major national and global public health problems.
+
+Although aging is the major risk factor for developing most adult-onset diseases, systematic investigations into the fundamental physiology, biology and genetics of aging are only just beginning.""" ;
+    :website <http://www.einstein.yu.edu/centers/aging/> ;
+    :contact_address <nir_barzilai@einstein_yu_edu> ;
+    :contact_addres "nir.barzilai@einstein.yu.edu" ;
+    :contact :Nir_Barzilai ;
+    :countrie :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/634> .
+
+:American_Aging_Assocation a :Professional_Assocation ;
+    :is_about :Aging, :Research ;
+    :description "The American Aging Association is a non-profit group of experts dedicated to increase functional lifespan through research, eduction, and advocacy in the field of biomedical gerontology." ;
+    :website <http://www.americanagingassociation.org/> ;
+    :contact_address <http_www_americanagingassociation_org_home_contact> ;
+    :contact :David_A_Kekich, :Richard_Faragher ;
+    :countrie :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/719> .
+
+:Berezikov_Group a :Research_Group ;
+    :reseraches_on :Aging  ;
+    :description """The Research objectives of the Berezikov Group are focused on Small RNAs and regeneration:
+
+1. microRNAs and other small RNAs
+   We apply computational, functional and comparative genomics approaches to study the reporoire, biological roles and evolution of small RNAs. In particular, we use C. elegans as a model to study the roles of microRNA in development, homeostasis, stress response and Aging.
+2. Emerging models for stem cell and regeneration Research: flatworm *Macrosotmum lignano*""" ;
+    :website <http://www.hubrecht.eu/research/berezikov/> ;
+    :contact_address <http_www_hubrecht_eu_research_berezikov_leader_html> ;
+    :contact :Eugene_Berezikov ;
+    :country :Netherlands ;
+    rdfs:seeAlso <http://denigma.de/links/749> .
+
+:Biogerontology_Research_Foundation a :Foundation ;
+    :is_about :Advocacy, :Aging ;
+    :description "Our mission is to use the power of science to alleviate suffering in the elderly. The BGRF has been constituted as a charity in the UK to support the application of our knowledge of the mechanisms of aging to the relief of disabilities, suffering and diseases in old age." ;
+    :website <http://www.bg-rf.org.uk/> ;
+    :contact_address <contact@bg-rf_org_uk> ;
+    :contact :Alex_Zhavoronkov ;
+    :countrie :United_Kingdom ;
+    rdfs:seeAlso <http://denigma.de/links/600> .
+
+:Biological_Anti_Aging_Center a :Clinic;
+    :is_about :Aging,  :Health ;
+    :description "The biological Anti Aging Cente Le Montreux Palace is  at the most prestigious anti-aging shrine of the world - Montreux, Switzerland. Top experts team led by national M.D. provides personalized treatment. Decades of  medical safety records provide a personal health management service." ;
+    :website <http://en.baacch.com/Default.aspx?PN=baac> ;
+    :contact_address <med_pal_mont@hotmail_com> ;
+    :contact_addres "med.pal.mont@hotmail.com" ;
+    :countrie :Switzerland ;
+    rdfs:seeAlso <http://denigma.de/links/639> .
+
+:Biology_of_Aging_Group a :Research_Group ;
+    :researches_on :Aging ;
+    :description "The Biology of Aging Group at the Centre of Ophthalmology and Vision Sciences is interested in studying the cellular and molecular mechanisms underlying physiopathologic changes related to aging. The group has particular interest in the study of damaged protein repair and/or degradation through the ubiquitin proteasome pathway or chaperon-mediated autophagy." ;
+    :website <http://www.uc.pt/en/fmuc/centrooftalmologia/Research/BiologyofAgeing> ;
+    :country :Portugal ;
+    rdfs:seeAlso <http://denigma.de/links/637> .
+
+:Blackburn_Lab a :Laboratory ; # Research Group
+    :is_about :Aging ;
+    :description """The Blackburn Lab seeks to understand the full roles of Telomeres and Telomerase in cell processes.
+
+The Research program of the Blackburn laboratory focuses on Telomeres, the structures stabilizing the ends of the eukaryotic chromosomes, and the enzyme Telomerase. The mechanisms of Telomere and Telomerase functions, and how perturbations in these functions signal to cells are under study. It investigates these in organisms from yeast to humans, and in cancers.
+
+The laboratory is located at the University of California San Francisco.""" ;
+    :website <http://biochemistry.ucsf.edu/labs/blackburn/> ;
+    :contact :Elizabeth_H_Blackburn ;
+    :country :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/748> .
+
+:British_Longevity_Society a :Non-Profit_Society ;
+    :is_about :Advocacy, :Aging ;
+    :description "A non-profit society founded in 1992 created for people who want to live a longer healthier life. The constitution of the British Longevity Society (BLS) is the aim to: further public eduction on issues connected with the means for counteracting the process, causes and effects of ageing." ;
+    :website <http://www.thebls.org/> ;
+    :contact_address <http_www_thebls_org_contact_htm> ;
+    :contact :Marios_Kyriazis ;
+    :country :United_Kingdom ;
+    rdfs:seeAlso <http://denigma.de/links/624> .
+
+:British_Society_for_Research_on_Ageing a  :Assocation;
+    :is_about :Aging ;
+    :description "The British Society for Research on Ageing (BSRA) promotes research to understand the causes and effects of the aging process. BSRA encourages publication and public understanding of aging research and holds and annual scientific meeting." ;
+    :website <http://www.bsra.org.uk/> ;
+    :contact_address <http_www_bsra_org_uk_contact> ;
+    :country :United_Kingdom ;
+    rdfs:seeAlso <http://denigma.de/links/619> .
+
+:British_Society_of_Gerontology a :Society ;
+    :is_about :Aging  ;
+    :description "The British Society of Gerontology (BSG) is the leading organization in the UK for all those interested in how knowledge about aging and later life can be enhanced and improved for the benefit of all." ;
+    :website <http://www.britishgerontology.org/> ;
+    :country :United_Kingdom ;
+    rdfs:seeAlso <http://denigma.de/links/620> .
+
+:Brunet_Lab a :Research_Group ;
+    :reserches_on :Aging  ;
+    :description "The Brunet lab is interested in discovering genes that regulate lifespan and exploring how the products of these genes integrate environmental stimuli that promote longevity. It focuses on the understanding of how conserved longevity genes, such as FOXO, act to regulate lifespan in mammals. Further it also employs C. elegans and N. furzeri as model organisms to study aging." ;
+    :website <http://www.stanford.edu/group/brunet/> ;
+    :contact_address <http_www_stanford_edu_group_brunet_location_html> ;
+    :contact :Anne_Brunet ;
+    :country :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/722> .
+
+:Buck_Institute_for_Research_on_Aging a :Research_Center, :Institute ;
+    :researches_on :Aging ;
+    :description """The Mission: Extending Healthspan, The Healthy Years of Life. The first independent biomedical research institute of the  United States solely to research on aging and age-related disease. Aging is the largest risk factor for disease in development countries. At the Buck Institute, researches from many disciplines work together under one roof to understand the aging process and its link to chronic disease. Both the physical and cultural environment supports the free flow of information and rapid scientific advancement. There are no departmental boundaries. Bureaucracy is kept to a minimum.
+
+The Buck Institute for Research on Aging is a charity focused solely on understanding the connection between aging and chronic diseases.""" ;
+    :website <http://www.buckinstitute.org/> ;
+    :contact_address <http_www_buckinstitute_org_contact> ;
+    :contact :Brian_K_Kennedy ;
+    :country :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/609> .
+
+:Burke_Laboratory a :Research_Group ;
+    :researches_on :Aging ;
+    :description """The Burke Laboratory is about the genetics and the study of mammalian aging.
+ 
+The research effort in the laboratory is analyzing the genetic basis of normal mammalian aging using the laboratory mouse as model system. Three major projects are in progress:
+
+1. An analysis of the stability of epigenetic gene inactivation over the lifespan
+2. Quantitative trait locus (QTL) analysis using aging as a complex, multigenic trait
+3. Genetics and microfabrication engineering
+
+It is located at the Department of Human Genetics at the University of Michigan Medical School""" ;
+    :website <http://sitemaker.med.umich.edu/dtburke> ;
+    :contact :David_T_Burke ;
+    :country :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/735> .
+
+:Burkle_Lab a :Link ;
+    :is_about :Research_Group ;
+    :description "The Lab of Alexander Burkle at the University of Konstanz researches on PARP-1 and its role in aging and lifespan." ;
+    :website <http://gutenberg.biologie.uni-konstanz.de/ab/ab.html> ;
+    :contact :Alexander_Burkle ;
+    :country :Germany ;
+    rdfs:seeAlso <http://denigma.de/links/694> .
+
+:C_elegans_Ageing_Laboratory a :Research_Group ;
+    :research_on :Aging ;
+    :description """Understanding the biology of longevity and aging using nematode model. 
+
+A focus of current work in this laboratory is understanding the genes and biochemical processes by which reduced insulin/IGF-1 signaling and dietary restriction increase lifespan. Other interests include sex differences in the biology of aging, the role of microbiome in aging, evolutionary conservation of mechanisms of ageing, the mechanism of organism death, and bioethical implications of aging research. The work is largely funded by the European and the Wellcome Trust.
+
+The laboratory is located at the Institute of Healthy Ageing at the University College London.""" ;
+    :website <http://www.ucl.ac.uk/~ucbtdag/> ;
+    :contact :David_Gems ;
+    :countrie :United_Kingdom ;
+    rdfs:seeAlso <http://denigma.de/links/736> .
+
+:C_elegans_Research_Lab a :Research_Group ;
+    :researches_on :Aging  ;
+    :description "The C. elegans Research Lab lead by Dr, David Weinkove address major biological and biomedical problems using the nematode as model system. The current projects include investigating the links between Aging and nutrition as well as the role of phosphoinositide signaling in whole organism biology." ;
+    :website <http://www.dur.ac.uk/research/directory/staff/?mode=staff&id=6328> ;
+    :contact :David_Weinkove ;
+    :country :United_Kingdom ;
+    rdfs:seeAlso <http://denigma.de/links/741> .
+
+:CECAD a :Link ;
+    :is_about :Aging, :Research_Center ;
+    :description "The Cologne Cluster of Excellence in Cellular Stress Responses in Aging-associated Diseases provides extremely dynamic environment for research into the aging process and related diseases. The aim is to understand the molecular mechanisms underlying the aging process and thereby enable new therapies for aging-associated diseases such as cancer, diabetes and neurodegenerative disorders to be developed." ;
+    :website <http://cecad.uni-koeln.de/> ;
+    :contact_address <http_cecad_uni-koeln_de_Contact_11_0_html> ;
+    :contact_addres <http://cecad.uni-koeln.de/Contact.11.0.html> ;
+    :countrie :Germany ;
+    rdfs:seeAlso <http://denigma.de/links/614> .
+
+:Cellerino_Laboratory a :Link ;
+    :is_about :Aging, :Research_Group ;
+    :description """The Cellerino Laboratory researches on mechanisms controlling lifespan in vertebrates. 
+
+Specifically the research group investigates two basic questions:
+
+* What manipulations can increase the lifespan in a species?
+* What are the biological mechanisms underlying the differences in lifespan in different species?
+
+To tackle these question the short-lived fish *Nothobranchius furzeri* is used.""" ;
+    :website <http://www.fli-leibniz.de/groups/cellerino_en.php> ;
+    :contact :Alessandro_Cellerino ;
+    :countrie :Germany ;
+    rdfs:seeAlso <http://denigma.de/links/691> .
+
+:Center_for_Multidisciplinary_Research_in_Aging a :Research_Center ;
+    :researches_on :Aging ;
+    :description "The Center for Multidisciplinary Research in Aging was established in 2000 with the goal of fostering a synergistic environment for multidisciplinary and interdisciplinary research and eduction in Geriatrics and Gerontology. The Center's location in the Facility of Medical Science of Ben Gurion University of the Negev (BGU), adjacent to the Soroka University Medical Center, insures access to all the departments and faculties relevant to research in aging." ;
+    :website <http://web.bgu.ac.il/Eng/fohs/ResearchCenters/CMRA/default.html> ;
+    :contact_address <cmra@bgu_ac_il> ;
+    :countrie :Israel ;
+    rdfs:seeAlso <http://denigma.de/links/643> .
+
+:Chinese_Academy_of_Sciences a :Research_Center ;
+    :is_about :Aging, :Technology ;
+    :description "The Chinese Academy of Sciences (CAS) is a leading academic institution and comprehensive research and development center in natural sciences, technological sciences and high-tech innovation including aging." ;
+    :website <http://english.cas.cn/> ;
+    :contact_address <http_english_cas_cn_ACAS_contact_> ;
+    :contact_addres <http://english.cas.cn/ACAS/contact/> ;
+    :countrie :China ;
+    rdfs:seeAlso <http://denigma.de/links/671> .
+
+:Caloric_Restriction_Society a :Link ;
+    :is_about :Aging ;
+    :description "The caloric restriction society." ;
+    :website <http://www.crsociety.org/> ;
+    rdfs:seeAlso <http://denigma.de/links/484> .
+
+:CrowdAge a :Non-Profit_Initiative ;
+    :is_about :Aging, :Technology ;
+    :description "A non-profit initiative with the mission to unite research organizations and funding institutions to achieve dramatic and practical human life-extending technologies with 10 years." ;
+    :website <http://crowdage.org/> ;
+    rdfs:seeAlso <http://denigma.de/links/648> .
+
+:Danish_Aging_Research_Center a :Research_Center ;
+    :researches_on :Aging  ;
+    :description """The Danish Aging Research Center (DARC) promotes aging research in Denmark through collaboration between the University of Southern Denmark, Aarhus University and University of Copenhagen. 
+
+The DARC conducts research in human aging processes from a range of different angles and combines aging research from the molecular level, to the entire population.
+
+Through studies of twins and the oldest-old, researchers in Odense study both genetic and environmental factors influencing human aging processes and longevity.""" ;
+    :website <http://www.sdu.dk/en/Om_SDU/Institutter_centre/DARC> ;
+    :contact_address <kchristensen@health_sdu_dk> ;
+    :contact :Kaare_Christensen ;
+    :country :Denmark ;
+    rdfs:seeAlso <http://denigma.de/links/630> .
+
+:Danish_Centre_for_Molecular_Gerontology a :Link ;
+    :is_about :Aging, :Research_Center ;
+    :description """The Danish Centre for Molecular Gerontology (Aarhus University/Vejle Hospital) is performing aging research at the molecular level, including extensive research in the area of telomere biology and its possible relation to aging, particularly for persons who age early.
+
+The scientific aim of the Danish Centre for Molecular Gerontology (DCMG) are: 
+
+* to identify molecular and cellular mechanisms involved in the ageing process and in the origin of age-related diseases
+* to search for effective means of reducing age-related loss of cellular functions
+* to search for methods for recovery of lost biological activity during ageing
+* to employ the knowledge obtained to prevent some of the age-related diseases""" ;
+    :website <http://www.dcmg.dk/> ;
+    :contact_address <molgeron@mb_au_dk> ;
+    :contact :Brian_C_Clark, :Tinna_V_Stevnsner ;
+    :country :Denmark ;
+    rdfs:seeAlso <http://denigma.de/links/632> .
+
+
+:Department_of_Aging_Control_Medicine a :Department ;
+    :is_about  :Aging ;
+    :description "The Department of Aging Control Medicine at the Juntendo University School focuses apparently on Anti-aging intervention based on diet, exercise and stress management." ;
+    :website <http://www.anti-aging.gr.jp/english/scientific_m.phtml> ;
+    :contact :Takuji_Shirasawa ;
+    :countrie :Japan ;
+    rdfs:seeAlso <http://denigma.de/links/681> .
+
+:Division_of_Aging_Biology a :Governmental_Organization ;
+    :is_about :Aging, :Grant_Program ;
+    :description "The Division of Aging Biology (DAB) of the National Institute of Aging  plans and supports molecular, cellular, and genetic research on the mechanisms of aging through various NIH grant mechanisms and contracts. It also supports resource facilities that provide aged animals and banked tissues for use in aging research." ;
+    :website <http://www.nia.nih.gov/about/offices/division-aging-biology-dab> ;
+    :contact_address <sierraf@mail_nih_gov> ;
+    :contact :Felipe_Sierra ;
+    :country :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/599> .
+
+:Division_of_Development_and_Aging a :Research_Group ;
+    :researches_on :Aging  ;
+    :description "The Division of Development and Aging at the Research Institute for Biological Science in Tokyo University of Science aims to understand the molecular mechanisms regulating homeostasis in embryonic development, aging and death." ;
+    :website <http://www.rs.noda.tus.ac.jp/ryogoi/Top-English.htm> ;
+    :contact :Ryo__Goitsuka ;
+    :countrie :Japan ;
+    rdfs:seeAlso <http://denigma.de/links/679> .
+
+:Division_of_Geritric_Research a :Research_Center ;
+    :is_about :Aging ;
+    :description """The National Health Research Institutes of Taiwan Government has Division of Geriatric Research, which is largely focusing on aging biology.
+
+The mission of the Division of Geritric Research (DGR) of Institute of Population Health Sciences of The National Health Research Institutes (NHRI) lies in promotion of successfully aging for the elderly in Taiwan through a wide spectrum of gerontological researches based on various scientific models.""" ;
+    :website <http://english.nhri.org.tw/NHRI_WEB/nhriw001Action.do?status=Show_Data&uid=20110614589717590000> ;
+    :contact_address <http_english_nhri_org_tw_NHRI_WEB_nhriw001Action_do?status=Show_Data&uid=20110614925333310000> ;
+    :contact :Chen_Chin-Yu ;
+    :countrie :Taiwan ;
+    rdfs:seeAlso <http://denigma.de/links/623> .
+
+:Longevity_Alliance rdfs:subClassOf :Alliance .
+:Longevity_Alliance_Italia a :Longevity_Alliance ;
+   :is_part_of_the :International_Longevity_Alliance .
+
+
+:Centre_for_the_Advancement_of_Sustainable_Medical_Innovation a :Centre ;
+    :website <http://casmi.org.uk/> .
+
+:Longevity_Israel a :Web_Site ;
+    :website <http://www.bioaging.org.il> ;
+    :status "down" .
+
+:American_Society_of_Human_Genetics a :Society ;
+    :initialism "ASHG" ;
+    :website <http://www.ashg.org/> .
+
+:Longevity_Meme a :Initiative, :Non-Profit_Advocacy_Organization .
+<http://www.alianzalongevidad.com/> a :Longevity_Alliance .
+
+:LongeCity a :Assocation, :International_Organization, :Non-Profit_Organization, :Membership_Organization ;
+    :is_about :Aging, :Online_Resource, :Research ;
+    :description """LongeCity (alias *Immortality Institute*) is an international, not-for-profit, membership-based organization.
+
+The mission is **to conquer the blight of involuntary death**.
+
+To advance this mission, it is aimed to provide:
+* a repository of high-quality information
+* an open public forum for the free exchange of information and views
+* an infrastructure to support community projects and initiatives
+* the facilities for supporting an international community of those with an interest in life extension""" ;
+    :website <http://www.longecity.org/> ;
+    :contact_address <http_www_longecity_org_forum_page_index_html_articles_longecity_contact-r30> ;
+    :contact :Sven_Bulterijs, :Justin_Loew ;
+    :country :United_States_of_America ;
+    rdfs:seeAlso <http://denigma.de/links/698> .
+
+:Campaign_Against_Aging a :Nonprofit_Organization ;
+     :website <http://www.campaignagainstaging.org/> .
+
+
+:Coalition_to_Extend_Life a :Coalition ;
+    :acronym "CEL", "C.E.L." ;
+    :description "C.E.L. intends to actively promote indefinite life extension and human immortality as a public policy goal of the United States. We intend to win a war on aging by learning how to achieve immortality. " ;
+    :website <http://www.coalitiontoextendlife.org/> .
+
+:Lifeboat_Foundation a :Foundation ;
+     :website <http://lifeboat.com/> .
+
+:Singularity_Network a :Social_Group ;
+    :website <https://www.facebook.com/SingularityNetwork> .
+
+:Forsight_Institute a :Institute ;
+    :definition "Advancing beneficial nanotechnology" ;
+    :website <http://www.foresight.org/> .
+
+:Cryonics_Network a :Social_Group ;
+   :website <http://www.longecity.org/forum/page/index.html/_/articles/cryonics-r40> .
+
+:The_Jackson_Laboratory a :Nonprofit_Organization ;
+    :acronym "JAX" ;
+    :website <http://www.jax.org> ;
+    :provides :Mouse_Strain .
+
+:The_Ramon_Foundation a :Foundation ;
+    :website <http://www.ramonfoundation.org.il> .
+
+:Dumontier_Lab a :Research_Group ;
+    :motto "For biomedical knowledge discovery" ;
+    :website <http://dumontierlab.com/> .
+
+:Open_Archives_Initiative a :Initiative ; # Probably not really an organization.
+    :website <http://www.openarchives.org/> ;
+    rdfs:seeAlso <http://re.cs.uct.ac.za/> ;
+    rdfs:seeAlso <http://www.openarchives.org/OAI/2.0/guidelines-oai-identifier.htm> .
+
+:Transhumanist_Association_India a :Association ;
+   :website <https://www.facebook.com/groups/tranhumanistindia/574690932553057/?notif_t=group_activity> .
+
+:CRDF_Global a :Nonprofit_Organization, :Grant_Giver ;
+    :definition "To promote peace and prosperity through international science collaboration" ;
+    :website <http://www.crdfglobal.org> ;
+    :promotes :International_Science, :Technical_Collaboration ;
+    :provides :Grant, :Technical_Resource, :Training, :Service .
+
+:Pedantic_Web_Group a :Group ;
+    :website <http://pedantic-web.org/> ;
+    :promotes :Semantic_Web, :Open_Linked_Data .
+
+:BioGateway a :Initiative, :Integrated_System ;
+    :website <http://www.semantic-systems-biology.org/biogateway> ;
+   :enables_a :Semantic_Systems_Biology_Approach .
+
+:Ontology_Development_Group a :Group ;
+    :department :Department_of_Medical_Informatics_and_Epidemiology .
+
+:Department_of_Medical_Informatics_and_Epidemiology a :Department ;
+    :university :Oregon_Health_and_Science_University .
+
+:DIYbio a :Institution ;
+   :definition "An insititution for the Do-It-Yourself Biologist" ;
+    :website <http://diybio.org/> .
+
+:Oregon_Health_and_Science_University a :University .
+
+:Immortalists_for_Immortalism a :Social_Group ;
+   :website <https://www.facebook.com/pages/Immortalists-for-Immortalism/299794843403496> .
+
+:Open_Value_Network rdfs:subClassOf :Social_Network ;
+   rdfs:seeAlso <http://valuenetwork.referata.com/wiki/Main_Page> .
+
+:Sensorica a :Open_Value_Network ;
+    :description "SENSORICA is an Open Value Network of multidisciplinary professionals, amateurs and affiliated research labs, providing sensing and automation solutions." ;
+    :website <http://www.sensorica.co/> ;
+    rdfs:seeAlso <https://github.com/valnet/valuenetwork> ;
+    :is_of_interest_for :Quantified_Self .
+
+:America_Federation_for_Aging_Research a :Federation ;
+   :acronym "AFAR" ;
+   :website <http://www.afar.org/> .
+
+:HiveBio a :Non-Profit_Organization ;
+    :description "HiveBio is a community supported Do-It-Yourself (DIY) biology laboratory located in Seattle, Washington" ;
+    :website <http://hivebio.org/> .
+
+# Being funded and president. 
+# 
+
+#:Fraunhofer_Institute
+
+#:Longevity_Advocate
+#Long live to us all!
+
+#high scale mouse lifespan tests, 
+#computer analysis of existing knowledge regarding aging
+#advocacy for more Longevity Science 
+
+#David, Édouard, Ilia, Daniel, Daria, Anton, Adrian
+
+#This conference call will focus on introducting to each other and explaining what an endowment fund à la française is meant for, what is the #grand scheme (a picture will be provided) and who will be in charge.
+
+#Conf call Sunday 10th of Novembr, 2PM, Paris time.
+#Medium : Google Hangout (I run two association, I initiated Google Hangout on both of them and now, they both spontaneously use it, even #when I am not there; Google Hangout is much superior to Skype when it comes to conference call).
+#Invitees : David, Édouard, Ilia, Daniel, Daria, Anton, Adrian, maximum three other persons (technical limitation to ten people to talk. #Daniel, I will need a Gmail or Google Apps address. Do you have one?
+#Object : first contact and introducing the structure.
+
+#autonomy
+
+
+
+

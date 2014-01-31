@@ -2,8 +2,10 @@ package org.denigma.semantic
 
 import java.util.Properties
 import java.io._
-import org.denigma.semantic.data.{QueryResult, SemanticHelper, SemanticStore}
+import org.denigma.semantic.data.{QueryWizard, QueryResult, SemanticHelper, SemanticStore}
 import org.denigma.semantic.classes.SpinManager
+import com.hp.hpl.jena.query.Query
+import org.denigma.semantic.Prefixes.WI
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -12,17 +14,18 @@ import play.api.Play.current
 import org.openrdf.query.QueryLanguage
 import org.openrdf.model._
 
+
+
 import scala.util.{Try, Failure}
 
-
-
-
-object SG extends SemanticHelper{
+/*
+object (or static class) that is contains the database (to make sure that it is only one per app)
+ */
+object SG extends SemanticHelper with QueryWizard{
 
   def inTest = Play.isTest
   def inDev = Play.isDev
   def inProd = Play.isProd
-
 
 
 
@@ -35,15 +38,31 @@ object SG extends SemanticHelper{
   lazy val url:String = dbConf.getString("url").get
   lazy val name = dbConf.getString("name").getOrElse("bigdata.jnl")
 
-  lazy val dbConf: Configuration =  if(Play.isTest)   conf.getConfig("repo.test").get else if(Play.isDev) conf.getConfig("repo.dev").get   else conf.getConfig("repo.prod").get
+  /*
+  whole play configuration, including production all modes
+   */
+  def playConf =  Play.current.configuration
+
+  /*
+  configuration of a current mode
+   */
+  lazy val conf: Configuration =  if(Play.isTest)   playConf.getConfig("test").get else if(Play.isDev) playConf.getConfig("dev").get   else playConf.getConfig("prod").get
+
+
+  lazy val dbConf: Configuration =  conf.getConfig("repo").get
+
   lazy val truthMaintenance: Boolean = this.dbConf.getBoolean("com.bigdata.rdf.sail.truthMaintenance").getOrElse(false)
   lazy val storeConf = this.dbConf.getConfig("com.bigdata.rdf.store.AbstractTripleStore").get
   lazy val quads = storeConf.getBoolean("quadsMode").getOrElse(false)
   lazy val textIndex = storeConf.getBoolean("textIndex").getOrElse(true)
+  lazy val filesConf = conf.getConfigList("files").getOrElse(Nil)
+  //lazy val semanticConf = conf.getConfig("semantic")
+
 
 
 
   lazy val limit: Long = this.dbConf.getLong("limit").getOrElse(50)
+
 
 
   def cleanLocalDb()=  FileUtils.cleanDirectory(new File(url))
@@ -51,30 +70,22 @@ object SG extends SemanticHelper{
   def cleanIfInTest() = this.inTest{
     this.cleanLocalDb()
   }
-  def conf =  Play.current.configuration
 
+  def initPrefixes = {
 
-
-
-
-  implicit class MagicUri(uri:URI) {
-
-    def ~>(inferred:Boolean=true) = withSubject(uri,inferred)
-    def <~(inferred:Boolean=true) = withObject(uri,inferred)
-    def <~(rel:URI) = withRelObj(rel,uri)
-    def ~>(rel:URI) = withSubRel(uri,rel)
-
-
-
+    val root = "Web_Intelligence"
+    WI.root
   }
+
+
 
 }
 
 
 
 
-/**
- * Created by antonkulaga on 1/12/14.
+/*
+this class is class of database wrapper used by playapp
  */
 class SG(implicit val lg:org.slf4j.Logger) extends SemanticStore with SpinManager{
 

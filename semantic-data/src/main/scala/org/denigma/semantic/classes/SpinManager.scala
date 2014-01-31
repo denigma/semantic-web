@@ -27,6 +27,7 @@ import scala.util.Try
  */
 trait SpinManager {
   self:SemanticStore=>
+    val PREF = WI
     val WI = "http://webintelligence.eu/resources"
 
 
@@ -49,6 +50,9 @@ trait SpinManager {
 
 
 
+      /*
+      creates SPIN template from the query
+     */
     def asTemplate(str:String,name:String) = {
       val model: Model = ModelFactory.createDefaultModel
       val template: Template = model.createResource(WI+"/"+name, SPIN.Template).as(classOf[Template])

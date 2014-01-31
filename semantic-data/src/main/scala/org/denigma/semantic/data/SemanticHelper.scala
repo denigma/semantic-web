@@ -15,7 +15,7 @@ import org.openrdf.model._
 import scala.collection.immutable.List
 
 
-abstract class SemanticHelper {
+abstract class SemanticHelper{
 
   type Store <:  SemanticStore
 
@@ -67,6 +67,15 @@ abstract class SemanticHelper {
         val iter: RepositoryResult[Statement] = r.getStatements(null,rel,obj,inferred)
         iter.asList().toList
     }.getOrElse(List.empty)
+  }
+
+  implicit class MagicUri(uri:URI) {
+
+    def ~>(inferred:Boolean=true) = withSubject(uri,inferred)
+    def <~(inferred:Boolean=true) = withObject(uri,inferred)
+    def <~(rel:URI) = withRelObj(rel,uri)
+    def ~>(rel:URI) = withSubRel(uri,rel)
+
   }
 
 }

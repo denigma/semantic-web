@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.1//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-2.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>RDFaCE: RDFa Content Editor</title>
+<!-- Load jquery-->
+<script type="text/javascript" src="../jscripts/tiny_mce/plugins/rdface/js/util/jquery.js"></script>
+<!-- Load drag and resize library -->
+<script type="text/javascript" src="../jscripts/tiny_mce/plugins/rdface/js/util/jquery.DnR.js"></script>
+<script type="text/javascript" src="../jscripts/tiny_mce/plugins/rdface/js/util/dimensions.DnR.js"></script>
+<!-- Load popular prefixes -->
+<script type="text/javascript" src="../jscripts/tiny_mce/plugins/rdface/js/util/prefixes.js"></script>
+<!-- Load DOM Manipulator-->
+<script type="text/javascript" src="../jscripts/tiny_mce/plugins/rdface/js/util/DOMManipulator.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<!-- TinyMCE -->
+<script type="text/javascript" src="../jscripts/tiny_mce/tiny_mce_gzip.js"></script>
+<script type="text/javascript">
+tinyMCE_GZ.init({
+<!-- user-defined plugins and themes should be identical to those in "tinyMCE.init" below.-->
+        plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist,rdface",
+        themes : 'advanced',
+        languages : 'en',
+        disk_cache : true,
+        debug : false
+});
+</script>
+
+<script type="text/javascript">
+	tinyMCE.init({
+		// General options
+		mode : "textareas",
+		theme : "advanced",
+		plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist,rdface",
+		// Add XHHTML elements for RDFa
+		valid_elements : "*[*]",
+		// Theme options
+		theme_advanced_buttons1 : "save,newdocument,|,bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,styleselect,formatselect,fontselect,fontsizeselect",
+		theme_advanced_buttons2 : "cut,copy,paste,pastetext,pasteword,|,search,replace,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,help,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+		theme_advanced_buttons3 : "namespace,about,property,rdfGraph,rdfEnrich,stat,setting",
+		theme_advanced_toolbar_location : "top",
+		theme_advanced_toolbar_align : "left",
+		theme_advanced_statusbar_location : "bottom",
+		theme_advanced_resizing : true,
+
+		// Example content CSS (should be your site CSS)
+		content_css : "css/content.css",
+
+		// Drop lists for link/image/media/template dialogs
+		template_external_list_url : "lists/template_list.js",
+		external_link_list_url : "lists/link_list.js",
+		external_image_list_url : "lists/image_list.js",
+		media_external_list_url : "lists/media_list.js",
+
+		// Style formats
+		style_formats : [
+			{title : 'Bold text', inline : 'b'},
+			{title : 'Red text', inline : 'span', styles : {color : '#ff0000'}},
+			{title : 'Red header', block : 'h1', styles : {color : '#ff0000'}},
+			{title : 'Example 1', inline : 'span', classes : 'example1'},
+			{title : 'Example 2', inline : 'span', classes : 'example2'},
+			{title : 'Table styles'},
+			{title : 'Table row 1', selector : 'tr', classes : 'tablerow1'}
+		],
+
+		// Replace values for the template plugin
+		template_replace_values : {
+			username : "Some User",
+			staffid : "991234"
+		}
+	});
+</script>
+<!-- /TinyMCE -->
+
+</head>
+<body>
+<h4>RDFa Content Editor -- Demo</h4>
+<form method="post"
+	action="http://localhost/RDFaCE/tinymce/php/page.php">
+<div><textarea id="elm1" name="elm1" rows="20" cols="70"
+	style="width: 80%" class="tinymce">
+<h1 class="headstory">Barcelona, Madrid made to sweat in La Liga</h1>
+<p><a href="http://www.indianexpress.com/columnist/ap/">Associated Press</a> : Barcelona, Mon Feb 06 2012, 01:01 hrs</p>
+<p><img src="http://wa1.www.3news.co.nz/Portals/0-Articles/242001/1200_messihugaww.jpg?width=300;pv8fe90b043bd99bd1" alt="Barcelona's Cristian Tello (R) embraces teammate Lionel Messi after his goal against Real Sociedad (Reuters)" height="134" width="201" /></p>
+<p>Real Madrid edged crosstown rival Getafe 1-0 as the league leaders maintained their seven-point cushion over defending champion Barcelona on a Saturday marked by near freezing temperatures across Spain.</p>
+<p>Barcelona responded to Madrid&rsquo;s victory with a 2-1 win of its own over Real Sociedad to stay undefeated at Camp Nou stadium this season. With Barcelona coach Pep Guardiola resting regulars for Wednesday&rsquo;s Copa del Rey semifinal against Valencia, Lionel Messi set up youth player Cristian Tello for Barcelona&rsquo;s opener and then added another before Sociedad substitute Carlos Vela halved the deficit.</p>
+<p>Madrid dominated possession at Alfonso Perez Coliseum, but Getafe &mdash; the only team to beat Barcelona in any competition this season &mdash; held firm in defense to keep alive its chances until the final whistle.</p>
+	</textarea></div>
+<br><div align="left">
+<a href="javascript:;" onclick="alert($('#elm1').tinymce().selection.getContent());return false;">[Get selected HTML]</a>
+ <input type="reset" name="reset" value="Reset" />&nbsp;<input type="submit" name="submit" value="Submit" />&nbsp;
+<span about="http://" style="border: 1px solid #8aadd6;">about</span>&nbsp;&nbsp;
+<span typeof="foaf:type" style="border: 1px solid #88cc00;border-radius: 15px 15px 15px 15px;	">typeof</span>&nbsp;&nbsp;
+<span property="foaf:property" style="border: 1px solid  #EB9861;border-radius: 15px 15px 15px 15px;">property/rel</span>
+</div>
+
+</div>
+</form>
+	<div class="clearlooks2" style="width:308px; height:370px; left:420px;display:none;" id="tripleBrowser">
+		<div class="mceWrapper mceMovable mceFocus">
+			<div class="mceTop">
+				<div class="mceLeft"></div>
+				<div class="mceCenter"></div>
+				<div class="mceRight"></div>
+				<span>Triple Browser</span>
+			</div>
+
+			<div class="mceMiddle">
+				<div class="mceLeft"></div>
+				<span><iframe id="tripleFrame" height="345" width="300" frameborder="0" src="../jscripts/tiny_mce/plugins/rdface/tripleBrowser.htm">
+   Your browser can't display IFRAMEs
+</iframe></span>
+				<div class="mceRight"></div>
+			</div>
+
+			<div class="mceBottom">
+				<div class="mceLeft"></div>
+				<div class="mceCenter"></div>
+				<div class="mceRight"></div>
+				<span>Statusbar text.</span>
+			</div>
+
+			<a class="mceMove" href="#"></a>
+			<a id="closeIcon" class="mceClose" href="#"></a>
+
+		</div>
+	</div>
+<div >
+<script type="text/javascript">
+	if (document.location.protocol == 'file:') {
+		alert("The examples might not work properly on the local file system due to security settings in your browser. Please use a real webserver.");
+	}
+</script>
+<hr>
+How did you find RDFaCE? <a href="http://rdface.limequery.com/34737/lang-en">Your Feedback</a>.<br>
+Created by <a href="http://aksw.org">AKSW research group</a>.<br>
+For more information: <a href="http://aksw.org/Projects/RDFaCE">RDFaCE Project Page</a>
+</body>
+</html>

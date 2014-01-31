@@ -1,27 +1,29 @@
 package org.denigma.semantic.data
 
 import com.bigdata.rdf.sail._
-import scala.util.{Failure, Success, Try}
-import org.openrdf.query.{GraphQueryResult, TupleQueryResult, TupleQuery, QueryLanguage}
-import com.hp.hpl.jena.sparql.syntax._
+import scala.util.{Failure, Try}
+import org.openrdf.query.{TupleQueryResult, TupleQuery, QueryLanguage}
 import com.hp.hpl.jena.sparql._
 import com.hp.hpl.jena.query._
 import scala.util.Success
-import scala.util.Failure
-import org.openrdf.query.algebra._
-import com.hp.hpl.jena.rdf.model.{Resource, ModelFactory}
+import com.hp.hpl.jena.rdf.model.ModelFactory
 import scala.util.Success
 import scala.util.Failure
-import org.openrdf.query.parser.{ParsedTupleQuery, ParsedUpdate}
-import scala.collection.JavaConversions._
-import com.bigdata.rdf.sparql.ast.optimizers.IASTOptimizer
-import com.bigdata.rdf.sparql.ast.{SliceNode, IQueryNode, ASTContainer}
-import com.bigdata.rdf.sail.sparql.ast.{ASTLimit, ASTQuery, ASTQueryContainer}
-import com.bigdata.bop.{BOp, IBindingSet}
-import com.bigdata.rdf.sparql.ast.eval.AST2BOpContext
+import org.openrdf.query.parser.ParsedUpdate
+import com.bigdata.rdf.sparql.ast.{SliceNode, ASTContainer}
+import com.bigdata.rdf.sail.sparql.ast.{ASTLimit, ASTQuery}
+import com.bigdata.bop.BOp
 import com.bigdata.rdf.sail.sparql.BigdataASTContext
 import java.io.File
 import java.util.Properties
+import org.openrdf.rio.{RDFHandler, Rio}
+import java.net.URL
+import org.{openrdf=>se}
+import org.openrdf.model._
+import org.openrdf.model.impl._
+import com.bigdata.rdf.model.BigdataURI
+import se.rio._
+
 
 /**
  * Created by antonkulaga on 1/20/14.
@@ -63,6 +65,4 @@ abstract class SemanticStore extends SemanticQueries{
   }
 
 
-
 }
-

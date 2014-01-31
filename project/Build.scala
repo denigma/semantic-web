@@ -80,7 +80,7 @@ trait SemanticData extends Macro {
 //    "org.openrdf.sesame" % "sesame-queryalgebra-model" % sesameVersion,
 //    "org.openrdf.sesame" % "sesame-queryalgebra-evaluation" % sesameVersion,
 
-    "org.apache.jena" % "apache-jena-libs" % "2.11.0" ,//excludeAll(ExclusionRule(organization = "org.slf4j")),
+    "org.apache.jena" % "apache-jena-libs" % jenaVersion ,//excludeAll(ExclusionRule(organization = "org.slf4j")),
     "ch.qos.logback" % "logback-classic" % "1.0.7" % "provided",
     "com.fasterxml" % "aalto-xml" % "0.9.7",
     "org.scalaz" %% "scalaz-core" % "7.0.4",
@@ -143,6 +143,8 @@ object LibVersions {
 
   
   def src = "src"
+
+val jenaVersion = "2.11.1"
 
 
 

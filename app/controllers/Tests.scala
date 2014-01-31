@@ -9,6 +9,9 @@ import SG.db
 import scala.collection.JavaConversions._
 import org.openrdf.query.{BindingSet, TupleQueryResult, QueryLanguage}
 import scala.collection.immutable._
+import com.hp.hpl.jena.query.{Syntax, QueryFactory, Query}
+import play.api.libs.json.Json
+import scala.collection.JavaConversions._
 
 /**
  * Created by antonkulaga on 12/21/13.
@@ -38,10 +41,21 @@ object Tests  extends Controller{
           |LIMIT   50
           |
         """.stripMargin
-    val sp = SG.db.asTemplate(str,"testTemplate")
+///    val sp = SG.db.asTemplate(str,"testTemplate")
 //    val sp = SG.db.asSpin(str)
+      val sp = extractGraphs(str)
+      Ok("TODO: CHANGE")
+  }
 
-      Ok(sp)
+
+
+  def extractGraphs(str:String) = {
+    val q: Query =   QueryFactory.create(str, Syntax.syntaxSPARQL_11)
+
+    val gs:scala.collection.immutable.List[String] = q.getGraphURIs.toList
+
+    //Json.obj("graphs"->gs,"named"->q.getNamedGraphURIs)
+    Ok("TODO: CHANGE")
   }
 
 
