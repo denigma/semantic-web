@@ -13,7 +13,7 @@ import play.api.templates.Html
 import scala.util.Try
 import com.bigdata.rdf.sparql.ast.IQueryNode
 import org.topbraid.spin._
-import org.denigma.semantic.{SG, LoveHater}
+import org.denigma.semantic._
 import org.denigma.semantic.data.QueryResult
 
 
@@ -38,7 +38,7 @@ object  Queries extends PJaxController("query") with LoveHater{
   def query(query:String=defQ) = Action {
     implicit request=>
       //this.addTestRels()
-      SG.db.safeQuery(query,SG.limit,0).map{
+      SG.db.safeQuery(query,Config.limit,0).map{
         results=>Ok(results.asJson).as("application/json")
       }.recover{
         case e=>

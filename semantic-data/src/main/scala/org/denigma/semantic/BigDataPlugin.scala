@@ -16,6 +16,7 @@ class BigDataPlugin(app: play.api.Application) extends Plugin {
     SG.cleanIfInTest()
     SPINModuleRegistry.get.init()
     SG.db = new SG()
+    SG.start()
   }
 
   override def onStop(){

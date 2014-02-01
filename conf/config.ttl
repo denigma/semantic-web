@@ -15,19 +15,19 @@
 
 @prefix de: <http://denigma.org/resource/> .
 
-@prefix wi: <http://webintelligence/resource/> .
-@prefix conf: <http://webintelligence/config/> .
+@prefix wi: <http://webintelligence.eu/resource/> .
+@prefix conf: <http://webintelligence.eu/config/> .
 @prefix pg: <http://webintelligence.eu/page/> .
-@prefix user: <http://webintelligence/resource/> .
-@prefix : <http://webintelligence/resource/> .
+@prefix user: <http://webintelligence.eu/resource/> .
+@prefix : <http://webintelligence.eu/resource/> .
 
 
 :wi a void:Dataset;
 	dcterms:title "Web Intelligence";
     dcterms:description "Web intelligence main vocabulary";
-	void:uriSpace "http://webintelligence/resource/";
-	void:uriSpace "http://webintelligence/page/";
-	void:uriSpace "http://webintelligence/user/";
+	void:uriSpace "http://webintelligence.eu/resource/";
+	void:uriSpace "http://webintelligence.eu/page/";
+	void:uriSpace "http://webintelligence.eu/user/";
     foaf:homepage <http://webintelligence.eu>.
 
 user:User rdfs:subClassOf foaf:Person;

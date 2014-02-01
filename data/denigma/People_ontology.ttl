@@ -1169,7 +1169,7 @@ E-mail: gchazenbalk@mednet.ucla.edu""" ;
     :is_involved_in :Quantified_Health .
 
 :Ilias_Iakovidis a :Person ;
-    :description """Ilias Iakovidis is the Deputy Head of Unit "ICT for Health"""" ;
+    :description "Ilias Iakovidis is the Deputy Head of Unit ICT for Health" ;
     rdfs:seeAlso <http://www.youtube.com/watch?v=XyZIh-KB5y8> ;
     rdfs:seeAlso <http://www.linkedin.com/pub/ilias-iakovidis/3/b86/965> ;
     :is_affiliated_with :European_Commission .
@@ -6144,7 +6144,7 @@ His main direction are:
     rdfs:seeAlso <http://denigma.de/experts/profile/Dmitri_W._Shytikov/> .
 
 
-:Martin_O’Dea a :Scientist ;
+:Martin_O#x22Dea a :Scientist ;
     :last_name "O’Dea" ;
     :affiliation "Dublin Business School" ;
     :is_affiliated_with :Dublin_Business_School ;
@@ -6500,7 +6500,6 @@ His projects focus  on:
 :Kaare_Christensen a :Scientist ;
     :last_name "Christensen" ;
     :affiliation "Institute of Public Health – Epidemiology" ;
-    :is_affiliated_with :Institute_of_Public_Health_–_Epidemiology ;
     :city "Odense" ;
     :first_name "Kaare" ;
     :full_name "Kaare  Christensen" ;
@@ -6660,7 +6659,7 @@ He teaches the following topics:
 
 :Belinda_Silbert a :Scientist ;
     :last_name "Silbert" ;
-    :affiliation """Foresight and Strategy Consultant., "Belinda Silbert"""" ;
+    :affiliation "Foresight and Strategy Consultant., \"Belinda Silbert\"" ;
     :is_affiliated_with :Foresight_and_Strategy_Consultant, :Belinda_Silbert ;
     :city "Cape Town Area" ;
     :first_name "Belinda" ;
@@ -7512,7 +7511,7 @@ She is PhD candidate and here thesis is about human enhancement and extreme life
 :Michel_Dumontier a :Scientist ;
     :last_name "Dumontier" ;
     :affiliation "Ottawa Institute of Systems Biology; Ottawa-Carleton Institute for Biomedical Engineering; Département d’informatique et de génie logiciel, Université Laval" ;
-    :is_affiliated_with :Ottawa_Institute_of_Systems_Biology_Ottawa-Carleton_Institute_for_Biomedical_Engineering_Département_d’informatique_et_de_génie_logiciel_Université_Laval ;
+    #:is_affiliated_with :Ottawa_Institute_of_Systems_Biology_Ottawa-Carleton_Institute_for_Biomedical_Engineering_Département_d’informatique_et_de_génie_logiciel_Université_Laval ;
     :first_name "Michel" ;
     :full_name "Michel Dumontier" ;
     :email <michel_dumontier@carleton.ca> ;

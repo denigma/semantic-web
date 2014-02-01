@@ -27,7 +27,7 @@ object Prefixes {
   /*
 Webintelligence vocabulary
  */
-  object WI extends WI
+
 
   object Denigma extends Denigma
 
@@ -35,7 +35,10 @@ Webintelligence vocabulary
 
 
 }
-
+object WI extends WI
+/*
+refactor
+ */
 class WI
 {
   import com.bigdata.rdf.model._
@@ -48,6 +51,7 @@ class WI
 
 
   val RESOURCE: String = this wi "resource"
+  val CONFIG:String = this wi "config"
   val PAGES: String = this wi "pages"
   val USERS:String = this wi "users"
   val ORGANIZATIONS = this wi "orgs"

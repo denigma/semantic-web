@@ -1,28 +1,25 @@
 package org.denigma.semantic.data
 
 import com.bigdata.rdf.sail._
-import scala.util.{Failure, Success, Try}
-import org.openrdf.query.{GraphQueryResult, TupleQueryResult, TupleQuery, QueryLanguage}
-import com.hp.hpl.jena.sparql.syntax._
+import scala.util.{Failure, Try}
+import org.openrdf.query.GraphQueryResult
 import com.hp.hpl.jena.sparql._
 import com.hp.hpl.jena.query._
-import scala.util.Success
 import scala.util.Failure
 import org.openrdf.query.algebra._
 import com.hp.hpl.jena.rdf.model.{Resource, ModelFactory}
 import scala.util.Success
 import scala.util.Failure
-import org.openrdf.query.parser.{ParsedTupleQuery, ParsedUpdate}
-import scala.collection.JavaConversions._
+import org.openrdf.query.parser.ParsedUpdate
 import com.bigdata.rdf.sparql.ast.optimizers.IASTOptimizer
-import com.bigdata.rdf.sparql.ast.{SliceNode, IQueryNode, ASTContainer}
-import com.bigdata.rdf.sail.sparql.ast.{ASTLimit, ASTQuery, ASTQueryContainer}
+import com.bigdata.rdf.sparql.ast.ASTContainer
+import com.bigdata.rdf.sail.sparql.ast.{ASTLimit, ASTQuery}
 import com.bigdata.bop.{BOp, IBindingSet}
 import com.bigdata.rdf.sparql.ast.eval.AST2BOpContext
-import com.bigdata.rdf.sail.sparql.BigdataASTContext
 import java.net.URL
 import org.openrdf.rio.Rio
 import com.bigdata.rdf.model.BigdataURI
+import java.io.File
 
 /**
  * Created by antonkulaga on 1/20/14.
@@ -70,8 +67,10 @@ abstract class RDFStore {
   /*
 parses RDF file
  */
-  def parseFile(path:String,contextStr:String="") = {
-    val url = new URL(path)
+  def parseFile(path:String,contextStr:String=""): Boolean = {
+
+
+    val url = if(path.contains(":")) new URL(path) else new File(path).toURI.toURL
     val inputStream = url.openStream()
     val format = Rio.getParserFormatForFileName(url.toString)
     val parser = Rio.createParser(format)
