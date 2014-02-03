@@ -1,6 +1,7 @@
 class Denigma.Edge extends Denigma.Item
 
   @serializeAsForm: false #do not remember if it is static or normal property
+
   @primaryKey: 'id'
   @hasMany "properties", {encoderKey: 'properties',saveInline:true,autoload:false}
 

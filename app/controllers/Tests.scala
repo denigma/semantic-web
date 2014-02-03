@@ -34,8 +34,9 @@ object Tests  extends Controller{
           |PREFIX  bds:  <http://www.bigdata.com/rdf/search#>
           |
           |SELECT  ?subject ?property ?object
+          |FROM <http://webintelligence.eu/config/>
           |WHERE
-          |  { ?object bds:search "aging" .
+          |  {
           |    ?subject ?property ?object
           |  }
           |LIMIT   50
@@ -44,18 +45,19 @@ object Tests  extends Controller{
 ///    val sp = SG.db.asTemplate(str,"testTemplate")
 //    val sp = SG.db.asSpin(str)
       val sp = extractGraphs(str)
-      Ok("TODO: CHANGE")
+
+      Ok(sp.toString())
   }
 
 
 
-  def extractGraphs(str:String) = {
+  def extractGraphs(str:String): scala.List[String] = {
     val q: Query =   QueryFactory.create(str, Syntax.syntaxSPARQL_11)
 
-    val gs:scala.collection.immutable.List[String] = q.getGraphURIs.toList
+    q.getGraphURIs.toList++q.getNamedGraphURIs
 
-    //Json.obj("graphs"->gs,"named"->q.getNamedGraphURIs)
-    Ok("TODO: CHANGE")
+
+
   }
 
 

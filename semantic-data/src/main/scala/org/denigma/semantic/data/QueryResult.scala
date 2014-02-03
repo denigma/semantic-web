@@ -45,11 +45,16 @@ class AskResult(str:String, val bool:Boolean) extends QueryResult(str,List.empty
   override lazy val asJson = Json.obj("query"->query,"boolean"->bool)
 }
 
-case class QueryResult(query:String,vars:scala.Seq[String],bindings:List[Map[String,JsObject]])
+case class QueryResult(query:String,vars:scala.Seq[String],bindings:List[Map[String,JsObject]]) extends QueryResultLike
 {
 
 //  def toProp(kv:(String,String)): JsObject = Json.obj("name"->kv._1,"value"->kv._2,"id"->kv.hashCode())
 //  def toProps(mp:Map[String,String]): JsValue = Json.obj("id"->mp.hashCode(),"properties"->mp.map(toProp).toList)
-  lazy val asJson = Json.obj("query"->query,"head"->Json.obj("vars"->vars),"results" -> Json.obj("bindings"->bindings ))
+  lazy val asJson:JsValue = Json.obj("query"->query,"head"->Json.obj("vars"->vars),"results" -> Json.obj("bindings"->bindings ))
 
+}
+
+trait QueryResultLike{
+  val query:String
+  val asJson:JsValue
 }

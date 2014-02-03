@@ -25,6 +25,8 @@ To set up the project you need to (most of instructions are for Deiban/Ubuntu ba
     $ sudo gem install singularitygs
 * run tests:
     $ play test
+* run the app:
+    $ play run
 * Check if app runs without errors and with semantic-ui styles. I added index.png pic to show how the styles may look like
 
 

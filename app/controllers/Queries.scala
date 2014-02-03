@@ -17,7 +17,7 @@ import org.denigma.semantic._
 import org.denigma.semantic.data.QueryResult
 
 
-object  Queries extends PJaxController("query") with LoveHater{
+object  Queries extends PJaxController("query"){
 
 
   val defQ:String="""

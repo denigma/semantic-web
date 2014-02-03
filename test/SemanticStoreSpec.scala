@@ -107,6 +107,30 @@ class SemanticStoreSpec  extends Specification with LoveHater {
       res.get.bindings.size shouldEqual(4)
     }
 
+    "build menu" in new WithApplication(){
+      SG.loadInitialData()
+      //    pg:Default_User_Menu a pg:Menu;
+      //    ui:child pg:My_Queries;
+      //    ui:child pg:My_Friends;
+      //    ui:child pg:My_Projects .
+
+      val q1 =
+        """
+          |PREFIX  de:   <http://denigma.org/resource/>
+          |PREFIX  ui:   <http://uispin.org/ui#>
+          |PREFIX  pg:   <http://webintelligence.eu/page/>
+          |
+          |SELECT  ?object
+          |WHERE
+          |  { pg:Default_User_Menu ui:child ?object }
+          |
+        """.stripMargin
+      SG.db.parseFile("data/test/test_menu.ttl")
+      val res = SG.db.query(q1)
+      res.isSuccess should beTrue
+      res.get.bindings.size shouldEqual(3)
+    }
+
 
 //    "do text search well" in new WithApplication(){
 //      val loves ="<http://denigma.org/relations/resources/loves>"

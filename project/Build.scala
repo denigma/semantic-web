@@ -12,17 +12,21 @@ import LibVersions._
  * */
 object ApplicationBuild extends Build with SemanticWeb
 {
+
 //app build
 }
 
 trait SemanticWeb extends SemanticData {
 
-override def semanticDataAppPath = "./semantic-data"
+
+  override def semanticDataAppPath = "./semantic-data"
  
   val testOptions = "-Dconfig.file=conf/" + Option(System.getProperty("test.config")).getOrElse("application") + ".conf"
 
   val appName         = "denigma"
   val appVersion      = "0.03"
+
+
 
   val appDependencies: Seq[ModuleID] = Seq(
     ///Add your project dependencies here,
@@ -55,8 +59,6 @@ override def semanticDataAppPath = "./semantic-data"
     //Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass")):_* )
     Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass", "-r","singularitygs")):_* )
     .dependsOn(semanticData)
-
-
 }
 
 trait SemanticData extends Macro {

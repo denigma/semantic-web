@@ -155,54 +155,6 @@ class SG(implicit val lg:org.slf4j.Logger) extends SemanticStore with SpinManage
     props
   }
 
-  def lookup(str:String,predicate:String,obj:String): Try[QueryResult] = this.query{
-    s"""
-    prefix bd: <http://www.bigdata.com/rdf/search#>
-    select ?s
-      where {
-        ?s bd:search "${str}" .
-        ?s ${predicate} ${obj} .
-      }
-    """
-  }
-
-  def searchTerm(str:String,minRelevance:Double=0.25,maxRank:Int=1000) = this.query{
-    s"""
-      prefix bd: <http://www.bigdata.com/rdf/search#>
-      select ?s, ?p, ?o, ?score, ?rank
-      where {
-        ?o bd:search "${str}" .
-        ?o bd:minRelevance "${minRelevance}" .
-        ?o bd:maxRank "${maxRank}" .
-      }
-    """
-  }
-
-  def search(str:String,minRelevance:Double=0.25,maxRank:Int=1000) = this.query{
-    s"""
-      prefix bd: <http://www.bigdata.com/rdf/search#>
-      select ?s, ?p, ?o, ?score, ?rank
-      where {
-        ?o bd:search "${str}" .
-        ?o bd:matchAllTerms "true" .
-        ?o bd:minRelevance "${minRelevance}" .
-        ?o bd:relevance ?score .
-        ?o bd:maxRank "${maxRank}" .
-        ?o bd:rank ?rank .
-        ?s ?p ?o .
-      }
-    """
-  }
-
-  def lookupTerm(str:String) = this.query{
-    s"""
-    prefix bd: <http://www.bigdata.com/rdf/search#>
-    select ?o
-      where {
-        ?o bd:search "${str}" .
-      }
-    """
-  }
 
 
 

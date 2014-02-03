@@ -8,6 +8,7 @@ GET         /query/main           controllers.Queries.main()
 GET         /models/sparql        controllers.Queries.query(query:String)
 #GET         /results              controllers.Queries.results()
 GET         /all                  controllers.Queries.all
+GET         /config               controllers.Queries.main()
 #GET        /sparql                      controllers.Graphs.vertices(id:String ="")
 #GET        /sparql/:id                  controllers.Graphs.vertices(id:String)
 
@@ -17,7 +18,8 @@ POST        /upload               controllers.Application.upload
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file         controllers.Assets.at(path="/public", file)
-
+GET         /public/*file         controllers.Assets.at(path="/public", file)
+GET         /*file                controllers.Assets.at(path="/public", file)
 
 GET         /test                 controllers.Tests.test
 GET         /test/editor          controllers.Tests.editor
@@ -40,10 +42,7 @@ GET         /test/sigma           controllers.Tests.sigma
 #GET        /outgoing/:id                  controllers.Graphs.outgoing(id:String)
 
 
-# Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file         controllers.Assets.at(path="/public", file)
-GET         /public/*file         controllers.Assets.at(path="/public", file)
-GET         /*file                controllers.Assets.at(path="/public", file)
+
 
 
 
