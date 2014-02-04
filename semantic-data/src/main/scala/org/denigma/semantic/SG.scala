@@ -7,6 +7,7 @@ import org.denigma.semantic.classes.SpinManager
 import java.util
 import org.openrdf.repository.RepositoryResult
 import com.bigdata.rdf.model.BigdataURI
+import com.hp.hpl.jena.rdf.model.Alt
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -113,6 +114,8 @@ object SG extends SemanticHelper with QueryWizard{
         case (Some(folder),Some(fileName))=> db.parseFile(folder+fileName,f.getString("context").getOrElse(WI.RESOURCE))
         case tuple => this.db.lg.error(s"invalid file params in config: ${tuple.toString()}")
       }
+
+
 //      {
 //        folder: "data/denigma/",
 //        type: "fixture",

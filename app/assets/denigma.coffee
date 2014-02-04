@@ -10,10 +10,11 @@
 Batman.config.minificationErrors = false
 
 class Denigma extends Batman.App
+  @route 'query/main', 'query#main'
+  @route 'schema/sankey', 'schema#sankey'
+  @route 'schema/distortion', 'schema#distortion'
 
-  ###
-  Application object of the chat
-  ###
+
 
 
   #stores to global container

@@ -1,9 +1,20 @@
 @(implicit request: RequestHeader)
 <header class="ui green menu">
     <nav class="ui inverted menu">
-        <a class="active item">
+        <a class="active item" data-route="routes.query.main" href="/query/main">
             <h3 class="ui teal header"><i class="home icon"></i> Home</h3>
         </a>
+        <a class="item"  data-route="routes.query.main" href="/query/main">
+            <h3  class="ui teal header">Queries</h3>
+        </a>
+
+        <a class="item"  data-route="routes.schema.sankey" href="/schema/sankey">
+            <h3  class="ui teal header">Sankey</h3>
+        </a>
+        <a class="item"  data-route="routes.schema.distortion" href="/schema/distortion">
+            <h3  class="ui teal header">Distortion</h3>
+        </a>
+
 
         <a class="item" data-foreach-item="controllers.semantic.menu" data-bind="item"><h4 class="ui inverted header"></h4></a>
 

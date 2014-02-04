@@ -2,11 +2,18 @@ package org.denigma.semantic
 
 import org.openrdf.model.impl.URIImpl
 import org.openrdf.model.URI
+import org.openrdf.model.vocabulary
 
 /*
 Helper that contains some widely used prefixes
  */
-object Prefixes {
+object Prefixes extends WI with UI{
+
+
+  def uri(str:String) = new URIImpl(str)
+
+//  def RDF = vocabulary.RDF
+//  def RDFS = vocabulary.RDFS
   import com.bigdata.rdf.vocab.decls
   import org.openrdf.model.vocabulary
 //  val FN = vocabulary.FN
@@ -31,27 +38,39 @@ Webintelligence vocabulary
 
   object Denigma extends Denigma
 
-  object ILA extends ILA
+  object ILA extends ILA{}
 
 
 }
-object WI extends WI
+object UI extends UI
+object WI extends WI{
+
+}
+
+trait UI
+{
+  def sp(str:String) = s"http://spinrdf.org/sp#$str"
+  def spr(str:String) = s"http://spinrdf.org/spr#$str"
+  def ui(str:String) = s"http://uispin.org/ui#$str"
+}
 /*
 refactor
  */
-class WI
+trait WI
 {
   import com.bigdata.rdf.model._
   import org.openrdf.model._
   def wi(str:String) = s"http://webintelligence.eu/$str/"
 
-  def re(str:String) = new URIImpl(RESOURCE+s"/$str/")
-  def page(str:String) = new URIImpl(PAGES+s"/$str/")
-  def po(str:String) = new URIImpl(POLICY+s"/$str/")
+  def re(str:String) = new URIImpl(RESOURCE+s"/$str")
+  def pg(str:String) = new URIImpl(PAGES+s"/$str")
 
+  def conf(str:String) = new URIImpl(CONFIG+s"$str")
+
+  def po(str:String) = new URIImpl(POLICY+s"/$str")
 
   val RESOURCE: String = this wi "resource"
-  val CONFIG:String = this wi "config"
+  val CONFIG:String = this wi "conf"
   val PAGES: String = this wi "pages"
   val USERS:String = this wi "users"
   val ORGANIZATIONS = this wi "orgs"

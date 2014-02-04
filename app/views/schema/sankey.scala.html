@@ -1,0 +1,36 @@
+@()(implicit request: RequestHeader)
+
+<style>
+
+
+    #chart {
+    height: 500px;
+    }
+
+    .node rect {
+    cursor: move;
+    fill-opacity: .9;
+    shape-rendering: crispEdges;
+    }
+
+    .node text {
+    pointer-events: none;
+    text-shadow: 0 1px 0 #fff;
+    }
+
+    .link {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: .2;
+    }
+
+    .link:hover {
+    stroke-opacity: .5;
+    }
+
+</style>
+<section class="ui piled segment" data-view="SankeyView">
+    There should be sankey
+    <div id="chart"></div>
+
+</section>

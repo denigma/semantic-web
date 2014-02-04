@@ -1,8 +1,6 @@
 class Denigma.QueryController extends Batman.Controller
   constructor: ->
     super
-    @set "menu", new Batman.Set("one","two","three")
-
 
   addUploader: ->
     Array::last = -> @[@length - 1]

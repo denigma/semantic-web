@@ -24,7 +24,7 @@ class Denigma.QueryView extends Batman.View
       @set("errors",err)
 
       if env.data?.query? then @set("query",env.data.query)
-    Denigma.Result.loadWithOptions {url:"models/sparql?query=#{@get("safeQuery")}"}, (err, records, env)->fun(err, records, env)
+    Denigma.Result.loadWithOptions {url:"http://#{window.location.host}/models/sparql?query=#{@get("safeQuery")}"}, (err, records, env)->fun(err, records, env)
 
   @accessor 'results', ->
     Denigma.Result.get("loaded")
