@@ -1,5 +1,6 @@
 import com.bigdata.rdf.inf.RdfTypeRdfsResourceFilter
 import com.bigdata.rdf.model.BigdataStatementImpl
+import org.denigma.semantic.data.{QueryResult, QueryResultLike}
 import org.denigma.semantic.SG
 import org.denigma.semantic.SG._
 import org.denigma.semantic.LoveHater
@@ -39,6 +40,8 @@ class SemanticStoreSpec  extends Specification with LoveHater {
   "SemanticStore BigData wrapper" should {
 
 
+
+
     "write and read triples" in new WithApplication() {
 
 
@@ -61,15 +64,16 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
       val resFull = SG.db.query(query)
       resFull.isSuccess shouldEqual(true)
-      resFull.get.bindings.length shouldEqual(6)
+
+      resFull.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(6)
 
       val resLimited= SG.db.safeQuery(query,2,0)
       resLimited.isSuccess shouldEqual(true)
-      resLimited.get.bindings.length shouldEqual(2)
+      resLimited.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(2)
 
       val resOffset= SG.db.safeQuery(query,0,5)
       resLimited.isSuccess shouldEqual(true)
-      resLimited.get.bindings.length shouldEqual(2)
+      resLimited.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(2)
 
 
     }
@@ -89,7 +93,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
       SG.db.parseFile("data/test/test_aging_ontology.ttl")
       val res = SG.db.query(q1)
       res.isSuccess should beTrue
-      res.get.bindings.size shouldEqual(4)
+      res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(4)
     }
 
     "read initial data" in new WithApplication(){
@@ -104,7 +108,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
         """.stripMargin
       val res = SG.db.query(q1)
       res.isSuccess should beTrue
-      res.get.bindings.size shouldEqual(4)
+      res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(4)
     }
 
     "build menu" in new WithApplication(){
@@ -128,7 +132,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
       SG.db.parseFile("data/test/test_menu.ttl")
       val res = SG.db.query(q1)
       res.isSuccess should beTrue
-      res.get.bindings.size shouldEqual(3)
+      res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(3)
     }
 
 

@@ -33,7 +33,8 @@ object Config {
 
   lazy val truthMaintenance: Boolean = this.dbConf.getBoolean("com.bigdata.rdf.sail.truthMaintenance").getOrElse(false)
   lazy val storeConf = this.dbConf.getConfig("com.bigdata.rdf.store.AbstractTripleStore").get
-  lazy val quads = storeConf.getBoolean("quadsMode").getOrElse(false)
+  lazy val quads = storeConf.getBoolean("quadsMode").getOrElse(true)
+  lazy val stsIds = storeConf.getBoolean("statementIdentifiers").getOrElse(false)
   lazy val textIndex = storeConf.getBoolean("textIndex").getOrElse(true)
   lazy val filesConf: util.List[Configuration] = conf.getConfigList("files").get//.getOrElse(Nil)
   //lazy val semanticConf = conf.getConfig("semantic")
@@ -152,7 +153,9 @@ class SG(implicit val lg:org.slf4j.Logger) extends SemanticStore with SpinManage
     props.setProperty("com.bigdata.rdf.store.AbstractTripleStore.quadsMode",Config.quads.toString)
     props.setProperty("com.bigdata.rdf.store.AbstractTripleStore.textIndex",Config.textIndex.toString)
     props.setProperty("com.bigdata.rdf.sail.truthMaintenance",Config.truthMaintenance.toString)
+    props.setProperty("com.bigdata.rdf.sail.statementIdentifiers",Config.stsIds.toString)
     props.setProperty("com.bigdata.journal.AbstractJournal.file",Config.url+"/"+Config.name)
+
     //props.setProperty("com.bigdata.journal.AbstractJournal.initialExtent","209715200")
     //props.setProperty("com.bigdata.journal.AbstractJournal.maximumExtent","209715200")
     props

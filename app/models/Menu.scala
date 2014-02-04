@@ -4,7 +4,7 @@ package models
 import org.openrdf.model._
 import play.api.Play
 import org.openrdf.model.impl.URIImpl
-import org.denigma.semantic.Prefixes
+import org.denigma.semantic.{SG, Prefixes}
 import org.openrdf.model.vocabulary
 
 object Menu{
@@ -71,6 +71,17 @@ Model with statements about one particular URL
  */
 class SemanticModel(val url:Resource)
 {
+  SG.db.read{
+    r=>
+      val sts = r.getStatements(url,null,null,true)
+      while(sts.hasNext)
+      {
+
+        sts.next()
+      }
+  }
+
+  val parsers:List[(Statement,this.type)=>Boolean] = List.empty
 
   type OnChange = (Map[URI, Seq[Statement]],Map[URI, Seq[Statement]])=>Unit
 
