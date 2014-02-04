@@ -44,7 +44,17 @@ trait QueryWizard {
  * Created by antonkulaga on 1/23/14.
  */
 abstract class SemanticQueries   extends RDFStore{
+  def withLimit(q:Query,limit:Long, always:Boolean = true)= {
+    if(limit>0)
+      if(always || !q.hasLimit) q.setLimit(limit)
+    q
+  }
 
+  def withOffset(q:Query,offset:Long, always:Boolean = true) = {
+    if(offset>0)
+      if(always || !q.hasOffset) q.setOffset(offset)
+    q
+  }
 
   /*
   it should be safe in future but now it is only limited
@@ -58,7 +68,7 @@ abstract class SemanticQueries   extends RDFStore{
   def alterQuery(str:String,limit:Long,offset:Long, sortVar:String="") = Try {
     if(limit<1 && offset <1) str else {
       val q: Query =   QueryFactory.create(str, Syntax.syntaxSPARQL_11)
-      SG.MagicQuery(SG.MagicQuery(q).withLimit(limit,always = false)).withOffset(offset,always = false).toString(Syntax.syntaxSPARQL_11)
+      withOffset(withLimit(q,limit,always = false),offset,always = false).toString(Syntax.syntaxSPARQL_11)
     }
   }
 
