@@ -3,13 +3,9 @@ package org.denigma.semantic.data
 
 import com.bigdata.rdf.sail._
 import scala.util.Try
-import org.openrdf.query.{GraphQueryResult, QueryLanguage}
+import org.openrdf.query.QueryLanguage
 import com.hp.hpl.jena.query._
-import org.openrdf.query.algebra._
 import scala.util.Failure
-import org.openrdf.query.parser.ParsedUpdate
-import scala.collection.JavaConversions._
-import com.bigdata.rdf.sparql.ast.ASTContainer
 import org.denigma.semantic.SG
 
 trait QueryWizard {
@@ -48,7 +44,7 @@ trait QueryWizard {
  * Created by antonkulaga on 1/23/14.
  */
 abstract class SemanticQueries   extends RDFStore{
-  import SG._
+
 
   /*
   it should be safe in future but now it is only limited
@@ -62,7 +58,7 @@ abstract class SemanticQueries   extends RDFStore{
   def alterQuery(str:String,limit:Long,offset:Long, sortVar:String="") = Try {
     if(limit<1 && offset <1) str else {
       val q: Query =   QueryFactory.create(str, Syntax.syntaxSPARQL_11)
-      MagicQuery(q).withLimit(limit,always = false).withOffset(offset,always = false).toString(Syntax.syntaxSPARQL_11)
+      SG.MagicQuery(SG.MagicQuery(q).withLimit(limit,always = false)).withOffset(offset,always = false).toString(Syntax.syntaxSPARQL_11)
     }
   }
 
