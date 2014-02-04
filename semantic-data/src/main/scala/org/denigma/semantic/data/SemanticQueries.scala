@@ -9,10 +9,8 @@ import org.openrdf.query.algebra._
 import scala.util.Failure
 import org.openrdf.query.parser.ParsedUpdate
 import scala.collection.JavaConversions._
-import com.bigdata.rdf.sparql.ast.{IQueryNode, SliceNode, ASTContainer}
+import com.bigdata.rdf.sparql.ast.ASTContainer
 import org.denigma.semantic.SG
-import org.openrdf.model.URI
-import com.bigdata.rdf.sail.sparql.BigdataASTContext
 
 trait QueryWizard {
   implicit class MagicQuery(q:Query) {
@@ -64,7 +62,7 @@ abstract class SemanticQueries   extends RDFStore{
   def alterQuery(str:String,limit:Long,offset:Long, sortVar:String="") = Try {
     if(limit<1 && offset <1) str else {
       val q: Query =   QueryFactory.create(str, Syntax.syntaxSPARQL_11)
-      q.withLimit(limit,always = false).withOffset(offset,always = false).toString(Syntax.syntaxSPARQL_11)
+      MagicQuery(q).withLimit(limit,always = false).withOffset(offset,always = false).toString(Syntax.syntaxSPARQL_11)
     }
   }
 
@@ -90,27 +88,27 @@ abstract class SemanticQueries   extends RDFStore{
       }
   }
 
-
-
-  def update(query:String, nameSpace:String = SG.db.WI) = write {
-    implicit wr=>
-
-      val upd = wr.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,query,nameSpace)
-      val p: ParsedUpdate = upd.getParsedUpdate
-      val res = p.getUpdateExprs.toList
-      val fst: UpdateExpr = res.head
-
-      upd.execute()
-      ???
-  }
-
-
   def tupleQuery(query:String, q:BigdataSailTupleQuery): QueryResult = {
     QueryResult.parse(query  ,q.evaluate())
   }
 
-  def graphQuery(query:String, q:BigdataSailGraphQuery) = {
-    val res = q.evaluate()
-    ???
-  }
+//  def update(query:String, nameSpace:String = SG.db.WI) = write {
+//    implicit wr=>
+//
+//      val upd = wr.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,query,nameSpace)
+//      val p: ParsedUpdate = upd.getParsedUpdate
+//      val res = p.getUpdateExprs.toList
+//      val fst: UpdateExpr = res.head
+//
+//      upd.execute()
+//      ???
+//  }
+//
+//
+//
+//
+//  def graphQuery(query:String, q:BigdataSailGraphQuery) = {
+//    val res = q.evaluate()
+//    ???
+//  }
 }
