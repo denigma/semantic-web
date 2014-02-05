@@ -6,6 +6,8 @@ import org.openrdf.model.vocabulary
 
 /*
 Helper that contains some widely used prefixes
+
+TODO: FIX,DOES NOT WORK NOW
  */
 object Prefixes extends WI with UI{
 

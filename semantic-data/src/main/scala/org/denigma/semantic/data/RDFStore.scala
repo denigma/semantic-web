@@ -31,7 +31,7 @@ abstract class RDFStore {
   val repo: BigdataSailRepository
 
   def read[T](action:BigdataSailRepositoryConnection=>T):Try[T]= {
-    val con = repo.getReadOnlyConnection
+    val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
     val res = Try {
       action(con)
     }

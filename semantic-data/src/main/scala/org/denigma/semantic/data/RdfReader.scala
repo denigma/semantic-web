@@ -33,7 +33,7 @@ class RdfReader(fileName:String,con:BigdataSailRepositoryConnection, context: se
 
   override def handleNamespace(prefix: String, uri: String): Unit = if(prefix!=null && con.getNamespace(prefix)==null) {
       con.setNamespace(prefix,uri)
-      lg.debug(s"set prefix $prefix for namespace $uri")
+      //lg.debug(s"set prefix $prefix for namespace $uri")
   }
 
   override def endRDF(): Unit = {

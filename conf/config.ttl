@@ -14,10 +14,12 @@
 
 # prefixes from social ontologies
 @prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
 @prefix sioc: <http://rdfs.org/sioc/ns#> .
 
 # prefixes from SPIN vocabulary that is useful for SPARQL based rules and templates
 @prefix sp:	 <http://spinrdf.org/sp#> .
+@prefix spr: <http://spinrdf.org/spl#> .
 @prefix spr: <http://spinrdf.org/spr#> .
 @prefix ui:  <http://uispin.org/ui#> .
 
@@ -31,8 +33,11 @@
 # all website pages
 @prefix pg: <http://webintelligence.eu/page/> .
 
-# all users
-@prefix user: <http://webintelligence.eu/resource/> .
+# all users and organizations
+@prefix actor: <http://webintelligence.eu/ontology/actor/> .
+
+# all projects, quests and tasks
+@prefix task: <http://webintelligence.eu/ontology/task/> .
 
 # all other resources
 @prefix : <http://webintelligence.eu/resource/> .
@@ -46,15 +51,16 @@
 	void:uriSpace "http://webintelligence.eu/resource/";
 	void:uriSpace "http://webintelligence.eu/page/";
 	void:uriSpace "http://webintelligence.eu/user/";
+    void:uriSpace "http://webintelligence.eu/ontology/";
     foaf:homepage <http://webintelligence.eu>.
 
 ########Users and Organizations###########
 
-user:User rdfs:subClassOf foaf:Person;
+actor:User rdfs:subClassOf foaf:Person;
 		  rdfs:subClassOf dcterms:Agent;
 		  dcterms:description "User account" .
 
-user:Organization rdfs:subClassOf foaf:Organization;
+actor:Organization rdfs:subClassOf foaf:Organization;
 		  rdfs:subClassOf dcterms:Agent .
 
 ########Pages, menus and UI elements###########
@@ -104,6 +110,10 @@ pg:My_Queries a pg:Menu .
 pg:About_Web_Intelligence a pg:Page;
 	rdfs:label "About web intelligence" .
 
+############Projects################################
+
+
+task:Task a owl:Class, rdfs:Class .
 
 
 #########Website configuration######################

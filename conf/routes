@@ -2,7 +2,7 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 #GET         /                controllers.Tests.sparql
-GET         /                     controllers.Application.index(controller="schema",action="sankey")
+GET         /                     controllers.Application.index(controller="query",action="main")
 GET         /query                controllers.Queries.main()
 GET         /query/main           controllers.Queries.main()
 GET         /schema               controllers.Schema.sankey()
