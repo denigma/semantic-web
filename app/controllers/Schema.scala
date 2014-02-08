@@ -22,7 +22,8 @@ object Schema  extends PJaxController("schema") {
 
   def sankey() = Action {
     implicit request=>
-      Ok(pj("sankey",views.html.schema.sankey()))
+      //Ok(pj("sankey",views.html.schema.sankey()))
+      Ok(views.html.schema.sankey())
   }
 
   def distortion() = Action {

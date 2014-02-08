@@ -32,7 +32,11 @@ trait SemanticWeb extends SemanticData {
     ///Add your project dependencies here,
 
 
-     "com.assembla.scala-incubator" % "graph-core_2.10" % scalaGraphVersion
+     "com.assembla.scala-incubator" % "graph-core_2.10" % scalaGraphVersion,
+
+    "jp.t2v" %% "play2-auth"      % playAuthVersion,
+
+    "jp.t2v" %% "play2-auth-test" % playAuthVersion % "test"
   )
 
   //play.Project.playScalaSettings ++ SassPlugin.sassSettings
@@ -72,6 +76,7 @@ trait SemanticData extends Macro {
 
   val semanticDataAppDependencies: Seq[ModuleID] = Seq(
     "com.bigdata" % "bigdata" % bigDataVersion,
+    "com.github.nscala-time" %% "nscala-time" % nScalaTimeVersion,
 
 //    "org.openrdf.sesame" % "sesame" % sesameVersion,
 //    "org.openrdf.sesame" % "sesame-query" % sesameVersion,
@@ -146,15 +151,13 @@ object LibVersions {
   
   def src = "src"
 
-val jenaVersion = "2.11.1"
-
-
+  val jenaVersion = "2.11.1"
 
   val scalaGraphVersion = "1.7.2"
 
   val scalaVer = "2.10.3"
 
-  val parboiledVersion = "1.1.6"
+  val parboiledVersion = "2.0-M2"
 
   val bcryptVersion = "2.3"
 
@@ -175,6 +178,10 @@ val jenaVersion = "2.11.1"
   val bananaVersion ="0.5-SNAPSHOT"
 
   val bigDataVersion = "1.3.0"
+
+  val playAuthVersion = "0.11.0"
+
+  val nScalaTimeVersion = "0.8.0"
 
 }
 

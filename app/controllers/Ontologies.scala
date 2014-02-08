@@ -20,6 +20,11 @@ import org.denigma.semantic.data.QueryResult
 /**
  * Created by antonkulaga on 2/3/14.
  */
-object Ontologies extends PJaxController("query") {
+object Ontologies extends PJaxController("ontology") {
+
+  def resource(uri:String) = Action {
+    implicit request=>
+      Ok(pj("resource",views.html.ontologies.resource()))
+  }
 
 }

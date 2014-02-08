@@ -9,11 +9,9 @@ import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 import play.api.test.WithApplication
 
-/**
-tests semanticweb classes, like models
-  */
+
 @RunWith(classOf[JUnitRunner])
-class SemanticClassesSpec  extends Specification {
+class SemanticModelSpec  extends Specification {
   val self = this
 
   val ant=new URIImpl("http://webintelligence.eu/ontology/actor/antonkulaga")

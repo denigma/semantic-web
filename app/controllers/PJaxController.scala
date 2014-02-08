@@ -15,7 +15,7 @@ import play.api.Play
 import play.api.Play.current
 import play.api.templates.{HtmlFormat, Html}
 
-class PJaxController(val name:String) extends Controller{
+class PJaxController(val name:String) extends Controller {
 
   def pj[T](action:String,html:Html)(implicit req:Request[T]): Html =
     pj(name,action:String,html:Html)(req)

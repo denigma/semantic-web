@@ -1,8 +1,8 @@
-package controllers
+package controllers.test
 
 import play.api.libs.json.{JsObject, Json, JsValue}
 import scala.IndexedSeq
-import play.api.mvc.{Controller, Action}
+import play.api.mvc.Controller
 
 /**
  * Created by antonkulaga on 11/30/13.

@@ -14,9 +14,6 @@ class Denigma extends Batman.App
   @route 'schema/sankey', 'schema#sankey'
   @route 'schema/distortion', 'schema#distortion'
 
-
-
-
   #stores to global container
 container = Batman.container
 container.Denigma = Denigma
@@ -31,6 +28,7 @@ Batman.config =
 
   minificationErrors: false
   protectFromCSRF: false
+  viewExtension: ""
 
 fetchHTML2 =  (path) ->
   new Batman.Request
@@ -43,13 +41,12 @@ Batman.HTMLStore::fetchHTML= fetchHTML2
 $.ajaxSetup headers:
   "X-PJAX": "X-PJAX"
 
-  #add listener to the window object to fire run when everything has been loaded
-if(window?)
-  window.addEventListener 'load', ->
-    #disp = new Batman.EmptyDispatcher()
-    #Denigma.set "navigator", disp
-    #Denigma.set "dispatcher", disp
+jQuery ->
     Denigma.run()
     Denigma.fire "start"
-
+    #    req = new XMLHttpRequest()
+    #    req.open "GET", document.location, false
+    #    req.send null
+    #    headers = req.getAllResponseHeaders().toLowerCase()
+    #    alert headers
 
