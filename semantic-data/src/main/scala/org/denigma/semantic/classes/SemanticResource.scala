@@ -1,86 +1,92 @@
 package org.denigma.semantic.classes
-import org.denigma.semantic.classes.SemanticModel
-import org.denigma.semantic.data.SemanticStore
-import org.denigma.semantic.SG
+
 import org.openrdf.model._
 
-import org.denigma.semantic.data.QueryResult
-import org.denigma.semantic.SG
-import org.openrdf.model
-import com.bigdata.rdf.vocab.decls
-
-import org.openrdf.model.vocabulary
-import scala.util.Try
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.classes.{SemanticResource, SemanticModel}
-import org.denigma.semantic.data.{SemanticStore, QueryResult}
-import org.openrdf.model.impl._
-import org.openrdf.model._
-import org.openrdf.model
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.model.{vocabulary, Literal, Resource, Statement}
 import org.openrdf.model.vocabulary._
-import javax.xml.datatype.XMLGregorianCalendar
-import org.joda.time._
+import scala.util.Try
+
 
 trait ResourceLike{
   val isClass:Boolean
   val isBlankNode:Boolean
   val isContainer:Boolean
-}
-
-
-
-trait ResourceParser[SELF<:SemanticResource]
-{
-
-
-  def apply(model:SELF,con:BigdataSailRepositoryConnection, st:Statement,path:Map[Resource,SemanticModel] = Map.empty, maxDepth:Int = -1): Boolean = (st.getPredicate,st.getObject) match  {
-
-
-    case _ =>
-      val l:Literal=null
-      false
-
-
-  }
+  val isProperty:Boolean
 }
 
 
 /**
-* Created by antonkulaga on 2/6/14.
+* class to handler resources with all props and so on
 */
-class SemanticResource(url:Resource)  extends SemanticModel(url) {
+class SemanticResource(url:Resource)  extends SimpleResource(url) with ResourceLike{
+
   self=>
 
+  def iObjectOf(sub:Resource,prop:URI)(implicit con: BigdataSailRepositoryConnection): Boolean = con.hasStatement(sub,prop,this.url, true)
+  def iSubjectOf(prop:URI,obj:Value)(implicit con: BigdataSailRepositoryConnection): Boolean = con.hasStatement(url,prop,obj, true)
+
+  def isMyType(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDF.TYPE,o)(con)
+  def containsMe(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDFS.MEMBER,o)(con)
+
+  var types =  Map.empty[Resource,SemanticClass]
+
   val isClass = false
-  var isBlankNode = false
+  val isBlankNode = false
+  val isContainer = false
+  val isProperty = false
+
 
 
   var resources:Map[URI,SemanticResource]= Map.empty
 
-  var types:Map[URI,SemanticClass] = Map.empty
+
+  /*
+  loads all properties of the resource
+   */
+  override def loadAll(params:LoadParamsLike):Try[Unit] = {
+    loadOutgoing(params).map(f=>loadInComing(params))
+  }
+
+  def loadInComing(params:LoadParamsLike) =
+    this.loadWith(params.con.getStatements(null,null,url,true),params)((st,np)=>IncomingParams[this.type](this,st,params.path,params.maxDepth)(params.con))
+
+
+
 
   //var incoming:Map[URI,Resource] = Map.empty
 
 
-  object SemanticResourceParser extends ResourceParser[self.type] with self.ModelParser
 
-  self.parsers = SemanticResourceParser::self.parsers
-}
+  override def init(){
 
-
-object SemanticClass extends OfSemanticType(RDFS.CLASS,OWL.CLASS)
-class SemanticClass(url:Resource) extends SemanticResource(url){
-
-  self=>
-
-  override val isClass = true
-
-  var subClasses:Map[URI,SemanticClass] = Map.empty
-  var parentClasses:Map[URI,SemanticClass] = Map.empty
-
+    object SemanticResourceParser extends SimpleParser[self.type]
+    self.parsers = SemanticResourceParser::self.parsers
+  }
 
 
 
 }
+
+
+
+
+class ResourceParser[SELF<:SemanticResource] extends SimpleParser[SELF]
+{
+  def onType:onPropertyObject = {
+    case (out,p, o:Resource) if out.model.isMyType(o)(out.con)=>
+      val f: SemanticClass = out.path.collectFirst{  case (k,sl:SemanticClass) if sl.url==o =>sl}
+        .getOrElse{
+        val sc = new SemanticClass(o)
+        sc.loadAll(out)
+        sc
+      }
+      out.model.types = out.model.types + (o->f)
+  }
+
+  override def parsePropertyObject:PartialFunction[(OutgoingParams[SELF],URI,Value),Unit] = this.onType.orElse(super.parsePropertyObject)
+
+}
+
+
+

@@ -1,13 +1,15 @@
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.classes.SemanticModel
+import org.denigma.semantic.classes._
+import org.denigma.semantic.classes.OutgoingParams
+import org.openrdf.model._
+import com.bigdata.rdf.vocab.decls
 import org.denigma.semantic.data.{SemanticStore, QueryResult}
 import org.denigma.semantic.SG
 import org.junit.runner.RunWith
 import org.openrdf.model.impl.URIImpl
-import org.openrdf.model.{Statement, URI, Resource}
 import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 import play.api.test.WithApplication
+import scala.util.Try
 
 
 @RunWith(classOf[JUnitRunner])
@@ -129,76 +131,131 @@ class SemanticModelSpec  extends Specification {
   }
 
 }
-import org.openrdf.model.vocabulary
-import com.bigdata.rdf.vocab.decls
+
 
 class TestUserModel(url:URI) extends TestStringModel(url)
 {
   self=>
-  var memberOf:Map[URI,TestOrganizationModel] = Map.empty
 
-  object MemberOfParser extends self.ModelParser{
-    override def apply(model:self.type,con:BigdataSailRepositoryConnection, st:Statement,path:Map[Resource,SemanticModel] = Map.empty, maxDepth:Int = -1): Boolean = st.getObject match {
-      case o:org.openrdf.model.URI if path.contains(o) || memberOf.contains(o) =>true
 
-      case o:org.openrdf.model.URI if con.hasStatement(o,vocabulary.RDF.TYPE,decls.FOAFVocabularyDecl.Organization,true)=>
-        val organ =new TestOrganizationModel(o)
-        self.memberOf = self.memberOf+(o->organ)
-        organ.hasMember = organ.hasMember + (self.url->self)
-        organ.load(con,path)
-        true
-      case r=>
-        false
-    }
-  }
+  var memberOf:Map[Resource,TestOrganizationModel] = Map.empty
+
+  object MemberOfParser extends MemberOfParser[self.type]
+
   this.parsers = MemberOfParser::self.parsers
 
 }
+
+class MemberOfParser[SELF<:TestUserModel] extends TestModelParser[SELF]{
+
+  def parsePropertyObject:onPropertyObject  = {
+
+    case (out, p, o:org.openrdf.model.URI)  if out.path.contains(o) || out.model.memberOf.contains(o)=>
+
+
+    case (out, p, o:org.openrdf.model.URI)  if out.con.hasStatement(o,vocabulary.RDF.TYPE,decls.FOAFVocabularyDecl.Organization,true)=>
+      val organ =new TestOrganizationModel(o)
+
+      out.model.memberOf = out.model.memberOf+(o->organ)
+      organ.hasMember = organ.hasMember + (out.model.url->out.model)
+      organ.loadAll(out)
+
+    case _=>
+  }
+
+
+}
+
 
 class TestOrganizationModel(url:URI) extends TestStringModel(url){
   self=>
 
   val user = new URIImpl("http://webintelligence.eu/ontology/actor/User")
 
-  var hasMember:Map[URI,TestUserModel]  = Map.empty
+  var hasMember:Map[Resource,TestUserModel]  = Map.empty
 
+  object HasMemberParser extends HasMemberParser[self.type ]
 
-  object HasMemberParser extends self.ModelParser{
-    override def apply(model:self.type,con:BigdataSailRepositoryConnection, st:Statement,path:Map[Resource,SemanticModel] = Map.empty, maxDepth:Int = -1): Boolean = st.getObject match {
-      case o:org.openrdf.model.URI if path.contains(o) || hasMember.contains(o) =>true
-
-      case o:org.openrdf.model.URI if con.hasStatement(o,vocabulary.RDF.TYPE,user,true)=>
-        val um = new TestUserModel(o)
-
-        self.hasMember = self.hasMember+(o->um)
-        um.memberOf = um.memberOf+(self.url->self)
-        um.load(con,path)
-        true
-
-      case r=>
-        false
-    }
-  }
   this.parsers = HasMemberParser::this.parsers
 
 }
 
-class TestStringModel(url:URI) extends SemanticModel(url){
+class HasMemberParser[SELF<:TestOrganizationModel] extends TestModelParser[SELF]{
+  val user = new URIImpl("http://webintelligence.eu/ontology/actor/User")
+
+  def parsePropertyObject:onPropertyObject  = {
+
+    case (out, p, o:org.openrdf.model.URI) if out.path.contains(o) || out.model.hasMember.contains(o)=>
+
+
+    case (out, p, o:org.openrdf.model.URI)  if out.con.hasStatement(o,vocabulary.RDF.TYPE,user,true)=>
+      val um = new TestUserModel(o)
+      out.model.hasMember = out.model.hasMember+(o->um)
+      um.memberOf = um.memberOf + (out.model.url-> out.model)
+      um.loadAll(out)
+
+
+    case _=>
+  }
+
+
+
+}
+
+class TestStringModel(val url:Resource) extends SemanticModel{
   self=>
+
   var strings =Map.empty[URI,String]
 
 
+  object TestStringParser extends StrParser[self.type]
 
-  object StrParser extends self.ModelParser{
-    override def apply(model:self.type,con:BigdataSailRepositoryConnection, st:Statement,path:Map[Resource,SemanticModel] = Map.empty, maxDepth:Int = -1): Boolean = st.getObject match {
-      case lit:org.openrdf.model.Literal=>
-        val m= model
-        model.strings = model.strings + (st.getPredicate->lit.stringValue())
-        true
-      case r=>
-        false
-    }
+  self.parsers = TestStringParser ::self.parsers
+
+  /*
+   loads all properties of the resource
+    */
+  def loadAll(params:LoadParamsLike):Try[Unit] = {
+    loadOutgoing(params)
   }
-  self.parsers = StrParser::self.parsers
+
+  def loadOutgoing(params:LoadParamsLike) = {
+    this.loadWith(params.con.getStatements(url,null,null,true),params)((st,p)=>OutgoingParams[this.type](this,st,p,params.maxDepth)(params.con))
+  }
+
+}
+
+
+
+
+class StrParser[SELF<:TestStringModel] extends TestModelParser[SELF]
+{
+
+
+  def parsePropertyObject:onPropertyObject  = {
+
+    case (out, p,lit:org.openrdf.model.Literal)=>
+
+        out.model.strings = out.model.strings + (out.st.getPredicate->lit.stringValue())
+
+    case _=>
+
+  }
+
+}
+
+abstract class TestModelParser[SELF<:TestStringModel] extends ModelParser[SELF]{
+
+  def parsePropertyObject:onPropertyObject
+
+  type onPropertyObject = PartialFunction[(OutgoingParams[SELF],URI,Value),Unit]
+
+  override def parse:PartialFunction[TraverseParams[SELF],Unit] = {
+
+    case out:OutgoingParams[SELF]=>parsePropertyObject((out,out.st.getPredicate,out.st.getObject))
+
+    case _=>play.Logger.error(s"unknown parse params")
+  }
+
 
 }

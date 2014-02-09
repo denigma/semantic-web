@@ -1,83 +1,94 @@
 package org.denigma.semantic.classes
 
-import org.openrdf.model.{Literal, URI, Resource}
-import org.joda.time.{DateTime, LocalDate}
-import org.openrdf.model.Resource
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.data.{SemanticStore, QueryResult}
-import org.denigma.semantic.SG
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.classes.SemanticModel
-import org.denigma.semantic.data.{SemanticStore, QueryResult}
-import org.denigma.semantic.SG
-import org.openrdf.model.impl._
-import org.openrdf.model._
-import org.openrdf.model
 
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.classes.{SemanticResource, SemanticModel}
-import org.denigma.semantic.data.{SemanticStore, QueryResult}
-import org.denigma.semantic.SG
-import org.openrdf.model.impl._
+import org.joda.time.{DateTime, LocalDate}
+
 import org.openrdf.model._
-import org.openrdf.model
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.model.{vocabulary, Literal, Resource, Statement}
-import org.openrdf.model.vocabulary._
-import play.api.Play
+import scala.util.Try
 
 
-abstract class SimpleResource(url:Resource) extends SemanticModel(url) {
+case class OutgoingParams[T<:SemanticModel](model:T,st:Statement,path:Map[Resource,SemanticModel],maxDepth:Int)(implicit val con:BigdataSailRepositoryConnection) extends TraverseParams[T]
+case class IncomingParams[T<:SemanticModel](model:T,st:Statement,path:Map[Resource,SemanticModel],maxDepth:Int)(implicit val con:BigdataSailRepositoryConnection) extends TraverseParams[T]
+
+
+class SimpleResource(val url:Resource) extends SemanticModel {
   self=>
 
-  var allResources= Map.empty[URI,Resource]
 
 
-  var strings = Map.empty[URI,String]
-  var longs= Map.empty[URI,Long]
-  var booleans = Map.empty[URI,Boolean]
-  var doubles = Map.empty[URI,Double]
-  var dates = Map.empty[URI,LocalDate]
-  var datetimes: Map[URI, DateTime] = Map.empty[URI,DateTime]
+  val outgoingResources = new SemanticProperties[Resource]()
 
-  var otherliterals:Map[URI,Literal]=Map.empty
 
+  val strings = new SemanticProperties[String]()
+  val longs = new SemanticProperties[Long]()
+  val booleans  = new SemanticProperties[Boolean]()
+  val doubles  = new SemanticProperties[Double]()
+  val dates  = new SemanticProperties[LocalDate]()
+  val dateTimes  = new SemanticProperties[DateTime]()
+  val otherliterals = new SemanticProperties[Literal]()
+
+
+  /*
+    loads all properties of the resource
+     */
+  def loadAll(params:LoadParamsLike):Try[Unit] = {
+    loadOutgoing(params)
+   }
+
+
+  def loadOutgoing(params:LoadParamsLike) = {
+    this.loadWith(params.con.getStatements(url,null,null,true),params)((st,p)=>OutgoingParams[this.type](this,st,p,params.maxDepth)(params.con))
+  }
 
 
   /*
   parses literal and stores then in appropriate places
    */
   def parseLiteral(p:URI,lit:Literal): Unit = lit match {
-    case StringLiteral(l)=> this.strings += (p->l)
-    case DoubleLiteral(l)=>this.doubles += (p->l)
-    case BooleanLiteral(l)=>this.booleans += (p->l)
-    case DateLiteral(l)=>this.dates += (p->l)
-    case DateTimeLiteral(l)=>
-      play.Logger.info(s"DATETIME's value = ${lit.stringValue}")
-      this.datetimes += (p->l)
-    case LongLiteral(l) => this.longs += (p->l)
-    case l=>
-      play.Logger.info(s"OTER LITERAL's of type ${l.getDatatype} value = ${l.stringValue}")
-      this.otherliterals += (p->l)
+    case StringLiteral(l:String)=> this.strings.addBinding(p,l)
+    case DoubleLiteral(l:Double)=>this.doubles.addBinding(p,l)
+    case BooleanLiteral(l:Boolean)=>this.booleans.addBinding(p,l)
+    case DateLiteral(l:LocalDate)=>this.dates.addBinding(p,l)
+    case DateTimeLiteral(l:DateTime)=> this.dateTimes.addBinding(p,l)
+    case LongLiteral(l) => this.longs.addBinding(p,l)
+    case l=> this.otherliterals.addBinding(p,l)
 
   }
+
+  def init(){
+
+    object SimpleParser extends SimpleParser[self.type]
+    self.parsers = SimpleParser::self.parsers
+  }
+  init()
 
 
 
 }
 
-trait SimpleParser[SELF<:SimpleResource]
+class SimpleParser[SELF<:SimpleResource] extends ModelParser[SELF]
 {
+  type onPropertyObject = PartialFunction[(OutgoingParams[SELF],URI,Value),Unit]
 
 
-  def apply(model:SELF,con:BigdataSailRepositoryConnection, st:Statement,path:Map[Resource,SemanticModel] = Map.empty, maxDepth:Int = -1): Boolean = (st.getPredicate,st.getObject) match  {
-    case (p,o:Literal)=>
+  def onLiteralOrOther:onPropertyObject = {
+    case (out,p:URI,o:Literal)=>     out.model.parseLiteral(p,o)
 
-      model.parseLiteral(p,o); true
-    case (p, o:Resource)=>
+    case (out, p:URI, o:Resource)=>  out.model.outgoingResources.addBinding(p,o)
+  }
 
-      model.allResources += (p->o); true
+  def parsePropertyObject:onPropertyObject = onLiteralOrOther
 
+  override def parse:PartialFunction[TraverseParams[SELF],Unit] = {
 
+    case out:OutgoingParams[SELF]=>parsePropertyObject((out,out.st.getPredicate,out.st.getObject))
+
+    case p=>play.Logger.info(s"unknown parse params: ${p.toString}")
   }
 }
+/*
+Just a multimap to store props
+ */
+class SemanticProperties[T] extends  collection.mutable.HashMap[URI, collection.mutable.Set[T]] with collection.mutable.MultiMap[URI, T]

@@ -1,11 +1,9 @@
 package org.denigma.semantic.classes
 
 import org.openrdf.model.vocabulary.XMLSchema
-import org.openrdf.model.{Value, URI, Literal}
+import org.openrdf.model.{URI, Literal}
 import javax.xml.datatype.XMLGregorianCalendar
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.joda.time._
-import java.util.GregorianCalendar
 
 
 object StringLiteral extends LiteralExtractor[String](XMLSchema.STRING,XMLSchema.NORMALIZEDSTRING)
@@ -74,9 +72,4 @@ object BooleanLiteral extends LiteralExtractor[Boolean](XMLSchema.BOOLEAN){
 
 abstract class LiteralExtractor[T](val types:URI*){
   def unapply(lit: Literal): Option[T]
-}
-
-trait SemanticExtractor[T<:Value]{
-  def unapply(con:BigdataSailRepositoryConnection, o:T):Option[T]
-
 }

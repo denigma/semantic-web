@@ -30,8 +30,9 @@
 	rdfs:domain  :Test2Class;
     rdfs:range rdfs:Resource .
 
-:TestClass rdfs:subClassOf :Test2Class .
-:TestClass rdfs:subClassOf :Test21Class .
+:TestClass a rdfs:Class;
+    rdfs:subClassOf :Test2Class ;
+            rdfs:subClassOf :Test21Class .
 
 :Test2Class rdfs:subClassOf :Test3Class .
 

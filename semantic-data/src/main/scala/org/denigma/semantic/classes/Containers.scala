@@ -35,15 +35,3 @@ object RdfBag extends OfSemanticType(RDF.BAG)
 object RdfSeq extends OfSemanticType(RDF.SEQ)
 object RdfList extends OfSemanticType(RDF.LIST)
 
-/*
-Extracts TYPE of RDF Resource
- */
-class OfSemanticType(values:Resource*) extends SemanticExtractor[Resource]{
-  override def unapply(con: BigdataSailRepositoryConnection, o:Resource): Option[Resource] =o match {
-    case v:Resource if values.exists(value => con.hasStatement(o, RDF.TYPE, value, true)) =>Some(v)
-    case _=>None
-  }
-}
-
-
-

@@ -19,7 +19,7 @@ import org.openrdf.model.vocabulary._
 
 /**
 tests BigDataWrapper
- */
+  */
 @RunWith(classOf[JUnitRunner])
 class SemanticStoreSpec  extends Specification with LoveHater {
   val self = this
@@ -136,25 +136,25 @@ class SemanticStoreSpec  extends Specification with LoveHater {
     }
 
 
-//    "do text search well" in new WithApplication(){
-//      val loves ="<http://denigma.org/relations/resources/loves>"
-//      val immortality = "<http://denigma.org/actors/resources/Immortality>"
-//      self.addRel("Alexa","loves","Immortality")
-//      self.addRel("Alexey","loves","Immortality")
-//      self.addRel("Alexandr","loves","Immortality")
-//      self.addRel("Alexandra","loves","Immortality")
-//      self.addRel("Artem","loves","Immortality")
-//      self.addRel("Andrey","loves","Immortality")
-//      self.addRel("Anton","loves","Immortality")
-//      self.addRel("Anatoliy","loves","Immortality")
-//      self.addRel("Anderson","loves","Immortality")
-//      SG.db.lookup("Anton",loves,immortality).rows.size must beEqualTo(1)
-//      SG.db.lookup("Alexandr",loves,immortality).rows.size must beEqualTo(2)
-//      SG.db.lookup("Alexandra",loves,immortality).rows.size must beEqualTo(1)
-//      SG.db.lookup("to",loves,immortality).rows.size must beEqualTo(2)
-//      SG.db.lookup("ton",loves,immortality).rows.size must beEqualTo(1)
-//      SG.db.lookup("An",loves,immortality).rows.size must beEqualTo(4)
-//      }
+    //    "do text search well" in new WithApplication(){
+    //      val loves ="<http://denigma.org/relations/resources/loves>"
+    //      val immortality = "<http://denigma.org/actors/resources/Immortality>"
+    //      self.addRel("Alexa","loves","Immortality")
+    //      self.addRel("Alexey","loves","Immortality")
+    //      self.addRel("Alexandr","loves","Immortality")
+    //      self.addRel("Alexandra","loves","Immortality")
+    //      self.addRel("Artem","loves","Immortality")
+    //      self.addRel("Andrey","loves","Immortality")
+    //      self.addRel("Anton","loves","Immortality")
+    //      self.addRel("Anatoliy","loves","Immortality")
+    //      self.addRel("Anderson","loves","Immortality")
+    //      SG.db.lookup("Anton",loves,immortality).rows.size must beEqualTo(1)
+    //      SG.db.lookup("Alexandr",loves,immortality).rows.size must beEqualTo(2)
+    //      SG.db.lookup("Alexandra",loves,immortality).rows.size must beEqualTo(1)
+    //      SG.db.lookup("to",loves,immortality).rows.size must beEqualTo(2)
+    //      SG.db.lookup("ton",loves,immortality).rows.size must beEqualTo(1)
+    //      SG.db.lookup("An",loves,immortality).rows.size must beEqualTo(4)
+    //      }
   }
 
 

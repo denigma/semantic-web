@@ -6,6 +6,8 @@ import scala.collection.immutable._
 import org.openrdf.query.{TupleQueryResult, BindingSet}
 import com.bigdata.rdf.model._
 
+
+
 object QueryResult {
   def parse(query:String,results:TupleQueryResult):QueryResult = {
     val vars: List[String] = results.getBindingNames.toList
@@ -16,6 +18,8 @@ object QueryResult {
     }
     QueryResult(query,vars,re.reverse)
   }
+
+
 
   def badRequest(query:String,error:String): JsObject =
     Json.obj("query"->query,"errors"->Json.arr(error),"head"->Json.obj("vars"->Json.arr()),"results" -> Json.obj("bindings"->Json.arr() ))
@@ -35,6 +39,7 @@ object QueryResult {
     }.toMap
 
 }
+
 object AskResult{
   def unapply(a: AskResult): Option[(String, Boolean)] = Some(a.query -> a.bool)
   def apply(query:String,bool:Boolean) = new AskResult(query,bool)
