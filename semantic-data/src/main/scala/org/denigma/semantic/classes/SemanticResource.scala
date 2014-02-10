@@ -36,6 +36,7 @@ class SemanticResource(url:Resource)  extends SimpleResource(url) with ResourceL
   val isContainer = false
   val isProperty = false
 
+  val incomingResources = new SemanticProperties[Resource]()
 
 
   var resources:Map[URI,SemanticResource]= Map.empty
@@ -70,17 +71,40 @@ class SemanticResource(url:Resource)  extends SimpleResource(url) with ResourceL
 
 
 
-
+/*
+Parses SemanticResource and extracts valuable information about types, classes and so on
+ */
 class ResourceParser[SELF<:SemanticResource] extends SimpleParser[SELF]
 {
+  def extractClass(params:TraverseParams[SELF],s:Resource):SemanticClass =
+    params.path.collectFirst{  case (k,sl:SemanticClass) if sl.url==s =>sl}
+      .getOrElse{
+      val sc = new SemanticClass(s)
+      sc.loadAll(params)
+      //sc.subClasses = sc.subClasses + (model.url->model)
+      sc
+    }
+
+    def parseIncoming:onSubjectProperty = {
+      case (out, p:URI, o:Resource)=>  out.model.outgoingResources.addBinding(p,o)
+
+    }
+
+      def parseSubjectProperty:onSubjectProperty = parseIncoming
+
+
+   override def parse:PartialFunction[TraverseParams[SELF],Unit] = {
+
+    case in:IncomingParams[SELF]=>parseSubjectProperty((in,in.st.getSubject,in.st.getPredicate))
+
+    case out:OutgoingParams[SELF]=>parsePropertyObject((out,out.st.getPredicate,out.st.getObject))
+
+    case p=>play.Logger.info(s"unknown parse params: ${p.toString}")
+  }
+
   def onType:onPropertyObject = {
     case (out,p, o:Resource) if out.model.isMyType(o)(out.con)=>
-      val f: SemanticClass = out.path.collectFirst{  case (k,sl:SemanticClass) if sl.url==o =>sl}
-        .getOrElse{
-        val sc = new SemanticClass(o)
-        sc.loadAll(out)
-        sc
-      }
+      val f: SemanticClass = extractClass(out,o)
       out.model.types = out.model.types + (o->f)
   }
 

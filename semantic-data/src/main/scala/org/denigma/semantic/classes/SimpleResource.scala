@@ -29,6 +29,8 @@ class SimpleResource(val url:Resource) extends SemanticModel {
   val dateTimes  = new SemanticProperties[DateTime]()
   val otherliterals = new SemanticProperties[Literal]()
 
+  //val allLiterals = new SemanticProperties[Literal]()
+
 
   /*
     loads all properties of the resource
@@ -68,9 +70,20 @@ class SimpleResource(val url:Resource) extends SemanticModel {
 
 }
 
+/*
+Extracts info about semanticweb resource.
+This one is the simpliest, it only gets literals and adds resources to one collection
+ */
 class SimpleParser[SELF<:SimpleResource] extends ModelParser[SELF]
 {
+  /*
+  partial function for outgoing traversals
+   */
   type onPropertyObject = PartialFunction[(OutgoingParams[SELF],URI,Value),Unit]
+  /*
+  partial functions for incoming traversals
+   */
+  type onSubjectProperty = PartialFunction[(IncomingParams[SELF],Resource,URI),Unit]
 
 
   def onLiteralOrOther:onPropertyObject = {

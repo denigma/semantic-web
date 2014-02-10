@@ -18,12 +18,12 @@
 	:prop3 :AnyObject3.
 
 :prop1 a owl:ObjectProperty;
+    rdfs:subPropertyOf :prop2;
 	rdfs:domain  :TestClass;
-    rdfs:range rdfs:Resource.
+    rdfs:range :Test2Class.
 
-:prop2 rdfs:subPropertyOf :prop1;
-	rdfs:domain  :TestClass;
-    rdfs:range rdfs:Resource .
+:prop1 a owl:ObjectProperty;
+	rdfs:domain  :Test2Class .
 
 #property of Test2Class;
 :prop3 a owl:ObjectProperty;

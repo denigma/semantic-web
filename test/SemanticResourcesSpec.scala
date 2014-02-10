@@ -80,15 +80,14 @@ class SemanticResourcesSpec extends Specification {
       sc.types.get(RDFS.CLASS).isDefined shouldEqual true
 
       sc.parentClasses.size shouldEqual(2)
-      //sc.subClasses.size.shouldEqual(1)
+      sc.subClasses.size.shouldEqual(1)
 
       val t2o = sc.parentClasses.get(test2Class)
       t2o.isDefined should beTrue
 
       val t2 = t2o.get
-      //t2.subClasses.size shouldEqual 1
+      t2.subClasses.size shouldEqual 1
 
-      t2.parentClasses.foreach(kv=>play.Logger.info(kv._1.stringValue()+"====="+kv._2.url.stringValue()))
       t2.parentClasses.size shouldEqual 1
       val t3o = t2.parentClasses.get(test3Class)
       t3o.isDefined should beTrue
@@ -105,21 +104,28 @@ class SemanticResourcesSpec extends Specification {
       SG.db.parseFile("data/test/test_class.ttl")
       val sc = new SemanticClass(testClass)
       sc.load(SG.db)
-
+      val p1o = sc.domainOf.get(prop1)
+      p1o.isDefined should beTrue
       val t2 = sc.parentClasses(test2Class)
-
-
-
-      t2.parentClasses.foreach(kv=>play.Logger.info(kv._1.stringValue()+"====="+kv._2.url.stringValue()))
-      t2.parentClasses.size shouldEqual 1
       val t3o = t2.parentClasses.get(test3Class)
       t3o.isDefined should beTrue
       val t3 = t3o.get
       t3.url shouldEqual test3Class
-      //t3.parentClasses.size.shouldEqual(0)
+
+      val p1 = p1o.get
+      val p2o = p1.parentProperties.get(prop2)
+      val p2: SemanticProperty = p2o.get
+      p2o.isDefined should beTrue
+
+//      p1.domains.get(sc.url).isDefined should beTrue
+//      p1.ranges.get(sc.url).isDefined should beFalse
+//      p1.ranges.get(t2.url).isDefined should beTrue
+//      p2.subProperties.get(p1.url).isDefined should beTrue
+//      p2.domains.get(sc.url).isDefined should beFalse
+//      p2.domains.get(t2.url).isDefined should beTrue
+//      t2.domainOf.get(p2.url).isDefined should beTrue
 
 
-      sc
     }
   }
 
