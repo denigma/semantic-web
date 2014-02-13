@@ -7,6 +7,7 @@ import org.openrdf.query.QueryLanguage
 import com.hp.hpl.jena.query._
 import scala.util.Failure
 import org.denigma.semantic.SG
+import org.openrdf.model.Resource
 
 trait QueryWizard {
   implicit class MagicQuery(q:Query) {
@@ -65,13 +66,27 @@ abstract class SemanticQueries   extends RDFStore{
   /*
   adds limit and offset to the query
    */
-  def alterQuery(str:String,limit:Long,offset:Long, sortVar:String="") = Try {
+  def alterQuery(str:String,limit:Long,offset:Long, sortVars:(String,Int)*): Try[String] = Try {
     if(limit<1 && offset <1) str else {
       val q: Query =   QueryFactory.create(str, Syntax.syntaxSPARQL_11)
-      withOffset(withLimit(q,limit,always = false),offset,always = false).toString(Syntax.syntaxSPARQL_11)
+      if(!q.hasOrderBy) {
+        sortVars.foreach(kv=>q.addOrderBy(kv._1,kv._2))
+      }
+      if(q.isSelectType)  withOffset(withLimit(q,limit,always = false),offset,always = false).toString(Syntax.syntaxSPARQL_11) else str
     }
   }
 
+  def ask(str:String):Try[Boolean] = read{con:BigdataSailRepositoryConnection=>
+    this.quickAsk(str)(con)
+  }.flatten
+
+  def quickAsk(str:String)(con:BigdataSailRepositoryConnection):Try[Boolean] =
+  {
+    Try{
+    val q = con.prepareBooleanQuery(QueryLanguage.SPARQL,str,"http://denigma.org/resource/")
+    q.evaluate()
+    }
+  }
 
 
   /*
@@ -97,6 +112,8 @@ abstract class SemanticQueries   extends RDFStore{
   def tupleQuery(query:String, q:BigdataSailTupleQuery): QueryResult = {
     QueryResult.parse(query  ,q.evaluate())
   }
+
+
 
 //  def update(query:String, nameSpace:String = SG.db.WI) = write {
 //    implicit wr=>

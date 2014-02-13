@@ -108,8 +108,3 @@
   });
 
 }).call(this);
-
-(function() {
-
-
-}).call(this);

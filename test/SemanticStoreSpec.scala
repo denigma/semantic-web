@@ -89,7 +89,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
           |  { de:Genomic_Instability ?property ?object }
         """.stripMargin
 
-      SG.platformParams.isEmpty should beTrue
+      //SG.platformParams.isEmpty should beTrue
       SG.db.parseFile("data/test/test_aging_ontology.ttl")
       val res = SG.db.query(q1)
       res.isSuccess should beTrue

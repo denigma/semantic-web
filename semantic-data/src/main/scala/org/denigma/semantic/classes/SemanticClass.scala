@@ -8,26 +8,9 @@ import org.openrdf.model.vocabulary._
 /*
 SCALA model of SemanticWeb class that represent a class in semantic web
  */
-class SemanticClass(url:Resource) extends SemanticResource(url){  self=>
+class SemanticClass(url:Resource) extends SemanticResource(url) with SmartClass{  self=>
 
   override val isClass = true
-
-
-
-  /*
-  checkers of relationships between this semanticresource, a property and some other resource
-   */
-  def isMyParentClass(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDFS.SUBCLASSOF,o)(con)
-
-  def isMyChildClass(s:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iObjectOf(s,RDFS.SUBCLASSOF)(con)
-
-
-  def iDomainOf(u:URI)(implicit con: BigdataSailRepositoryConnection):Boolean = iObjectOf(u,RDFS.DOMAIN)(con)
-
-  def iRangeOf(u:URI)(implicit con: BigdataSailRepositoryConnection):Boolean = iObjectOf(u,RDFS.RANGE)(con)
-
-
-
 
   //var subClasses=  Map.empty[Resource,SemanticClass]
   var parentClasses =  Map.empty[Resource,SemanticClass]

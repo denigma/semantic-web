@@ -92,16 +92,23 @@ object SG extends SemanticHelper with QueryWizard{
     if(Config.loadInitial)  this.loadInitialData()
   }
 
-  def loadInitialData() ={
-    this.platformParams =   db.read{
-      implicit r=>
-        val f = r.getValueFactory
-        val pl = f.createURI(Config.CONFIG_CONTEXT+"Current_Platform")
-        val cont = f.createURI(Config.CONFIG_CONTEXT)
-        val iter: RepositoryResult[Statement] = r.getStatements(pl,null,null,true,cont)
+  def loadPlatform(): List[Statement] = {
+    this.platformParams = db.read{
+    implicit r=>
+      val f = r.getValueFactory
+      val pl = f.createURI(Config.CONFIG_CONTEXT+"Current_Platform")
+      val cont = f.createURI(Config.CONFIG_CONTEXT)
+      val iter: RepositoryResult[Statement] = r.getStatements(pl,null,null,true,cont)
 
       iter.asList().toList
-    }.getOrElse(List.empty[Statement])
+  }.getOrElse(List.empty[Statement])
+    this.platformParams
+  }
+
+
+
+  def loadInitialData() ={
+    this.loadPlatform()
     if(this.platformParams.isEmpty) this.loadFiles()
   }
 

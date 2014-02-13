@@ -14,6 +14,19 @@ class Denigma extends Batman.App
   @route 'schema/sankey', 'schema#sankey'
   @route 'schema/distortion', 'schema#distortion'
 
+  @host: => "http://#{window.location.host}/"
+  @url: (str)=>@host() + str
+
+  @models: (str)=>Denigma.url("models/#{str}")
+  @pages: (str)=>Denigma.url("pages/#{str}")
+
+  @set("currentUser", null)
+
+  @classAccessor 'signed',
+    get: -> @get("currentUser") && @get("token")
+
+
+
   #stores to global container
 container = Batman.container
 container.Denigma = Denigma

@@ -34,6 +34,8 @@ trait SemanticWeb extends SemanticData {
 
      "com.assembla.scala-incubator" % "graph-core_2.10" % scalaGraphVersion,
 
+    "com.assembla.scala-incubator" % "graph-json_2.10" % scalaGraphJsonVersion,
+
     "jp.t2v" %% "play2-auth"      % playAuthVersion,
 
     "jp.t2v" %% "play2-auth-test" % playAuthVersion % "test"
@@ -153,7 +155,8 @@ object LibVersions {
 
   val jenaVersion = "2.11.1"
 
-  val scalaGraphVersion = "1.7.2"
+  val scalaGraphVersion = "1.7.3"
+  val scalaGraphJsonVersion = "1.7.3"
 
   val scalaVer = "2.10.3"
 

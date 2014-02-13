@@ -7,26 +7,13 @@ import org.openrdf.model.vocabulary.{RDFS, RDF}
 /*
 this class represent property class of semanticweb
  */
-class SemanticProperty(url:URI) extends SemanticClass(url){
+class SemanticProperty(url:URI) extends SemanticClass(url) with SmartProperty{
   override val isProperty = true
 
   var domains =  Map.empty[Resource,SemanticClass]
   var ranges =  Map.empty[Resource,SemanticClass]
   var parentProperties = Map.empty[Resource,SemanticProperty]
   var subProperties = Map.empty[Resource,SemanticProperty]
-
-
-  def is(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDF.TYPE,o)(con)
-
-  def isMyPropertyParent(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDFS.SUBPROPERTYOF,o)(con)
-
-  def isMySubProperty(s:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iObjectOf(s,RDFS.SUBPROPERTYOF)(con)
-
-  def isMyDomain(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDFS.DOMAIN,o)(con)
-
-  def isMyRange(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDFS.RANGE,o)(con)
-
-
 
 
   override def init(){

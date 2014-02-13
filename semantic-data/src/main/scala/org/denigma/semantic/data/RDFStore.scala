@@ -44,6 +44,7 @@ abstract class RDFStore {
     }
   }
 
+
   /*
   writes something and then closes the connection
    */

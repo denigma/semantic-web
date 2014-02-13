@@ -11,6 +11,15 @@ TODO: FIX,DOES NOT WORK NOW
  */
 object Prefixes extends WI with UI{
 
+  self=>
+
+  object Pages {
+    val PAGE = self.pg("Page")
+    val MENU = self.pg("Menu")
+    val QUERY_PAGE = self.pg("Query_Page")
+    def pg(str:String) = new URIImpl(PAGES+s"/$str")
+  }
+
 
   def uri(str:String) = new URIImpl(str)
 
@@ -38,14 +47,15 @@ Webintelligence vocabulary
  */
 
 
-  object Denigma extends Denigma
+  object DENIGMA extends Denigma
 
-  object ILA extends ILA{}
+  object ILA extends ILA
 
 
 }
 object UI extends UI
 object WI extends WI{
+
 
 }
 
@@ -102,7 +112,8 @@ class ILA
 
 class Denigma
 {
-  val MAIN:String = "http://denigma.org/resource/"
+  val DE:String = "http://denigma.org/resource/"
   val OBO:String = "http://purl.obolibrary.org/obo/"
+  def de(str:String) = s"http://denigma.org/resource/$str"
 
 }

@@ -23,11 +23,6 @@ class SemanticResource(url:Resource)  extends SimpleResource(url) with ResourceL
 
   self=>
 
-  def iObjectOf(sub:Resource,prop:URI)(implicit con: BigdataSailRepositoryConnection): Boolean = con.hasStatement(sub,prop,this.url, true)
-  def iSubjectOf(prop:URI,obj:Value)(implicit con: BigdataSailRepositoryConnection): Boolean = con.hasStatement(url,prop,obj, true)
-
-  def isMyType(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDF.TYPE,o)(con)
-  def containsMe(o:Resource)(implicit con: BigdataSailRepositoryConnection): Boolean = iSubjectOf(RDFS.MEMBER,o)(con)
 
   var types =  Map.empty[Resource,SemanticClass]
 

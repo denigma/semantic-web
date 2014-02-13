@@ -1,5 +1,3 @@
-class Denigma.Value extends Batman.Model
-
 class Denigma.Table extends Batman.Model
 
   @_makeOrFindRecordFromData: (attributes) ->

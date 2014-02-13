@@ -29,6 +29,25 @@ object Application extends PJaxController("")
 
   }
 
+
+  def menu(root:String) =  Action {
+    implicit request=>
+      import Json._
+      val mns = (1 to 5).map{case i=>
+        Json.obj("uri"->s"http://webintelligence.eu/pages/menu$i", "label"->s"menu $i","page"->s"http://webintelligence.eu/pages/$i")
+      }.toList
+      val menu = Json.obj("menus"->Json.toJson(mns))
+      Ok(menu).as("application/json")
+  }
+
+  def page(uri:String) =  Action {
+    implicit request=>
+      import Json._
+
+      Ok(views.html.pages.page("!!!!!!!!!!!!!!!!!!!!!"))
+  }
+
+
   /*
    TODO: improve upload code
     */
