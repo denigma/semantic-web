@@ -1,18 +1,10 @@
 package controllers
 import play.api.mvc._
-import org.openrdf.model.impl.URIImpl
 import org.openrdf.repository.RepositoryResult
 import scala.collection.JavaConversions._
 import scala.collection.immutable._
 import org.openrdf.model._
-import java.io.File
-import org.openrdf.rio.RDFFormat
-import play.api.libs.json.{JsValue, JsNull, JsObject, Json}
-import play.api.Play.current
-import play.api.templates.Html
-import scala.util.Try
-import com.bigdata.rdf.sparql.ast.IQueryNode
-import org.topbraid.spin._
+import play.api.libs.json.{JsValue, JsObject, Json}
 import org.denigma.semantic._
 import org.denigma.semantic.data.QueryResult
 
@@ -38,7 +30,7 @@ object  Queries extends PJaxController("query"){
   def query(query:String=defQ) = Action {
     implicit request=>
       //this.addTestRels()
-      SG.db.safeQuery(query,Config.limit,0).map{
+      SG.safeQuery(query,Config.limit,0).map{
         results=>Ok(results.asJson).as("application/json")
       }.recover{
         case e=>

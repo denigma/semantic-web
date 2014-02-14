@@ -1,20 +1,13 @@
-import com.bigdata.rdf.inf.RdfTypeRdfsResourceFilter
-import com.bigdata.rdf.model.BigdataStatementImpl
-import org.denigma.semantic.data.{QueryResult, QueryResultLike}
+package org.denigma.semantic.data
+
+import org.denigma.semantic.data.QueryResult
 import org.denigma.semantic.SG
-import org.denigma.semantic.SG._
 import org.denigma.semantic.LoveHater
-import org.openrdf.model.impl.{URIImpl, StatementImpl}
-import org.openrdf.model.Statement
-import org.openrdf.repository.RepositoryResult
+import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
 import play.api.test.WithApplication
-import play.Play
-import scala.collection.immutable.List
-import scala.collection.JavaConversions._
-import org.openrdf.model.vocabulary._
 
 
 /**
@@ -67,11 +60,11 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
       resFull.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(6)
 
-      val resLimited= SG.db.safeQuery(query,2,0)
+      val resLimited= SG.safeQuery(query,2,0)
       resLimited.isSuccess shouldEqual(true)
       resLimited.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(2)
 
-      val resOffset= SG.db.safeQuery(query,0,5)
+      val resOffset= SG.safeQuery(query,0,5)
       resLimited.isSuccess shouldEqual(true)
       resLimited.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(2)
 
@@ -118,21 +111,8 @@ class SemanticStoreSpec  extends Specification with LoveHater {
       //    ui:child pg:My_Friends;
       //    ui:child pg:My_Projects .
 
-      val q1 =
-        """
-          |PREFIX  de:   <http://denigma.org/resource/>
-          |PREFIX  ui:   <http://uispin.org/ui#>
-          |PREFIX  pg:   <http://webintelligence.eu/page/>
-          |
-          |SELECT  ?object
-          |WHERE
-          |  { pg:Default_User_Menu ui:child ?object }
-          |
-        """.stripMargin
       SG.db.parseFile("data/test/test_menu.ttl")
-      val res = SG.db.query(q1)
-      res.isSuccess should beTrue
-      res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(3)
+
     }
 
 

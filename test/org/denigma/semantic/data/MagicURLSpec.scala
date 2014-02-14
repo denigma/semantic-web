@@ -1,19 +1,12 @@
-import com.bigdata.rdf.inf.RdfTypeRdfsResourceFilter
-import com.bigdata.rdf.model.BigdataStatementImpl
+package org.denigma.semantic.data
+
 import org.denigma.semantic.SG
-import org.denigma.semantic.SG._
 import org.denigma.semantic.LoveHater
-import org.openrdf.model.impl.{URIImpl, StatementImpl}
-import org.openrdf.model.Statement
-import org.openrdf.repository.RepositoryResult
+import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
 import play.api.test.WithApplication
-import scala.collection.immutable.List
-import scala.collection.JavaConversions._
-import org.openrdf.model._
-import SG._
 
 
 /**

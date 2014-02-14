@@ -1,8 +1,8 @@
+package org.denigma.semantic.data
+
 import org.denigma.semantic.classes._
-import org.denigma.semantic.data.SemanticStore
 import org.denigma.semantic.SG
 import org.openrdf.model.impl.URIImpl
-import org.openrdf.model.Resource
 import org.specs2.mutable.Specification
 import play.api.cache.Cache
 import play.api.test.WithApplication

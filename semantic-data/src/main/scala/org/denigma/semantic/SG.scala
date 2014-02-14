@@ -2,12 +2,11 @@ package org.denigma.semantic
 
 import java.util.Properties
 import java.io._
-import org.denigma.semantic.data.{QueryWizard, QueryResult, SemanticHelper, SemanticStore}
+import org.denigma.semantic.data.SemanticStore
 import org.denigma.semantic.classes.SpinManager
 import java.util
 import org.openrdf.repository.RepositoryResult
-import com.bigdata.rdf.model.BigdataURI
-import com.hp.hpl.jena.rdf.model.Alt
+import org.denigma.semantic.wizards.QueryWizard
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -16,10 +15,6 @@ import play.api.Play.current
 import org.openrdf.model._
 import scala.collection.immutable._
 import scala.collection.JavaConversions._
-import org.openrdf.model.impl._
-
-
-import scala.util.Try
 
 
 object Config {
@@ -59,7 +54,7 @@ object Config {
 /*
 object (or static class) that is contains the database (to make sure that it is only one per app)
  */
-object SG extends SemanticHelper with QueryWizard{
+object SG extends QueryWizard{
 
   implicit val lg = play.api.Logger.logger
 

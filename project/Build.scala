@@ -38,7 +38,9 @@ trait SemanticWeb extends SemanticData {
 
     "jp.t2v" %% "play2-auth"      % playAuthVersion,
 
-    "jp.t2v" %% "play2-auth-test" % playAuthVersion % "test"
+    "jp.t2v" %% "play2-auth-test" % playAuthVersion % "test",
+
+    "com.github.t3hnar" % "scala-bcrypt_2.10" % bcryptVersion
   )
 
   //play.Project.playScalaSettings ++ SassPlugin.sassSettings
@@ -92,8 +94,9 @@ trait SemanticData extends Macro {
     "org.apache.jena" % "apache-jena-libs" % jenaVersion ,//excludeAll(ExclusionRule(organization = "org.slf4j")),
     "ch.qos.logback" % "logback-classic" % "1.0.7" % "provided",
     "com.fasterxml" % "aalto-xml" % "0.9.7",
-    "org.scalaz" %% "scalaz-core" % "7.0.4",
+    "org.scalaz" %% "scalaz-core" % scalaZVersion,
     "org.topbraid" % "spin" % "1.3.1"
+    //"com.netaporter" %% "scala-uri" % scalaUriVersion
 
 
   )
@@ -185,6 +188,11 @@ object LibVersions {
   val playAuthVersion = "0.11.0"
 
   val nScalaTimeVersion = "0.8.0"
+
+  val scalaZVersion ="7.0.5"
+
+  val scalaUriVersion = "0.4.0"
+
 
 }
 

@@ -1,47 +1,45 @@
 package controllers.auth
 
-//import org.mindrot.jbcrypt.BCrypt
-//import scalikejdbc._, SQLInterpolation._
+import org.mindrot.jbcrypt.BCrypt
+import org.openrdf.model.URI
+import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
+import scala.concurrent.Future
+import org.denigma.semantic.SG
+import com.bigdata.rdf.vocab.decls.{FOAFVocabularyDecl=>foaf}
+import org.openrdf.model.impl.URIImpl
 
-//case class Account(id: Int, email: String, password: String, name: String, permission: Permission)
-//
-//object Account extends SQLSyntaxSupport[Account] {
-//
-//  val a = syntax("a")
-//
-//  def apply(a: SyntaxProvider[Account])(rs: WrappedResultSet): Account = apply(a.resultName)(rs)
-//  def apply(a: ResultName[Account])(rs: WrappedResultSet): Account = new Account(
-//    id         = rs.int(a.id),
-//    email      = rs.string(a.email),
-//    password   = rs.string(a.password),
-//    name       = rs.string(a.name),
-//    permission = Permission.valueOf(rs.string(a.permission))
-//  )
-//
-//  private val auto = AutoSession
-//
-//  def authenticate(email: String, password: String)(implicit s: DBSession = auto): Option[Account] = {
-//    findByEmail(email).filter { account => BCrypt.checkpw(password, account.password) }
-//  }
-//
-//  def findByEmail(email: String)(implicit s: DBSession = auto): Option[Account] = withSQL {
-//    select.from(Account as a).where.eq(a.email, email)
-//  }.map(Account(a)).single.apply()
-//
-//  def findById(id: Int)(implicit s: DBSession = auto): Option[Account] = withSQL {
-//    select.from(Account as a).where.eq(a.id, id)
-//  }.map(Account(a)).single.apply()
-//
-//  def findAll()(implicit s: DBSession = auto): Seq[Account] = withSQL {
-//    select.from(Account as a)
-//  }.map(Account(a)).list.apply()
-//
-//  def create(account: Account)(implicit s: DBSession = auto) {
-//    withSQL {
-//      import account._
-//      val pass = BCrypt.hashpw(account.password, BCrypt.gensalt())
-//      insert.into(Account).values(id, email, pass, name, permission.toString)
-//    }.update.apply()
-//  }
-//
-//}
+import play.api.libs.concurrent.Execution.Implicits._
+
+
+case class Account(uri:URI,email: String, password: String)
+
+case class Permission(read:Set[URI],write:Set[URI])
+
+object Accounts {
+
+
+
+  def authenticate(email: String, password: String)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]] =
+    findByEmail(email).map{
+      (aco: Option[Account]) =>aco.filter{ account => BCrypt.checkpw(password, account.password) }}
+
+
+  def findByEmail(email: String)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]] = SG.db.r{
+    con=>
+      val mail = new URIImpl("mailto:"+email)
+      val iter = con.getStatements(null,foaf.mbox,mail,false)
+
+      ???
+  }
+
+  def findByUri(uri:URI)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]]= ???
+
+
+  def create(account: Account)(implicit con: BigdataSailRepositoryConnection){
+
+      import account._
+      val pass = BCrypt.hashpw(account.password, BCrypt.gensalt())
+      //insert.into(Account).values(id, email, pass, name, permission.toString)
+       ???
+    } //save
+}

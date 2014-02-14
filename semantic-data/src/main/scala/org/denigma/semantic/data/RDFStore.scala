@@ -20,10 +20,10 @@ import java.net.URL
 import org.openrdf.rio.Rio
 import com.bigdata.rdf.model.BigdataURI
 import java.io.File
+import scala.concurrent.Future
+import play.api.libs.concurrent.Execution.Implicits._
 
-/**
- * Created by antonkulaga on 1/20/14.
- */
+/*class that deals with storing and retrieving RDF from bigdata storage*/
 abstract class RDFStore {
 
   val lg:org.slf4j.Logger
@@ -44,6 +44,25 @@ abstract class RDFStore {
     }
   }
 
+  /*
+  same as read but with FUTURE as RESULT
+  TODO: refactor hard
+   */
+  def r[T](action:BigdataSailRepositoryConnection=>T):Future[T]= {
+    val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
+    val res = Future {
+      action(con)
+    }
+
+    con.close()
+    res.recoverWith{case
+      e=>
+      lg.error("readonly transaction from database failed because of \n"+e.getMessage)
+      res
+    }
+  }
+
+
 
   /*
   writes something and then closes the connection
@@ -53,6 +72,26 @@ abstract class RDFStore {
     val con = repo.getConnection
     con.setAutoCommit(false)
     val res = Try {
+      val r = action(con)
+      con.commit()
+      r
+    }
+    con.close()
+    res.recoverWith{case
+      e=>
+      lg.error("read/write transaction from database failed because of \n"+e.getMessage)
+      res
+    }
+  }
+
+  /*
+writes something and then closes the connection, same as readWrite but async
+ */
+  def rw[T](action:BigdataSailRepositoryConnection=>T):Future[T] =
+  {
+    val con = repo.getConnection
+    con.setAutoCommit(false)
+    val res = Future {
       val r = action(con)
       con.commit()
       r
@@ -105,6 +144,8 @@ does something with Sesame connection and then closes it
     lg.debug("operation successful")
     con.close()
   }
+
+
 
 
   /*

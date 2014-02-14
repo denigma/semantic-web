@@ -20,10 +20,9 @@ import ExecutionContext.Implicits.global
 import reflect.{ClassTag, classTag}
 
 
-
 /**
- * Created by antonkulaga on 2/5/14.
- */
+* Created by antonkulaga on 2/5/14.
+*/
 //trait AuthConfigImpl extends AuthConfig {
 //
 //  /**

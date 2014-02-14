@@ -1,14 +1,12 @@
-package org.denigma.semantic.data
+package org.denigma.semantic.wizards
 
-import scala.collection.immutable.List
-import org.openrdf.query.parser.{ParsedGraphQuery, ParsedTupleQuery, QueryParserUtil}
-import org.openrdf.query.{TupleQueryResult, QueryLanguage}
-import arq.query
-import org.openrdf.repository.sail.SailTupleQuery
-import org.openrdf.query.algebra.{QueryRoot, QueryModelVisitor}
+import org.openrdf.query.parser.QueryParserUtil
+import org.openrdf.query.algebra.QueryModelVisitor
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import scala.util.Try
+import scala.util.{Failure, Try}
 import org.denigma.semantic.SG
+import com.hp.hpl.jena.query.{Syntax, QueryFactory, Query}
+import org.denigma.semantic.data.{QueryResultLike, SemanticStore}
 
 
 //import org.apache.log4j.Logger
@@ -18,7 +16,7 @@ import org.openrdf.model._
 import scala.collection.immutable.List
 
 
-abstract class SemanticHelper{
+abstract class SemanticWizard{
 
   type Store <:  SemanticStore
 
@@ -94,6 +92,8 @@ abstract class SemanticHelper{
         db.lg.error(s"isOfType for resource ${s.stringValue()} and type ${tp.stringValue()} FAILED with ${r.toString}"); false
     }.get
   }
+
+
 
 }
 
