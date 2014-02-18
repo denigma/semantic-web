@@ -4,7 +4,7 @@ import org.openrdf.model.impl.{StatementImpl, URIImpl}
 import org.openrdf.model.{Statement, URI}
 import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
-import SG._
+import SP._
 import scala.collection.JavaConversions._
 
 /**

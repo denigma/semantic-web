@@ -6,10 +6,10 @@ import scala.collection.immutable._
 import org.openrdf.model._
 import play.api.libs.json.{JsValue, JsObject, Json}
 import org.denigma.semantic._
-import org.denigma.semantic.data.QueryResult
+import org.denigma.semantic.quering.QueryResult
 
 
-object  Queries extends PJaxController("query"){
+object  Queries extends PJaxPlatformWith("query"){
 
 
   val defQ:String="""
@@ -30,7 +30,7 @@ object  Queries extends PJaxController("query"){
   def query(query:String=defQ) = Action {
     implicit request=>
       //this.addTestRels()
-      SG.safeQuery(query,Config.limit,0).map{
+      sp.limitedQuery(query).map{
         results=>Ok(results.asJson).as("application/json")
       }.recover{
         case e=>
@@ -43,7 +43,7 @@ object  Queries extends PJaxController("query"){
 
   def all = Action {
     implicit request=>
-      val res: scala.List[Statement] = SG.db.read{
+      val res: scala.List[Statement] = sp.db.read{
         implicit r=>
           val iter: RepositoryResult[Statement] = r.getStatements(null,null,null,true)
           iter.asList().toList

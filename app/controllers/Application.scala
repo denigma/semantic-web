@@ -1,22 +1,15 @@
 package controllers
 
 import play.api.mvc._
-import org.openrdf.model.impl.URIImpl
-import org.openrdf.repository.RepositoryResult
-import org.denigma.semantic.SG
-import SG.db
-import scala.collection.JavaConversions._
-import scala.collection.immutable._
-import org.openrdf.model._
 import java.io.File
 import org.openrdf.rio.RDFFormat
 import play.api.libs.json.{JsObject, Json}
 import play.api.Play
 import play.api.Play.current
-import org.denigma.semantic.SG
+import org.denigma.semantic.WithSemanticPlatform
 
 
-object Application extends PJaxController("")
+object Application extends PJaxPlatformWith("") with WithSemanticPlatform
 {
   def lifespan= Action {
     implicit request=>
@@ -42,7 +35,6 @@ object Application extends PJaxController("")
 
   def page(uri:String) =  Action {
     implicit request=>
-      import Json._
 
       Ok(views.html.pages.page("!!!!!!!!!!!!!!!!!!!!!"))
   }
@@ -70,10 +62,12 @@ object Application extends PJaxController("")
         "url"-> (request.domain+"/uploads/"+f.filename)
       )
 
+    val wi = "http://webintelligence.eu/uploaded"
+
       if(fname.contains(".ttl"))
-        if(SG.db.write{
+        if(sp.db.write{
           con=>
-            con.add(file,SG.db.WI,RDFFormat.TURTLE)
+            con.add(file,wi,RDFFormat.TURTLE)
         })
           obj
         else {
@@ -81,7 +75,7 @@ object Application extends PJaxController("")
           obj + ("error"->toJson("wrong TURTLE file"))
         }
       else if(fname.contains(".rdf") || fname.contains(".owl"))
-        if(SG.db.write{con=>  con.add(file,SG.db.WI,RDFFormat.RDFXML)})
+        if(sp.db.write{con=>  con.add(file,wi,RDFFormat.RDFXML)})
         {
           obj
         }

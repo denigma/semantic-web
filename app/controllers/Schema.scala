@@ -12,13 +12,13 @@ import play.api.Play.current
 import play.api.templates.Html
 import scala.util.Try
 import com.bigdata.rdf.sparql.ast.IQueryNode
-import org.topbraid.spin._
 import org.denigma.semantic._
-import org.denigma.semantic.data.QueryResult
+import org.denigma.semantic.quering.QueryResult
+
 /**
  * Created by antonkulaga on 2/4/14.
  */
-object Schema  extends PJaxController("schema") {
+object Schema  extends PJaxPlatformWith("schema") {
 
   def sankey() = Action {
     implicit request=>

@@ -4,13 +4,13 @@ import play.api._
 import play.api.mvc._
 import play.api.libs.json._
 import org.joda.time.DateTimeZone
-import controllers.test.GenGraph
+import org.denigma.semantic.WithSemanticPlatform
 
 
 /*
 coopy-pasted from one of previous projects, should be changed a lot
  */
-object Graphs extends Controller with GenGraph{
+object Graphs extends WithSemanticPlatform with GenGraph{
 
   DateTimeZone.setDefault(DateTimeZone.UTC)
 

@@ -3,7 +3,7 @@ package models
 import org.denigma.semantic
 import org.denigma.semantic.classes._
 
-import org.denigma.semantic.{SG, WI, Prefixes}
+import org.denigma.semantic.{WithSemanticPlatform, SemanticPlatform, WI, Prefixes}
 import org.openrdf.model.impl.URIImpl
 import org.openrdf.model._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
@@ -17,7 +17,7 @@ object MenuRepository {
 }
 
 
-class Menu(url:URI) extends SimpleResource(url) {
+class Menu(url:URI) extends SimpleResource(url)  {
 
 
   var label:String = url.stringValue()
@@ -29,13 +29,13 @@ class Menu(url:URI) extends SimpleResource(url) {
 
 }
 
-class MenuParser[SELF<:Menu] extends SimpleParser[SELF]{
+class MenuParser[SELF<:Menu] extends SimpleParser[SELF] with WithSemanticPlatform{
 
   def onMenu:onPropertyObject = {
 
     case (out,RDFS.LABEL,o:Literal) =>   out.model.label = o.stringValue()
 
-    case (out, p:URI, o:Resource) if SG.isOfType(o,Prefixes.Pages.PAGE)(out.con)=>  out.model.outgoingResources.addBinding(p,o)
+    case (out, p:URI, o:Resource) if sp.isOfType(o,Prefixes.Pages.PAGE)(out.con)=>  out.model.outgoingResources.addBinding(p,o)
 
   }
 

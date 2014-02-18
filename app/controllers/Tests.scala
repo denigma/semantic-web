@@ -1,22 +1,15 @@
 package controllers
 
 import play.api.mvc._
-import org.openrdf.model.impl.{StatementImpl, URIImpl}
-import org.openrdf.repository.RepositoryResult
-import org.openrdf.model.Statement
-import org.denigma.semantic.SG
-import SG.db
-import scala.collection.JavaConversions._
-import org.openrdf.query.{BindingSet, TupleQueryResult, QueryLanguage}
-import scala.collection.immutable._
-import com.hp.hpl.jena.query.{Syntax, QueryFactory, Query}
-import play.api.libs.json.Json
-import scala.collection.JavaConversions._
+import org.openrdf.model.impl.StatementImpl
+import org.openrdf.query.BindingSet
+import org.denigma.semantic.WithSemanticPlatform
 
-/**
- * Created by antonkulaga on 12/21/13.
+
+/*
+test controller
  */
-object Tests  extends Controller{
+object Tests  extends Controller with WithSemanticPlatform{
   def editor = Action {
     implicit request =>
       Ok(views.html.test.editor()) //Ok(views.html.page("node","menu","0"))
@@ -44,21 +37,10 @@ object Tests  extends Controller{
         """.stripMargin
 ///    val sp = SG.db.asTemplate(str,"testTemplate")
 //    val sp = SG.db.asSpin(str)
-      val sp = extractGraphs(str)
 
-      Ok(sp.toString())
+      Ok(str)
   }
 
-
-
-  def extractGraphs(str:String): scala.List[String] = {
-    val q: Query =   QueryFactory.create(str, Syntax.syntaxSPARQL_11)
-
-    q.getGraphURIs.toList++q.getNamedGraphURIs
-
-
-
-  }
 
 
 }

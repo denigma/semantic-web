@@ -3,7 +3,7 @@ package org.denigma.semantic.classes
 import org.openrdf.model.{Value, URI, Resource}
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.model.vocabulary.{RDFS, RDF}
-import org.denigma.semantic.SG
+import org.denigma.semantic.SemanticPlatform
 
 /*
 contains useful methods to check resources properties

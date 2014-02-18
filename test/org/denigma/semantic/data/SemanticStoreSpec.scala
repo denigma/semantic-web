@@ -1,13 +1,15 @@
 package org.denigma.semantic.data
 
-import org.denigma.semantic.data.QueryResult
-import org.denigma.semantic.SG
+import org.denigma.semantic.SemanticPlatform
 import org.denigma.semantic.LoveHater
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
 import play.api.test.WithApplication
+import org.denigma.semantic.quering.QueryResult
+
+import org.denigma.semantic.SP
 
 
 /**
@@ -51,27 +53,6 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
     }
 
-    "query with limits and offsets" in new WithApplication() {
-      self.addTestRels()
-      val query = "SELECT ?s ?o WHERE { ?s <http://denigma.org/relations/resources/loves>  ?o }"
-
-      val resFull = SG.db.query(query)
-      resFull.isSuccess shouldEqual(true)
-
-      resFull.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(6)
-
-      val resLimited= SG.safeQuery(query,2,0)
-      resLimited.isSuccess shouldEqual(true)
-      resLimited.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(2)
-
-      val resOffset= SG.safeQuery(query,0,5)
-      resLimited.isSuccess shouldEqual(true)
-      resLimited.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.length shouldEqual(2)
-
-
-    }
-
-
     "read files" in new WithApplication(){
       val q1 =
         """
@@ -82,15 +63,15 @@ class SemanticStoreSpec  extends Specification with LoveHater {
           |  { de:Genomic_Instability ?property ?object }
         """.stripMargin
 
-      //SG.platformParams.isEmpty should beTrue
-      SG.db.parseFile("data/test/test_aging_ontology.ttl")
-      val res = SG.db.query(q1)
+      //SP.platformParams.isEmpty should beTrue
+      SP.db.parseFile("data/test/test_aging_ontology.ttl")
+      val res = SP.query(q1)()
       res.isSuccess should beTrue
       res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(4)
     }
 
     "read initial data" in new WithApplication(){
-      SG.loadInitialData()
+      SP.loadInitialData()
       val q1 =
         """
           |PREFIX  de:   <http://denigma.org/resource/>
@@ -99,42 +80,23 @@ class SemanticStoreSpec  extends Specification with LoveHater {
           |WHERE
           |  { de:Genomic_Instability ?property ?object }
         """.stripMargin
-      val res = SG.db.query(q1)
+      val res = SP.query(q1)()
       res.isSuccess should beTrue
       res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(4)
     }
 
     "build menu" in new WithApplication(){
-      SG.loadInitialData()
+      SP.loadInitialData()
       //    pg:Default_User_Menu a pg:Menu;
       //    ui:child pg:My_Queries;
       //    ui:child pg:My_Friends;
       //    ui:child pg:My_Projects .
 
-      SG.db.parseFile("data/test/test_menu.ttl")
+      SP.db.parseFile("data/test/test_menu.ttl")
 
     }
 
 
-    //    "do text search well" in new WithApplication(){
-    //      val loves ="<http://denigma.org/relations/resources/loves>"
-    //      val immortality = "<http://denigma.org/actors/resources/Immortality>"
-    //      self.addRel("Alexa","loves","Immortality")
-    //      self.addRel("Alexey","loves","Immortality")
-    //      self.addRel("Alexandr","loves","Immortality")
-    //      self.addRel("Alexandra","loves","Immortality")
-    //      self.addRel("Artem","loves","Immortality")
-    //      self.addRel("Andrey","loves","Immortality")
-    //      self.addRel("Anton","loves","Immortality")
-    //      self.addRel("Anatoliy","loves","Immortality")
-    //      self.addRel("Anderson","loves","Immortality")
-    //      SG.db.lookup("Anton",loves,immortality).rows.size must beEqualTo(1)
-    //      SG.db.lookup("Alexandr",loves,immortality).rows.size must beEqualTo(2)
-    //      SG.db.lookup("Alexandra",loves,immortality).rows.size must beEqualTo(1)
-    //      SG.db.lookup("to",loves,immortality).rows.size must beEqualTo(2)
-    //      SG.db.lookup("ton",loves,immortality).rows.size must beEqualTo(1)
-    //      SG.db.lookup("An",loves,immortality).rows.size must beEqualTo(4)
-    //      }
   }
 
 

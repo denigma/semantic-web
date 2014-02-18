@@ -4,7 +4,7 @@ import org.mindrot.jbcrypt.BCrypt
 import org.openrdf.model.URI
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import scala.concurrent.Future
-import org.denigma.semantic.SG
+import org.denigma.semantic.{WithSemanticPlatform, SemanticPlatform}
 import com.bigdata.rdf.vocab.decls.{FOAFVocabularyDecl=>foaf}
 import org.openrdf.model.impl.URIImpl
 
@@ -15,7 +15,7 @@ case class Account(uri:URI,email: String, password: String)
 
 case class Permission(read:Set[URI],write:Set[URI])
 
-object Accounts {
+object Accounts extends WithSemanticPlatform{
 
 
 
@@ -24,7 +24,7 @@ object Accounts {
       (aco: Option[Account]) =>aco.filter{ account => BCrypt.checkpw(password, account.password) }}
 
 
-  def findByEmail(email: String)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]] = SG.db.r{
+  def findByEmail(email: String)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]] = sp.db.r{
     con=>
       val mail = new URIImpl("mailto:"+email)
       val iter = con.getStatements(null,foaf.mbox,mail,false)

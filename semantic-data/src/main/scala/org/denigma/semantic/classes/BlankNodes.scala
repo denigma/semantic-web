@@ -2,7 +2,7 @@ package org.denigma.semantic.classes
 
 import org.denigma.semantic.classes.SemanticResource
 import org.denigma.semantic.data.SemanticStore
-import org.denigma.semantic.SG
+import org.denigma.semantic.SemanticPlatform
 import org.openrdf.model._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.model.Literal

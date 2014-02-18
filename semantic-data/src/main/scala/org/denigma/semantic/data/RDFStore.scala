@@ -2,20 +2,12 @@ package org.denigma.semantic.data
 
 import com.bigdata.rdf.sail._
 import scala.util.{Failure, Try}
-import org.openrdf.query.GraphQueryResult
-import com.hp.hpl.jena.sparql._
-import com.hp.hpl.jena.query._
+
 import scala.util.Failure
-import org.openrdf.query.algebra._
-import com.hp.hpl.jena.rdf.model.{Resource, ModelFactory}
 import scala.util.Success
 import scala.util.Failure
-import org.openrdf.query.parser.ParsedUpdate
-import com.bigdata.rdf.sparql.ast.optimizers.IASTOptimizer
-import com.bigdata.rdf.sparql.ast.ASTContainer
-import com.bigdata.rdf.sail.sparql.ast.{ASTLimit, ASTQuery}
-import com.bigdata.bop.{BOp, IBindingSet}
-import com.bigdata.rdf.sparql.ast.eval.AST2BOpContext
+import com.bigdata.rdf.sail.sparql.ast.ASTQuery
+import com.bigdata.bop.IBindingSet
 import java.net.URL
 import org.openrdf.rio.Rio
 import com.bigdata.rdf.model.BigdataURI
@@ -25,6 +17,8 @@ import play.api.libs.concurrent.Execution.Implicits._
 
 /*class that deals with storing and retrieving RDF from bigdata storage*/
 abstract class RDFStore {
+
+
 
   val lg:org.slf4j.Logger
 

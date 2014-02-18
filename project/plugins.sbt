@@ -1,6 +1,8 @@
 // Comment to get more information during initialization
 logLevel := Level.Warn
 
+addSbtPlugin("org.scala-lang.modules.scalajs" % "scalajs-sbt-plugin" % "0.3")
+
 // The Typesafe repository 
 resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
