@@ -63,7 +63,7 @@ abstract class RDFStore {
    */
   def readWrite[T](action:BigdataSailRepositoryConnection=>T):Try[T] =
   {
-    val con = repo.getConnection
+    val con = repo.getUnisolatedConnection
     con.setAutoCommit(false)
     val res = Try {
       val r = action(con)

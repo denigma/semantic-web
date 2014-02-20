@@ -3,7 +3,7 @@ package models
 import org.denigma.semantic
 import org.denigma.semantic.classes._
 
-import org.denigma.semantic.{WithSemanticPlatform, SemanticPlatform, WI, Prefixes}
+import org.denigma.semantic.{WithSemanticPlatform, SemanticPlatform, WI}
 import org.openrdf.model.impl.URIImpl
 import org.openrdf.model._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
@@ -33,9 +33,11 @@ class MenuParser[SELF<:Menu] extends SimpleParser[SELF] with WithSemanticPlatfor
 
   def onMenu:onPropertyObject = {
 
-    case (out,RDFS.LABEL,o:Literal) =>   out.model.label = o.stringValue()
+    case (out,RDFS.LABEL,o:Literal) =>   //out.model.label = o.stringValue()
 
-    case (out, p:URI, o:Resource) if sp.isOfType(o,Prefixes.Pages.PAGE)(out.con)=>  out.model.outgoingResources.addBinding(p,o)
+    case _=>
+
+   // case (out, p:URI, o:Resource) if sp.isOfType(o,Prefixes.Pages.PAGE)(out.con)=>  out.model.outgoingResources.addBinding(p,o)
 
   }
 

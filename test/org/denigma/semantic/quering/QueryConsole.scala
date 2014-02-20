@@ -1,10 +1,10 @@
-//package org.denigma.semantic.quering
-//
-//import com.bigdata.rdf.sail.BigdataSailTupleQuery
-//import com.bigdata.bop.{Constant, IVariable}
-//import com.bigdata.rdf.internal.IV
-//import scala.collection
-//import org.openrdf.query.QueryLanguage
+package org.denigma.semantic.quering
+
+import com.bigdata.rdf.sail.BigdataSailTupleQuery
+import com.bigdata.bop.{Constant, IVariable}
+import com.bigdata.rdf.internal.IV
+import scala.collection
+import org.openrdf.query.QueryLanguage
 //
 ///*
 //just a code to copy-paste to play console
@@ -16,23 +16,23 @@
 //
 //    //COPY to PLAY CONSOLE
 //    //COPY to PLAY CONSOLE
-//    import play.core._
-//    import org.denigma.semantic._
-//    import org.denigma.semantic.SP._
-//    import org.openrdf.model._
-//    import org.openrdf.model.impl._
-//    import com.bigdata.rdf.sail._
-//    import org.openrdf.query._
-//    import org.denigma.semantic.LoveHater
-//    import scala.collection.immutable._
-//    import org.denigma.semantic.quering._
-//    import com.bigdata.rdf.sparql.ast._
-//    import scala.collection.JavaConversions._
-//    import com.bigdata.rdf.model._
-//
-//    import com.bigdata.bop._
-//    import play.api._
-//    import play.api.Logger
+    import play.core._
+    import org.denigma.semantic._
+    import org.denigma.semantic.SP._
+    import org.openrdf.model._
+    import org.openrdf.model.impl._
+    import com.bigdata.rdf.sail._
+    import org.openrdf.query._
+    import org.denigma.semantic.LoveHater
+    import scala.collection.immutable._
+    import org.denigma.semantic.quering._
+    import com.bigdata.rdf.sparql.ast._
+    import scala.collection.JavaConversions._
+    import com.bigdata.rdf.model._
+
+    import com.bigdata.bop._
+    import play.api._
+    import play.api.Logger
 //
 //    new StaticApplication(new java.io.File("."))
 //    val repo = SG.db.repo

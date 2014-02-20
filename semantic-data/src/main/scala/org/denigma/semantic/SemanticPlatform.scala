@@ -7,6 +7,8 @@ import java.util
 import org.openrdf.repository.RepositoryResult
 import org.denigma.semantic.quering.QueryWizard
 import scala.util.Try
+import akka.actor.{Props, ActorRef}
+import org.denigma.semantic.actors.{DatabaseWriter, DatabaseReader}
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -15,6 +17,9 @@ import play.api.Play.current
 import org.openrdf.model._
 import scala.collection.immutable._
 import scala.collection.JavaConversions._
+import play.api.libs.concurrent.Akka
+import akka.actor._
+import akka.routing._
 
 /*
 class that is responsible for the main logic
@@ -29,6 +34,10 @@ abstract class SemanticPlatform extends QueryWizard{
   var db:Store = null
 
   var platformParams: List[Statement] = List.empty[Statement]
+
+  var reader: ActorRef = null
+
+  var writer: ActorRef = null
 
 
   implicit val lg = play.api.Logger.logger
@@ -57,7 +66,32 @@ abstract class SemanticPlatform extends QueryWizard{
 
   def start(app: play.api.Application,lg:org.slf4j.Logger) = {
     this.db = new Store(dbConfig,lg)
+    val sys = Akka.system(app)
+    reader = makeReader(db,sys)
+    writer = makeWriter(db,sys)
     if(platformConfig.loadInitial)  this.loadInitialData()
+  }
+
+  /*
+  creates readers with router
+   */
+  def makeReader(database:Store,sys:ActorSystem):ActorRef = {
+
+    val router = SmallestMailboxRouter(platformConfig.defReaders)
+    val resizer = DefaultResizer(lowerBound = platformConfig.minReaders, upperBound = platformConfig.maxReaders)
+
+    val props = Props(classOf[DatabaseReader],database).withRouter(router.withResizer(resizer))
+
+    //SmallestMailboxPool(5).props(props)
+    sys.actorOf(props,"reader")
+  }
+
+  /*
+  make writing actor
+   */
+  def makeWriter(database:Store,sys:ActorSystem): ActorRef = {
+    val props = Props(classOf[DatabaseWriter],database)
+    sys.actorOf(props,"writer")
   }
 
   /*
@@ -75,6 +109,8 @@ abstract class SemanticPlatform extends QueryWizard{
   }.getOrElse(List.empty[Statement])
     this.platformParams
   }
+
+
 
 
   /*
