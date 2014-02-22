@@ -20,9 +20,18 @@ object Dependencies {
     "org.scalatest" % "scalatest_2.10" % "2.1.0-RC2",
 
     "com.typesafe.akka" %% "akka-testkit" %  "2.2.0"
-
-
   )
+
+  val webjars = Seq(
+    "org.webjars" %% "webjars-play" % "2.2.1-2",
+
+    "org.webjars" % "jquery-ui" % "1.10.3",
+
+    "org.webjars" % "Semantic-UI" % "0.11.0"
+  )
+
+
+
 
   val reflectDep =     scalaVersion("org.scala-lang" % "scala-reflect" % _)
 

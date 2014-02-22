@@ -1,19 +1,17 @@
 package org.denigma.semantic.data
 
 import com.bigdata.rdf.sail._
-import scala.util.{Failure, Try}
+import scala.util.Try
 
-import scala.util.Failure
 import scala.util.Success
 import scala.util.Failure
-import com.bigdata.rdf.sail.sparql.ast.ASTQuery
-import com.bigdata.bop.IBindingSet
 import java.net.URL
 import org.openrdf.rio.Rio
 import com.bigdata.rdf.model.BigdataURI
 import java.io.File
-import scala.concurrent.Future
-import play.api.libs.concurrent.Execution.Implicits._
+import org.openrdf.query.QueryLanguage
+import org.denigma.semantic.WI
+
 
 /*class that deals with storing and retrieving RDF from bigdata storage*/
 abstract class RDFStore {
@@ -24,7 +22,7 @@ abstract class RDFStore {
 
   val repo: BigdataSailRepository
 
-  def read[T](action:BigdataSailRepositoryConnection=>T):Try[T]= {
+  def read[T](action:Reading[T]):Try[T]= {
     val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
     val res = Try {
       action(con)
@@ -39,24 +37,86 @@ abstract class RDFStore {
   }
 
   /*
-  same as read but with FUTURE as RESULT
-  TODO: refactor hard
+  readonly select query failed
    */
-  def r[T](action:BigdataSailRepositoryConnection=>T):Future[T]= {
+  def selectQuery[T](str:String,select:TupleQuering[T])(implicit base:String = WI.RESOURCE) = {
     val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
-    val res = Future {
-      action(con)
+    val q:BigdataSailTupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL,str,base)
+    val res = Try{
+      select(str,con,q)
     }
-
     con.close()
     res.recoverWith{case
       e=>
-      lg.error("readonly transaction from database failed because of \n"+e.getMessage)
+      lg.error(s"readonly SELECT query\n $str \nfailed because of \n"+e.getMessage)
       res
     }
+
   }
 
+  /*
+ readonly select query failed
+  */
+  def askQuery(str:String,ask:AskQuering)(implicit base:String = WI.RESOURCE) = {
+    val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
+    val q = con.prepareBooleanQuery(QueryLanguage.SPARQL,str,base)
+    val res = Try{
+      ask(str,con,q)
+    }
+    con.close()
+    res.recoverWith{case
+      e=>
+      lg.error(s"readonly ASK query\n $str \nfailed because of \n"+e.getMessage)
+      res
+    }
 
+  }
+
+  def graphQuery[T](str:String,selectGraph:GraphQuering[T])(implicit base:String = WI.RESOURCE) = {
+    val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
+    val q: BigdataSailGraphQuery = con.prepareGraphQuery(QueryLanguage.SPARQL,str,base)
+    val res = Try{
+      selectGraph(str,con,q)
+
+    }
+    con.close()
+    res.recoverWith{case
+      e=>
+      lg.error(s"readonly GRAPH query\n $str \nfailed because of \n"+e.getMessage)
+      res
+    }
+
+  }
+
+  def anyQuery[T](str:String,select:AnyQuering[T])(implicit base:String = WI.RESOURCE) = {
+    val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
+    val q: BigdataSailQuery = con.prepareNativeSPARQLQuery(QueryLanguage.SPARQL,str,base)
+    val res = Try{
+      select(str,con,q)
+    }
+    con.close()
+    res.recoverWith{case
+      e=>
+      lg.error(s"READONLY any QUERY \n $str \nfailed because of \n"+e.getMessage)
+      res
+    }
+
+  }
+
+  def update(str:String,update:UpdateQuering)(implicit base:String = WI.RESOURCE) = {
+    val con: BigdataSailRepositoryConnection = repo.getUnisolatedConnection
+    val u = con.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,str,base)
+    val res = Try{
+      update(str,con,u)
+    }
+    con.close()
+    res.recoverWith{case
+      e=>
+      lg.error(s"UPDATE query \n $str \nfailed because of \n"+e.getMessage)
+      res
+    }
+
+  }
 
   /*
   writes something and then closes the connection
@@ -78,25 +138,6 @@ abstract class RDFStore {
     }
   }
 
-  /*
-writes something and then closes the connection, same as readWrite but async
- */
-  def rw[T](action:BigdataSailRepositoryConnection=>T):Future[T] =
-  {
-    val con = repo.getConnection
-    con.setAutoCommit(false)
-    val res = Future {
-      val r = action(con)
-      con.commit()
-      r
-    }
-    con.close()
-    res.recoverWith{case
-      e=>
-      lg.error("read/write transaction from database failed because of \n"+e.getMessage)
-      res
-    }
-  }
 
   /*
 parses RDF file

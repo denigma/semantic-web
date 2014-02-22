@@ -2,20 +2,37 @@ package org.denigma.semantic.actors
 
 import org.denigma.semantic.data.RDFStore
 import akka.actor.Actor
-import scala.util.{Success, Failure}
+import scala.util.{Try, Success, Failure}
+import org.denigma.semantic.quering.QueryResult
+import org.denigma.semantic.data._
+import javassist.bytecode.stackmap.TypeTag
+import scala.concurrent.{Future, Promise}
 
 /*
 Database actor that works with readonly db connection
  */
 class DatabaseReader(db:RDFStore) extends DBActor(db)
 {
+
+
+
   override def receive: Actor.Receive = {
 
-    case  read: Data.Read[_] =>
+    case Data.Read(action)=>
+     sender ! db.read[Any](action)
 
-      sender ! db.readWrite(read.action)
+    case Data.Select(query,action,base)=>
+      sender ! db.selectQuery[Any](query,action)(base)
+
+    case Data.Select(query,action,base)=>
+      sender ! db.selectQuery[Any](query,action)(base)
 
 
-    case v=>this.log.debug(s"something received by reader $v")
+    case Data.Construct(query,action,base)=>
+      sender ! db.graphQuery[Any](query,action)(base)
+
+    case v=>
+      this.log.error(s"UNKNOWN message received by reader $v")
+      //sender ! v
   }
 }

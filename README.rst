@@ -23,6 +23,9 @@ To set up the project you need to (most of instructions are for Deiban/Ubuntu ba
 * Install following Compass libs:
     $ sudo gem install semantic-ui-sass
     $ sudo gem install singularitygs
+* Init submodules:
+    $   git submodule init
+    $   git submodule update
 * run tests:
     $ play test
 * run the app:
@@ -36,7 +39,6 @@ At the moment it consists of tree projects:
  * macro project that contains macroses implementations
  * semantic-data that contains the code that deales with BigData rdf QuadStore and quries to it
  * semantic-web (main project) that is web-application
-
 
 
 Notes

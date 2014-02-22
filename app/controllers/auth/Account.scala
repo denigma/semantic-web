@@ -24,13 +24,7 @@ object Accounts extends WithSemanticPlatform{
       (aco: Option[Account]) =>aco.filter{ account => BCrypt.checkpw(password, account.password) }}
 
 
-  def findByEmail(email: String)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]] = sp.db.r{
-    con=>
-      val mail = new URIImpl("mailto:"+email)
-      val iter = con.getStatements(null,foaf.mbox,mail,false)
-
-      ???
-  }
+  def findByEmail(email: String)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]] = ???
 
   def findByUri(uri:URI)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]]= ???
 

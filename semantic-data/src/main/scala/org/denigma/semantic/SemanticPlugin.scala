@@ -9,8 +9,7 @@ import scala.util.Try
 /*
 Plugin that runs bigdata database and other semanticdb stuff
  */
-class SemanticPlugin(app: play.api.Application) extends Plugin {
-
+class SemanticPlugin(app: play.api.Application) extends Plugin with WithSemanticPlatform{
 
   implicit val lg = play.api.Logger.logger
 

@@ -5,7 +5,6 @@ import org.openrdf.model._
 import org.openrdf.model.BNode
 import play.api.Play
 import org.openrdf.model.impl.URIImpl
-import org.denigma.semantic.{SemanticPlatform, Prefixes}
 import org.openrdf.model.vocabulary
 import org.denigma.semantic.data.SemanticStore
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection

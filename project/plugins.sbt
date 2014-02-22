@@ -9,8 +9,10 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 resolvers += Resolver.sonatypeRepo("snapshots")
 
 // Use the Play sbt plugin for Play projects
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.2-RC3")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.2-RC4")
 
 addSbtPlugin("net.litola" % "play-sass" % "0.3.0")
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-atmos-play" % "0.3.2")
+
+addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.4")

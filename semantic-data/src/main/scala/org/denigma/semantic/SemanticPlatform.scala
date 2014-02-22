@@ -5,10 +5,11 @@ import java.io._
 import org.denigma.semantic.data.SemanticStore
 import java.util
 import org.openrdf.repository.RepositoryResult
-import org.denigma.semantic.quering.QueryWizard
+import org.denigma.semantic.quering.{ QueryWizard}
 import scala.util.Try
 import akka.actor.{Props, ActorRef}
-import org.denigma.semantic.actors.{DatabaseWriter, DatabaseReader}
+import org.denigma.semantic.actors.{DatabaseActorsFactory, DatabaseWriter, DatabaseReader}
+import org.denigma.semantic.controllers.SemanticController
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -24,7 +25,7 @@ import akka.routing._
 /*
 class that is responsible for the main logic
  */
-abstract class SemanticPlatform extends QueryWizard{
+abstract class SemanticPlatform extends QueryWizard with SemanticController{
 
   var dbConfig:DBConfig
   var platformConfig:PlatformConfig
@@ -35,10 +36,7 @@ abstract class SemanticPlatform extends QueryWizard{
 
   var platformParams: List[Statement] = List.empty[Statement]
 
-  var reader: ActorRef = null
-
-  var writer: ActorRef = null
-
+  var databaseActorsFactory:DatabaseActorsFactory[Store] = null
 
   implicit val lg = play.api.Logger.logger
 
@@ -67,32 +65,11 @@ abstract class SemanticPlatform extends QueryWizard{
   def start(app: play.api.Application,lg:org.slf4j.Logger) = {
     this.db = new Store(dbConfig,lg)
     val sys = Akka.system(app)
-    reader = makeReader(db,sys)
-    writer = makeWriter(db,sys)
+    this.databaseActorsFactory = new DatabaseActorsFactory[Store](db,sys,(platformConfig.minReaders,platformConfig.defReaders,platformConfig.maxReaders))
     if(platformConfig.loadInitial)  this.loadInitialData()
   }
 
-  /*
-  creates readers with router
-   */
-  def makeReader(database:Store,sys:ActorSystem):ActorRef = {
 
-    val router = SmallestMailboxRouter(platformConfig.defReaders)
-    val resizer = DefaultResizer(lowerBound = platformConfig.minReaders, upperBound = platformConfig.maxReaders)
-
-    val props = Props(classOf[DatabaseReader],database).withRouter(router.withResizer(resizer))
-
-    //SmallestMailboxPool(5).props(props)
-    sys.actorOf(props,"reader")
-  }
-
-  /*
-  make writing actor
-   */
-  def makeWriter(database:Store,sys:ActorSystem): ActorRef = {
-    val props = Props(classOf[DatabaseWriter],database)
-    sys.actorOf(props,"writer")
-  }
 
   /*
   loads configs of the platform

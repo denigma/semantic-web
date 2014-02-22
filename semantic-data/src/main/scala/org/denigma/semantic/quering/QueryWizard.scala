@@ -7,11 +7,16 @@ import scalax.collection.GraphPredef._
 import scala.util.Try
 import org.openrdf.query.QueryLanguage
 import org.openrdf.model.{URI, Resource, Value}
+import org.denigma.semantic.data.SemanticStore
 
 /*
 Does various quries on top of RDF store
  */
-abstract class QueryWizard extends SemanticWizard{
+abstract class QueryWizard{
+
+  type Store <:  SemanticStore
+
+  def db:Store
 
   lazy val SliceModifier = new SliceQuery(0,db.conf.limit)
 
@@ -57,47 +62,6 @@ abstract class QueryWizard extends SemanticWizard{
   query that returns result with binding
    */
   def queryWithBinding(str:String, bindings: (String,org.openrdf.model.Value)) = query(str)(BindingModifier(bindings))
-
-  //
-//  def update(query:String, nameSpace:String = SG.db.WI) = db write {
-//    implicit wr=>
-//      val upd = wr.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,query,nameSpace)
-//      upd.execute()
-//  }
-
-
-//  def withLimit(q:Query,limit:Long, always:Boolean = true)= {
-//    if(limit>0)
-//      if(always || !q.hasLimit) q.setLimit(limit)
-//    q
-//  }
-//
-//  def withOffset(q:Query,offset:Long, always:Boolean = true) = {
-//    if(offset>0)
-//      if(always || !q.hasOffset) q.setOffset(offset)
-//    q
-//  }
-
-
-
-//  /*
-//  it should be safe in future but now it is only limited
-//   */
-//  def safeQuery(str:String, limit:Long,offset:Long):Try[QueryResultLike] =
-//    this.alterQuery(str,limit,offset).map(query(_,str)).getOrElse(Failure(new RuntimeException(s"Unknown query type of $str")))
-
-//  /*
-//  adds limit and offset to the query
-//   */
-//  def alterQuery(str:String,limit:Long,offset:Long, sortVars:(String,Int)*): Try[String] = Try {
-//    if(limit<1 && offset <1) str else {
-//      val q: Query =   QueryFactory.create(str, Syntax.syntaxSPARQL_11)
-//      if(!q.hasOrderBy) {
-//        sortVars.foreach(kv=>q.addOrderBy(kv._1,kv._2))
-//      }
-//      if(q.isSelectType)  withOffset(withLimit(q,limit,always = false),offset,always = false).toString(Syntax.syntaxSPARQL_11) else str
-//    }
-//  }
 
 
   /*

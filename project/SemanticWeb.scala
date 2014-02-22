@@ -20,7 +20,7 @@ trait SemanticWeb extends Collaboration with SemanticData{
 
 
 
-  val appDependencies: Seq[ModuleID] = Dependencies.authDepth
+  val appDependencies: Seq[ModuleID] = Dependencies.authDepth++Dependencies.webjars
 
   //play.Project.playScalaSettings ++ SassPlugin.sassSettings
 
@@ -41,7 +41,8 @@ trait SemanticWeb extends Collaboration with SemanticData{
 
 //    scalacOptions in Test += testOptions
 
-  ).settings( play.Project.playScalaSettings ++
+  ).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
+    .settings( play.Project.playScalaSettings ++
     SassPlugin.sassSettings ++
     //Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass")):_* )
     Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass", "-r","singularitygs")):_* )

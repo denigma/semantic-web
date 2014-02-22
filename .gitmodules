@@ -1,0 +1,3 @@
+[submodule "wesin"]
+	path = wesin
+	url = https://github.com/denigma/wesin

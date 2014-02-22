@@ -1,7 +1,7 @@
 import sbt._
 import sbt.Keys._
 
-trait SemanticData extends Macroses{
+trait SemanticData extends Macroses with Wesin{
 
   //lazy val banana =  RootProject(uri("git://github.com/antonkulaga/banana-rdf.git#master"))
 
@@ -10,7 +10,7 @@ trait SemanticData extends Macroses{
 
   def semanticDataAppPath = "."
 
-  val semanticDataAppDependencies: Seq[ModuleID] = Dependencies.graphDeps++Dependencies.rdfDeps++Dependencies.miscDeps
+  val semanticDataAppDependencies: Seq[ModuleID] = Dependencies.graphDeps++Dependencies.rdfDeps++Dependencies.miscDeps++Dependencies.testDeps
 
   val src = "src"
 
@@ -42,7 +42,7 @@ trait SemanticData extends Macroses{
 
     organization := "org.denigma"
 
-  ).dependsOn(macroses)
+  ).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*).dependsOn(macroses).dependsOn(wesin)
 }
 
 
