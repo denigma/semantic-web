@@ -1,41 +1,67 @@
 @(implicit request: RequestHeader)
 
 
-<header class="ui green menu" >
+<header class="ui green menu" data-view="LoginView">
     <nav class="ui inverted menu" data-view="MenuView" data-view-name="'main'">
 
         <a class="active item" data-route="routes.query.main" href="/query/main">
-            <h3 class="ui teal header"><i class="home icon"></i> Home</h3>
+            <h4 class="ui teal header"><i class="home icon"></i> Home</h4>
         </a>
 
         <a class="item"  data-route="routes.query.main" href="/query/main">
-            <h3  class="ui teal header">Queries</h3>
+            <h4  class="ui teal header">Queries</h4>
         </a>
 
         <a class="item"  data-route="routes.schema.sankey" href="/schema/sankey">
-            <h3  class="ui teal header">Sankey</h3>
+            <h4  class="ui teal header">Sankey</h4>
         </a>
         <a class="item"  data-route="routes.schema.distortion" href="/schema/distortion">
-            <h3  class="ui teal header">Distortion</h3>
+            <h4  class="ui teal header">Distortion</h4>
         </a>
 
         <a class="item" data-foreach-item="items" data-bind-href="page">
-            <h3  class="ui teal header" data-bind="item.label">Queries</h3>
+            <h4  class="ui teal header" data-bind="item.label">Queries</h4>
         </a>
 
 
-        <a class="item">
-            <h4 class="ui inverted header" data-bind="item.label"></h4></a>
 
-        <div class="right menu">
-            <div class="green item">
-                <div class="ui icon input">
-                    <input type="text" placeholder="Search...">
-                    <i class="search icon"></i>
+        <div class="right menu" data-hideif="state | equals 'signed'">
+
+            <div class="item">
+                <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
+                    <input type="text" placeholder="login">
                 </div>
             </div>
-            <div class="item" data-hideif="Denigma.CurrentUser">
-                <div class="ui positive button">Sign Up</div>
+
+            <div class="item">
+                <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
+                    <input type="text" data-bind="password" placeholder="password">
+                </div>
+            </div>
+
+            <div class="item" data-showif="state | equals 'application'">
+                <div class="ui input" data-removeclass-invalid="valid_password" data-addclass-invalid="valid_password | not">
+                    <input type="text" data-bind="repeat" placeholder="repeat password">
+                </div>
+            </div>
+
+           <div class="item">
+                <div class="ui positive button"  data-event-click="login">Login</div>
+           </div>
+
+
+            <div class="item">
+                <div class="ui positive button" data-bind="registerLabel" data-event-click="register">Sign up</div>
+            </div>
+        </div>
+
+
+        <div class="right menu" data-showif="state | equals 'signed'">
+            <div class="item">
+                <div>Logged in as </div>
+            </div>
+            <div class="item">
+                <div class="ui positive button">Log out</div>
             </div>
         </div>
 

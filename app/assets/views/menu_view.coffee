@@ -13,6 +13,26 @@ class Denigma.View extends Batman.View
   viewDidDisappear: ->
     @set("appeared",false)
 
+  activate: ->
+
+class Denigma.States extends Batman.DelegatingStateMachine
+
+  canGo: (transition)->@canStartTransition(transition)
+
+  tryGo: (transition)->
+    if(@canStartTransition(transition))
+      @[transition]()
+      true
+    else
+      false
+
+  goOr: (transition, fun)->
+    if(@canStartTransition(transition))
+      @[transition]()
+      true
+    else
+      if fun? then fun()
+
 
 class Denigma.MenuView extends Denigma.View
 

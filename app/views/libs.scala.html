@@ -2,11 +2,12 @@
 @defining("lib/"){
     case (lib)=>{
         <script type="text/javascript" src="@routes.Assets.at(lib+"jquery-2.0.3.js")"></script>
+        @*<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>*@
+        @*<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery-ui.min.js"))'></script>*@
 
         <link rel="stylesheet" href="@routes.Assets.at(lib+"codemirror/codemirror.css")" type="text/css">
         <script type="text/javascript" src="@routes.Assets.at(lib+"codemirror/codemirror.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at(lib+"codemirror/mode/sparql/sparql.js")"></script>
-
 
         <link rel="stylesheet" href="@routes.Assets.at(lib+"Smoothness/jquery.ui.all.css")" type="text/css">
         <script type="text/javascript" src="@routes.Assets.at(lib+"jquery-ui.js")"></script>
@@ -37,6 +38,7 @@
 
         <script type="text/javascript" src="@routes.Assets.at(lib+"batman.js")"></script>
         <script type="text/javascript" src="@routes.Assets.at(lib+"batman.jquery.js")"></script>
+
 
 
     }

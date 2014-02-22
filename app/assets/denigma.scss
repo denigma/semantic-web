@@ -21,6 +21,19 @@ $denigma_violet_opac: rgba(166, 77, 121 ,0.2);
   height: 500px;
 }
 
+.ui.input input {
+  max-width: 25em;
+}
+
+.sufficient {
+  border: 2px solid limegreen;
+}
+
+.invalid {
+  border: 2px solid red;
+}
+
+
 .node rect {
   cursor: move;
   fill-opacity: .9;
@@ -41,6 +54,7 @@ $denigma_violet_opac: rgba(166, 77, 121 ,0.2);
 .link:hover {
   stroke-opacity: .5;
 }
+
 
 
 

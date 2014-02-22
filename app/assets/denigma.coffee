@@ -20,14 +20,9 @@ class Denigma extends Batman.App
   @models: (str)=>Denigma.url("models/#{str}")
   @pages: (str)=>Denigma.url("pages/#{str}")
 
-  @set("currentUser", null)
-
-  @classAccessor 'signed',
-    get: -> @get("currentUser") && @get("token")
 
 
-
-  #stores to global container
+#stores to global container
 container = Batman.container
 container.Denigma = Denigma
 
