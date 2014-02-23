@@ -11,6 +11,8 @@ import org.denigma.semantic.data.SemanticStore
 
 /*
 Does various quries on top of RDF store
+
+TODO: deprecate in future
  */
 abstract class QueryWizard{
 
@@ -38,7 +40,8 @@ abstract class QueryWizard{
 
 
   /*
- runs query over db
+ runs query over db synchronously,
+ recommended for test usage only
   */
   def query(str:String)(mod:QueryModifier = DefaultQueryModifier):Try[QueryResultLike] = db read{
     implicit r=>
@@ -47,7 +50,7 @@ abstract class QueryWizard{
   }
 
 
-  def limitedQuery(str:String) = query(str)(SliceModifier)
+  def limitedQuery(str:String): Try[QueryResultLike] = query(str)(SliceModifier)
 
   /*
   Query that returns paginated result

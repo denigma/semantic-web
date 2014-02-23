@@ -1,6 +1,5 @@
 package org.denigma.semantic.quering
 
-import org.denigma.semantic.LoveHater
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
@@ -8,6 +7,7 @@ import org.junit.runner._
 import play.api.test.WithApplication
 
 import org.denigma.semantic.SP
+import org.denigma.semantic.test.LoveHater
 
 /**
 tests BigDataWrapper
@@ -35,12 +35,7 @@ class QueryModifiersSpec  extends Specification with LoveHater {
 
 
     "write and read triples" in new WithApplication() {
-
-
       self.addTestRels()
-
-
-
       val loves = new URIImpl("http://denigma.org/relations/resources/loves")
 
       self.getRel(loves).length shouldEqual(6)

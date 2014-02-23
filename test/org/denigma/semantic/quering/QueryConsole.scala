@@ -5,6 +5,8 @@ import com.bigdata.bop.{Constant, IVariable}
 import com.bigdata.rdf.internal.IV
 import scala.collection
 import org.openrdf.query.QueryLanguage
+import org.denigma.semantic.test.LoveHater
+
 //
 ///*
 //just a code to copy-paste to play console
@@ -23,7 +25,6 @@ import org.openrdf.query.QueryLanguage
     import org.openrdf.model.impl._
     import com.bigdata.rdf.sail._
     import org.openrdf.query._
-    import org.denigma.semantic.LoveHater
     import scala.collection.immutable._
     import org.denigma.semantic.quering._
     import com.bigdata.rdf.sparql.ast._

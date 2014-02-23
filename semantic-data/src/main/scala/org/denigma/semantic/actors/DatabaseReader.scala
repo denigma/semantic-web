@@ -27,9 +27,12 @@ class DatabaseReader(db:RDFStore) extends DBActor(db)
     case Data.Select(query,action,base)=>
       sender ! db.selectQuery[Any](query,action)(base)
 
-
     case Data.Construct(query,action,base)=>
       sender ! db.graphQuery[Any](query,action)(base)
+
+    case Data.AnyQuery(query,action,base)=>
+      sender ! db.anyQuery[Any](query,action)(base)
+
 
     case v=>
       this.log.error(s"UNKNOWN message received by reader $v")

@@ -7,10 +7,15 @@ import com.bigdata.rdf.sail._
  */
 package object data {
   type Reading[T] = BigdataSailRepositoryConnection=>T
+
   type Writing = BigdataSailRepositoryConnection=>Unit
+
   type TupleQuering[T] = (String,BigdataSailRepositoryConnection,BigdataSailTupleQuery)=>T
+
   type AskQuering = (String,BigdataSailRepositoryConnection,BigdataSailBooleanQuery)=>Boolean
+
   type GraphQuering[T] = (String,BigdataSailRepositoryConnection,BigdataSailGraphQuery)=>T
+
   type AnyQuering[T] = PartialFunction[(String,BigdataSailRepositoryConnection,BigdataSailQuery),T]
 
   type UpdateQuering = (String,BigdataSailRepositoryConnection,BigdataSailUpdate)=>Unit

@@ -1,16 +1,39 @@
-package org.denigma.semantic
+package org.denigma.semantic.test
 
 import org.openrdf.model.impl.{StatementImpl, URIImpl}
 import org.openrdf.model.{Statement, URI}
 import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
-import SP._
 import scala.collection.JavaConversions._
+import org.denigma.semantic.SP._
+import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
+import org.denigma.semantic.SP
 
-/**
- * Created by antonkulaga on 1/13/14.
+/*
+Traits for tests only
  */
-trait LoveHater {
+trait LoveHater{
+
+
+  def sub(str:String) = s"http://denigma.org/actors/resources/$str"
+  def prop(rel:String) = s"http://denigma.org/relations/resources/$rel"
+  def obj(str:String) = s"http://denigma.org/actors/resources/$str"
+
+
+  def subject(str:String) = new URIImpl(sub(str))
+  def property(str:String) = new URIImpl(prop(str))
+  def predicate(str:String) = new URIImpl(obj(str))
+
+  val Daniel = subject("Daniel")
+  val Liz = subject("Liz")
+  val Anton = subject("Anton")
+  val RDF = predicate("RDF")
+  val Immortality = predicate("Immortality")
+  val loves = property("loves")
+  val hates = property("hates")
+
+  def db = SP.db
+
 
   /*
   ads some test relationships
@@ -24,6 +47,7 @@ trait LoveHater {
     this.addRel("Ilia","loves","Immortality")
     this.addRel("Edouard","loves","Immortality")
   }
+
 
   /*
 just a function for testing
@@ -40,6 +64,8 @@ just a function for testing
     }
   }
 
+  def readCon: BigdataSailRepositoryConnection = db.repo.getReadOnlyConnection
+  def writeCon: BigdataSailRepositoryConnection = db.repo.getUnisolatedConnection
   /*
   reads relationship from the repository
    */
@@ -55,7 +81,7 @@ just a function for testing
 just a function for testing
  */
   def addRel(sub:String,rel:String,obj:String) =
-    this.addFullRel(s"http://denigma.org/actors/resources/$sub",s"http://denigma.org/relations/resources/$rel",s"http://denigma.org/actors/resources/$obj")
+    this.addFullRel(this.sub(sub),this.prop(rel),this.obj(obj))
 
 
 

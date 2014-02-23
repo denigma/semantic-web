@@ -11,6 +11,7 @@ case class SliceQuery( offset:Long,  limit:Long) extends SliceModifier
 
 /*
 limits number of results from the query
+TODO: deprecate in future
  */
 trait SliceModifier extends QueryModifier
 {
@@ -54,7 +55,10 @@ On tuple Query
 
 }
 
-
+/*
+limits number of results from the query
+TODO: deprecate in future
+ */
 case class BindingModifier(vars:(String,Value)*) extends QueryModifier {
 //  val offset:Long = 0
 //  val limit:Long = Config.limit

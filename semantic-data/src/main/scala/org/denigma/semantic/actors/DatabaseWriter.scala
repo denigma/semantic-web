@@ -14,7 +14,7 @@ class DatabaseWriter(db:RDFStore) extends DBActor(db){
 
    case  Data.Write(action) =>
 
-      sender ! db.write(action)
+      sender ! db.readWrite[Unit](action)
 
    case Data.Update(query,action,base) =>
       sender ! db.update(query,action)(base)

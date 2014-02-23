@@ -1,7 +1,6 @@
 package org.denigma.semantic.actors
 
 import org.specs2.mutable.SpecificationLike
-import org.denigma.semantic.LoveHater
 import org.specs2.mutable._
 import play.api.test.WithApplication
 import org.denigma.semantic.quering._
@@ -13,12 +12,15 @@ import scala.util.Success
 import org.openrdf.query.{TupleQueryResult, QueryLanguage}
 import com.bigdata.rdf.sail.{BigdataSailTupleQuery, BigdataSailRepositoryConnection}
 import scala.collection.immutable.Map
-import org.denigma.semantic.controllers.QueryController
+import org.denigma.semantic.controllers.SemanticController
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration._
 import scala.concurrent.duration._
-
-
+import org.denigma.semantic.test.LoveHater
+import org.openrdf.repository.RepositoryResult
+import org.openrdf.model.{Value, URI, Resource, Statement}
+import org.denigma.semantic.controllers._
+import org.openrdf.model.impl.StatementImpl
 
 class DBActorSpec extends Specification with LoveHater {
 
@@ -48,23 +50,24 @@ class DBActorSpec extends Specification with LoveHater {
       QueryResult.parse(str ,res)
   }
 
+  val q1 =
+    """
+      |PREFIX  de:   <http://denigma.org/resource/>
+      |
+      |SELECT  ?property ?object
+      |WHERE
+      |  { de:Genomic_Instability ?property ?object }
+    """.stripMargin
 
 
 
   "Actor" should {
 
-    "query on denigma info" in new WithApplication with QueryController{
+    "query on denigma info" in new WithApplication with SemanticController{
       // We need a Fake Application for the Actor system
 
       implicit val sys = Akka.system(this.app)
-      val q1 =
-        """
-          |PREFIX  de:   <http://denigma.org/resource/>
-          |
-          |SELECT  ?property ?object
-          |WHERE
-          |  { de:Genomic_Instability ?property ?object }
-        """.stripMargin
+
 
       //SP.platformParams.isEmpty should beTrue
       SP.db.parseFile("data/test/test_aging_ontology.ttl")
@@ -84,28 +87,39 @@ class DBActorSpec extends Specification with LoveHater {
 
       probe1.send(SP.reader,q)
 
-//      probe1.expectMsgPF(){
-//        case Success(value:QueryResult) =>
-//          value.bindings.size shouldEqual(4)
-//          value
-//        case _ => self.failure("Actor ask should be successful")
-//      }
-
       this.aw(this.read(query)) match {
                 case Success(value:QueryResult) =>
                   value.bindings.size shouldEqual(4)
                   value
                 case _ => self.failure("Actor ask should be successful")
               }
-
-
-
-//
-//
-//      this.read(query) match {
-//        case r:Try[QueryResult] =>
-//      }
     }
+
+    "make writes" in new WithApplication with SemanticController with LoveHater{
+      this.addTestRels()
+      val loveRes = self.db.read{ con=>con.getStatements(null,loves,null,false).toList }
+      val hateRes = self.db.read{ con=>con.getStatements(null,hates,null,false).toList }
+
+      loveRes.isSuccess should beTrue
+      loveRes.get.size shouldEqual 6
+
+      hateRes.isSuccess should beTrue
+      hateRes.get.size shouldEqual 1
+
+      this.aw(this.write{con=>
+        con.remove(new StatementImpl(Daniel,loves,RDF))
+        con.add(new StatementImpl(Anton,hates,Anton))
+      }).isSuccess should beTrue
+
+      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
+
+    }
+
+//    "write updates" in new WithApplication with SemanticController{
+//      // We need a Fake Application for the Actor system
+//
+//    }
 
 //    "query love and hate" in new WithApplication{
 //      // We need a Fake Application for the Actor system

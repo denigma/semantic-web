@@ -37,7 +37,7 @@ trait SemanticIOLike{
 
 }
 
-trait SemanticController extends SemanticIOLike{
+trait WithSemanticIO extends SemanticIOLike{
   override def writer: ActorRef = SemanticIO.writer
 
   override def reader: ActorRef = SemanticIO.reader

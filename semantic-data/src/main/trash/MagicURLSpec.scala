@@ -1,7 +1,6 @@
 package org.denigma.semantic.data
 
 import org.denigma.semantic.SemanticPlatform
-import org.denigma.semantic.LoveHater
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
@@ -9,6 +8,7 @@ import org.junit.runner._
 import play.api.test.WithApplication
 
 import org.denigma.semantic.SP
+import org.denigma.semantic.test.LoveHater
 
 
 /**

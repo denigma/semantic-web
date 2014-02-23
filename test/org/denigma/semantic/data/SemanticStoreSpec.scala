@@ -1,7 +1,6 @@
 package org.denigma.semantic.data
 
 import org.denigma.semantic.SemanticPlatform
-import org.denigma.semantic.LoveHater
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
@@ -10,6 +9,7 @@ import play.api.test.WithApplication
 import org.denigma.semantic.quering.QueryResult
 
 import org.denigma.semantic.SP
+import org.denigma.semantic.test.LoveHater
 
 
 /**
@@ -41,8 +41,6 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
 
       self.addTestRels()
-
-
 
       val loves = new URIImpl("http://denigma.org/relations/resources/loves")
 
@@ -85,16 +83,6 @@ class SemanticStoreSpec  extends Specification with LoveHater {
       res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(4)
     }
 
-    "build menu" in new WithApplication(){
-      SP.loadInitialData()
-      //    pg:Default_User_Menu a pg:Menu;
-      //    ui:child pg:My_Queries;
-      //    ui:child pg:My_Friends;
-      //    ui:child pg:My_Projects .
-
-      SP.db.parseFile("data/test/test_menu.ttl")
-
-    }
 
 
   }
