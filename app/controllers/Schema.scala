@@ -13,7 +13,7 @@ import play.api.templates.Html
 import scala.util.Try
 import com.bigdata.rdf.sparql.ast.IQueryNode
 import org.denigma.semantic._
-import org.denigma.semantic.quering.QueryResult
+import org.denigma.semantic.reading.selections.SelectResult
 
 /**
  * Created by antonkulaga on 2/4/14.

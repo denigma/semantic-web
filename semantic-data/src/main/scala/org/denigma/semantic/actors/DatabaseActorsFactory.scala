@@ -2,8 +2,8 @@ package org.denigma.semantic.actors
 
 import akka.actor.{Props, ActorRef, ActorSystem}
 import akka.routing.{DefaultResizer, SmallestMailboxRouter}
-import org.denigma.semantic.data.RDFStore
 import org.denigma.semantic.controllers.SemanticIO
+import org.denigma.semantic.storage.RDFStore
 
 
 /*

@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._
 
 import play.api.templates.Html
-import org.denigma.semantic.WithSemanticPlatform
+import org.denigma.semantic.platform.WithSemanticPlatform
 
 class PJaxPlatformWith(val name:String) extends Controller with WithSemanticPlatform {
 

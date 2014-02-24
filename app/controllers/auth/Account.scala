@@ -4,11 +4,11 @@ import org.mindrot.jbcrypt.BCrypt
 import org.openrdf.model.URI
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import scala.concurrent.Future
-import org.denigma.semantic.{WithSemanticPlatform, SemanticPlatform}
 import com.bigdata.rdf.vocab.decls.{FOAFVocabularyDecl=>foaf}
 import org.openrdf.model.impl.URIImpl
 
 import play.api.libs.concurrent.Execution.Implicits._
+import org.denigma.semantic.platform.WithSemanticPlatform
 
 
 case class Account(uri:URI,email: String, password: String)

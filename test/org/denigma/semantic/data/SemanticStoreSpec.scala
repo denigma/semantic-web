@@ -1,15 +1,14 @@
 package org.denigma.semantic.data
 
-import org.denigma.semantic.SemanticPlatform
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
 import org.junit.runner._
 import play.api.test.WithApplication
-import org.denigma.semantic.quering.QueryResult
 
-import org.denigma.semantic.SP
 import org.denigma.semantic.test.LoveHater
+import org.denigma.semantic.reading.selections.SelectResult
+import org.denigma.semantic.platform.SP
 
 
 /**
@@ -63,9 +62,9 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
       //SP.platformParams.isEmpty should beTrue
       SP.db.parseFile("data/test/test_aging_ontology.ttl")
-      val res = SP.query(q1)()
+      val res = SP.js.query(q1)
       res.isSuccess should beTrue
-      res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(4)
+      res.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.size shouldEqual(4)
     }
 
     "read initial data" in new WithApplication(){
@@ -78,9 +77,9 @@ class SemanticStoreSpec  extends Specification with LoveHater {
           |WHERE
           |  { de:Genomic_Instability ?property ?object }
         """.stripMargin
-      val res = SP.query(q1)()
+      val res = SP.js.query(q1)
       res.isSuccess should beTrue
-      res.map(qr=>qr.asInstanceOf[QueryResult]).get.bindings.size shouldEqual(4)
+      res.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.size shouldEqual(4)
     }
 
 

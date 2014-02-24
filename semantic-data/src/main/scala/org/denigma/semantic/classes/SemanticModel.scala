@@ -6,10 +6,10 @@ import org.openrdf.model.BNode
 import play.api.Play
 import org.openrdf.model.impl.URIImpl
 import org.openrdf.model.vocabulary
-import org.denigma.semantic.data.SemanticStore
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import scala.util._
 import org.openrdf.repository.RepositoryResult
+import org.denigma.semantic.storage.SemanticStore
 
 /*
 Companion object that stores some valiable

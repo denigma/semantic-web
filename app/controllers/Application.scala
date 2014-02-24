@@ -6,7 +6,7 @@ import org.openrdf.rio.RDFFormat
 import play.api.libs.json.{JsObject, Json}
 import play.api.Play
 import play.api.Play.current
-import org.denigma.semantic.WithSemanticPlatform
+import org.denigma.semantic.platform.WithSemanticPlatform
 
 
 object Application extends PJaxPlatformWith("") with WithSemanticPlatform

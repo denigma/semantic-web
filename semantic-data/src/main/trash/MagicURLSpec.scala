@@ -7,8 +7,8 @@ import org.specs2.runner._
 import org.junit.runner._
 import play.api.test.WithApplication
 
-import org.denigma.semantic.SP
 import org.denigma.semantic.test.LoveHater
+import org.denigma.semantic.platform.SP
 
 
 /**

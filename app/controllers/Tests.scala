@@ -3,7 +3,7 @@ package controllers
 import play.api.mvc._
 import org.openrdf.model.impl.StatementImpl
 import org.openrdf.query.BindingSet
-import org.denigma.semantic.WithSemanticPlatform
+import org.denigma.semantic.platform.WithSemanticPlatform
 
 
 /*

@@ -1,11 +1,10 @@
 package org.denigma.semantic.classes
 
-import org.denigma.semantic.SemanticPlatform
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable.Specification
 import play.api.test.WithApplication
 import org.openrdf.model.vocabulary._
-import org.denigma.semantic.SP
+import org.denigma.semantic.platform.SP
 
 class SemanticResourcesSpec extends Specification {
   val self = this

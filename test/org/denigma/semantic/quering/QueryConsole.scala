@@ -6,6 +6,7 @@ import com.bigdata.rdf.internal.IV
 import scala.collection
 import org.openrdf.query.QueryLanguage
 import org.denigma.semantic.test.LoveHater
+import org.denigma.semantic.platform.SP
 
 //
 ///*
@@ -20,7 +21,7 @@ import org.denigma.semantic.test.LoveHater
 //    //COPY to PLAY CONSOLE
     import play.core._
     import org.denigma.semantic._
-    import org.denigma.semantic.SP._
+    import SP._
     import org.openrdf.model._
     import org.openrdf.model.impl._
     import com.bigdata.rdf.sail._

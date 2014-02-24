@@ -5,7 +5,7 @@ import scala.collection.JavaConversions._
 import play.api.libs.json.JsNull
 import play.api.Play.current
 import org.denigma.semantic._
-import org.denigma.semantic.quering.QueryResult
+import org.denigma.semantic.reading.selections.SelectResult
 
 
 /*

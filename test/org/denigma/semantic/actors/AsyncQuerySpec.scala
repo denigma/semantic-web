@@ -6,10 +6,10 @@ import org.specs2.runner._
 import org.junit.runner._
 import play.api.test.WithApplication
 
-import org.denigma.semantic.SP
-import org.denigma.semantic.quering.QueryResult
 import org.denigma.semantic.controllers.SemanticController
 import org.denigma.semantic.test.LoveHater
+import org.denigma.semantic.reading.selections.SelectResult
+import org.denigma.semantic.platform.SP
 
 /**
 tests BigDataWrapper

@@ -6,7 +6,7 @@ import scala.collection.immutable._
 import org.openrdf.model._
 import play.api.libs.json.{JsValue, JsObject, Json}
 import org.denigma.semantic._
-import org.denigma.semantic.quering.QueryResult
+import org.denigma.semantic.reading.selections.SelectResult
 
 
 object  Queries extends PJaxPlatformWith("query"){
@@ -30,13 +30,13 @@ object  Queries extends PJaxPlatformWith("query"){
   def query(query:String=defQ) = Action {
     implicit request=>
       //this.addTestRels()
-      sp.limitedQuery(query).map{
+      sp.js.query(query).map{
         results=>Ok(results.asJson).as("application/json")
       }.recover{
         case e=>
           val er = e.getMessage
           play.Logger.info(s"Query failed \n $query \n with the following error $er")
-          Ok(QueryResult.badRequest(query,er)).as("application/sparql-results+json")
+          Ok(SelectResult.badRequest(query,er)).as("application/sparql-results+json")
       }.get
   }
 

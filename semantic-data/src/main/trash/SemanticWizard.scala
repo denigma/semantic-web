@@ -1,7 +1,7 @@
 package org.denigma.semantic.quering
 
 import scala.util.Try
-import org.denigma.semantic.data.SemanticStore
+import org.denigma.semantic.storage.SemanticStore
 
 
 //import org.apache.log4j.Logger

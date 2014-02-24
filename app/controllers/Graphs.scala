@@ -4,7 +4,7 @@ import play.api._
 import play.api.mvc._
 import play.api.libs.json._
 import org.joda.time.DateTimeZone
-import org.denigma.semantic.WithSemanticPlatform
+import org.denigma.semantic.platform.WithSemanticPlatform
 
 
 /*

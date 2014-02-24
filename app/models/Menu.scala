@@ -3,11 +3,11 @@ package models
 import org.denigma.semantic
 import org.denigma.semantic.classes._
 
-import org.denigma.semantic.{WithSemanticPlatform, SemanticPlatform, WI}
 import org.openrdf.model.impl.URIImpl
 import org.openrdf.model._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.model.vocabulary._
+import org.denigma.semantic.platform.WithSemanticPlatform
 
 object MenuRepository {
 

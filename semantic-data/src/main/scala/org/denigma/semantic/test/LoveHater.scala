@@ -5,14 +5,14 @@ import org.openrdf.model.{Statement, URI}
 import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
 import scala.collection.JavaConversions._
-import org.denigma.semantic.SP._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.SP
+import org.denigma.semantic.platform.WithSemanticPlatform
+
 
 /*
 Traits for tests only
  */
-trait LoveHater{
+trait LoveHater extends WithSemanticPlatform{
 
 
   def sub(str:String) = s"http://denigma.org/actors/resources/$str"
@@ -32,7 +32,7 @@ trait LoveHater{
   val loves = property("loves")
   val hates = property("hates")
 
-  def db = SP.db
+  def db = sp.db
 
 
   /*

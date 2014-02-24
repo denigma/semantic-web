@@ -2,14 +2,13 @@ package org.denigma.semantic.classes
 
 import org.openrdf.model._
 import com.bigdata.rdf.vocab.decls
-import org.denigma.semantic.SemanticPlatform
 import org.junit.runner.RunWith
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable.Specification
 import org.specs2.runner.JUnitRunner
 import play.api.test.WithApplication
 import scala.util.Try
-import org.denigma.semantic.SP
+import org.denigma.semantic.platform.SP
 
 
 @RunWith(classOf[JUnitRunner])
