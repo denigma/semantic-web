@@ -8,18 +8,17 @@ import org.denigma.semantic.quering._
 import org.denigma.semantic.SP
 import akka.testkit._
 import play.api.libs.concurrent.Akka
-import scala.util.Success
+import scala.util.{Try, Success}
 import org.openrdf.query.{TupleQueryResult, QueryLanguage}
 import com.bigdata.rdf.sail.{BigdataSailTupleQuery, BigdataSailRepositoryConnection}
 import scala.collection.immutable.Map
-import org.denigma.semantic.controllers.SemanticController
+import org.denigma.semantic.controllers._
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration._
 import scala.concurrent.duration._
 import org.denigma.semantic.test.LoveHater
 import org.openrdf.repository.RepositoryResult
 import org.openrdf.model.{Value, URI, Resource, Statement}
-import org.denigma.semantic.controllers._
 import org.openrdf.model.impl.StatementImpl
 
 class DBActorSpec extends Specification with LoveHater {
@@ -60,10 +59,32 @@ class DBActorSpec extends Specification with LoveHater {
     """.stripMargin
 
 
+  val d1 =
+    """
+      |PREFIX ac: <http://denigma.org/actors/resources/>
+      |PREFIX rel: <http://denigma.org/relations/resources/>
+      |
+      |DELETE DATA
+      |{
+      |  ac:Daniel rel:loves ac:RDF .
+      |}
+    """.stripMargin
+
+  val i1 =
+    """
+      |PREFIX ac: <http://denigma.org/actors/resources/>
+      |PREFIX rel: <http://denigma.org/relations/resources/>
+      |
+      |INSERT DATA
+      |{
+      |  ac:Anton rel:hates ac:Anton .
+      |}
+    """.stripMargin
+
 
   "Actor" should {
 
-    "query on denigma info" in new WithApplication with SemanticController{
+    "query on denigma info" in new WithApplication with SimpleQueryController{
       // We need a Fake Application for the Actor system
 
       implicit val sys = Akka.system(this.app)
@@ -87,7 +108,7 @@ class DBActorSpec extends Specification with LoveHater {
 
       probe1.send(SP.reader,q)
 
-      this.aw(this.read(query)) match {
+      this.awaitRead(this.read(query)) match {
                 case Success(value:QueryResult) =>
                   value.bindings.size shouldEqual(4)
                   value
@@ -95,7 +116,7 @@ class DBActorSpec extends Specification with LoveHater {
               }
     }
 
-    "make writes" in new WithApplication with SemanticController with LoveHater{
+    "make writes" in new WithApplication  with SimpleQueryController with SimpleUpdateController with LoveHater{
       this.addTestRels()
       val loveRes = self.db.read{ con=>con.getStatements(null,loves,null,false).toList }
       val hateRes = self.db.read{ con=>con.getStatements(null,hates,null,false).toList }
@@ -106,11 +127,28 @@ class DBActorSpec extends Specification with LoveHater {
       hateRes.isSuccess should beTrue
       hateRes.get.size shouldEqual 1
 
-      this.aw(this.write{con=>
+      val wres: Future[Try[Unit]] = this.write[Unit]{con:BigdataSailRepositoryConnection=>
         con.remove(new StatementImpl(Daniel,loves,RDF))
         con.add(new StatementImpl(Anton,hates,Anton))
-      }).isSuccess should beTrue
+      }
 
+      this.awaitWrite[Try[Unit]](wres).isSuccess should beTrue
+
+      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
+
+    }
+
+    "send update" in new WithApplication with SimpleQueryController with SimpleUpdateController with LoveHater{
+      this.addTestRels()
+      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
+      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+
+
+      this.awaitWrite(this.updateQuery(d1))
+      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+      this.awaitWrite(this.updateQuery(i1))
       self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
 

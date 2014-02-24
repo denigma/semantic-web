@@ -65,7 +65,7 @@ class CacheSpec extends Specification {
       //t3.parentClasses.size.shouldEqual(0)
 
 
-      sc
+    //  sc
     }
 
   }

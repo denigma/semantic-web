@@ -38,6 +38,8 @@ object QueryResult {
     ConstructResult(query,v)
   }
 
+  def parse(query:String,results:Boolean):AskResult = AskResult(query,results)
+
 
 
   def badRequest(query:String,error:String): JsObject =

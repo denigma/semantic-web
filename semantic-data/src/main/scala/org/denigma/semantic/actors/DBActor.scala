@@ -27,7 +27,7 @@ object Data{
 
   case class Construct[T](query:String,action:GraphQuering[T], baseUrl:String = WI.RESOURCE)
 
-  case class Ask(query:String,action:AskQuering, baseUrl:String = WI.RESOURCE)
+  case class Ask[T](query:String,action:AskQuering[T], baseUrl:String = WI.RESOURCE)
 
 
   /*
@@ -36,8 +36,9 @@ object Data{
   case class AnyQuery[T](query:String,actions:AnyQuering[T], baseUrl:String = WI.RESOURCE)
 
 
-  case class Update(query:String,action:UpdateQuering, baseUrl:String = WI.RESOURCE)
+  case class Update[T](query:String,action:UpdateQuering[T], baseUrl:String = WI.RESOURCE)
 
-  case class Write(action:Writing)
+
+  case class Write[T](action:Writing[T])
 
 }

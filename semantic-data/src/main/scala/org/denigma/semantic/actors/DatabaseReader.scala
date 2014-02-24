@@ -24,8 +24,8 @@ class DatabaseReader(db:RDFStore) extends DBActor(db)
     case Data.Select(query,action,base)=>
       sender ! db.selectQuery[Any](query,action)(base)
 
-    case Data.Select(query,action,base)=>
-      sender ! db.selectQuery[Any](query,action)(base)
+    case Data.Ask(query,action,base)=>
+      sender ! db.askQuery[Any](query,action)(base)
 
     case Data.Construct(query,action,base)=>
       sender ! db.graphQuery[Any](query,action)(base)

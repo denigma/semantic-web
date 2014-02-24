@@ -54,10 +54,12 @@ abstract class RDFStore {
 
   }
 
+  //def askQuery(str:String,ask:AskQuering[Boolean])(implicit base:String = WI.RESOURCE): Try[Boolean] =    askQuery[Boolean](str,ask)(base)
+
   /*
  readonly select query failed
   */
-  def askQuery(str:String,ask:AskQuering)(implicit base:String = WI.RESOURCE) = {
+  def askQuery[T](str:String,ask:AskQuering[T])(implicit base:String = WI.RESOURCE): Try[T] = {
     val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
     val q = con.prepareBooleanQuery(QueryLanguage.SPARQL,str,base)
     val res = Try{
@@ -72,7 +74,7 @@ abstract class RDFStore {
 
   }
 
-  def graphQuery[T](str:String,selectGraph:GraphQuering[T])(implicit base:String = WI.RESOURCE) = {
+  def graphQuery[T](str:String,selectGraph:GraphQuering[T])(implicit base:String = WI.RESOURCE): Try[T] = {
     val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
     val q: BigdataSailGraphQuery = con.prepareGraphQuery(QueryLanguage.SPARQL,str,base)
     val res = Try{
@@ -88,7 +90,7 @@ abstract class RDFStore {
 
   }
 
-  def anyQuery[T](str:String,select:AnyQuering[T])(implicit base:String = WI.RESOURCE) = {
+  def anyQuery[T](str:String,select:AnyQuering[T])(implicit base:String = WI.RESOURCE): Try[T] = {
     val con: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
     val q: BigdataSailQuery = con.prepareNativeSPARQLQuery(QueryLanguage.SPARQL,str,base)
     val res = Try{
@@ -103,8 +105,12 @@ abstract class RDFStore {
 
   }
 
-  def update(str:String,update:UpdateQuering)(implicit base:String = WI.RESOURCE) = {
+  //def update(str:String,update:UpdateQuering[Unit])(implicit base:String = WI.RESOURCE): Try[Unit] = this.update[Unit](str,update)(base)
+
+
+  def update[T](str:String,update:UpdateQuering[T])(implicit base:String = WI.RESOURCE) = {
     val con: BigdataSailRepositoryConnection = repo.getUnisolatedConnection
+    con.setAutoCommit(false)
     val u = con.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,str,base)
     val res = Try{
       update(str,con,u)

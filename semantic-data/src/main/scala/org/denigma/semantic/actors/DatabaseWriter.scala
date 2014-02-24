@@ -14,10 +14,10 @@ class DatabaseWriter(db:RDFStore) extends DBActor(db){
 
    case  Data.Write(action) =>
 
-      sender ! db.readWrite[Unit](action)
+      sender ! db.readWrite[Any](action)
 
    case Data.Update(query,action,base) =>
-      sender ! db.update(query,action)(base)
+      sender ! db.update[Any](query,action)(base)
 
    case v=>
         this.log.debug(s"something received by writer $v")

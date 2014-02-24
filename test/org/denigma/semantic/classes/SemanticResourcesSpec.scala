@@ -96,7 +96,7 @@ class SemanticResourcesSpec extends Specification {
       //t3.parentClasses.size.shouldEqual(0)
 
 
-      sc
+     // sc
     }
 
     "have properties" in new WithApplication(){
