@@ -5,11 +5,6 @@ before_script:
   - wget http://downloads.typesafe.com/play/${PLAY_VERSION}/play-${PLAY_VERSION}.zip
   - unzip -q play-${PLAY_VERSION}.zip
   - npm install -g coffee-script
-  - gem install compass --pre
-  - gem install semantic-ui-sass
-  - gem install singularitygs
-  - git submodule init
-  - git submodule update
 script: play-${PLAY_VERSION}/play test
 notifications:
   # Email notifications are disabled to not annoy anybody.
