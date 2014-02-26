@@ -6,9 +6,12 @@ import org.openrdf.rio.RDFFormat
 import play.api.libs.json.{JsObject, Json}
 import play.api.Play
 import play.api.Play.current
-import org.denigma.semantic.platform.WithSemanticPlatform
+import org.denigma.semantic.test.WithSemanticPlatform
 
 
+/*
+main application controller, responsible for index and some other core templates and requests
+ */
 object Application extends PJaxPlatformWith("") with WithSemanticPlatform
 {
   def lifespan= Action {
@@ -41,7 +44,8 @@ object Application extends PJaxPlatformWith("") with WithSemanticPlatform
 
 
   /*
-   TODO: improve upload code
+   TODO: test upload code
+   WARNING: NOT TESTED
     */
   def upload = Action(parse.multipartFormData) { implicit request =>
     import Json._
@@ -55,39 +59,16 @@ object Application extends PJaxPlatformWith("") with WithSemanticPlatform
 
       f.ref.moveTo(file,replace = true)
 
-
       val obj: JsObject = Json.obj(
         "name"->f.filename,
         "size"->file.length(),
         "url"-> (request.domain+"/uploads/"+f.filename)
       )
+      val uplCon = "http://webintelligence.eu/uploaded/"
+      val pr = this.sp.db.parseFile(file,uplCon)
 
-    val wi = "http://webintelligence.eu/uploaded"
+      if(pr.isFailure) obj + ("error"->toJson("WRONG SEMANTIC WEB FILE"))  else obj
 
-      if(fname.contains(".ttl"))
-        if(sp.db.write{
-          con=>
-            con.add(file,wi,RDFFormat.TURTLE)
-        })
-          obj
-        else {
-          play.Logger.error(fname+" is "+"wrong TURTLE file")
-          obj + ("error"->toJson("wrong TURTLE file"))
-        }
-      else if(fname.contains(".rdf") || fname.contains(".owl"))
-        if(sp.db.write{con=>  con.add(file,wi,RDFFormat.RDFXML)})
-        {
-          obj
-        }
-
-        else {
-          play.Logger.error(fname+" is "+"wrong RDF file")
-          obj + ("error"->toJson("wrong RDF file"))
-        }
-      else {
-        play.Logger.error(fname+" is "+"NOT SEMANTIC WEB FILE")
-        obj + ("error"->toJson("NOT SEMANTIC WEB FILE"))
-      }
     }.toList
     val res = Json.obj("files" -> Json.toJson(files))
     Ok(res)

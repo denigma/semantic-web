@@ -3,9 +3,9 @@ package controllers
 import play.api.mvc._
 
 import play.api.templates.Html
-import org.denigma.semantic.platform.WithSemanticPlatform
+import org.denigma.semantic.test.WithSemanticPlatform
 
-class PJaxPlatformWith(val name:String) extends Controller with WithSemanticPlatform {
+class PJaxPlatformWith(val name:String) extends Controller  {
 
   def pj[T](action:String,html:Html)(implicit req:Request[T]): Html =
     pj(name,action:String,html:Html)(req)

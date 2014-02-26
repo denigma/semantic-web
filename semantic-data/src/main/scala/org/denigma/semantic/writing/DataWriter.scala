@@ -11,7 +11,7 @@ import org.denigma.semantic.commons.{WI, Logged}
 /*
 interface for data writing
  */
-trait UpdateWriter extends CanWrite{
+trait DataWriter extends CanWrite{
 
 
   def writeConnection: BigdataSailRepositoryConnection
@@ -20,7 +20,7 @@ trait UpdateWriter extends CanWrite{
   /*
  writes something and then closes the connection
   */
-  def readWrite[T](action:BigdataSailRepositoryConnection=>T):Try[T] =
+  def write[T](action:BigdataSailRepositoryConnection=>T):Try[T] =
   {
     val con = this.writeConnection
     con.setAutoCommit(false)
@@ -36,16 +36,6 @@ trait UpdateWriter extends CanWrite{
       res
     }
   }
-
-  /*
-writes something and then closes the connection
- */
-  def write(action:BigdataSailRepositoryConnection=>Unit):Boolean = this.readWrite[Unit](action) match
-  {
-    case Success(_)=>true
-    case Failure(e)=>false
-  }
-
 
 
 }

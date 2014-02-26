@@ -7,7 +7,7 @@ import org.openrdf.model.impl.URIImpl
 import org.openrdf.model._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.model.vocabulary._
-import org.denigma.semantic.platform.WithSemanticPlatform
+import org.denigma.semantic.test.WithSemanticPlatform
 
 object MenuRepository {
 

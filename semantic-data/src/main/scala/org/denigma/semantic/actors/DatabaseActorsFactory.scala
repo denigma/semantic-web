@@ -1,9 +1,8 @@
 package org.denigma.semantic.actors
 
-import akka.actor.{Props, ActorRef, ActorSystem}
+import akka.actor.{Props, ActorSystem}
 import akka.routing.{DefaultResizer, SmallestMailboxRouter}
-import org.denigma.semantic.controllers.SemanticIO
-import org.denigma.semantic.storage.RDFStore
+import org.denigma.semantic.controllers.{SemanticWriter, SemanticReader}
 import org.denigma.semantic.actors.writers.DatabaseWriter
 import org.denigma.semantic.actors.readers.DatabaseReader
 import org.denigma.semantic.reading.CanRead
@@ -27,6 +26,8 @@ class DatabaseActorsFactory(canRead:CanRead,canWrite:CanWrite, val sys:ActorSyst
   protected val writerProps = Props(classOf[DatabaseWriter],canWrite).withDispatcher("akka.actor.writer-dispatcher")
   val writer = sys.actorOf(writerProps,"writer")
 
-  SemanticIO.init(reader,writer)
+  SemanticReader.reader = reader
+
+  SemanticWriter.writer = writer
 
 }

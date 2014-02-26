@@ -9,6 +9,7 @@ import play.api.test.WithApplication
 import org.denigma.semantic.test.LoveHater
 import org.denigma.semantic.reading.selections.SelectResult
 import org.denigma.semantic.platform.SP
+import org.denigma.semantic.controllers.sync.{SyncUpdateController, SyncJsController}
 
 
 /**
@@ -16,8 +17,9 @@ tests BigDataWrapper
   */
 @RunWith(classOf[JUnitRunner])
 class SemanticStoreSpec  extends Specification with LoveHater {
-  val self = this
+  self=>
 
+  class TestApp extends WithApplication with SyncJsController with SyncUpdateController
   /*
  ads some test relationships
   */
@@ -36,7 +38,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
 
 
-    "write and read triples" in new WithApplication() {
+    "write and read triples" in new TestApp() {
 
 
       self.addTestRels()
@@ -50,7 +52,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
     }
 
-    "read files" in new WithApplication(){
+    "read files" in new TestApp(){
       val q1 =
         """
           |PREFIX  de:   <http://denigma.org/resource/>
@@ -61,13 +63,13 @@ class SemanticStoreSpec  extends Specification with LoveHater {
         """.stripMargin
 
       //SP.platformParams.isEmpty should beTrue
-      SP.db.parseFile("data/test/test_aging_ontology.ttl")
-      val res = SP.js.query(q1)
+      this.parseFileByName("data/test/test_aging_ontology.ttl")
+      val res = query(q1)
       res.isSuccess should beTrue
       res.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.size shouldEqual(4)
     }
 
-    "read initial data" in new WithApplication(){
+    "read initial data" in new TestApp(){
       SP.loadInitialData()
       val q1 =
         """
@@ -77,7 +79,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
           |WHERE
           |  { de:Genomic_Instability ?property ?object }
         """.stripMargin
-      val res = SP.js.query(q1)
+      val res = query(q1)
       res.isSuccess should beTrue
       res.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.size shouldEqual(4)
     }

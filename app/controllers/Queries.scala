@@ -58,17 +58,5 @@ object  Queries extends PJaxPlatformWith("query") with JsQueryController {
 //  }
 
 
-  def all = Action {
-    implicit request=>
-      val res: scala.List[Statement] = sp.db.read{
-        implicit r=>
-          val iter: RepositoryResult[Statement] = r.getStatements(null,null,null,true)
-          iter.asList().toList
-      }.getOrElse(List.empty)
-
-      Ok(views.html.queries.all(res))
-
-  }
-
 
 }

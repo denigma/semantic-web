@@ -5,9 +5,13 @@ import org.specs2.mutable.Specification
 import play.api.test.WithApplication
 import org.openrdf.model.vocabulary._
 import org.denigma.semantic.platform.SP
+import org.denigma.semantic.controllers.sync.SyncJsController
 
 class SemanticResourcesSpec extends Specification {
   val self = this
+
+
+  class TestApp extends WithApplication with SyncJsController
 
   val ant=new URIImpl("http://webintelligence.eu/ontology/actor/antonkulaga")
   val hev =new URIImpl("http://webintelligence.eu/ontology/actor/hevok")
@@ -29,9 +33,9 @@ class SemanticResourcesSpec extends Specification {
 
   "SimpleResource" should {
 
-    "extract literals well" in new WithApplication(){
+    "extract literals well" in new TestApp{
       //SP.platformParams.isEmpty should beTrue
-      SP.db.parseFile("data/test/test_literals.ttl")
+      SP.db.parseFileByName("data/test/test_literals.ttl")
       val sr = new SimpleResource(nick)
       play.Logger.info(s"INFO WORS")
       sr.load(SP.db)
@@ -72,7 +76,7 @@ class SemanticResourcesSpec extends Specification {
   "SemanticClass" should{
     "extract class hirercy well" in new WithApplication(){
       //SP.platformParams.isEmpty should beTrue
-      SP.db.parseFile("data/test/test_class.ttl")
+      SP.db.parseFileByName("data/test/test_class.ttl")
       val sc = new SemanticClass(testClass)
       sc.load(SP.db)
       sc.types.size shouldEqual(1)
@@ -100,7 +104,7 @@ class SemanticResourcesSpec extends Specification {
 
     "have properties" in new WithApplication(){
       //SP.platformParams.isEmpty should beTrue
-      SP.db.parseFile("data/test/test_class.ttl")
+      SP.db.parseFileByName("data/test/test_class.ttl")
       val sc = new SemanticClass(testClass)
       sc.load(SP.db)
       val p1o = sc.domainOf.get(prop1)

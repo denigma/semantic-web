@@ -5,7 +5,7 @@ import scala.IndexedSeq
 import play.api.mvc.Controller
 
 /**
- * Created by antonkulaga on 11/30/13.
+ * test class that generates test graph
  */
 trait GenGraph extends Controller {
 

@@ -1,30 +1,27 @@
 package org.denigma.semantic.actors
 
 import org.specs2.mutable._
-import org.denigma.semantic.quering._
 
-import akka.testkit._
 import scala.util.{Try, Success}
-import org.openrdf.query.QueryLanguage
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration._
-import org.openrdf.model.{Value, Statement}
+import org.openrdf.model.Statement
 import org.denigma.semantic.test.LoveHater
 import play.api.test.WithApplication
 import play.api.libs.concurrent.Akka
-import org.denigma.semantic.platform.SP
-import org.denigma.semantic.actors.readers.Read
-import org.denigma.semantic.reading.selections.SelectResult
 import org.openrdf.model.impl.URIImpl
 import org.denigma.semantic.reading.QueryResultLike
-import scala.collection.JavaConversions._
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
+import org.denigma.semantic.controllers.{UpdateController, JsQueryController}
+
 class DBActorSpec extends Specification with LoveHater {
 
-
   self=>
+
+  class WithTestApp extends WithApplication with JsQueryController with UpdateController
+
 
   //type writing = BigdataSailRepositoryConnection=>Unit
   /*
@@ -77,28 +74,26 @@ class DBActorSpec extends Specification with LoveHater {
 
   "Actor" should {
 
-    "query with limits and offsets" in new WithApplication() {
+    "query with limits and offsets" in new WithTestApp {
       self.addTestRels()
-      val aw: (Future[Try[QueryResultLike]]) => Try[QueryResultLike] = SP.queries.awaitRead[Try[QueryResultLike]] _
+      val aw: (Future[Try[QueryResultLike]]) => Try[QueryResultLike] = this.awaitRead[Try[QueryResultLike]] _
 
       implicit val sys = Akka.system(this.app)
-      val probe1 = new TestProbe(sys)
-      val probe2 = new TestProbe(sys)
-      val probe3 = new TestProbe(sys)
+
       val query = "SELECT ?s ?o WHERE { ?s <http://denigma.org/relations/resources/loves>  ?o }"
 
-      val resFull = aw { SP.queries.query(query) }
+      val resFull = aw { this.query(query) }
       resFull.isSuccess shouldEqual(true)
 
       resFull.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(6)
 
 
 
-      val resLimited= aw{ SP.queries.queryPaginated(query,0,2)  }
+      val resLimited= aw{ this.queryPaginated(query,0,2)  }
       resLimited.isSuccess shouldEqual(true)
       resLimited.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(2)
 
-      val resOffset= aw { SP.queries.queryPaginated(query,2,0) }
+      val resOffset= aw { this.queryPaginated(query,2,0) }
       resOffset.isSuccess shouldEqual(true)
       resOffset.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(4)
 
@@ -106,18 +101,18 @@ class DBActorSpec extends Specification with LoveHater {
     }
 
 
-    "query with bindings" in new WithApplication() {
+    "query with bindings" in new WithTestApp  {
       self.addTestRels()
-      val aw: (Future[Try[QueryResultLike]]) => Try[QueryResultLike] = SP.queries.awaitRead[Try[QueryResultLike]] _
+      val aw: (Future[Try[QueryResultLike]]) => Try[QueryResultLike] = this.awaitRead[Try[QueryResultLike]] _
 
       val query = "SELECT ?s ?o WHERE { ?s <http://denigma.org/relations/resources/loves>  ?o }"
 
-      val resFull = aw { SP.queries.query(query) }
+      val resFull = aw {  this.query(query) }
       resFull.isSuccess shouldEqual(true)
 
       resFull.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(6)
 
-      val resBinded= aw { SP.queries.bindedQuery(query,Map("o"->new URIImpl("http://denigma.org/actors/resources/RDF"))) }
+      val resBinded= aw {  this.bindedQuery(query,Map("o"->new URIImpl("http://denigma.org/actors/resources/RDF"))) }
       resBinded.isSuccess shouldEqual(true)
 
       resBinded.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(1)
@@ -126,17 +121,17 @@ class DBActorSpec extends Specification with LoveHater {
 
   }
 
-    "send update" in new WithApplication with LoveHater{
+    "send update" in new WithTestApp with LoveHater{
 
       this.addTestRels()
       self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
       self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
 
 
-      SP.queries.awaitWrite( SP.queries.update(d1))
+      this.awaitWrite( this.update(d1))
       self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
-      SP.queries.awaitWrite( SP.queries.update(i1))
+      this.awaitWrite( this.update(i1))
       self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
 

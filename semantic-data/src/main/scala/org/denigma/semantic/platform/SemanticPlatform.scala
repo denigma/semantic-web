@@ -1,16 +1,14 @@
 package org.denigma.semantic.platform
 
-import java.util.Properties
 import java.io._
 import org.openrdf.repository.RepositoryResult
 import scala.util.Try
-import akka.actor.ActorRef
 import org.denigma.semantic.actors.DatabaseActorsFactory
 import org.denigma.semantic.storage.{DBConfig, SemanticStore}
-import org.slf4j.Logger
 import org.denigma.semantic.commons.{AppLogger, WI}
 import org.denigma.semantic.reading.queries.{SimpleQueryManager, SemanticQueryManager}
 import org.denigma.semantic.controllers.SemanticController
+import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -20,7 +18,6 @@ import org.openrdf.model._
 import scala.collection.immutable._
 import scala.collection.JavaConversions._
 import play.api.libs.concurrent.Akka
-import akka.routing._
 
 /*
 class that is responsible for the main logic
@@ -96,6 +93,8 @@ abstract class SemanticPlatform extends SemanticController{
    */
   def start(app: play.api.Application) = {
     this.db = new Store(dbConfig,lg)
+    SyncReader.reader = this.db
+    SyncWriter.writer = this.db
     val sys = Akka.system(app)
     this.databaseActorsFactory = new DatabaseActorsFactory(db,db,sys,(platformConfig.minReaders,platformConfig.defReaders,platformConfig.maxReaders))
     if(platformConfig.loadInitial)  this.loadInitialData()
@@ -141,35 +140,11 @@ abstract class SemanticPlatform extends SemanticController{
 
     files.foreach{f=>
       (f.getString("folder") , f.getString("name")) match {
-        case (Some(folder),Some(fileName))=> db.parseFile(folder+fileName,f.getString("context").getOrElse(WI.RESOURCE))
+        case (Some(folder),Some(fileName))=> db.parseFileByName(folder+fileName,f.getString("context").getOrElse(WI.RESOURCE))
         case tuple => this.db.lg.error(s"invalid file params in config: ${tuple.toString()}")
       }
 
     }
-  }
-
-  /*
-  class to do JSON quries
-   */
-  object queries extends SemanticController{  }
-
-
-  /*
-  class to do JSON quries
-   */
-  object js extends SemanticQueryManager{
-    override def lg = self.lg
-
-    override def readConnection: _root_.org.denigma.semantic.reading.ReadConnection = self.db.readConnection
-  }
-
-  /*
- class to do JSON quries
-  */
-  object smp extends SimpleQueryManager{
-    override def lg = self.lg
-
-    override def readConnection: _root_.org.denigma.semantic.reading.ReadConnection = self.db.readConnection
   }
 
 

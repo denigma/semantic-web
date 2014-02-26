@@ -8,7 +8,7 @@ import com.bigdata.rdf.vocab.decls.{FOAFVocabularyDecl=>foaf}
 import org.openrdf.model.impl.URIImpl
 
 import play.api.libs.concurrent.Execution.Implicits._
-import org.denigma.semantic.platform.WithSemanticPlatform
+import org.denigma.semantic.test.WithSemanticPlatform
 
 
 case class Account(uri:URI,email: String, password: String)

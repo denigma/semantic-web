@@ -6,7 +6,7 @@ import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
 import scala.collection.JavaConversions._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.platform.WithSemanticPlatform
+import org.denigma.semantic.test.WithSemanticPlatform
 
 
 /*

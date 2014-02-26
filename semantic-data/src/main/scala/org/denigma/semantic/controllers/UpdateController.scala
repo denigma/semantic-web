@@ -15,7 +15,7 @@ import akka.pattern.ask
 /*
 does updates
  */
-trait UpdateController extends SemanticWriter{
+trait UpdateController extends WithSemanticWriter{
 
   implicit val writeTimeout:Timeout = Timeout(5 seconds)
 
@@ -24,5 +24,5 @@ trait UpdateController extends SemanticWriter{
    */
   def awaitWrite(fut:Future[Try[Unit]]):Try[Unit] = Await.result(fut,writeTimeout.duration)
 
-  def update(str:String): Future[Try[Unit]] =  (this.writer ? Update.Update(str)).mapTo[Try[Unit]]
+  def update(str:String): Future[Try[Unit]] =  this.writer.ask(Update.Update(str))(this.writeTimeout).mapTo[Try[Unit]]
 }

@@ -1,7 +1,7 @@
 package org.denigma.semantic
 
 import play.api.Plugin
-import org.denigma.semantic.platform.WithSemanticPlatform
+import org.denigma.semantic.test.WithSemanticPlatform
 
 /*
 Plugin that runs bigdata database and other semanticdb stuff

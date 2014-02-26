@@ -15,7 +15,6 @@ GET         /schema/distortion         controllers.Schema.distortion()
 
 GET         /models/sparql             controllers.Queries.sendQuery(query:String)
 #GET         /results              controllers.Queries.results()
-GET         /all                       controllers.Queries.all
 GET         /config                    controllers.Queries.main()
 GET         /models/menus/*name        controllers.Application.menu(name)
 GET         /pages/*page               controllers.Application.page(page)

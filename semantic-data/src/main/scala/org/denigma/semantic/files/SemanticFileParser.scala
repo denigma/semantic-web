@@ -1,33 +1,49 @@
 package org.denigma.semantic.files
 
 import java.net.URL
-import java.io.File
+import java.io.{FileInputStream, InputStream, File}
 import org.openrdf.rio.Rio
 import com.bigdata.rdf.model.BigdataURI
-import org.denigma.semantic.writing.UpdateWriter
+import org.denigma.semantic.writing.DataWriter
+import scala.util.Try
 
-/**
- * Created by antonkulaga on 2/24/14.
+/*
+trait that parses files and stores them in semanticweb store
  */
-trait SemanticFileParser extends UpdateWriter{
+trait SemanticFileParser extends DataWriter
+{
   /*
-parses RDF file
- */
-  def parseFile(path:String,contextStr:String=""): Boolean = {
-
-
+  parses file by its path
+   */
+  def parseFileByName(path:String,contextStr:String=""): Try[Unit] = {
     val url = if(path.contains(":")) new URL(path) else new File(path).toURI.toURL
-    val inputStream = url.openStream()
-    val format = Rio.getParserFormatForFileName(url.toString)
+    this.parseStream(url.toString,path,url.openStream(),contextStr)
+  }
+
+  /*
+  parses file
+   */
+  def parseFile(file:File,contextStr:String=""): Try[Unit] = {
+    if(!file.exists()) file.createNewFile()
+    val stream: FileInputStream = new FileInputStream(file)
+    this.parseStream(file.getName,file.getAbsolutePath,stream,contextStr)
+  }
+
+  /*
+  parses input stream of data
+   */
+  def parseStream(fileName:String,path:String,inputStream:InputStream,contextStr:String=""): Try[Unit] = {
+
+
+    val format = Rio.getParserFormatForFileName(fileName)
     val parser = Rio.createParser(format)
     this.write{con=>
       val context: BigdataURI = if(contextStr=="") null else con.getValueFactory.createURI(contextStr)
       val r = new SemanticFileListener(path,con,context)(lg)
       parser.setRDFHandler(r)
       parser.setParseErrorListener(r)
-      parser.parse(inputStream, url.toString)
+      parser.parse(inputStream, fileName)
     }
-
 
   }
 }

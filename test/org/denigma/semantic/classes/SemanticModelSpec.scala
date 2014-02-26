@@ -25,7 +25,7 @@ class SemanticModelSpec  extends Specification {
     "just parse statements with assignable handlers" in new WithApplication(){
 
       SP.platformParams.isEmpty should beTrue
-      SP.db.parseFile("data/test/test_user.ttl")
+      SP.db.parseFileByName("data/test/test_user.ttl")
 
       """
         |actor:antonkulaga a actor:User;
@@ -82,7 +82,7 @@ class SemanticModelSpec  extends Specification {
     "parse complex structures(organizations)" in new WithApplication(){
 
       SP.platformParams.isEmpty should beTrue
-      SP.db.parseFile("data/test/test_user.ttl")
+      SP.db.parseFileByName("data/test/test_user.ttl")
 
 
       val denigma: TestOrganizationModel = new TestOrganizationModel(self.de)
@@ -100,7 +100,7 @@ class SemanticModelSpec  extends Specification {
     "parse complex structures(users)" in new WithApplication(){
 
       SP.platformParams.isEmpty should beTrue
-      SP.db.parseFile("data/test/test_user.ttl")
+      SP.db.parseFileByName("data/test/test_user.ttl")
 
       val anton= new TestUserModel(self.ant)
       anton.strings.size shouldEqual(0)

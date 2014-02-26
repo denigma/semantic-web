@@ -34,7 +34,7 @@ class CacheSpec extends Specification {
 
     "extract class hirercy well" in new WithApplication(){
       //SP.platformParams.isEmpty should beTrue
-      SP.db.parseFile("data/test/test_class.ttl")
+      SP.db.parseFileByName("data/test/test_class.ttl")
       val sc1 = new SemanticClass(testClass)
       sc1.load(SP.db)
       Cache.set(sc1.url.stringValue(),sc1)

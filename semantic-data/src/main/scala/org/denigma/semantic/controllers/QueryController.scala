@@ -7,7 +7,7 @@ import scala.concurrent.{Await, Future}
 /*
 controller that can do various readonly quries via reader actor to the database
  */
-trait QueryController extends SemanticReader {
+trait QueryController extends WithSemanticReader {
 
   implicit val readTimeout:Timeout = Timeout(5 seconds)
 

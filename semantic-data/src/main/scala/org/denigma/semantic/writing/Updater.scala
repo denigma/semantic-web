@@ -4,12 +4,13 @@ import org.denigma.semantic.commons.WI
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.query.QueryLanguage
 import scala.util.Try
+import org.denigma.semantic.files.SemanticFileParser
 
 
 /*
 class that provides updates to the database
  */
-trait Updater extends CanWrite{
+trait Updater extends CanWrite  with SemanticFileParser{
 
   def writeUpdate(str:String,update:UpdateQuering)(implicit base:String = WI.RESOURCE) = {
     val con: BigdataSailRepositoryConnection = this.writeConnection
