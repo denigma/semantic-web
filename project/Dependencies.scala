@@ -23,7 +23,13 @@ object Dependencies {
   )
 
   val webjars = Seq(
-    "org.webjars" %% "webjars-play" % "2.2.1-2",
+    "org.webjars" %% "webjars-play" % "2.2.1-2",  //webjars support for play2
+
+    "org.webjars" % "codemirror" % "3.22", //codemirror
+
+    "org.webjars" % "d3js" % "3.4.1", //visualization lib
+
+    "org.webjars" % "d3-plugins" % "da342b6",
 
     "org.webjars" % "jquery" % "2.1.0-2",
 
@@ -31,7 +37,17 @@ object Dependencies {
 
     "org.webjars" % "jquery-ui-themes" % "1.10.3",
 
-    "org.webjars" % "Semantic-UI" % "0.11.0"
+    "org.webjars" % "Semantic-UI" % "0.11.0", //less/css framework
+
+    "org.webjars" % "jquery-file-upload" % "9.5.4",
+
+    "org.webjars" % "select2" % "3.4.5", //autocompletion
+
+    "org.webjars" % "chosen" % "0.9.12", //autocompletion
+
+    "org.webjars" % "typeaheadjs" % "0.10.1", //autocompletion TODO: choose between alternatives
+
+  "org.webjars" % "famfamfam-flags" % "0.0"
   )
 
 

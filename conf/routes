@@ -25,6 +25,7 @@ GET         /pages/*page               controllers.Application.page(page)
 #GET        /upload             controllers.Application.testUpload
 POST        /upload                    controllers.Application.upload
 
+GET         /webjars/*file             controllers.WebJarAssets.at(file)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file              controllers.Assets.at(path="/public", file)
@@ -35,7 +36,7 @@ GET         /test                      controllers.Tests.test
 GET         /test/editor               controllers.Tests.editor
 GET         /test/sigma                controllers.Tests.sigma
 
-GET     /webjars/*file              controllers.WebJarAssets.at(file)
+
 
 
 # Graphs

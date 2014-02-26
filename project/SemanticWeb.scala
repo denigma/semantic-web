@@ -1,7 +1,7 @@
-import net.litola.SassPlugin
 import play.Project._
 import sbt.Keys._
 import sbt._
+//import net.litola.SassPlugin
 
 trait SemanticWeb extends Collaboration with SemanticData{
 
@@ -16,7 +16,7 @@ trait SemanticWeb extends Collaboration with SemanticData{
 
 
   val appName         = "denigma"
-  val appVersion      = "0.03"
+  val appVersion      = "0.04"
 
 
 
@@ -41,12 +41,11 @@ trait SemanticWeb extends Collaboration with SemanticData{
 
 //    scalacOptions in Test += testOptions
 
-  ).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
-    .settings( play.Project.playScalaSettings ++
-    SassPlugin.sassSettings ++
-    //Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass")):_* )
-    Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass", "-r","singularitygs")):_* )
-    .dependsOn(semanticData)
+  ).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*).dependsOn(semanticData)
+
+  //SassPlugin.sassSettings ++
+  //Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass")):_* )
+  //Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass", "-r","singularitygs")):_* )
 }
 
 
