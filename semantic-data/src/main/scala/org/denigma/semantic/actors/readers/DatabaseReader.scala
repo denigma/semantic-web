@@ -8,12 +8,16 @@ import org.denigma.semantic.commons.LogLike
 /*
 Database actor that works with readonly db connection
  */
-class DatabaseReader(db:CanRead) extends  NamedActor with CanRead with JsReader
+class DatabaseReader(db:CanRead) extends  NamedActor with CanRead with JsReader with SimpleReader
 {
 
-  def receive: Actor.Receive = this.jsonQuery orElse allOther
+  def receive: Actor.Receive = jsonQuery orElse simpleQuery orElse allOther
 
-  def allOther: Actor.Receive = { case v=> this.log.error(s" UNKNOWN message received by reader: $v ") }
+  def allOther: Actor.Receive = {
+
+    case v=>
+
+      this.log.error(s" UNKNOWN message received by reader: $v ") }
 
   override def lg: LogLike = new AkkaLog(this.log)
 

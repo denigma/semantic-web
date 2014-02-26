@@ -7,34 +7,45 @@ import scala.collection
 import org.openrdf.query.QueryLanguage
 import org.denigma.semantic.test.LoveHater
 import org.denigma.semantic.platform.SP
+import play.core._
+import org.denigma.semantic._
+import SP._
+import org.openrdf.model._
+import org.openrdf.model.impl._
+import com.bigdata.rdf.sail._
+import org.openrdf.query._
+import scala.collection.immutable._
+import com.bigdata.rdf.sparql.ast._
+import scala.collection.JavaConversions._
+import com.bigdata.rdf.model._
+import com.bigdata.bop._
+import play.api._
+import play.api.Logger
+import org.denigma.semantic.reading._
+import org.denigma.semantic.writing._
+import akka.util.Timeout
+import scala.concurrent.duration._
+import scala.concurrent._
+///
+/*
+just a code to copy-paste to play console
+*/
+object QueryConsole {
 
-//
-///*
-//just a code to copy-paste to play console
-// */
-//object QueryConsole {
-//
+  implicit val writeTimeout:Timeout = Timeout(5 seconds)
+
+  implicit val readTimeout:Timeout = Timeout(5 seconds)
+
+
+
+
+  //
 //  def updateConsole = {
 //
 //
 //    //COPY to PLAY CONSOLE
 //    //COPY to PLAY CONSOLE
-    import play.core._
-    import org.denigma.semantic._
-    import SP._
-    import org.openrdf.model._
-    import org.openrdf.model.impl._
-    import com.bigdata.rdf.sail._
-    import org.openrdf.query._
-    import scala.collection.immutable._
-    import org.denigma.semantic.quering._
-    import com.bigdata.rdf.sparql.ast._
-    import scala.collection.JavaConversions._
-    import com.bigdata.rdf.model._
 
-    import com.bigdata.bop._
-    import play.api._
-    import play.api.Logger
 //
 //    new StaticApplication(new java.io.File("."))
 //    val repo = SG.db.repo
@@ -50,6 +61,16 @@ import org.denigma.semantic.platform.SP
 //    //this.addFullRel(s"http://denigma.org/actors/resources/$sub",s"http://denigma.org/relations/resources/$rel",s"http://denigma.org/actors/resources/$obj")
 //
 //
+val q1 =
+  """
+    |PREFIX  de:   <http://denigma.org/resource/>
+    |
+    |SELECT  ?property ?object
+    |WHERE
+    |  { de:Genomic_Instability ?property ?object }
+  """.stripMargin
+
+
 //    val query =   """
 //      PREFIX dc:  <http://purl.org/dc/elements/1.1/>
 //    PREFIX dcmitype: <http://purl.org/dc/dcmitype/>
@@ -178,6 +199,4 @@ import org.denigma.semantic.platform.SP
 //      q
 //    }
 //  }
-//
-//
-//}
+}

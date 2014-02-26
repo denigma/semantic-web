@@ -13,17 +13,28 @@ trait JsReader
   
   def jsonQuery: Actor.Receive = {
 
-    case q @ Read.Query(query,offset,limit) => if(q.isPaginated) sender ! qjm.query(query) else sender ! qjm.query(query,offset,limit)
+    /*
+    when unspecified query was received
+     */
+    case q @ Read.Query(query,offset,limit) =>
 
-    case sel @ Read.Select(query,offset,limit)=> if(sel.isPaginated) sender ! qjm.select(query) else sender ! qjm.select(query,offset,limit)
+     if(q.isPaginated)  sender ! qjm.query(query,offset,limit) else sender ! qjm.query(query)
 
-    case Read.Question(query)=>sender ! qjm.question(query)
+    case sel @ Read.Select(query,offset,limit)=>
 
-    case Read.Construct(query)=>sender ! qjm.construct(query)
+      if(sel.isPaginated) sender ! qjm.select(query,offset,limit) else sender ! qjm.select(query)
 
-    case Read.Bind(query,params:Map[String,Value]) =>sender ! qjm.bindedQuery(query,params)
+    case Read.Question(query)=>
+      sender ! qjm.question(query)
 
-    case Read.BindPaginated(query,offset,limit,params:Map[String,Value])=>sender ! qjm.bindedQuery(query,params)
+    case Read.Construct(query)=>
+      sender ! qjm.construct(query)
+
+    case Read.Bind(query,params:Map[String,Value]) =>
+      sender ! qjm.bindedQuery(query,params)
+
+    case Read.BindPaginated(query,offset,limit,params:Map[String,Value])=>
+      sender ! qjm.bindedQuery(query,params)
 
   }
 

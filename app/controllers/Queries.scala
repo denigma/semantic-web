@@ -7,9 +7,15 @@ import org.openrdf.model._
 import play.api.libs.json.{JsValue, JsObject, Json}
 import org.denigma.semantic._
 import org.denigma.semantic.reading.selections.SelectResult
+import org.denigma.semantic.controllers.{JsQueryController, QueryController}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import scala.concurrent.duration._
+import scala.util.{Try, Failure}
+import scala.concurrent.Future
+import org.denigma.semantic.reading.QueryResultLike
 
 
-object  Queries extends PJaxPlatformWith("query"){
+object  Queries extends PJaxPlatformWith("query") with JsQueryController {
 
 
   val defQ:String="""
@@ -27,18 +33,29 @@ object  Queries extends PJaxPlatformWith("query"){
   def toProp(kv:(String,String)): JsObject = Json.obj("name"->kv._1,"value"->kv._2,"id"->kv.hashCode())
   def toProps(mp:Map[String,String]): JsValue = Json.obj("id"->mp.hashCode(),"properties"->mp.map(toProp).toList)
 
-  def query(query:String=defQ) = Action {
-    implicit request=>
-      //this.addTestRels()
-      sp.js.query(query).map{
-        results=>Ok(results.asJson).as("application/json")
-      }.recover{
-        case e=>
-          val er = e.getMessage
-          play.Logger.info(s"Query failed \n $query \n with the following error $er")
-          Ok(SelectResult.badRequest(query,er)).as("application/sparql-results+json")
-      }.get
+  def badQuery(q:String):PartialFunction[Throwable,SimpleResult] = {
+    case e=>
+      val er = e.getMessage
+      play.Logger.info(s"Query failed \n $q \n with the following error $er")
+      Ok(SelectResult.badRequest(q,er)).as("application/sparql-results+json")
   }
+
+  def sendQuery(q:String=defQ) = Action.async{
+    implicit request=>
+      this.queryPaginated(q).map{
+        case scala.util.Success(results:QueryResultLike)=>
+          Ok(results.asJson).as("application/json")
+        case Failure(e)=>this.badQuery(q)(e)
+      }.recover(this.badQuery(q))
+  }
+
+  /*
+  just for tests
+   */
+//  def syncSendQuery(q:String=defQ) = Action{
+//    implicit request=>
+//
+//  }
 
 
   def all = Action {

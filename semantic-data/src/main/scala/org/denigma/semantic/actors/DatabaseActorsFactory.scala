@@ -19,12 +19,12 @@ class DatabaseActorsFactory(canRead:CanRead,canWrite:CanWrite, val sys:ActorSyst
   val router = SmallestMailboxRouter(readers._2)
   val resizer = DefaultResizer(lowerBound = readers._1, upperBound = readers._3)
 
-  protected val readerProps = Props(classOf[DatabaseReader],canRead).withRouter(router.withResizer(resizer))
+  protected val readerProps = Props(classOf[DatabaseReader],canRead).withDispatcher("akka.actor.reader-dispatcher").withRouter(router.withResizer(resizer))
 
   val reader = sys.actorOf(readerProps,"reader")
 
 
-  protected val writerProps = Props(classOf[DatabaseWriter],canWrite)
+  protected val writerProps = Props(classOf[DatabaseWriter],canWrite).withDispatcher("akka.actor.writer-dispatcher")
   val writer = sys.actorOf(writerProps,"writer")
 
   SemanticIO.init(reader,writer)
