@@ -25,7 +25,10 @@ trait Wesin{
 
       "org.scalatest" % "scalatest_2.10" % "2.1.0-RC2",
 
-      "junit" % "junit" % "4.10" % "test")
+      "junit" % "junit" % "4.10" % "test",
+
+      "org.openrdf.sesame" % "sesame-model" % "2.7.10"
+    )
 
     //libraryDependencies += "org.scala-lang" % "scala-reflect" % scala
 

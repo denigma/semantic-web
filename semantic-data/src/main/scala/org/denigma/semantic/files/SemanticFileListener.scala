@@ -5,12 +5,13 @@ import org.{openrdf=>se}
 import org.openrdf.model._
 import com.bigdata.rdf.model.BigdataStatement
 import se.rio._
+import org.denigma.semantic.commons.LogLike
 
 
 /*
 class that reads RDF
  */
-class SemanticFileListener(fileName:String,con:BigdataSailRepositoryConnection, context: se.model.Resource = null)(implicit lg:org.slf4j.Logger) extends RDFHandler with ParseErrorListener{
+class SemanticFileListener(fileName:String,con:BigdataSailRepositoryConnection, context: se.model.Resource = null)(implicit lg:LogLike) extends RDFHandler with ParseErrorListener{
 
   lazy val f = con.getValueFactory
 

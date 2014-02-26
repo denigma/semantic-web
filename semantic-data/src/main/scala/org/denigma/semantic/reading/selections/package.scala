@@ -10,6 +10,8 @@ import org.openrdf.model.Value
 type aliases and implicit classes for select package
  */
 package object selections {
+
+
   type SelectQuery = BigdataSailTupleQuery
 
   type SelectQuerying[T] = (String,ReadConnection,SelectQuery)=>T

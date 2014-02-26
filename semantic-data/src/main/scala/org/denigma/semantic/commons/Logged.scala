@@ -5,5 +5,5 @@ has logger
  */
 trait Logged {
 
-  def lg:org.slf4j.Logger
+  def lg:LogLike
 }

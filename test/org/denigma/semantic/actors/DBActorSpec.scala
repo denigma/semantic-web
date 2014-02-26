@@ -4,147 +4,144 @@ import org.specs2.mutable._
 import org.denigma.semantic.quering._
 
 import akka.testkit._
-import scala.util.Success
+import scala.util.{Try, Success}
 import org.openrdf.query.QueryLanguage
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import scala.concurrent.{Await, Future}
 import scala.concurrent.duration.Duration._
 import org.openrdf.model.{Value, Statement}
+import org.denigma.semantic.test.LoveHater
+import play.api.test.WithApplication
+import play.api.libs.concurrent.Akka
+import org.denigma.semantic.platform.SP
+import org.denigma.semantic.actors.readers.Read
+import org.denigma.semantic.reading.selections.SelectResult
+import org.openrdf.model.impl.URIImpl
+import org.denigma.semantic.reading.QueryResultLike
+import scala.collection.JavaConversions._
+import org.denigma.semantic.reading.selections._
+import org.denigma.semantic.reading._
+class DBActorSpec extends Specification with LoveHater {
 
 
-//class DBActorSpec extends Specification with LoveHater {
-//
-//
-//  self=>
-//
-//  type Selection= BigdataSailRepositoryConnection=>SelectResult
-//  //type writing = BigdataSailRepositoryConnection=>Unit
-//  /*
-//  ads some test relationships
-//   */
-//  override def  addTestRels() = {
-//    this.addRel("Daniel","loves","RDF")
-//    this.addRel("Anton","hates","RDF")
-//    this.addRel("Daniel","loves","Immortality")
-//    this.addRel("Liz","loves","Immortality")
-//    this.addRel("Anton","loves","Immortality")
-//    this.addRel("Ilia","loves","Immortality")
-//    this.addRel("Edouard","loves","Immortality")
-//  }
-//
-//  def tupleQuery(str:String)(mod:QueryModifier = DefaultQueryModifier):Selection = {
-//    implicit r=>
-//
-//      val q= r.prepareTupleQuery(QueryLanguage.SPARQL,str)
-//      val res: TupleQueryResult = q.evaluate()
-//      SelectResult.parse(str ,res)
-//  }
-//
-//  val q1 =
-//    """
-//      |PREFIX  de:   <http://denigma.org/resource/>
-//      |
-//      |SELECT  ?property ?object
-//      |WHERE
-//      |  { de:Genomic_Instability ?property ?object }
-//    """.stripMargin
-//
-//
-//  val d1 =
-//    """
-//      |PREFIX ac: <http://denigma.org/actors/resources/>
-//      |PREFIX rel: <http://denigma.org/relations/resources/>
-//      |
-//      |DELETE DATA
-//      |{
-//      |  ac:Daniel rel:loves ac:RDF .
-//      |}
-//    """.stripMargin
-//
-//  val i1 =
-//    """
-//      |PREFIX ac: <http://denigma.org/actors/resources/>
-//      |PREFIX rel: <http://denigma.org/relations/resources/>
-//      |
-//      |INSERT DATA
-//      |{
-//      |  ac:Anton rel:hates ac:Anton .
-//      |}
-//    """.stripMargin
-//
-//
-//  "Actor" should {
-//
-//    "query on denigma info" in new WithApplication with SimpleQueryController{
-//      // We need a Fake Application for the Actor system
-//
-//      implicit val sys = Akka.system(this.app)
-//
-//
-//      //SP.platformParams.isEmpty should beTrue
-//      SP.db.parseFile("data/test/test_aging_ontology.ttl")
-//      val probe1 = new TestProbe(sys)
-//      val probe2 = new TestProbe(sys)
-//      val probe3 = new TestProbe(sys)
-//
-//      val query = self.tupleQuery(q1)(DefaultQueryModifier)
-//
-//      val q = Data.Read(query)
-//
-//      probe2.send(SP.reader,q)
-//      probe3.send(SP.reader,q)
-//      //probe1.receiveN(1)
-//      probe2.receiveN(1)
-//      probe3.receiveN(1)
-//
-//      probe1.send(SP.reader,q)
-//
-//      this.awaitRead(this.read(query)) match {
-//                case Success(value:SelectResult) =>
-//                  value.bindings.size shouldEqual(4)
-//                  value
-//                case _ => self.failure("Actor ask should be successful")
-//              }
-//    }
-//
-//    "make writes" in new WithApplication  with SimpleQueryController with SimpleUpdateController with LoveHater{
-//      this.addTestRels()
-//      val loveRes = self.db.read{ con=>con.getStatements(null,loves,null,false).toList }
-//      val hateRes = self.db.read{ con=>con.getStatements(null,hates,null,false).toList }
-//
-//      loveRes.isSuccess should beTrue
-//      loveRes.get.size shouldEqual 6
-//
-//      hateRes.isSuccess should beTrue
-//      hateRes.get.size shouldEqual 1
-//
-//      val wres: Future[Try[Unit]] = this.write[Unit]{con:BigdataSailRepositoryConnection=>
-//        con.remove(new StatementImpl(Daniel,loves,RDF))
-//        con.add(new StatementImpl(Anton,hates,Anton))
-//      }
-//
-//      this.awaitWrite[Try[Unit]](wres).isSuccess should beTrue
-//
-//      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
-//      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
-//
-//    }
-//
-//    "send update" in new WithApplication with SimpleQueryController with SimpleUpdateController with LoveHater{
-//      this.addTestRels()
-//      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
-//      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
-//
-//
-//      this.awaitWrite(this.updateQuery(d1))
-//      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
-//      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
-//      this.awaitWrite(this.updateQuery(i1))
-//      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
-//      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
-//
-//    }
+  self=>
 
+  //type writing = BigdataSailRepositoryConnection=>Unit
+  /*
+  ads some test relationships
+   */
+  override def  addTestRels() = {
+    this.addRel("Daniel","loves","RDF")
+    this.addRel("Anton","hates","RDF")
+    this.addRel("Daniel","loves","Immortality")
+    this.addRel("Liz","loves","Immortality")
+    this.addRel("Anton","loves","Immortality")
+    this.addRel("Ilia","loves","Immortality")
+    this.addRel("Edouard","loves","Immortality")
+  }
+
+
+
+  val q1 =
+    """
+      |PREFIX  de:   <http://denigma.org/resource/>
+      |
+      |SELECT  ?property ?object
+      |WHERE
+      |  { de:Genomic_Instability ?property ?object }
+    """.stripMargin
+
+
+  val d1 =
+    """
+      |PREFIX ac: <http://denigma.org/actors/resources/>
+      |PREFIX rel: <http://denigma.org/relations/resources/>
+      |
+      |DELETE DATA
+      |{
+      |  ac:Daniel rel:loves ac:RDF .
+      |}
+    """.stripMargin
+
+  val i1 =
+    """
+      |PREFIX ac: <http://denigma.org/actors/resources/>
+      |PREFIX rel: <http://denigma.org/relations/resources/>
+      |
+      |INSERT DATA
+      |{
+      |  ac:Anton rel:hates ac:Anton .
+      |}
+    """.stripMargin
+
+
+  "Actor" should {
+
+    "query with limits and offsets" in new WithApplication() {
+      self.addTestRels()
+      val aw: (Future[Try[QueryResultLike]]) => Try[QueryResultLike] = SP.queries.awaitRead[Try[QueryResultLike]] _
+
+      implicit val sys = Akka.system(this.app)
+      val probe1 = new TestProbe(sys)
+      val probe2 = new TestProbe(sys)
+      val probe3 = new TestProbe(sys)
+      val query = "SELECT ?s ?o WHERE { ?s <http://denigma.org/relations/resources/loves>  ?o }"
+
+      val resFull = aw { SP.queries.query(query) }
+      resFull.isSuccess shouldEqual(true)
+
+      resFull.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(6)
+
+
+
+      val resLimited= aw{ SP.queries.queryPaginated(query,0,2)  }
+      resLimited.isSuccess shouldEqual(true)
+      resLimited.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(2)
+
+      val resOffset= aw { SP.queries.queryPaginated(query,2,0) }
+      resOffset.isSuccess shouldEqual(true)
+      resOffset.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(4)
+
+
+    }
+
+
+    "query with bindings" in new WithApplication() {
+      self.addTestRels()
+      val aw: (Future[Try[QueryResultLike]]) => Try[QueryResultLike] = SP.queries.awaitRead[Try[QueryResultLike]] _
+
+      val query = "SELECT ?s ?o WHERE { ?s <http://denigma.org/relations/resources/loves>  ?o }"
+
+      val resFull = aw { SP.queries.query(query) }
+      resFull.isSuccess shouldEqual(true)
+
+      resFull.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(6)
+
+      val resBinded= aw { SP.queries.bindedQuery(query,Map("o"->new URIImpl("http://denigma.org/actors/resources/RDF"))) }
+      resBinded.isSuccess shouldEqual(true)
+
+      resBinded.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(1)
+
+    }
+
+  }
+
+    "send update" in new WithApplication with LoveHater{
+
+      this.addTestRels()
+      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
+      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+
+
+      SP.queries.awaitWrite( SP.queries.update(d1))
+      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+      SP.queries.awaitWrite( SP.queries.update(i1))
+      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
+
+    }
+}
 //    "write updates" in new WithApplication with SemanticController{
 //      // We need a Fake Application for the Actor system
 //

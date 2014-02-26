@@ -16,7 +16,7 @@ class SemanticPlugin(app: play.api.Application) extends Plugin with WithSemantic
     sp.extractConfig(app)
     sp.cleanIfInTest()
     //SPINModuleRegistry.get.init()
-    sp.start(app, play.api.Logger.logger)
+    sp.start(app)
   }
 
   override def onStop(){

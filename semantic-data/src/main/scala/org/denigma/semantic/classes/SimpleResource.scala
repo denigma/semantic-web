@@ -5,9 +5,8 @@ import org.joda.time.{DateTime, LocalDate}
 
 import org.openrdf.model._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.openrdf.model.{vocabulary, Literal, Resource, Statement}
+import org.openrdf.model.{Literal, Resource, Statement}
 import scala.util.Try
-import org.openrdf.model.vocabulary.{RDFS, RDF}
 
 
 case class OutgoingParams[T<:SemanticModel](model:T,st:Statement,path:Map[Resource,SemanticModel],maxDepth:Int)(implicit val con:BigdataSailRepositoryConnection) extends TraverseParams[T]

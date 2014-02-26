@@ -2,16 +2,13 @@ package org.denigma.semantic.storage
 
 import com.bigdata.rdf.sail._
 import java.io.File
-import org.{openrdf=>se}
-import org.denigma.semantic.reading.queries.{JsonQueryManager, QueryManager}
-import org.slf4j.Logger
-import org.denigma.semantic.storage.DBConfig
+import org.denigma.semantic.commons.LogLike
 
 
 /*
 Wrapper for the dabase
  */
-class SemanticStore(val conf:DBConfig,val lg:org.slf4j.Logger) extends RDFStore{
+class SemanticStore(val conf:DBConfig,val lg:LogLike) extends RDFStore{
   self=>
 
   val sail: BigdataSail = {

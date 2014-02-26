@@ -11,7 +11,7 @@ import org.denigma.semantic.commons.{WI, Logged}
 /*
 interface for data writing
  */
-trait DataWriter extends Logged{
+trait UpdateWriter extends CanWrite{
 
 
   def writeConnection: BigdataSailRepositoryConnection
@@ -46,20 +46,6 @@ writes something and then closes the connection
     case Failure(e)=>false
   }
 
-  def update[T](str:String,update:UpdateQuering[T])(implicit base:String = WI.RESOURCE) = {
-    val con: BigdataSailRepositoryConnection = this.writeConnection
-    con.setAutoCommit(false)
-    val u = con.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,str,base)
-    val res = Try{
-      update(str,con,u)
-    }
-    con.close()
-    res.recoverWith{case
-      e=>
-      lg.error(s"UPDATE query \n $str \nfailed because of \n"+e.getMessage)
-      res
-    }
 
-  }
 
 }

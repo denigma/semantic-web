@@ -4,30 +4,11 @@ import akka.actor.ActorRef
 
 
 
+
+
 /*
-object that contains reader and writer
+just a trait that has reader and writer
  */
-object SemanticIO extends SemanticIOLike{
-
-  protected var _reader:ActorRef = null
-
-  protected var _writer:ActorRef = null
-
-  def reader = _reader
-
-  def writer = _writer
-
-  /*
-  Inits reader and writer actorref
-   */
-  def init(read:ActorRef,write:ActorRef) = {
-    this._reader = read
-    this._writer = write
-    this
-  }
-
-}
-
 trait SemanticIOLike{
 
   def reader:ActorRef
@@ -48,20 +29,6 @@ trait DataWriter {
 }
 
 
-trait SemanticWriter extends DataWriter{
-  def writer: ActorRef = SemanticIO.writer
-}
-
-trait SemanticReader extends DataReader{
-  def reader: ActorRef = SemanticIO.reader
-}
-
-trait WithSemanticIO extends SemanticIOLike{
-  override def writer: ActorRef = SemanticIO.writer
-
-  override def reader: ActorRef = SemanticIO.reader
-
-}
 
 
 

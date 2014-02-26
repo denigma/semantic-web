@@ -5,12 +5,12 @@ import java.io._
 import org.openrdf.repository.RepositoryResult
 import scala.util.Try
 import akka.actor.ActorRef
-import org.denigma.semantic.actors.{DatabaseActorsFactory, DatabaseWriter}
-import org.denigma.semantic.controllers.SemanticController
+import org.denigma.semantic.actors.DatabaseActorsFactory
 import org.denigma.semantic.storage.{DBConfig, SemanticStore}
-import org.denigma.semantic.reading.queries.Paginator
 import org.slf4j.Logger
-import org.denigma.semantic.commons.WI
+import org.denigma.semantic.commons.{AppLogger, WI}
+import org.denigma.semantic.reading.queries.{SimpleQueryManager, SemanticQueryManager}
+import org.denigma.semantic.controllers.SemanticController
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -42,9 +42,9 @@ abstract class SemanticPlatform extends SemanticController{
 
   var platformParams: List[Statement] = List.empty[Statement]
 
-  var databaseActorsFactory:DatabaseActorsFactory[Store] = null
+  var databaseActorsFactory:DatabaseActorsFactory = null
 
-  implicit val lg = play.api.Logger.logger
+  implicit val lg = new AppLogger(play.api.Logger.logger)
 
   def inTest = Play.isTest
   def inDev = Play.isDev
@@ -53,6 +53,9 @@ abstract class SemanticPlatform extends SemanticController{
 
   def inTest(action: =>Unit):Unit = if(this.inTest) { action}
 
+  /*
+  extracts application configuration
+   */
   def extractConfig(app: play.api.Application) = {
 
     val playConf:Configuration = app.configuration
@@ -68,6 +71,9 @@ abstract class SemanticPlatform extends SemanticController{
   }
 
 
+  /*
+  deletes local db file (used mostly in tests)
+   */
   def cleanLocalDb()=  {
     lg.info("cleaning local db...")
     val f = new File(dbConfig.url+"/"+dbConfig.dbFileName)
@@ -78,14 +84,20 @@ abstract class SemanticPlatform extends SemanticController{
     //FileUtils.cleanDirectory(new File(dbConfig.url))
   }
 
+  /*
+  cleans db file if app is run in a test mode
+   */
   def cleanIfInTest() = if(this.inTest){
     this.cleanLocalDb()
   }
 
-  def start(app: play.api.Application,lg:org.slf4j.Logger) = {
+  /*
+  starts SemanticData plugin
+   */
+  def start(app: play.api.Application) = {
     this.db = new Store(dbConfig,lg)
     val sys = Akka.system(app)
-    this.databaseActorsFactory = new DatabaseActorsFactory[Store](db,sys,(platformConfig.minReaders,platformConfig.defReaders,platformConfig.maxReaders))
+    this.databaseActorsFactory = new DatabaseActorsFactory(db,db,sys,(platformConfig.minReaders,platformConfig.defReaders,platformConfig.maxReaders))
     if(platformConfig.loadInitial)  this.loadInitialData()
   }
 
@@ -136,12 +148,26 @@ abstract class SemanticPlatform extends SemanticController{
     }
   }
 
+  /*
+  class to do JSON quries
+   */
+  object queries extends SemanticController{  }
+
 
   /*
   class to do JSON quries
    */
-  object js extends Paginator{
-    override def lg: Logger = self.lg
+  object js extends SemanticQueryManager{
+    override def lg = self.lg
+
+    override def readConnection: _root_.org.denigma.semantic.reading.ReadConnection = self.db.readConnection
+  }
+
+  /*
+ class to do JSON quries
+  */
+  object smp extends SimpleQueryManager{
+    override def lg = self.lg
 
     override def readConnection: _root_.org.denigma.semantic.reading.ReadConnection = self.db.readConnection
   }

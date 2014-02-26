@@ -4,12 +4,12 @@ import java.net.URL
 import java.io.File
 import org.openrdf.rio.Rio
 import com.bigdata.rdf.model.BigdataURI
-import org.denigma.semantic.writing.DataWriter
+import org.denigma.semantic.writing.UpdateWriter
 
 /**
  * Created by antonkulaga on 2/24/14.
  */
-trait SemanticFileParser extends DataWriter{
+trait SemanticFileParser extends UpdateWriter{
   /*
 parses RDF file
  */
