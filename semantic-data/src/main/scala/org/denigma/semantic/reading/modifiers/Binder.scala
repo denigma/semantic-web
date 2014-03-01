@@ -3,29 +3,98 @@ package org.denigma.semantic.reading.modifiers
 
 import scala.util.Try
 import com.bigdata.rdf.sparql.ast._
-import com.bigdata.rdf.model.BigdataValue
+import com.bigdata.rdf.model._
 import org.denigma.semantic.reading.selections._
-import org.openrdf.model.Value
+import org.openrdf.model.{URI, Value}
+import org.openrdf.model.impl._
+import com.bigdata.rdf.internal._
+import org.denigma.semantic.reading.ReadConnection
+import com.bigdata.rdf.internal.impl._
+import com.bigdata.rdf.internal.constraints.{StrBOp, RegexBOp}
+import com.bigdata.bop.Constant
+
+trait ASTHelper {
+
+  /*
+  creates constant node from string
+   */
+  def literalConst(str:String)(con:ReadConnection) = {
+    val lit = con.getValueFactory.createLiteral(str)
+    val term = TermId.mockIV(VTE.valueOf(lit)).asInstanceOf[TermId[BigdataLiteral]]
+    term.setValue(lit)
+    new ConstantNode(term)
+  }
+
+  /*
+  creates constant node from string
+   */
+  def registerTerms(params:BigdataValue*)(con:ReadConnection) = {
+    val lex = con.getTripleStore.getLexiconRelation
+    val arr = params.toArray
+    lex.addTerms(arr,arr.length,true)
+    //com.bigdata.rdf.internal.constraints.StrBOp
+    params
+
+  }
+
+  val fn:FunctionNode = null
+
+
+  def varNode(str:String) = new VarNode(str)
+
+  def var2Str(variable:String): FunctionNode = new FunctionNode(FunctionRegistry.STR,null,new VarNode(variable))
+
+  def matchRegex(variable:String,value:String)(con:ReadConnection) = {
+    new FunctionNode (FunctionRegistry.REGEX,null,this.var2Str(variable),this.literalConst(value)(con))
+
+  }
+  def filterRegex(variable:String,value:String)(con:ReadConnection) = new FilterNode(new FunctionNode (FunctionRegistry.REGEX,null,this.var2Str(variable),this.literalConst(value)(con)))
+
+
+}
+
 
 /*
 class that can do binding
  */
-trait Binder[T] extends SelectReader with Slicer {
+trait Binder[T] extends SelectReader with Slicer with ASTHelper
+{
+  def alice(q:SelectQuery,con:ReadConnection)
+  // regex("Alice", "^ali", "i") -> true
+  {
+    val vf = con.getValueFactory
+    val expected: Boolean = true
+    val v = DummyConstantNode.toDummyIV(vf.createLiteral("Alice"))
+    val pattern = DummyConstantNode.toDummyIV(vf.createLiteral("^ali"))
+    val flags = DummyConstantNode.toDummyIV(vf.createLiteral("i"))
+    val c: Constant[IV[_ <: BigdataValue, _]] = new Constant(v)
+    val s = new VarNode("hellov")
 
 
-  def bind(q:SelectQuery,params:Map[String,Value]) = {
-    params.foreach{case (key,value)=> q.setBinding(key,value)}
+  }
+
+  /*
+  binds the query to set of values
+   */
+  def bind(con:ReadConnection,q:SelectQuery,params:Map[String,String]) = {
+    val f: BigdataValueFactory = con.getValueFactory
+    params.foreach{
+      case (key,value) if value.contains("_:")=> q.setBinding(key,f.createBNode(value.replace("_:","")))
+      case (key,value) if value.contains(":")=> q.setBinding(key,f.createURI(value))
+      case (key,value) => f.createLiteral(value)
+    }
     q
   }
 
   /*
   todo: complete
    */
-  def search(q:SelectQuery,key:String,value:String) = {
+  def search(con:ReadConnection,q:SelectQuery,key:String,value:String) = {
     val cont = q.getASTContainer
     val ast = cont.getOriginalAST
     val where = ast.getWhereClause
-    val pat = where.getParentGraphPatternGroup
+
+
     //pat.addChild(new StatementPatternNode())
     //pat.addChild()
     q
@@ -46,17 +115,17 @@ trait Binder[T] extends SelectReader with Slicer {
     }.toMap
   }
 
-  protected def bindedHandler(str:String,params:Map[String,Value]):SelectQuerying[T]
+  protected def bindedHandler(str:String,binds:Map[String,String]):SelectQuerying[T]
 
-  protected def bindedHandler(str:String,offset:Long,limit:Long,params:Map[String,Value]):SelectQuerying[T]
+  protected def bindedHandler(str:String,binds:Map[String,String],offset:Long,limit:Long):SelectQuerying[T]
 
   /*
   sends query with binding
    */
-  def bindedQuery(str:String,offset:Long,limit:Long,params:Map[String,Value]): Try[T] =  this.selectQuery(str,bindedHandler(str,offset,limit, params))
+  def bindedQuery(str:String,binds:Map[String,String],offset:Long,limit:Long): Try[T] =  this.selectQuery(str,bindedHandler(str,binds,offset,limit))
 
 
-  def bindedQuery(str:String,params:Map[String,Value]): Try[T] = this.selectQuery(str,this.bindedHandler(str,params))
+  def bindedQuery(str:String,binds:Map[String,String]): Try[T] = this.selectQuery(str,this.bindedHandler(str,binds))
 
 }
 

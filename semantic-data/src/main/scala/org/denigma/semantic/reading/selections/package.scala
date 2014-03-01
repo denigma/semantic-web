@@ -19,11 +19,11 @@ package object selections {
   implicit class TupleResult(results: TupleQueryResult)  extends Iterator[BindingSet]
   {
 
-    def vars: List[String] = results.getBindingNames.toList
+    lazy val vars: List[String] = results.getBindingNames.toList
 
     def binding2Map(b:BindingSet): Map[String, Value] = b.iterator().map(v=>v.getName->v.getValue).toMap
 
-    def toListMap: List[Map[String, Value]] = this.map(v=>binding2Map(v)).toList
+    lazy val toListMap: List[Map[String, Value]] = this.map(v=>binding2Map(v)).toList
 
 
     override def next(): BindingSet = results.next()

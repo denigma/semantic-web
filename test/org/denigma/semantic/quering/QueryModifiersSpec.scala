@@ -8,7 +8,11 @@ import play.api.test.WithApplication
 
 import org.denigma.semantic.test.LoveHater
 import org.denigma.semantic.reading.selections.SelectResult
-import org.denigma.semantic.controllers.sync.SyncJsController
+import org.denigma.semantic.controllers.sync.{SyncSimpleController, SyncJsController}
+import org.denigma.semantic.commons.WI
+import scala.util.Try
+import org.openrdf.query.TupleQueryResult
+import org.denigma.semantic.reading.selections._
 
 /**
 tests BigDataWrapper
@@ -18,6 +22,8 @@ class QueryModifiersSpec  extends Specification with LoveHater {
   val self = this
 
   class TestApp extends WithApplication with SyncJsController
+  class SimpleTestApp extends WithApplication with SyncSimpleController
+
 
   /*
  ads some test relationships
@@ -34,9 +40,6 @@ class QueryModifiersSpec  extends Specification with LoveHater {
 
   "Query Modifiers" should {
 
-
-
-
     "write and read triples" in new TestApp() {
       self.addTestRels()
       val loves = new URIImpl("http://denigma.org/relations/resources/loves")
@@ -45,7 +48,6 @@ class QueryModifiersSpec  extends Specification with LoveHater {
       val hates = new URIImpl("http://denigma.org/relations/resources/hates")
 
       self.getRel(hates).length shouldEqual(1)
-
     }
 
 
@@ -79,14 +81,51 @@ class QueryModifiersSpec  extends Specification with LoveHater {
 
       resFull.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(6)
 
-      val resBinded= bindedQuery(query,Map("o"->new URIImpl("http://denigma.org/actors/resources/RDF")))
+      val resBinded= bindedQuery(query,Map("o"->new URIImpl("http://denigma.org/actors/resources/RDF").stringValue()))
       resBinded.isSuccess shouldEqual(true)
 
       resBinded.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(1)
 
     }
 
+    "query with search" in new SimpleTestApp {
+      self.addTestRels()
+      val s1 =
+        """
+          | SELECT ?subject ?property ?object WHERE
+          | {
+          | ?subject ?property ?object .
+          | }
+          | LIMIT 50
+          | """
+          .stripMargin('|')
 
+
+      val q1: Try[TupleQueryResult] = this.select(s1)
+      q1.isSuccess should beTrue
+      q1.get.toList.size shouldEqual 7
+
+
+
+      val sLove =
+        """
+          | SELECT ?subject ?property ?object WHERE
+          | {
+          | ?subject ?property ?object .
+          | FILTER( STR(?property) "lov*" .
+          | LIMIT 50
+          | }"""
+          .stripMargin('|')
+
+
+      //TODO: figure out why sLove query leads to timeout
+
+
+      //      val q2 = this.select(sLove)
+      //      q2.isSuccess should beTrue
+      //      q2.get.toList.size shouldEqual 6
+
+    }
 
 
 //    "build menu" in new WithApplication(){

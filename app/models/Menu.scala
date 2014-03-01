@@ -7,7 +7,6 @@ import org.openrdf.model.impl.URIImpl
 import org.openrdf.model._
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.model.vocabulary._
-import org.denigma.semantic.test.WithSemanticPlatform
 
 object MenuRepository {
 
@@ -29,7 +28,11 @@ class Menu(url:URI) extends SimpleResource(url)  {
 
 }
 
-class MenuParser[SELF<:Menu] extends SimpleParser[SELF] with WithSemanticPlatform{
+/**
+ * todo rewrite
+ * @tparam SELF
+ */
+class MenuParser[SELF<:Menu] extends SimpleParser[SELF]{
 
   def onMenu:onPropertyObject = {
 

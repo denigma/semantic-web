@@ -5,14 +5,12 @@ import org.openrdf.model.{Statement, URI}
 import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
 import scala.collection.JavaConversions._
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.test.WithSemanticPlatform
+import org.denigma.semantic.controllers.sync._
 
-
-/*
+/**
 Traits for tests only
  */
-trait LoveHater extends WithSemanticPlatform{
+trait LoveHater extends WithSyncReader with SyncUpdateController{
 
 
   def sub(str:String) = s"http://denigma.org/actors/resources/$str"
@@ -32,7 +30,6 @@ trait LoveHater extends WithSemanticPlatform{
   val loves = property("loves")
   val hates = property("hates")
 
-  def db = sp.db
 
 
   /*
@@ -57,20 +54,18 @@ just a function for testing
     val p: URIImpl = new URIImpl(rel)
     val o: URIImpl = new URIImpl(obj)
 
-    db.write{
+    write{
       implicit con=>
         val st = new StatementImpl(s, p, o)
         con.add(st)
     }
   }
 
-  def readCon: BigdataSailRepositoryConnection = db.repo.getReadOnlyConnection
-  def writeCon: BigdataSailRepositoryConnection = db.repo.getUnisolatedConnection
   /*
   reads relationship from the repository
    */
   def getRel(rel:URI) = {
-    db.read{
+    read{
       implicit r=>
         val iter: RepositoryResult[Statement] = r.getStatements(null,rel,null,true)
         iter.asList().toList

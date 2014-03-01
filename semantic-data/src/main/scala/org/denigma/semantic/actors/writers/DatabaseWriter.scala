@@ -1,17 +1,15 @@
 package org.denigma.semantic.actors.writers
 
 import akka.actor.Actor
-import org.denigma.semantic.actors.{AkkaLog, NamedActor}
+import org.denigma.semantic.actors.NamedActor
 import org.denigma.semantic.writing._
 import org.denigma.semantic.commons.LogLike
-import java.io.{FileInputStream, File}
-import org.openrdf.model.URI
-import org.openrdf.rio.RDFFormat
-import play.api.libs.json.Json._
+import java.io.File
 import org.denigma.semantic.actors.AkkaLog
 
-/*
+/**
 class that is responsible for writes into database. It does NOT process read queries
+@param db just an object that can provide WriteConnection, can be db, can be anything else
  */
 class DatabaseWriter(db:CanWrite) extends  NamedActor with Updater{
 

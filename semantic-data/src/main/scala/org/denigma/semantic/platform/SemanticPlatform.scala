@@ -7,7 +7,7 @@ import org.denigma.semantic.actors.DatabaseActorsFactory
 import org.denigma.semantic.storage.{DBConfig, SemanticStore}
 import org.denigma.semantic.commons.{AppLogger, WI}
 import org.denigma.semantic.reading.queries.{SimpleQueryManager, SemanticQueryManager}
-import org.denigma.semantic.controllers.SemanticController
+import org.denigma.semantic.controllers.{UpdateController, JsQueryController}
 import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
 
 //import org.apache.log4j.Logger
@@ -22,7 +22,7 @@ import play.api.libs.concurrent.Akka
 /*
 class that is responsible for the main logic
  */
-abstract class SemanticPlatform extends SemanticController{
+abstract class SemanticPlatform extends JsQueryController with UpdateController{
   self=>
 
   var dbConfig:DBConfig

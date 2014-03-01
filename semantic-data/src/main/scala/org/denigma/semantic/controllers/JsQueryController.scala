@@ -8,40 +8,30 @@ import scala.util._
 import akka.pattern.ask
 import org.denigma.semantic.reading._
 
-trait JsQueryController extends QueryController {
+
+/*
+trait that adds support of quering that returs QueryResultLike (that has toJson method)
+under the hood it just sends messages to appropriate actor
+ */
+trait JsQueryController extends QueryController[QueryResultLike] {
 
 
-  def queryPaginated(query:String,offset:Long = defOffset, limit:Long = defLimit): Future[Try[QueryResultLike]] = {
-    reader.ask(Read.Query(query: String, offset, limit))(readTimeout).mapTo[Try[QueryResultLike]]
-  }
+  def query(query:String,offset:Long = defOffset, limit:Long = defLimit): Future[Try[QueryResultLike]]
+    = rd(Read.Query(query:String,offset,limit))
 
-  def query(query:String): Future[Try[QueryResultLike]] = {
-    reader.ask(Read.Query(query:String))(readTimeout).mapTo[Try[QueryResultLike]]
-  }
+  def select(query:String,offset:Long = defOffset, limit:Long = defLimit): Future[Try[QueryResultLike]]
+    = rd (Read.Select(query:String,offset,limit))
 
-  def selectPaginated(query:String,offset:Long = defOffset, limit:Long = defLimit): Future[Try[QueryResultLike]] = {
-    reader.ask(Read.Select(query:String,offset,limit))(readTimeout).mapTo[Try[QueryResultLike]]
-  }
+  def construct(query:String): Future[Try[QueryResultLike]] = rd( Read.Construct(query:String) )
 
-  def select(query:String): Future[Try[QueryResultLike]] = {
-    reader.ask(Read.Select(query:String))(readTimeout).mapTo[Try[QueryResultLike]]
-  }
+  def question(query:String): Future[Try[QueryResultLike]] = rd (Read.Question(query:String))
 
-  def construct(query:String): Future[Try[QueryResultLike]] = {
-    reader.ask(Read.Construct(query:String))(readTimeout).mapTo[Try[QueryResultLike]]
-  }
+  def bindedQuery(query:String,binds:Map[String,String],offset:Long = defOffset, limit:Long = defLimit): Future[Try[QueryResultLike]]
+    = rd(Read.Bind(query:String,binds,offset,limit))
 
 
-  def question(query:String): Future[Try[QueryResultLike]] = {
-    reader.ask(Read.Question(query:String))(readTimeout).mapTo[Try[QueryResultLike]]
-  }
+  def searchQuery(query:String,binds:Map[String,String],text:String,offset:Long = defOffset, limit:Long = defLimit): Future[Try[QueryResultLike]]
+    = rd(Read.Bind(query:String,binds,offset,limit))
 
-  def bindedQuery(query:String,params:Map[String,Value]): Future[Try[QueryResultLike]] = {
-    reader.ask(Read.Bind(query:String,params))(readTimeout).mapTo[Try[QueryResultLike]]
-  }
-
-  def bindedQueryPaginated(query:String,offset:Long = defOffset, limit:Long = defLimit,params:Map[String,Value]): Future[Try[QueryResultLike]] = {
-    reader.ask(Read.BindPaginated(query:String,offset,limit,params))(readTimeout).mapTo[Try[QueryResultLike]]
-  }
 
 }

@@ -7,8 +7,14 @@ import org.denigma.semantic.reading.queries.SemanticQueryManager
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.commons.LogLike
 
+/*
+trait that quries reader actors and get JSON in response
+ */
 trait JsReader
 {
+  /*
+  reader actor
+   */
   reader:NamedActor with CanRead=>
   
   def jsonQuery: Actor.Receive = {
@@ -30,16 +36,17 @@ trait JsReader
     case Read.Construct(query)=>
       sender ! qjm.construct(query)
 
-    case Read.Bind(query,params:Map[String,Value]) =>
-      sender ! qjm.bindedQuery(query,params)
+    case q @ Read.Bind(query,binds,offset, limit)=>
+      if(q.isPaginated) sender ! qjm.bindedQuery(query,binds,offset,limit) else  sender ! qjm.bindedQuery(query,binds)
 
-    case Read.BindPaginated(query,offset,limit,params:Map[String,Value])=>
-      sender ! qjm.bindedQuery(query,params)
+//    case q @ Read.Search(query,searches,binds,offset, limit)=>
+//      if(q.isPaginated) sender ! qjm.bindedQuery(query,binds,offset,limit) else  sender ! qjm.bindedQuery(query,binds)
+
 
   }
 
 
-  /*
+  /**
   query manager
    */
   object qjm extends SemanticQueryManager{

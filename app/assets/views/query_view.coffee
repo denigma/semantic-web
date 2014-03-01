@@ -22,6 +22,7 @@ class Denigma.QueryView extends Batman.View
     Denigma.Result.clear()
     fun = (err, records, env)=>
       @set("errors",err)
+      @loadFilters()
 
       if env.data?.query? then @set("query",env.data.query)
     Denigma.Result.loadWithOptions {url:"http://#{window.location.host}/models/sparql?query=#{@get("safeQuery")}"}, (err, records, env)->fun(err, records, env)
@@ -31,6 +32,31 @@ class Denigma.QueryView extends Batman.View
 
   ready: ->
     @submit()
+
+
+  suggestHandler: (data,page)=>
+    # since we are using custom formatting functions we do not need to alter remote JSON data
+    results: data
+
+
+  search: (variable)=>
+    placeholder: "Search for a movie"
+    minimumInputLength: 2
+    ajax: # instead of writing the function to execute the request we use Select2's convenient helper
+      url: "http://#{window.location.host}/models/sparql?bind=#{variable}&query=#{@get("safeQuery")}"
+      dataType: "json"
+      data: (term, page) ->
+        q: term # search term
+        page_limit: 10
+        apikey: "ju6z9mjyajq2djue3gbvv26t"
+      results: @suggestHandler
+    escapeMarkup: (m) -> m
+
+  loadFilters: =>
+    node = @get("node")
+    $node = $(node)
+    @filters = $node.find(".filter")
+    @filters.select2(@search("test"))
 
 class Denigma.EditorView extends Batman.View
   editor: undefined

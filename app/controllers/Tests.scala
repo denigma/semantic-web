@@ -3,13 +3,13 @@ package controllers
 import play.api.mvc._
 import org.openrdf.model.impl.StatementImpl
 import org.openrdf.query.BindingSet
-import org.denigma.semantic.test.WithSemanticPlatform
 
 
 /*
 test controller
+not working yet
  */
-object Tests  extends Controller with WithSemanticPlatform{
+object Tests  extends Controller{
   def editor = Action {
     implicit request =>
       Ok(views.html.test.editor()) //Ok(views.html.page("node","menu","0"))

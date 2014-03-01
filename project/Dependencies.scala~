@@ -43,7 +43,11 @@ object Dependencies {
 
     "org.webjars" % "select2" % "3.4.5", //autocompletion
 
-    "org.webjars" % "famfamfam-flags" % "0.0"
+    "org.webjars" % "chosen" % "0.9.12", //autocompletion
+
+    "org.webjars" % "typeaheadjs" % "0.10.1", //autocompletion TODO: choose between alternatives
+
+  "org.webjars" % "famfamfam-flags" % "0.0"
   )
 
 

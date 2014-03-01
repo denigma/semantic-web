@@ -7,11 +7,13 @@ import org.denigma.semantic.SemanticPlugin
 /*
 Semantic Platform (SP) - Object that contains db, actors and so on
  */
-object SP extends SemanticPlatform{
+object SP extends SemanticPlatform //most of the code is inside SemanticPlatform
+{
 
   var conf:Configuration  = null
 
   var platformConfig: PlatformConfig = null
+
   var dbConfig: DBConfig = null
 
 

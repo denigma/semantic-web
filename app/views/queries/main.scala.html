@@ -18,6 +18,11 @@
                 <th data-foreach-title="Result.head" data-bind="title">
                 </th>
             </tr>
+            <tr>
+                <th data-foreach-title="Result.head">
+                    <input data-bind-placeholder="title" type="hidden" id="thisid" class="filter select2-container select2-container-multi populate" />
+                </th>
+            </tr>
 
             <tr data-foreach-result="results">
                 <td data-foreach-key="result.bindings" data-bind="result.bindings[key].value"></td>

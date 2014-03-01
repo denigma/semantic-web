@@ -6,13 +6,15 @@ import org.openrdf.rio.RDFFormat
 import play.api.libs.json.{JsObject, Json}
 import play.api.Play
 import play.api.Play.current
-import org.denigma.semantic.test.WithSemanticPlatform
+import org.denigma.semantic.writing.DataWriter
+import org.denigma.semantic.controllers.sync.WithSyncWriter
+import org.denigma.semantic.files.SemanticFileParser
 
 
 /*
 main application controller, responsible for index and some other core templates and requests
  */
-object Application extends PJaxPlatformWith("") with WithSemanticPlatform
+object Application extends PJaxPlatformWith("") with WithSyncWriter with SemanticFileParser
 {
   def lifespan= Action {
     implicit request=>
@@ -65,7 +67,7 @@ object Application extends PJaxPlatformWith("") with WithSemanticPlatform
         "url"-> (request.domain+"/uploads/"+f.filename)
       )
       val uplCon = "http://webintelligence.eu/uploaded/"
-      val pr = this.sp.db.parseFile(file,uplCon)
+      val pr = this.parseFile(file,uplCon)
 
       if(pr.isFailure) obj + ("error"->toJson("WRONG SEMANTIC WEB FILE"))  else obj
 

@@ -3,7 +3,7 @@ package org.denigma.semantic.writing
 import org.denigma.semantic.commons.Logged
 
 /**
- * Created by antonkulaga on 2/24/14.
+Trait that can provide writeConnection. It is used everywhere where we need to write something into the database
  */
 trait CanWrite extends Logged{
 

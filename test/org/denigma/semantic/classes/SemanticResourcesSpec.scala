@@ -7,6 +7,9 @@ import org.openrdf.model.vocabulary._
 import org.denigma.semantic.platform.SP
 import org.denigma.semantic.controllers.sync.SyncJsController
 
+/*
+not relevant right now
+ */
 class SemanticResourcesSpec extends Specification {
   val self = this
 

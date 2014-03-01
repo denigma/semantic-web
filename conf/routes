@@ -1,7 +1,6 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-#GET         /                controllers.Tests.sparql
 GET         /                          controllers.Application.index(controller="query",action="main")
 GET         /resource/*url             controllers.Ontologies.resource(url)
 
@@ -12,8 +11,13 @@ GET         /schema                    controllers.Schema.sankey()
 GET         /schema/sankey             controllers.Schema.sankey()
 GET         /schema/distortion         controllers.Schema.distortion()
 
-
+#quries
 GET         /models/sparql             controllers.Queries.sendQuery(query:String)
+#POST       /models/sparql/bind         controllers.Queries.bindQuery()
+#POST       /models/sparql/search       controllers.Queries.searchForQuery()
+
+
+
 #GET         /results              controllers.Queries.results()
 GET         /config                    controllers.Queries.main()
 GET         /models/menus/*name        controllers.Application.menu(name)

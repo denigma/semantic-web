@@ -53,6 +53,7 @@ TODO: FIX,DOES NOT WORK NOW
 //
 import org.openrdf.model._
 import org.openrdf.model.impl._
+
 object UI {
   def sp(str:String) = s"http://spinrdf.org/sp#$str"
   def spr(str:String) = s"http://spinrdf.org/spr#$str"

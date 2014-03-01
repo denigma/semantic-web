@@ -1,42 +1,88 @@
 package org.denigma.semantic.quering
-
-import com.bigdata.rdf.sail.BigdataSailTupleQuery
-import com.bigdata.bop.{Constant, IVariable}
-import com.bigdata.rdf.internal.IV
-import scala.collection
-import org.openrdf.query.QueryLanguage
-import org.denigma.semantic.test.LoveHater
-import org.denigma.semantic.platform.SP
-import play.core._
-import org.denigma.semantic._
-import SP._
-import org.openrdf.model._
-import org.openrdf.model.impl._
-import com.bigdata.rdf.sail._
-import org.openrdf.query._
-import scala.collection.immutable._
-import com.bigdata.rdf.sparql.ast._
-import scala.collection.JavaConversions._
-import com.bigdata.rdf.model._
-import com.bigdata.bop._
-import play.api._
-import play.api.Logger
-import org.denigma.semantic.reading._
-import org.denigma.semantic.writing._
-import akka.util.Timeout
-import scala.concurrent.duration._
-import scala.concurrent._
-///
 /*
 just a code to copy-paste to play console
 */
 object QueryConsole {
+  import scala.collection
+  import scala.collection.immutable._
+  import scala.collection.JavaConversions._
+  import scala.concurrent.duration._
+  import scala.concurrent._
+  import play.api._
+  import play.core._
+  import play.api.Logger
+  import akka.util.Timeout
+  import org.openrdf.query._
+  import org.openrdf.model._
+  import org.openrdf.model.impl._
+  import org.openrdf.query._
+
+  import com.bigdata.rdf.sail._
+  import com.bigdata.rdf.sparql.ast._
+  import com.bigdata.rdf.model._
+  import com.bigdata.bop._
+  import com.bigdata.rdf.sail._
+  import com.bigdata.bop._
+  import com.bigdata.rdf.internal._
+  import com.bigdata.rdf.internal.impl._
+
+  //
+  import org.denigma.semantic.test.LoveHater
+  import org.denigma.semantic._
+  import org.denigma.semantic.platform.SP
+  import SP._
+  import org.denigma.semantic.reading._
+  import org.denigma.semantic.writing._
+  import org.denigma.semantic.controllers.sync._
+  import org.denigma.semantic.commons._
+  import org.denigma.semantic.reading.selections._
+  import org.denigma.semantic.writing._
 
   implicit val writeTimeout:Timeout = Timeout(5 seconds)
 
   implicit val readTimeout:Timeout = Timeout(5 seconds)
 
+  SP.cleanLocalDb()
+  SP.platformParams = new StatementImpl(new URIImpl("http://hello.subject.world.com"),new URIImpl("http://hello.property.world.com"),new URIImpl("http://hello.object.world.com"))::SP.platformParams
 
+  //needed for testing
+  class ConsoleApp extends StaticApplication(new java.io.File(".")) with SyncUpdateController with SyncSimpleController with LoveHater
+
+  val app: ConsoleApp = new ConsoleApp
+
+  val prop = "<http://denigma.org/relations/resources/loves>"
+
+
+//  val s1 =s"SELECT ?subject ?property ?object WHERE { ?subject $prop ?object .}"
+//  val s2 =s"SELECT ?subject ?property ?object WHERE { ?subject ?property ?object . }"
+  val s =s"""SELECT ?subject ?property ?object WHERE { ?subject ?property ?object . FILTER regex(STR(?property), "hates") . }"""
+  def cl(o:AnyRef) = o.getClass
+
+  //def r = this.writeCon.clear()
+  def t() = app.addTestRels()
+
+  def upd(str:String): BigdataSailUpdate = app.writeConnection.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,str,WI.RESOURCE)
+  val con = app.readConnection
+  def sel(str:String): BigdataSailTupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL,str,WI.RESOURCE)
+  def contR(q:BigdataSailTupleQuery) =  q.getASTContainer
+  def astR(q:BigdataSailTupleQuery) = contR(q).getOriginalAST
+  def contU(u:BigdataSailUpdate) =  u.getASTContainer
+  def astU(u:BigdataSailUpdate) = contU(u).getOriginalUpdateAST
+  def res(q:BigdataSailTupleQuery) = q.evaluate().toList
+
+  // test code init start
+  t()
+  val q = sel(s)
+  val fr = con.getValueFactory
+  val lex = con.getTripleStore.getLexiconRelation
+
+  val a = astR(q)
+  val w = a.getWhereClause
+  val ch = w.getChildren.toList
+  val f: FilterNode = ch.collectFirst{case p:FilterNode=>p}.get
+  val fn: FunctionNode = f.args().collectFirst{case p:FunctionNode=>p}.get
+
+  app.var2Str("property")
 
 
   //
@@ -61,6 +107,11 @@ object QueryConsole {
 //    //this.addFullRel(s"http://denigma.org/actors/resources/$sub",s"http://denigma.org/relations/resources/$rel",s"http://denigma.org/actors/resources/$obj")
 //
 //
+val simple =
+  """
+    |
+  """.stripMargin
+
 val q1 =
   """
     |PREFIX  de:   <http://denigma.org/resource/>
@@ -116,10 +167,10 @@ val q1 =
 //
 //
 //
-//    //COPY to PLAY CONSOLE
-//    import play.core._
-//    import org.denigma.semantic._
-//    import org.denigma.semantic.SP._
+                                                                                              //    //COPY to PLAY CONSOLE
+                                                                                              //    import play.core._
+                                                                              //    import org.denigma.semantic._
+                                                                              //    import org.denigma.semantic.SP._
 //    import org.openrdf.model._
 //    import org.openrdf.model.impl._
 //    import com.bigdata.rdf.sail._
@@ -129,15 +180,15 @@ val q1 =
 //    import org.denigma.semantic.quering._
 //    import com.bigdata.rdf.sparql.ast._
 //    import scala.collection.JavaConversions._
-//    import com.bigdata.rdf.model._
-//
-//    import com.bigdata.bop._
-//    import play.api._
-//    import play.api.Logger
-//
-//    new StaticApplication(new java.io.File("."))
-//    val repo = SG.db.repo
-//    val con: BigdataSailRepositoryConnection = SG.db.repo.getConnection
+                                                                                                                                                                                                                                                                                                                                    //    import com.bigdata.rdf.model._
+                                                                                                                                                                                                                                                                                                                                      //
+                                                                                                                                                                                                                                                                                                                                          //    import com.bigdata.bop._
+                                                                                                                                                                                                                                                                                                                                          //    import play.api._
+                                                                                                                                                                                                                                                                                                                                          //    import play.api.Logger
+                                                                                                                                                                                                                                                                                                                                            //
+                                                                                                                                                                                                                                                                                                                                              //    new StaticApplication(new java.io.File("."))
+                                                                                                                                                                                                                                                                                                                                                //    val repo = SG.db.repo
+                                                                                                                                                                                                                                                                                                                                                  //    val con: BigdataSailRepositoryConnection = SG.db.r                                                                                                                                    epo.getConnection
 //    val f = con.getValueFactory
 //
 //    val lex = con.getTripleStore.getLexiconRelation
@@ -150,15 +201,15 @@ val q1 =
 //    val lh: LoveHater with Object = new LoveHater {}
 //    lh.addTestRels()
 //
-//    val q: BigdataSailTupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL,query,baseURI)
-//    val cont = q.getASTContainer
-//    val ast: QueryRoot = cont.getOriginalAST
-//
-//    q.getParsedQuery
+                                                                                                                                                                              //    val q: BigdataSailTupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL,query, ng                                                                                                                                                                                                                                                                   baseURI)
+                                                                                                                                                    //    val cont = q.getASTContainer
+                                                                                                                                                                                                //    val ast: QueryRoot = cont.getOrigi                                                                                                                                                                  nalAST
+                                                                                                                   //
+          //    q.getParsedQuery
 //    q.setBinding("s",value)
 //
-//    val res: TupleQueryResult = q.evaluate()
-//    val qr = QueryResult.parse(query,res)
+                    //    val res: TupleQueryResult = q.evaluate()
+                          //    val qr    = QueryResult.parse(query,res)
 //    val bs = qr.bindings
 //    bs.foreach(b=>println(b))
 //    bs.size
@@ -168,8 +219,8 @@ val q1 =
 //      val cont: ASTContainer = q.getASTContainer
 //
 //      val ast = cont.getOriginalAST
-//      val lex = q.getTripleStore.getLexiconRelation
-//      val terms = bindings.map(_._2)
+                                                                                                                                                                                                                                                                                                                  //      val lex = q.getTripleStore.getLexiconRelation
+                                                                                                                                                                                                                                                                                                                  //      val terms = bindings.map(_._2)
 //      lex.addTerms(terms.toArray,terms.size,true)
 //      val params: Map[String, ConstantNode] = bindings.map{
 //        case (key,value:BigdataValue)=>

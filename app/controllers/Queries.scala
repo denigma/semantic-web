@@ -13,6 +13,11 @@ import scala.concurrent.duration._
 import scala.util.{Try, Failure}
 import scala.concurrent.Future
 import org.denigma.semantic.reading.QueryResultLike
+import scala.util.Failure
+import play.api.libs.json.JsObject
+import scala.util.Failure
+import play.api.libs.json.JsObject
+import play.api.mvc.SimpleResult
 
 
 object  Queries extends PJaxPlatformWith("query") with JsQueryController {
@@ -31,6 +36,7 @@ object  Queries extends PJaxPlatformWith("query") with JsQueryController {
   }
 
   def toProp(kv:(String,String)): JsObject = Json.obj("name"->kv._1,"value"->kv._2,"id"->kv.hashCode())
+
   def toProps(mp:Map[String,String]): JsValue = Json.obj("id"->mp.hashCode(),"properties"->mp.map(toProp).toList)
 
   def badQuery(q:String):PartialFunction[Throwable,SimpleResult] = {
@@ -40,22 +46,19 @@ object  Queries extends PJaxPlatformWith("query") with JsQueryController {
       Ok(SelectResult.badRequest(q,er)).as("application/sparql-results+json")
   }
 
-  def sendQuery(q:String=defQ) = Action.async{
-    implicit request=>
-      this.queryPaginated(q).map{
-        case scala.util.Success(results:QueryResultLike)=>
-          Ok(results.asJson).as("application/json")
-        case Failure(e)=>this.badQuery(q)(e)
-      }.recover(this.badQuery(q))
+  def sendQuery(q:String=defQ, offset:Long = 0, limit:Long = defLimit) = Action.async{
+    implicit request=>  this.handleQuery(q,this.query(q,limit,offset))
   }
 
+
   /*
-  just for tests
+  turns sparql query json result in Future of Simple Result
    */
-//  def syncSendQuery(q:String=defQ) = Action{
-//    implicit request=>
-//
-//  }
+  protected def handleQuery(q:String,result:Future[Try[QueryResultLike]]):Future[SimpleResult] = result.map{
+    case scala.util.Success(results:QueryResultLike)=>
+      Ok(results.asJson).as("application/json")
+    case Failure(e)=>this.badQuery(q)(e)
+  }.recover(this.badQuery(q))
 
 
 

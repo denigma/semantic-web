@@ -2,22 +2,21 @@ package org.denigma.semantic.actors
 
 import org.specs2.mutable._
 
-import scala.util.{Try, Success}
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import scala.concurrent.{Await, Future}
-import scala.concurrent.duration.Duration._
-import org.openrdf.model.Statement
+import scala.util.Try
+import scala.concurrent.Future
 import org.denigma.semantic.test.LoveHater
 import play.api.test.WithApplication
 import play.api.libs.concurrent.Akka
 import org.openrdf.model.impl.URIImpl
-import org.denigma.semantic.reading.QueryResultLike
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 import org.denigma.semantic.controllers.{UpdateController, JsQueryController}
 
 class DBActorSpec extends Specification with LoveHater {
 
+  /*
+  alias for "this"
+   */
   self=>
 
   class WithTestApp extends WithApplication with JsQueryController with UpdateController
@@ -89,11 +88,11 @@ class DBActorSpec extends Specification with LoveHater {
 
 
 
-      val resLimited= aw{ this.queryPaginated(query,0,2)  }
+      val resLimited= aw{ this.query(query,0,2)  }
       resLimited.isSuccess shouldEqual(true)
       resLimited.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(2)
 
-      val resOffset= aw { this.queryPaginated(query,2,0) }
+      val resOffset= aw { this.query(query,2,0) }
       resOffset.isSuccess shouldEqual(true)
       resOffset.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(4)
 
@@ -101,7 +100,8 @@ class DBActorSpec extends Specification with LoveHater {
     }
 
 
-    "query with bindings" in new WithTestApp  {
+  "query with bindings" in new WithTestApp  {
+
       self.addTestRels()
       val aw: (Future[Try[QueryResultLike]]) => Try[QueryResultLike] = this.awaitRead[Try[QueryResultLike]] _
 
@@ -112,7 +112,7 @@ class DBActorSpec extends Specification with LoveHater {
 
       resFull.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(6)
 
-      val resBinded= aw {  this.bindedQuery(query,Map("o"->new URIImpl("http://denigma.org/actors/resources/RDF"))) }
+      val resBinded= aw {  this.bindedQuery(query,Map("o"->new URIImpl("http://denigma.org/actors/resources/RDF").stringValue())) }
       resBinded.isSuccess shouldEqual(true)
 
       resBinded.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.length shouldEqual(1)
@@ -121,19 +121,19 @@ class DBActorSpec extends Specification with LoveHater {
 
   }
 
-    "send update" in new WithTestApp with LoveHater{
+    "send update" in new WithTestApp{
 
-      this.addTestRels()
-      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
-      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+      self.addTestRels()
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
 
 
       this.awaitWrite( this.update(d1))
-      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
-      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
       this.awaitWrite( this.update(i1))
-      self.db.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
-      self.db.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
 
     }
 }

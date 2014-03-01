@@ -8,8 +8,12 @@ import se.rio._
 import org.denigma.semantic.commons.LogLike
 
 
-/*
+/**
 class that reads RDF
+@param fileName name of the file
+@param  con Repository connection that is used to write the file content into the database
+@param context Context with which all triplets from the file will be writeen as quads
+@param lg Logger to log what is happening
  */
 class SemanticFileListener(fileName:String,con:BigdataSailRepositoryConnection, context: se.model.Resource = null)(implicit lg:LogLike) extends RDFHandler with ParseErrorListener{
 

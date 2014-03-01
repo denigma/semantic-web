@@ -13,17 +13,17 @@ Class that can do a lot of operation
 trait SemanticQueryManager extends PaginatedQueryManager[QueryResultLike]
     with Binder[QueryResultLike] with JsonSelect with JsonAsk with JsonConstruct
 {
-  override protected def bindedHandler(str: String, offset: Long, limit: Long, params: Map[String,Value]):SelectQuerying[QueryResultLike] =
+  override protected def bindedHandler(str: String,binds:Map[String,String], offset: Long, limit: Long):SelectQuerying[QueryResultLike] =
     (query:String,con:ReadConnection,q:SelectQuery)=>
   {
-      val mq:SelectQuery = this.bind(this.slice[SelectQuery](q,offset,limit),params)
+      val mq:SelectQuery = this.bind(con,slice[SelectQuery](q,offset,limit),binds)
       SelectResult.parse(query,mq.evaluate())
   }
 
-  override protected def bindedHandler(str: String, params: Map[String,Value]):SelectQuerying[QueryResultLike] =
+  override protected def bindedHandler(str: String, params: Map[String,String]):SelectQuerying[QueryResultLike] =
     (query:String,con:ReadConnection,q:SelectQuery)=>
   {
-      val mq:SelectQuery = this.bind(q,params)
+      val mq:SelectQuery = this.bind(con,q,params)
       SelectResult.parse(query,mq.evaluate())
   }
 

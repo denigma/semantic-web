@@ -19,6 +19,9 @@ tests BigDataWrapper
 class SemanticStoreSpec  extends Specification with LoveHater {
   self=>
 
+  /*
+  just a class that adds some features to TestApp
+   */
   class TestApp extends WithApplication with SyncJsController with SyncUpdateController
   /*
  ads some test relationships
@@ -34,8 +37,6 @@ class SemanticStoreSpec  extends Specification with LoveHater {
   }
 
   "SemanticStore BigData wrapper" should {
-
-
 
 
     "write and read triples" in new TestApp() {

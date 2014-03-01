@@ -8,24 +8,35 @@ import org.denigma.semantic.actors.readers.DatabaseReader
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.writing.CanWrite
 
-
-/*
-creates database actors and routers
- */
+/**
+* @constructor create a new person with a name and age.
+* @param canRead anybody who has a method that provides readonly connection to the database [[org.denigma.semantic.reading.CanRead]]
+* @param canWrite anybody who has a method that provides write connection to the database [[org.denigma.semantic.writing.CanWrite]]
+* @param sys Actor system that will be used
+* @param readers Configuration for reader resizer (min,def,max) number of reader actors that shoud be created by resizer
+*/
 class DatabaseActorsFactory(canRead:CanRead,canWrite:CanWrite, val sys:ActorSystem,readers:(Int,Int,Int)) {
 
-
+  /**
+  router for reader actor, for details see http://doc.akka.io/docs/akka/snapshot/scala/routing.html#SmallestMailboxPool
+  @see [[http://doc.akka.io/docs/akka/snapshot/scala/routing.html#SmallestMailboxPool]]
+   */
   val router = SmallestMailboxRouter(readers._2)
+
+
   val resizer = DefaultResizer(lowerBound = readers._1, upperBound = readers._3)
 
   protected val readerProps = Props(classOf[DatabaseReader],canRead).withDispatcher("akka.actor.reader-dispatcher").withRouter(router.withResizer(resizer))
 
-  val reader = sys.actorOf(readerProps,"reader")
+  val reader = sys.actorOf(readerProps)
 
 
   protected val writerProps = Props(classOf[DatabaseWriter],canWrite).withDispatcher("akka.actor.writer-dispatcher")
-  val writer = sys.actorOf(writerProps,"writer")
+  val writer = sys.actorOf(writerProps)
 
+  /*
+  actors that handles reades and resize
+   */
   SemanticReader.reader = reader
 
   SemanticWriter.writer = writer

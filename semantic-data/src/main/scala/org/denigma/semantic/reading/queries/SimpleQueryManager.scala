@@ -15,11 +15,11 @@ trait SimpleQueryManager  extends SimpleSelect
   with Paginator[TupleQueryResult]  with SimpleAsk with SimpleConstruct with Slicer with Binder[TupleQueryResult]
 {
 
-  override protected def bindedHandler(str: String, offset: Long, limit: Long, params: Map[String, Value]):SelectQuerying[TupleQueryResult] =
-  (query:String,con:ReadConnection,q:SelectQuery)=>  this.bind(q,params).evaluate()
+  override protected def bindedHandler(str: String, binds: Map[String, String],offset: Long, limit: Long):SelectQuerying[TupleQueryResult] =
+  (query:String,con:ReadConnection,q:SelectQuery)=>  this.bind(con,q,binds).evaluate()
 
-  override protected def bindedHandler(str: String, params: Map[String, Value]):SelectQuerying[TupleQueryResult] =
-  (query:String,con:ReadConnection,q:SelectQuery)=> this.bind(q,params).evaluate()
+  override protected def bindedHandler(str: String, binds: Map[String, String]):SelectQuerying[TupleQueryResult] =
+  (query:String,con:ReadConnection,q:SelectQuery)=> this.bind(con,q,binds).evaluate()
 
   override protected def paginatedSelect(str: String, offset: Long, limit: Long):SelectQuerying[TupleQueryResult] =
     (query:String,con:ReadConnection,q:SelectQuery)=>  this.slice[SelectQuery](q,offset,limit).evaluate()

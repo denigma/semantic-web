@@ -22,9 +22,7 @@ trait SimpleReader {
 
     case SimpleRead.Construct(query)=>sender ! qsm.construct(query)
 
-    case SimpleRead.Bind(query,params:Map[String,Value]) =>sender ! qsm.bindedQuery(query,params)
-
-    case SimpleRead.BindPaginated(query,offset,limit,params:Map[String,Value])=>sender ! qsm.bindedQuery(query,params)
+    case q @ SimpleRead.Bind(query,binds,offset,limit) => if(q.isPaginated) sender ! qsm.bindedQuery(query,binds,offset,limit) else sender ! qsm.bindedQuery(query,binds)
 
 
   }

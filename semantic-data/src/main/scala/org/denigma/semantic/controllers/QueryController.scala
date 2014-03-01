@@ -3,11 +3,15 @@ package org.denigma.semantic.controllers
 import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
+import scala.util.Try
+import org.denigma.semantic.actors.readers.Read
+import org.denigma.semantic.reading.QueryResultLike
+import akka.pattern.ask
 
 /*
 controller that can do various readonly quries via reader actor to the database
  */
-trait QueryController extends WithSemanticReader {
+trait QueryController[T] extends WithSemanticReader {
 
   implicit val readTimeout:Timeout = Timeout(5 seconds)
 
@@ -18,6 +22,10 @@ trait QueryController extends WithSemanticReader {
   for test purposes only
    */
   def awaitRead[T](fut:Future[T]):T = Await.result(fut,readTimeout.duration)
+
+
+  def rd(message:Any):Future[Try[T]] =
+    reader.ask(message)(readTimeout).mapTo[Try[T]]
 }
 
 

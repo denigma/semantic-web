@@ -6,16 +6,22 @@ import org.denigma.semantic.files.SemanticFileParser
 import org.denigma.semantic.reading.queries.UniReader
 import org.denigma.semantic.writing.DataWriter
 
-/*class that deals with storing and retrieving RDF from bigdata storage*/
-abstract class RDFStore extends UniReader with DataWriter with SemanticFileParser{
+/**
+* abstract class that deals with storing and retrieving RDF
+* for practical implementation look for [[SemanticStore]] instead
+* */
+abstract class RDFStore extends UniReader
+with DataWriter with SemanticFileParser //some traits with useful methods
+{
 
   val repo: BigdataSailRepository
 
-  def readConnection: BigdataSailRepositoryConnection = repo.getReadOnlyConnection
-  def writeConnection: BigdataSailRepositoryConnection = repo.getUnisolatedConnection
+  def readConnection: BigdataSailRepositoryConnection = repo.getReadOnlyConnection //needed for CanRead trait
+
+  def writeConnection: BigdataSailRepositoryConnection = repo.getUnisolatedConnection //needed for CanWrite trait
 
   /*
- Shutdown repository
+ Shutdown the repository
   */
   def close()=repo.shutDown()
 
