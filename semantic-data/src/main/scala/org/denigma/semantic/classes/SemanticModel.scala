@@ -2,10 +2,6 @@ package org.denigma.semantic.classes
 
 
 import org.openrdf.model._
-import org.openrdf.model.BNode
-import play.api.Play
-import org.openrdf.model.impl.URIImpl
-import org.openrdf.model.vocabulary
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import scala.util._
 import org.openrdf.repository.RepositoryResult

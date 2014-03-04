@@ -14,7 +14,7 @@ package object selections {
 
   type SelectQuery = BigdataSailTupleQuery
 
-  type SelectQuerying[T] = (String,ReadConnection,SelectQuery)=>T
+  type SelectHandler[T] = (String,ReadConnection,SelectQuery)=>T
 
   implicit class TupleResult(results: TupleQueryResult)  extends Iterator[BindingSet]
   {

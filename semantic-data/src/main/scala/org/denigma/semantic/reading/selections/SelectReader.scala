@@ -15,7 +15,7 @@ trait SelectReader extends CanRead
   /*
   readonly select query failed
    */
-  def selectQuery[T](str:String,select:SelectQuerying[T])(implicit base:String = WI.RESOURCE): Try[T] = {
+  def selectQuery[T](str:String,select:SelectHandler[T])(implicit base:String = WI.RESOURCE): Try[T] = {
     val con: BigdataSailRepositoryConnection = this.readConnection
     val q:BigdataSailTupleQuery = con.prepareTupleQuery(QueryLanguage.SPARQL,str,base)
     val res = Try{

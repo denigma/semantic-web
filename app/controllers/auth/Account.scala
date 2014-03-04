@@ -8,16 +8,18 @@ import com.bigdata.rdf.vocab.decls.{FOAFVocabularyDecl=>foaf}
 import org.openrdf.model.impl.URIImpl
 
 import play.api.libs.concurrent.Execution.Implicits._
+import org.denigma.semantic.controllers.QueryController
+import org.denigma.semantic.reading.QueryResultLike
 
 
-case class Account(uri:URI,email: String, password: String)
+case class Account(uri:URI, email: String, password: String)
 
 case class Permission(read:Set[URI],write:Set[URI])
 
 /*
 TODO: rewrite
  */
-object Accounts{
+object Accounts extends QueryController[QueryResultLike] {
 
 
 
@@ -26,7 +28,9 @@ object Accounts{
       (aco: Option[Account]) =>aco.filter{ account => BCrypt.checkpw(password, account.password) }}
 
 
-  def findByEmail(email: String)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]] = ???
+  def findByEmail(email: String)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]] = {
+   ???
+  }
 
   def findByUri(uri:URI)(implicit con: BigdataSailRepositoryConnection): Future[Option[Account]]= ???
 

@@ -14,11 +14,11 @@ TODO: FIX,DOES NOT WORK NOW
 //    val PAGE = self.pg("Page")
 //    val MENU = self.pg("Menu")
 //    val QUERY_PAGE = self.pg("Query_Page")
-//    def pg(str:String) = new URIImpl(PAGES+s"/$str")
+//    def pg(str:String) = IRI(PAGES+s"/$str")
 //  }
 //
 //
-//  def uri(str:String) = new URIImpl(str)
+//  def uri(str:String) = IRI(str)
 //
 ////  def RDF = vocabulary.RDF
 ////  def RDFS = vocabulary.RDFS
@@ -53,6 +53,7 @@ TODO: FIX,DOES NOT WORK NOW
 //
 import org.openrdf.model._
 import org.openrdf.model.impl._
+import org.denigma.semantic.model.IRI
 
 object UI {
   def sp(str:String) = s"http://spinrdf.org/sp#$str"
@@ -64,7 +65,7 @@ refactor
  */
 object WI {
 
-  def set(str:String): URI= this set new URIImpl(SETTINGS+s"/$str/")
+  def set(str:String): URI= this set IRI(SETTINGS+s"/$str/")
 
   lazy val RESOURCE: String = this.wi("resource")
 
@@ -80,13 +81,13 @@ object WI {
 
   lazy val SETTINGS:String=  this.wi("settings")
 
-  def re(str:String) = new URIImpl(RESOURCE+s"/$str")
+  def re(str:String) = IRI(RESOURCE+s"/$str")
 
-  def pg(str:String) = new URIImpl(PAGES+s"/$str")
+  def pg(str:String) = IRI(PAGES+s"/$str")
 
-  def conf(str:String) = new URIImpl(CONFIG+s"$str")
+  def conf(str:String) = IRI(CONFIG+s"$str")
 
-  def po(str:String) = new URIImpl(POLICY+s"/$str")
+  def po(str:String) = IRI(POLICY+s"/$str")
 
   lazy val root: URI= this set "root"
 

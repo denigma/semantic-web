@@ -11,13 +11,13 @@ can make selects
 trait ISelect[T] extends SelectReader{
 
   def select(query:String): Try[T] = this.selectQuery[T](query,selectHandler)(WI.RESOURCE)
-  protected def selectHandler:SelectQuerying[T]
+  protected def selectHandler:SelectHandler[T]
 }
 
 trait SimpleSelect extends ISelect[TupleQueryResult]{
-  override protected def selectHandler:SelectQuerying[TupleQueryResult]  = (str,con,q)=>q.evaluate()
+  override protected def selectHandler:SelectHandler[TupleQueryResult]  = (str,con,q)=>q.evaluate()
 }
 
 trait JsonSelect extends ISelect[QueryResultLike]{
-  override protected def selectHandler:SelectQuerying[QueryResultLike]  = (str,con,q)=>SelectResult.parse(str,q.evaluate())
+  override protected def selectHandler:SelectHandler[QueryResultLike]  = (str,con,q)=>SelectResult.parse(str,q.evaluate())
 }

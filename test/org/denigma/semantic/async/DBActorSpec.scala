@@ -1,4 +1,4 @@
-package org.denigma.semantic.actors
+package org.denigma.semantic.async
 
 import org.specs2.mutable._
 

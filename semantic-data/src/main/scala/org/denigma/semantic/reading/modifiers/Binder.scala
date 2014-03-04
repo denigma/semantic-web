@@ -115,9 +115,9 @@ trait Binder[T] extends SelectReader with Slicer with ASTHelper
     }.toMap
   }
 
-  protected def bindedHandler(str:String,binds:Map[String,String]):SelectQuerying[T]
+  protected def bindedHandler(str:String,binds:Map[String,String]):SelectHandler[T]
 
-  protected def bindedHandler(str:String,binds:Map[String,String],offset:Long,limit:Long):SelectQuerying[T]
+  protected def bindedHandler(str:String,binds:Map[String,String],offset:Long,limit:Long):SelectHandler[T]
 
   /*
   sends query with binding

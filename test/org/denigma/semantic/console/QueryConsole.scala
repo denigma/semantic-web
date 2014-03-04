@@ -1,42 +1,25 @@
-package org.denigma.semantic.quering
+package org.denigma.semantic.console
+
 /*
 just a code to copy-paste to play console
 */
 object QueryConsole {
-  import scala.collection
-  import scala.collection.immutable._
   import scala.collection.JavaConversions._
   import scala.concurrent.duration._
-  import scala.concurrent._
-  import play.api._
   import play.core._
-  import play.api.Logger
   import akka.util.Timeout
-  import org.openrdf.query._
-  import org.openrdf.model._
   import org.openrdf.model.impl._
   import org.openrdf.query._
 
-  import com.bigdata.rdf.sail._
   import com.bigdata.rdf.sparql.ast._
-  import com.bigdata.rdf.model._
-  import com.bigdata.bop._
   import com.bigdata.rdf.sail._
-  import com.bigdata.bop._
-  import com.bigdata.rdf.internal._
-  import com.bigdata.rdf.internal.impl._
 
   //
   import org.denigma.semantic.test.LoveHater
-  import org.denigma.semantic._
   import org.denigma.semantic.platform.SP
-  import SP._
-  import org.denigma.semantic.reading._
-  import org.denigma.semantic.writing._
   import org.denigma.semantic.controllers.sync._
   import org.denigma.semantic.commons._
   import org.denigma.semantic.reading.selections._
-  import org.denigma.semantic.writing._
 
   implicit val writeTimeout:Timeout = Timeout(5 seconds)
 

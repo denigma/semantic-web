@@ -1,11 +1,12 @@
 package org.denigma.semantic.test
 
-import org.openrdf.model.impl.{StatementImpl, URIImpl}
+import org.openrdf.model.impl.{StatementImpl}
 import org.openrdf.model.{Statement, URI}
 import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
 import scala.collection.JavaConversions._
 import org.denigma.semantic.controllers.sync._
+import org.denigma.semantic.model.IRI
 
 /**
 Traits for tests only
@@ -18,9 +19,9 @@ trait LoveHater extends WithSyncReader with SyncUpdateController{
   def obj(str:String) = s"http://denigma.org/actors/resources/$str"
 
 
-  def subject(str:String) = new URIImpl(sub(str))
-  def property(str:String) = new URIImpl(prop(str))
-  def predicate(str:String) = new URIImpl(obj(str))
+  def subject(str:String) = IRI(sub(str))
+  def property(str:String) = IRI(prop(str))
+  def predicate(str:String) = IRI(obj(str))
 
   val Daniel = subject("Daniel")
   val Liz = subject("Liz")
@@ -50,9 +51,9 @@ trait LoveHater extends WithSyncReader with SyncUpdateController{
 just a function for testing
 */
   def addFullRel(sub:String,rel:String,obj:String) = {
-    val s: URIImpl = new URIImpl(sub)
-    val p: URIImpl = new URIImpl(rel)
-    val o: URIImpl = new URIImpl(obj)
+    val s = IRI(sub)
+    val p = IRI(rel)
+    val o= IRI(obj)
 
     write{
       implicit con=>
