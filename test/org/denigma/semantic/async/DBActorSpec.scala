@@ -48,27 +48,6 @@ class DBActorSpec extends Specification with LoveHater {
     """.stripMargin
 
 
-  val d1 =
-    """
-      |PREFIX ac: <http://denigma.org/actors/resources/>
-      |PREFIX rel: <http://denigma.org/relations/resources/>
-      |
-      |DELETE DATA
-      |{
-      |  ac:Daniel rel:loves ac:RDF .
-      |}
-    """.stripMargin
-
-  val i1 =
-    """
-      |PREFIX ac: <http://denigma.org/actors/resources/>
-      |PREFIX rel: <http://denigma.org/relations/resources/>
-      |
-      |INSERT DATA
-      |{
-      |  ac:Anton rel:hates ac:Anton .
-      |}
-    """.stripMargin
 
 
   "Actor" should {
@@ -122,6 +101,29 @@ class DBActorSpec extends Specification with LoveHater {
   }
 
     "send update" in new WithTestApp{
+
+      val d1 =
+        """
+          |PREFIX ac: <http://denigma.org/actors/resources/>
+          |PREFIX rel: <http://denigma.org/relations/resources/>
+          |
+          |DELETE DATA
+          |{
+          |  ac:Daniel rel:loves ac:RDF .
+          |}
+        """.stripMargin
+
+      val i1 =
+        """
+          |PREFIX ac: <http://denigma.org/actors/resources/>
+          |PREFIX rel: <http://denigma.org/relations/resources/>
+          |
+          |INSERT DATA
+          |{
+          |  ac:Anton rel:hates ac:Anton .
+          |}
+        """.stripMargin
+
 
       self.addTestRels()
       self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6

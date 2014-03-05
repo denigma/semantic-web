@@ -25,4 +25,5 @@ trait UpdateController extends WithSemanticWriter{
   def awaitWrite(fut:Future[Try[Unit]]):Try[Unit] = Await.result(fut,writeTimeout.duration)
 
   def update(str:String): Future[Try[Unit]] =  this.writer.ask(Update.Update(str))(this.writeTimeout).mapTo[Try[Unit]]
+
 }

@@ -80,7 +80,8 @@ class SemanticStoreSpec  extends Specification with LoveHater {
           |WHERE
           |  { de:Genomic_Instability ?property ?object }
         """.stripMargin
-      val res = query(q1)
+
+       val res = query(q1)
       res.isSuccess should beTrue
       res.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.size shouldEqual(4)
     }

@@ -8,6 +8,6 @@ Ask query
 package object questions {
   type AskQuery = BigdataSailBooleanQuery
 
-  type AskQuerying[T] = (String,ReadConnection,AskQuery)=>T
+  type AskHandler[T] = (String,ReadConnection,AskQuery)=>T
 
 }

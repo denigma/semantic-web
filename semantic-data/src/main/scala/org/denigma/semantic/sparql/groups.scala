@@ -1,5 +1,7 @@
 package org.denigma.semantic.sparql
 
+import org.denigma.semantic.sparql.Trip
+
 
 /**
  * Sparql brackets
@@ -12,7 +14,6 @@ case class Br(elements:GroupElement*) extends GP
 
   override lazy val children: List[GroupElement] = elements.toList
 }
-
 
 /**
 Group of elements
@@ -29,6 +30,7 @@ trait GP extends GroupElement{
 
   def UNION(other:GP):Union = Union(this,other)
 }
+
 
 /**
 unites to groups together

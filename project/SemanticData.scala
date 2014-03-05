@@ -24,7 +24,6 @@ trait SemanticData extends Macroses with Wesin{
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
     resolvers += "apache-repo-releases" at "http://repository.apache.org/content/repositories/releases/",
     resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
-    resolvers += "org.topbraid" at "http://topquadrant.com/repository/spin",
     //compiler options
     scalacOptions ++= Seq( "-feature", "-language:_" ),
 

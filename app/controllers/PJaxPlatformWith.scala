@@ -3,7 +3,6 @@ package controllers
 import play.api.mvc._
 
 import play.api.templates.Html
-import org.denigma.semantic.test.WithSemanticPlatform
 
 class PJaxPlatformWith(val name:String) extends Controller  {
 
@@ -12,8 +11,5 @@ class PJaxPlatformWith(val name:String) extends Controller  {
 
   def pj[T](controller:String,action:String,html:Html)(implicit req:Request[T]): Html =
     if(req.headers.keys("X-PJAX")) html  else views.html.index(controller,action,html)
-
-
-
 
 }

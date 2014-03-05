@@ -17,7 +17,7 @@ object Dependencies {
 
   val testDeps = Seq(
     ///ScalaTest for testing
-    "org.scalatest" % "scalatest_2.10" % "2.1.0-RC2",
+    "org.scalatest" % "scalatest_2.10" % "2.1.0",
 
     "com.typesafe.akka" %% "akka-testkit" %  "2.2.0"
   )

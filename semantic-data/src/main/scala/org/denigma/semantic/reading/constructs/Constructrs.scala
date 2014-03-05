@@ -9,14 +9,14 @@ interface that deals with construct quiries
  */
 trait IConstruct[T] extends ConstructReader {
   def construct(query:String) = this.graphQuery[T](query,constructHandler)(WI.RESOURCE)
-  protected def constructHandler:ConstructQuerying[T]
+  protected def constructHandler:ConstructHandler[T]
 }
 
 trait SimpleConstruct extends IConstruct[GraphQueryResult] {
-  override protected def constructHandler:ConstructQuerying[GraphQueryResult]  = (str,con,q)=>q.evaluate()
+  override protected def constructHandler:ConstructHandler[GraphQueryResult]  = (str,con,q)=>q.evaluate()
 }
 
 trait JsonConstruct extends IConstruct[QueryResultLike] {
 
-  override protected def constructHandler:ConstructQuerying[QueryResultLike] = (str,con,q)=>ConstructResult.parse(str,q.evaluate())
+  override protected def constructHandler:ConstructHandler[QueryResultLike] = (str,con,q)=>ConstructResult.parse(str,q.evaluate())
 }

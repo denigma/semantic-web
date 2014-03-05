@@ -16,7 +16,7 @@ trait QueryManager[T] extends UniReader with ISelect[T] with IAsk[T] with IConst
   /*
   pattern matches the query and applies different handlers depending on its type
    */
-  def anyQueryHandler:AnyQuerying[T] = {
+  def anyQueryHandler:AnyQueryHandler[T] = {
     case (str:String,con:ReadConnection,q:AskQuery)=> this.askHandler(str,con,q)
 
     case (str:String,con:ReadConnection,q:SelectQuery)=>this.selectHandler(str,con,q)

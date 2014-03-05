@@ -10,7 +10,7 @@ import org.denigma.semantic.reading.modifiers.{Paginator, Slicer}
 import org.openrdf.model.Value
 
 
-/*
+/**
 adds paginated mode of qurieing
  */
 trait PaginatedQueryManager[T] extends QueryManager[T] with Paginator[T]{
@@ -19,7 +19,7 @@ trait PaginatedQueryManager[T] extends QueryManager[T] with Paginator[T]{
     /*
     paginated handler, that figures out the type of a query and than applies appropriate paginated handler
      */
-    def paginated(query:String,offset:Long,limit:Long):AnyQuerying[T] =
+    def paginated(query:String,offset:Long,limit:Long):AnyQueryHandler[T] =
     {
       case (str:String,con:ReadConnection,q:AskQuery)=> this.askHandler(str,con,slice[AskQuery](q,offset,limit))
 

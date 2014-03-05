@@ -10,16 +10,16 @@ import org.denigma.semantic.reading.questions._
 import org.denigma.semantic.commons.WI
 
 
-/*
+/**
 sends closures that deal with all requests
  */
 trait AnyQueryReader extends CanRead {
 
 
-  def anyQuery[T](str:String,select:AnyQuerying[T])(implicit base:String = WI.RESOURCE): Try[T] = {
+  def anyQuery[T](str:String,select:AnyQueryHandler[T])(implicit base:String = WI.RESOURCE): Try[T] = {
     val con: BigdataSailRepositoryConnection = this.readConnection
-    val q: BigdataSailQuery = con.prepareNativeSPARQLQuery(QueryLanguage.SPARQL,str,base)
     val res = Try{
+      val q: BigdataSailQuery = con.prepareNativeSPARQLQuery(QueryLanguage.SPARQL,str,base)
       select(str,con,q)
     }
     con.close()

@@ -81,7 +81,7 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController{
     //FileUtils.cleanDirectory(new File(dbConfig.url))
   }
 
-  /*
+  /**
   cleans db file if app is run in a test mode
    */
   def cleanIfInTest() = if(this.inTest){

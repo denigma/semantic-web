@@ -13,6 +13,9 @@ import play.api.libs.concurrent.Akka
 import org.denigma.semantic.model.IRI
 import org.denigma.semantic.sparql._
 import org.denigma.semantic.sparql
+import scala.collection.JavaConversions._
+import org.denigma.semantic.reading.selections._
+import org.denigma.semantic.reading._
 
 class SparqlSpec extends Specification with LoveHater {
 
@@ -37,6 +40,7 @@ class SparqlSpec extends Specification with LoveHater {
     this.addRel("Ilia","loves","Immortality")
     this.addRel("Edouard","loves","Immortality")
   }
+
 
   "DSL for sparql should" should {
 
@@ -80,8 +84,51 @@ class SparqlSpec extends Specification with LoveHater {
       val resOffset2= aw { select(qo) }
       resOffset2.isSuccess shouldEqual(true)
       resOffset2.get.toList.size shouldEqual(4)
+    }
 
 
+    "insert data right" in new WithTestApp{
+
+      val d1 =
+        """
+          |PREFIX ac: <http://denigma.org/actors/resources/>
+          |PREFIX rel: <http://denigma.org/relations/resources/>
+          |
+          |DELETE DATA
+          |{
+          |  ac:Daniel rel:loves ac:RDF .
+          |}
+        """.stripMargin
+
+//      INSERT DATA {
+//
+//        Trip(Anton,loves,RDF)
+//      }
+
+
+      val i1 =
+        """
+          |PREFIX ac: <http://denigma.org/actors/resources/>
+          |PREFIX rel: <http://denigma.org/relations/resources/>
+          |
+          |INSERT DATA
+          |{
+          |  ac:Anton rel:hates ac:Anton .
+          |}
+        """.stripMargin
+
+
+      self.addTestRels()
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+
+
+      this.awaitWrite( this.update(d1))
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+      this.awaitWrite( this.update(i1))
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
 
     }
  }

@@ -7,20 +7,24 @@ import org.denigma.semantic.commons.WI
 
 trait AskReader extends CanRead
 {
-
-  /*
-  ASK query
-  */
-  def askQuery[T](str:String,ask:AskQuerying[T])(implicit base:String = WI.RESOURCE): Try[T] = {
+  /**
+   * Ask
+   * @param queryString query string
+   * @param ask handler function that receives connection, query string and query and returns a result
+   * @param base basic string (required by bigdata database)
+   * @tparam T return type
+   * @return result of ask function
+   */
+  def askQuery[T](queryString:String,ask:AskHandler[T])(implicit base:String = WI.RESOURCE): Try[T] = {
     val con = this.readConnection
-    val q = con.prepareBooleanQuery(QueryLanguage.SPARQL,str,base)
+    val q = con.prepareBooleanQuery(QueryLanguage.SPARQL,queryString,base)
     val res = Try{
-      ask(str,con,q)
+      ask(queryString,con,q)
     }
     con.close()
     res.recoverWith{case
       e=>
-      lg.error(s"readonly ASK query\n $str \nfailed because of \n"+e.getMessage)
+      lg.error(s"readonly ASK query\n $queryString \nfailed because of \n"+e.getMessage)
       res
     }
 

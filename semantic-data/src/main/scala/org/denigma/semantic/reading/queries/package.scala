@@ -8,5 +8,5 @@ useful implicits and
 package object queries {
 
   type AnyQuery = BigdataSailQuery
-  type AnyQuerying[T] = PartialFunction[(String,ReadConnection,AnyQuery),T]
+  type AnyQueryHandler[T] = PartialFunction[(String,ReadConnection,AnyQuery),T]
 }

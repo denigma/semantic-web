@@ -11,12 +11,11 @@ sends closure that deal with construct requests
  */
 trait ConstructReader extends CanRead {
 
-  def graphQuery[T](str:String,selectGraph:ConstructQuerying[T])(implicit base:String = WI.RESOURCE): Try[T] = {
+  def graphQuery[T](str:String,selectGraph:ConstructHandler[T])(implicit base:String = WI.RESOURCE): Try[T] = {
     val con= this.readConnection
-    val q: BigdataSailGraphQuery = con.prepareGraphQuery(QueryLanguage.SPARQL,str,base)
     val res = Try{
+      val q: BigdataSailGraphQuery = con.prepareGraphQuery(QueryLanguage.SPARQL,str,base)
       selectGraph(str,con,q)
-
     }
     con.close()
     res.recoverWith{case

@@ -8,7 +8,7 @@ import org.openrdf.model.Statement
  * Construct package object with useful type aliases
  */
 package object constructs {
-  type ConstructQuerying[T] = (String,ReadConnection,ConstructQuery)=>T
+  type ConstructHandler[T] = (String,ReadConnection,ConstructQuery)=>T
 
   type ConstructQuery = BigdataSailGraphQuery
 

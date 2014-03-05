@@ -16,6 +16,10 @@ package object selections {
 
   type SelectHandler[T] = (String,ReadConnection,SelectQuery)=>T
 
+  /**
+   * Implicit class that turns  query result into iterator (so methods toList, map and so on can be applied to it)
+   * @param results
+   */
   implicit class TupleResult(results: TupleQueryResult)  extends Iterator[BindingSet]
   {
 
