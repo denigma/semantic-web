@@ -1,8 +1,9 @@
 package org.denigma.semantic.sparql
 
-import org.denigma.semantic.model.{BlankNode, IRI}
+import org.denigma.semantic.model.{ BlankNode, IRI}
 import org.openrdf.model.{Value, Resource, URI}
-import com.hp.hpl.jena.rdf.model.Literal
+import com.hp.hpl.jena.rdf.model._
+import com.bigdata.rdf.internal.impl.literal.FullyInlineTypedLiteralIV
 
 
 /**
@@ -15,7 +16,15 @@ import com.hp.hpl.jena.rdf.model.Literal
 case class Pat(s:ResourcePatEl,p:IRIPatEl,o:ValuePatEl,c:IRIPatEl= null) extends QuadPattern
 case class Trip(s:Resource,p:IRI,o:Value) extends GroupElement
 {
-  override def stringValue: String = s"\n ${s.stringValue} ${p.stringValue} ${o.stringValue} .\n"
+
+  def objectString = o match {
+    case lit:Literal=>"\""+lit.stringValue()+"\""
+    case uri:URI=>s"<${uri.stringValue}>"
+    case o=>o.stringValue()
+
+  }
+
+  override def stringValue: String = s"\n <${s.stringValue}> <${p.stringValue}> $objectString .\n"
 }
 
 trait TripletPattern extends GroupElement
@@ -23,12 +32,12 @@ trait TripletPattern extends GroupElement
   def s:ResourcePatEl
   def p:IRIPatEl
   def o:ValuePatEl
-  override def stringValue: String = s"\n ${s.stringValue} ${p.stringValue} ${o.stringValue} .\n"
+  override def stringValue: String = s"\n <${s.stringValue} ${p.stringValue} ${o.stringValue} .\n"
 }
 
 trait QuadPattern extends TripletPattern{
   def hasContext = c!=null
-  def c:PatternElement
+  def c:IRIPatEl
   override def stringValue: String = s"\n ${s.toString} ${p.toString} ${o.toString}" + (if(hasContext) " "+c.toString+" .\n" else " .\n")
 }
 
@@ -73,11 +82,14 @@ trait PatternImplicits {
     override def stringValue: String = bnode.stringValue()
   }
 
-  implicit class LiteralExtended(literal:Literal) extends ResourcePatEl
+  implicit class LiteralExtended(literal:Literal) extends ValuePatEl
   {
+
+
     override def isLiteral = true
 
-    override def stringValue: String = literal.stringValue
+    override def stringValue: String = "\""+literal.stringValue+"\""
+
   }
 
 

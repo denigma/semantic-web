@@ -16,6 +16,9 @@ trait WithWhere extends GroupElement
   }
 
 
+  def hasWhere = this.WHERE.hasChildren
+
+
 }
 
 class WhereClause(var children:List[GroupElement]) extends GP

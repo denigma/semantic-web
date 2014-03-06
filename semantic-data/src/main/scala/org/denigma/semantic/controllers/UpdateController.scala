@@ -11,7 +11,7 @@ import org.denigma.semantic.actors.writers.Update
 import akka.actor.ActorRef
 import akka.pattern.ask
 import akka.pattern.ask
-
+import org.denigma.semantic.sparql._
 /*
 does updates
  */
@@ -25,5 +25,12 @@ trait UpdateController extends WithSemanticWriter{
   def awaitWrite(fut:Future[Try[Unit]]):Try[Unit] = Await.result(fut,writeTimeout.duration)
 
   def update(str:String): Future[Try[Unit]] =  this.writer.ask(Update.Update(str))(this.writeTimeout).mapTo[Try[Unit]]
+
+  def insert(q:InsertQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
+  def delete(q:DeleteQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
+  def deleteInsert(q:DeleteInsertQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
+  def insertDelete(q:InsertDeleteQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
+
+
 
 }

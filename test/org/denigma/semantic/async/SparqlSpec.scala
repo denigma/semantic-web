@@ -88,45 +88,47 @@ class SparqlSpec extends Specification with LoveHater {
 
 
     "insert data right" in new WithTestApp{
-
-      val d1 =
-        """
-          |PREFIX ac: <http://denigma.org/actors/resources/>
-          |PREFIX rel: <http://denigma.org/relations/resources/>
-          |
-          |DELETE DATA
-          |{
-          |  ac:Daniel rel:loves ac:RDF .
-          |}
-        """.stripMargin
-
-//      INSERT DATA {
-//
-//        Trip(Anton,loves,RDF)
-//      }
-
-
-      val i1 =
-        """
-          |PREFIX ac: <http://denigma.org/actors/resources/>
-          |PREFIX rel: <http://denigma.org/relations/resources/>
-          |
-          |INSERT DATA
-          |{
-          |  ac:Anton rel:hates ac:Anton .
-          |}
-        """.stripMargin
-
-
       self.addTestRels()
+
+
+      val del: DeleteQuery = DeleteQuery {
+        DELETE (
+          DATA (
+            Trip(
+              IRI("http://denigma.org/actors/resources/Daniel"),
+              IRI("http://denigma.org/relations/resources/loves"),
+              IRI("http://denigma.org/actors/resources/RDF")
+            )
+          )
+        )
+      }
+
+      val ins: InsertQuery = InsertQuery {
+        INSERT (
+          DATA (
+            Trip(
+              IRI("http://denigma.org/actors/resources/Anton"),
+              IRI("http://denigma.org/relations/resources/hates"),
+              IRI("http://denigma.org/actors/resources/Anton")
+            )
+          )
+        )
+      }
+
+
+
+
       self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
       self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
 
 
-      this.awaitWrite( this.update(d1))
+      this.awaitWrite( this.delete(del))
+
       self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
-      this.awaitWrite( this.update(i1))
+
+      this.awaitWrite( this.insert(ins))
+
       self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
 

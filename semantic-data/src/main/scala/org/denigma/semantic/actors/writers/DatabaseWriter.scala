@@ -6,6 +6,7 @@ import org.denigma.semantic.writing._
 import org.denigma.semantic.commons.LogLike
 import java.io.File
 import org.denigma.semantic.actors.AkkaLog
+import org.denigma.semantic.sparql._
 
 /**
 class that is responsible for writes into database. It does NOT process read queries
@@ -18,6 +19,16 @@ class DatabaseWriter(db:CanWrite) extends  NamedActor with Updater{
 
 
     case Update.Upload(file:File,contextStr:String)=> this.parseFile(file,contextStr)
+
+
+    case InsertQuery(q) => sender ! this.update(q.stringValue)
+
+    case DeleteQuery(q) => sender ! this.update(q.stringValue)
+
+    case InsertDeleteQuery(i,d) => sender ! this.update(i.stringValue+" \n"+d.stringValue)
+
+    case DeleteInsertQuery(d,i) => sender ! this.update(d.stringValue+" \n"+i.stringValue)
+
 
     case v=>
         this.log.debug(s"something received by writer $v")
