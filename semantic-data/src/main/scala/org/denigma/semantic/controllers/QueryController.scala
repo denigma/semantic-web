@@ -4,9 +4,9 @@ import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.util.Try
-import org.denigma.semantic.actors.readers.Read
 import org.denigma.semantic.reading.QueryResultLike
 import akka.pattern.ask
+import org.denigma.semantic.actors.readers.protocols.Read
 
 /*
 controller that can do various readonly quries via reader actor to the database

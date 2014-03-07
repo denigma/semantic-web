@@ -1,44 +1,19 @@
 package org.denigma.semantic.cache
+import akka.actor.{ActorRef, ActorSystem, Actor, Props}
+import scala.concurrent.duration._
+import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController}
+import play.api.libs.concurrent.Execution.Implicits._
+import play.api.libs.concurrent.Akka
+import org.denigma.semantic.sparql.Pat
 
-import com.bigdata.rdf.changesets.{IChangeRecord, IChangeLog, InMemChangeLog}
-import org.denigma.semantic.commons.{Logged, LogLike}
 
-/*
-is used for inmemory data caching
-it asumes that it is used in onewriter mode
+/**
+ * Class that deals with caches
  */
-abstract class CacheManager extends IChangeLog with Logged{
-
-  var consumers:IChangeRecord=>Unit
-
-  override def transactionAborted(): Unit = {
-    this.lg.info("some transaction is aborted")
-  }
-
-  override def transactionCommited(commitTime: Long): Unit = {
-    this.lg.info("some transaction is commited")
-  }
-
-  override def transactionPrepare(): Unit = {
-    this.lg.info("some transaction is prepared")
-  }
-
-  override def transactionBegin(): Unit = {
-    this.lg.info("some transaction has started")
-  }
-
-  override def changeEvent(record: IChangeRecord): Unit = {
-
-  }
-}
-
-trait CacheConsumer
+object UpdateWatcher extends SimpleQueryController with UpdateController
 {
+  val interval:FiniteDuration = 2 minutes
+  //TODO: complete
 
-  def consume(record:IChangeRecord) {
-
-
-  }
 
 }
-

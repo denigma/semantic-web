@@ -14,6 +14,7 @@ class that is responsible for writes into database. It does NOT process read que
  */
 class DatabaseWriter(db:CanWrite) extends  NamedActor with Updater{
 
+
   override def receive: Actor.Receive = {
     case Update.Update(query:String)=>sender ! this.update(query)
 

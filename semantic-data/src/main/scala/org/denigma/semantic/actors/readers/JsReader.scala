@@ -6,6 +6,7 @@ import org.openrdf.model.Value
 import org.denigma.semantic.reading.queries.SemanticQueryManager
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.commons.LogLike
+import org.denigma.semantic.actors.readers.protocols.Read
 
 /*
 trait that quries reader actors and get JSON in response

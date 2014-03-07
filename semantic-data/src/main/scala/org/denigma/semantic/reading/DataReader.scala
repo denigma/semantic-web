@@ -3,6 +3,7 @@ package org.denigma.semantic.reading
 import scala.util.Try
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.denigma.semantic.reading.CanRead
+import org.denigma.semantic.commons.LogLike
 
 /*
 trait that does read operations

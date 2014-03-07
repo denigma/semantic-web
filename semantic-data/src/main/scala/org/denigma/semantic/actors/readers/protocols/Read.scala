@@ -1,6 +1,5 @@
-package org.denigma.semantic.actors.readers
+package org.denigma.semantic.actors.readers.protocols
 
-import org.openrdf.model.Value
 import org.denigma.semantic.commons.QueryLike
 import play.api.libs.json._
 

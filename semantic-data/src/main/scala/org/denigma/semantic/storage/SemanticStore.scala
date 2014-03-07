@@ -27,6 +27,8 @@ class SemanticStore(val conf:DBConfig,val lg:LogLike) extends RDFStore{
 
 
 
+
+
   /*
   Bigdata Sesame repository
    */

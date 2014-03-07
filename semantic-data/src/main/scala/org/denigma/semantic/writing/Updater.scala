@@ -32,4 +32,7 @@ trait Updater extends CanWrite  with SemanticFileParser{
   def updateHandler:UpdateQuering = (query,con,upd)=> upd.execute()
 
   def update(query:String): Try[Unit] = this.writeUpdate(query,updateHandler)
+
+
+
 }

@@ -20,6 +20,8 @@ with DataWriter with SemanticFileParser //some traits with useful methods
 
   def writeConnection: BigdataSailRepositoryConnection = repo.getUnisolatedConnection //needed for CanWrite trait
 
+
+
   /*
  Shutdown the repository
   */

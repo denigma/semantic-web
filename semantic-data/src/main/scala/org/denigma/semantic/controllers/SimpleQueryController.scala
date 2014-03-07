@@ -9,11 +9,11 @@ import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.util.Try
-import org.denigma.semantic.actors.readers.{SimpleRead, Read}
 import org.denigma.semantic.reading.QueryResultLike
 import akka.pattern.ask
 import org.openrdf.query.TupleQueryResult
 import org.denigma.semantic.sparql
+import org.denigma.semantic.actors.readers.protocols.SimpleRead
 
 /**
  * Simple query controller

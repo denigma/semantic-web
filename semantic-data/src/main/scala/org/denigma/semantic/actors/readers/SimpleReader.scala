@@ -6,12 +6,14 @@ import org.openrdf.model.Value
 import org.denigma.semantic.reading.queries.SimpleQueryManager
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.sparql
+import org.denigma.semantic.actors.readers.protocols.SimpleRead
 
-/*
-
+/**
+ * Handles simple quries (with native results)
  */
 trait SimpleReader {
   reader:NamedActor with CanRead =>
+
 
   def simpleQuery: Actor.Receive = {
 

@@ -2,16 +2,18 @@ package org.denigma.semantic.actors.readers
 
 import akka.actor.Actor
 import org.denigma.semantic.reading.{ReadConnection, CanRead}
-import org.denigma.semantic.actors.{AkkaLog, NamedActor}
+import org.denigma.semantic.actors.{WatchProtocol, AkkaLog, NamedActor}
 import org.denigma.semantic.commons.LogLike
 
-/*
-Database actor that works with readonly db connection
+/**
+ * Database actor that works with readonly db connection
+ * @param db anything that can provide read connection
  */
-class DatabaseReader(db:CanRead) extends  NamedActor with CanRead with JsReader with SimpleReader
+class DatabaseReader(db:CanRead) extends  NamedActor with CanRead with JsReader with SimpleReader with PatternReader
 {
 
-  def receive: Actor.Receive = jsonQuery orElse simpleQuery orElse allOther
+
+  def receive: Actor.Receive = jsonQuery orElse simpleQuery orElse watchRead orElse  allOther
 
   def allOther: Actor.Receive = {
 
