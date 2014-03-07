@@ -13,7 +13,7 @@ class DatabaseReader(db:CanRead) extends  NamedActor with CanRead with JsReader 
 {
 
 
-  def receive: Actor.Receive = jsonQuery orElse simpleQuery orElse watchRead orElse  allOther
+  def receive: Actor.Receive = jsonQuery orElse simpleQuery orElse patternRead orElse  allOther
 
   def allOther: Actor.Receive = {
 

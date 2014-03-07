@@ -8,19 +8,27 @@ import org.denigma.semantic.reading._
 import scala.util.Try
 import org.denigma.semantic.sparql.Pat
 import org.openrdf.model.Statement
+import org.denigma.semantic.actors.WatchProtocol.PatternResult
 
 trait PatternReader {
   me:NamedActor with CanRead =>
 
 
-  def watchRead:Actor.Receive = {
-    case WatchProtocol.PatternRequest(pats) =>
-      val result: Try[Map[Pat, Set[Statement]]] =  reader.read{con=>
-      pats.map{pat=>pat -> con.getStatements(pat.subjectOrNull, pat.propertyOrNull, pat.objectOrNull, true, pat.contextOrNull).toSet}.toMap
+  /**
+   * reads pattern info for catcher
+   * @return
+   */
+  def patternRead:Actor.Receive = {
+    case WatchProtocol.PatternRequest(name,pats) =>
+      val result: Try[PatternResult] =  reader.read{con=>
+      val map: Map[Pat, Set[Statement]] = pats.map(  pat=>
+        pat->con.getStatements(pat.s.resourceOrNull, pat.p.IRIorNull, pat.o.valueOrNull, true,pat.contextOrNull).toSet
+      ).toMap
+        WatchProtocol.PatternResult(name,map)
       }
       sender ! result
 
-    case WatchProtocol.TuplePatterns(pats) => lg.error("not implemented yet")
+    case WatchProtocol.TuplePatterns(name,pats) => lg.error("not implemented yet")
 
   }
 

@@ -1,8 +1,8 @@
 package org.denigma.semantic.sparql
 
-import org.openrdf.model.URI
+import org.openrdf.model.{Resource, Literal, Value, URI}
 import org.denigma.semantic.model.BlankNode
-import com.hp.hpl.jena.rdf.model.Literal
+
 
 
 /**
@@ -21,6 +21,13 @@ trait PatternImplicits {
     //    def ==(other:Any)  =  EqualsFilter(v,other)
     override def stringValue: String = variable.stringValue
 
+    override def valueOrNull: Value =  null
+
+    override def IRIorNull: URI =  null
+
+    override def resourceOrNull: Resource = null
+
+    override def canBind(value: Value): Boolean = true
   }
 
   implicit class AggInSelect(a:Aggregate) extends SelectElement {
@@ -38,12 +45,26 @@ trait PatternImplicits {
   {
     override def isIRI = true
     def stringValue:String = "<"+u.stringValue+">"
+
+    override def valueOrNull: Value = u
+
+    override def IRIorNull: URI = u
+
+    override def resourceOrNull: Resource = u
+
+    override def canBind(value: Value): Boolean = u==value
   }
 
   implicit class BNodeExtended(bnode:BlankNode) extends ResourcePatEl{
     override def isBlankNode = true
 
     override def stringValue: String = bnode.stringValue()
+
+    override def resourceOrNull: Resource = bnode
+
+    override def valueOrNull: Value = bnode
+
+    override def canBind(value: Value): Boolean = value == bnode
   }
 
   implicit class LiteralExtended(literal:Literal) extends ValuePatEl
@@ -54,7 +75,11 @@ trait PatternImplicits {
 
     override def stringValue: String = "\""+literal.stringValue+"\""
 
+    override def valueOrNull: Value = literal
+
+    override def canBind(value: Value): Boolean =(value==literal)
   }
-  type ValuePatEl = PatternElement
+
+
 
 }

@@ -32,10 +32,10 @@ class ActorChangeObserver(transaction:String="",lg:LogLike,sender:ActorRef) exte
  * @param onCompleted on completed handler
  * @param onAborted onAborted handler
  */
-class ChangeObserver(transaction:String="",lg:LogLike,onCompleted:(UpdateInfo)=>Unit,onAborted:LogLike=>Unit) extends ChangeListener(transaction,lg)
+class ChangeObserver(transaction:String="",lg:LogLike,onCompleted:(UpdateInfo)=>Unit,onAborted:(String)=>Unit) extends ChangeListener(transaction,lg)
 {
   override def transactionAborted(): Unit = {
-    if(onAborted!=null) onAborted(lg)
+    if(onAborted!=null) onAborted(transaction)
   }
 
   override def transactionCommited(commitTime: Long): Unit = {

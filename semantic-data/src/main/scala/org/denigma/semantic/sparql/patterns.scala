@@ -1,8 +1,7 @@
 package org.denigma.semantic.sparql
 
 import org.denigma.semantic.model.{ BlankNode, IRI}
-import org.openrdf.model.{Value, Resource, URI}
-import com.hp.hpl.jena.rdf.model._
+import org.openrdf.model.{Statement, Value, Resource, URI}
 import com.bigdata.rdf.internal.impl.literal.FullyInlineTypedLiteralIV
 
 
@@ -14,9 +13,20 @@ import com.bigdata.rdf.internal.impl.literal.FullyInlineTypedLiteralIV
  * @param o Object (Var,Literal or Resource)
  * @param c Context (Var,Literal or Resource or Null)
  */
-case class Pat(s:ResourcePatEl,p:IRIPatEl,o:ValuePatEl,c:IRIPatEl= null) extends QuadPattern with SesameSearcher
+case class Pat(s:ResourcePatEl,p:IRIPatEl,o:ValuePatEl,c:IRIPatEl= null) extends QuadPattern
 
 
+
+trait QuadPattern extends TripletPattern{
+  def hasContext = c!=null
+  def c:ResourcePatEl
+  override def stringValue: String = s"\n ${s.toString} ${p.toString} ${o.toString}" + (if(hasContext) " "+c.toString+" .\n" else " .\n")
+
+  override def canBind(st:Statement) = (!this.hasContext || c.canBind(st.getContext)) && super.canBind(st)
+
+  def contextOrNull = if(this.hasContext) this.c.resourceOrNull else null
+
+}
 
 trait TripletPattern extends GroupElement
 {
@@ -24,29 +34,29 @@ trait TripletPattern extends GroupElement
   def p:IRIPatEl
   def o:ValuePatEl
   override def stringValue: String = s"\n <${s.stringValue} ${p.stringValue} ${o.stringValue} .\n"
+
+
+  /**
+   * Check if the statement fits the pattern
+   * @param st
+   * @return
+   */
+  def canBind(st:Statement) = s.canBind(st.getSubject) && p.canBind(st.getPredicate) && o.canBind(st.getObject)
 }
 
-trait SesameSearcher {
-  self:QuadPattern=>
-
-  def contextOrNull: Resource = if(hasContext && !c.isVar) c.asInstanceOf[Resource] else null
-  def subjectOrNull: Resource = if(s.isVar) null else this.asInstanceOf[Resource]
-  def propertyOrNull: URI = if(p.isVar) null else this.asInstanceOf[URI]
-  def objectOrNull: Value = if(o.isVar) null else this.asInstanceOf[Value]
-
-}
-
-trait QuadPattern extends TripletPattern{
-  def hasContext = c!=null
-  def c:IRIPatEl
-  override def stringValue: String = s"\n ${s.toString} ${p.toString} ${o.toString}" + (if(hasContext) " "+c.toString+" .\n" else " .\n")
-
-}
-
-
-trait ResourcePatEl extends PatternElement
 trait IRIPatEl extends ResourcePatEl
-
+{
+  def IRIorNull:URI
+}
+trait ResourcePatEl extends ValuePatEl
+{
+  def resourceOrNull:Resource
+}
+trait ValuePatEl extends PatternElement
+{
+  def canBind(value:Value):Boolean
+  def valueOrNull:Value
+}
 /*
  TODO: add binding for vars
  */
@@ -56,6 +66,4 @@ trait PatternElement extends GroupElement
   def isIRI:Boolean = false
   def isLiteral = false
   def isBlankNode = false
-
-
 }

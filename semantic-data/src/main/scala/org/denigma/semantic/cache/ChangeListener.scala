@@ -2,7 +2,7 @@ package org.denigma.semantic.cache
 
 import com.bigdata.rdf.spo.ISPO
 import org.denigma.semantic.commons.{Logged, LogLike}
-import com.bigdata.rdf.changesets.{ChangeAction, IChangeRecord, IChangeLog}
+import com.bigdata.rdf.changesets.{InMemChangeLog, ChangeAction, IChangeRecord, IChangeLog}
 
 
 case class UpdateInfo(transaction:String,inserted:Set[ISPO],removed:Set[ISPO] = Set.empty,inferred:Set[ISPO] = Set.empty)
@@ -20,7 +20,7 @@ trait UpdateInfoLike{
 is used for inmemory data caching
 it asumes that it is used in onewriter mode
  */
-class ChangeListener(transaction:String,val lg:LogLike) extends IChangeLog with Logged with UpdateInfoLike{
+abstract class ChangeListener(transaction:String,val lg:LogLike) extends IChangeLog with Logged with UpdateInfoLike{
 
   var removed = Set.empty[ISPO]
   var inserted = Set.empty[ISPO]

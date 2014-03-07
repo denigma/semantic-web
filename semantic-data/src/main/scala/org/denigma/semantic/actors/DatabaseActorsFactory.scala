@@ -7,6 +7,7 @@ import org.denigma.semantic.actors.writers.DatabaseWriter
 import org.denigma.semantic.actors.readers.DatabaseReader
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.writing.CanWrite
+import org.denigma.semantic.cache.ChangeManager
 
 /**
 * @constructor create a new person with a name and age.
@@ -31,7 +32,7 @@ class DatabaseActorsFactory(canRead:CanRead,canWrite:CanWrite, val sys:ActorSyst
   val reader = sys.actorOf(readerProps)
 
 
-  protected val writerProps = Props(classOf[DatabaseWriter],canWrite).withDispatcher("akka.actor.writer-dispatcher")
+  protected val writerProps = Props(classOf[DatabaseWriter],canWrite, ChangeManager).withDispatcher("akka.actor.writer-dispatcher")
   val writer = sys.actorOf(writerProps)
 
   /*

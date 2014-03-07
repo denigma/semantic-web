@@ -13,7 +13,7 @@ package object writing {
 
   type Writing[T] = BigdataSailRepositoryConnection=>T
 
-  type UpdateQuering = (String,WriteConnection,UpdateQuery)=>Unit
+  type UpdateHandler = (String,WriteConnection,UpdateQuery)=>Unit
 
   //type UpdateQuering[T] = (String,BigdataSailRepositoryConnection,BigdataSailUpdate)=>T
 }

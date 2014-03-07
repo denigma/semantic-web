@@ -8,11 +8,11 @@ import org.openrdf.model.Statement
  */
 object WatchProtocol{
   
-  case class TuplePatterns(patterns:Set[Pat])
+  case class TuplePatterns(name:String,patterns:Set[Pat])
 
-  case class PatternRequest(patterns:Set[Pat])
+  case class PatternRequest(name:String,patterns:Set[Pat])
 
-  case class PatternResult(results:Map[Pat,Set[Statement]])
+  case class PatternResult(name:String,results:Map[Pat,Set[Statement]])
 
 }
 
