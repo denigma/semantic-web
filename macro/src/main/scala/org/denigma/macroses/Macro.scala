@@ -1,7 +1,10 @@
 package org.denigma.macroses
 
 import scala.language.experimental.macros
-
+import scala.reflect.macros.Context
+import scala.language.experimental.macros
+import scala.reflect.macros.Context
+import scala.annotation.StaticAnnotation
 
 trait ModelLike {
   def toMap[T]: Map[String, Any] = macro Model.toMap_impl[T]
@@ -28,6 +31,9 @@ object Model {
 
     c.Expr[Map[String, Any]](Apply(mapApply, pairs.toList))
   }
+
+
+
 
 
 }

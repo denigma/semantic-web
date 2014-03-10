@@ -5,10 +5,12 @@ import org.openrdf.repository.RepositoryResult
 import scala.util.Try
 import org.denigma.semantic.actors.DatabaseActorsFactory
 import org.denigma.semantic.storage.{DBConfig, SemanticStore}
-import org.denigma.semantic.commons.{AppLogger, WI}
+import org.denigma.semantic.commons.AppLogger
 import org.denigma.semantic.reading.queries.{SimpleQueryManager, SemanticQueryManager}
-import org.denigma.semantic.controllers.{UpdateController, JsQueryController}
+import org.denigma.semantic.controllers.{LoggerProvider, UpdateController, JsQueryController}
 import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
+import org.denigma.semantic.vocabulary.WI
+import org.denigma.semantic.cache.{Schema, ChangeManager, Users}
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -93,11 +95,20 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController{
    */
   def start(app: play.api.Application) = {
     this.db = new Store(dbConfig,lg)
+    LoggerProvider.lg = this.lg
     SyncReader.reader = this.db
     SyncWriter.writer = this.db
+
     val sys = Akka.system(app)
     this.databaseActorsFactory = new DatabaseActorsFactory(db,db,sys,(platformConfig.minReaders,platformConfig.defReaders,platformConfig.maxReaders))
     if(platformConfig.loadInitial)  this.loadInitialData()
+  }
+
+  def initCachers()  = {
+    ChangeManager.subscribe(Users)
+    Users.activate()
+    Schema.activate()
+
   }
 
 

@@ -27,9 +27,9 @@ trait SemanticQueryManager extends PaginatedQueryManager[QueryResultLike]
       SelectResult.parse(query,mq.evaluate())
   }
 
-  override protected def paginatedSelect(str: String, offset: Long, limit: Long):SelectHandler[QueryResultLike] =
+  override protected def paginatedSelect(str: String, offset: Long, limit: Long, rewrite:Boolean = false):SelectHandler[QueryResultLike] =
     (query:String,con:ReadConnection,q:SelectQuery)=>
   {
-    SelectResult.parse(query,this.slice[SelectQuery](q,offset,limit).evaluate())
+    SelectResult.parse(query,this.slice[SelectQuery](q,offset,limit,rewrite).evaluate())
   }
 }

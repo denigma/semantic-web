@@ -1,5 +1,4 @@
-package org.denigma.semantic.commons
-
+package org.denigma.semantic.vocabulary
 
 /*
 Helper that contains some widely used prefixes
@@ -52,7 +51,6 @@ TODO: FIX,DOES NOT WORK NOW
 //}
 //
 import org.openrdf.model._
-import org.openrdf.model.impl._
 import org.denigma.semantic.model.IRI
 
 object UI {
@@ -60,47 +58,7 @@ object UI {
   def spr(str:String) = s"http://spinrdf.org/spr#$str"
   def ui(str:String) = s"http://uispin.org/ui#$str"
 }
-/*
-refactor
- */
-object WI {
 
-  def set(str:String): URI= this set IRI(SETTINGS+s"/$str/")
-
-  lazy val RESOURCE: String = this.wi("resource")
-
-  lazy val CONFIG:String = this.wi("conf")
-
-  lazy val PAGES: String = this.wi("pages")
-
-  lazy val USERS:String = this.wi("users")
-
-  lazy val ORGANIZATIONS = this.wi("orgs")
-
-  lazy val POLICY:String= this.wi("policy")
-
-  lazy val SETTINGS:String=  this.wi("settings")
-
-  def re(str:String) = IRI(RESOURCE+s"/$str")
-
-  def pg(str:String) = IRI(PAGES+s"/$str")
-
-  def conf(str:String) = IRI(CONFIG+s"$str")
-
-  def po(str:String) = IRI(POLICY+s"/$str")
-
-  lazy val root: URI= this set "root"
-
-  lazy val context = this set "context"
-
-  var uris: Set[URI] = Set.empty[URI]
-
-
-  def set(res:URI): URI = { uris=uris+res; res}
-
-  def wi(str:String): String = ("http://webintelligence.eu/"+str)
-
-}
 
 
 

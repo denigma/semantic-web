@@ -60,6 +60,13 @@ class DBActorSpec extends Specification with LoveHater {
 
       val query = "SELECT ?s ?o WHERE { ?s <http://denigma.org/relations/resources/loves>  ?o }"
 
+
+      val res1: Future[Try[QueryResultLike]] =  this.query(query)
+      val res2: Future[Try[QueryResultLike]] =  this.query(query)
+
+
+
+
       val resFull = aw { this.query(query) }
       resFull.isSuccess shouldEqual(true)
 

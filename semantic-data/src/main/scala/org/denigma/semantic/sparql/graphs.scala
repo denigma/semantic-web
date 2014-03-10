@@ -1,8 +1,5 @@
 package org.denigma.semantic.sparql
 
-
-
-
 /**
  * grph that may contains only triplets (used by INSERT/DELETE DATA)
  * @param id id of the Graph
@@ -34,8 +31,6 @@ trait SPARQLGraph extends GP{
     case v:VarExtended=> s" GRAPH <${v.variable.name}> \n{ ${this.foldChildren} } "
     case other=> s" GRAPH ${other.stringValue} \n{ ${this.foldChildren} } "
   }
-
-
 
   override def children: List[GroupElement] = triplets.toList
 

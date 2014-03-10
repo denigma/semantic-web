@@ -21,7 +21,7 @@ trait SimpleQueryManager  extends SimpleSelect
   override protected def bindedHandler(str: String, binds: Map[String, String]):SelectHandler[TupleQueryResult] =
   (query:String,con:ReadConnection,q:SelectQuery)=> this.bind(con,q,binds).evaluate()
 
-  override protected def paginatedSelect(str: String, offset: Long, limit: Long):SelectHandler[TupleQueryResult] =
-    (query:String,con:ReadConnection,q:SelectQuery)=>  this.slice[SelectQuery](q,offset,limit).evaluate()
+  override protected def paginatedSelect(str: String, offset: Long, limit: Long,rewrite:Boolean):SelectHandler[TupleQueryResult] =
+    (query:String,con:ReadConnection,q:SelectQuery)=>  this.slice[SelectQuery](q,offset,limit,rewrite).evaluate()
 
 }

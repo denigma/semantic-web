@@ -19,7 +19,7 @@ trait PaginatedQueryManager[T] extends QueryManager[T] with Paginator[T]{
     /*
     paginated handler, that figures out the type of a query and than applies appropriate paginated handler
      */
-    def paginated(query:String,offset:Long,limit:Long):AnyQueryHandler[T] =
+    def paginated(query:String,offset:Long,limit:Long,rewrite:Boolean = false):AnyQueryHandler[T] =
     {
       case (str:String,con:ReadConnection,q:AskQuery)=> this.askHandler(str,con,slice[AskQuery](q,offset,limit))
 
@@ -34,7 +34,7 @@ trait PaginatedQueryManager[T] extends QueryManager[T] with Paginator[T]{
   /*
   any readonly query with pagination
    */
-    def query(str:String,offset:Long,limit:Long): Try[T] =  this.anyQuery(str,paginated(str,offset,limit))
+    def query(str:String,offset:Long,limit:Long,rewrite:Boolean = false): Try[T] =  this.anyQuery(str,paginated(str,offset,limit,rewrite))
 
 }
 

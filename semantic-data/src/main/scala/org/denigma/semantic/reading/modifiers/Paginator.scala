@@ -10,8 +10,8 @@ provides pagination for selects
 trait Paginator[T] extends Slicer with ISelect[T]{
 
 
-  protected def paginatedSelect(str:String,offset:Long,limit:Long):SelectHandler[T]
+  protected def paginatedSelect(str:String,offset:Long,limit:Long,rewrite:Boolean):SelectHandler[T]
 
-  def select(str:String,offset:Long,limit:Long): Try[T] =  this.selectQuery(str,paginatedSelect(str,offset,limit))
+  def select(str:String,offset:Long,limit:Long,rewrite:Boolean): Try[T] =  this.selectQuery(str,paginatedSelect(str,offset,limit,rewrite))
 
 }

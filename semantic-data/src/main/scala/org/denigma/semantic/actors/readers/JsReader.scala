@@ -23,13 +23,13 @@ trait JsReader
     /*
     when unspecified query was received
      */
-    case q @ Read.Query(query,offset,limit) =>
+    case q @ Read.Query(query,offset,limit,rewrite) =>
 
-     if(q.isPaginated)  sender ! qjm.query(query,offset,limit) else sender ! qjm.query(query)
+     if(q.isPaginated)  sender ! qjm.query(query,offset,limit,rewrite) else sender ! qjm.query(query)
 
-    case sel @ Read.Select(query,offset,limit)=>
+    case sel @ Read.Select(query,offset,limit,rewrite)=>
 
-      if(sel.isPaginated) sender ! qjm.select(query,offset,limit) else sender ! qjm.select(query)
+      if(sel.isPaginated) sender ! qjm.select(query,offset,limit,rewrite) else sender ! qjm.select(query)
 
     case Read.Question(query)=>
       sender ! qjm.question(query)

@@ -1,5 +1,7 @@
 package org.denigma.semantic.console
 
+import org.denigma.semantic.vocabulary.WI
+
 /*
 just a code to copy-paste to play console
 */

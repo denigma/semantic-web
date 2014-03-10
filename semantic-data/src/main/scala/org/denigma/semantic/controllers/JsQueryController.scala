@@ -16,11 +16,11 @@ under the hood it just sends messages to appropriate actor
 trait JsQueryController extends QueryController[QueryResultLike] {
 
 
-  def query(query:String,offset:Long = defOffset, limit:Long = defLimit): Future[Try[QueryResultLike]]
-    = rd(Read.Query(query:String,offset,limit))
+  def query(query:String,offset:Long = defOffset, limit:Long = defLimit, rewrite:Boolean = false): Future[Try[QueryResultLike]]
+    = rd(Read.Query(query:String,offset,limit,rewrite))
 
-  def select(query:String,offset:Long = defOffset, limit:Long = defLimit): Future[Try[QueryResultLike]]
-    = rd (Read.Select(query:String,offset,limit))
+  def select(query:String,offset:Long = defOffset, limit:Long = defLimit, rewrite:Boolean = false): Future[Try[QueryResultLike]]
+    = rd (Read.Select(query:String,offset,limit,rewrite))
 
   def construct(query:String): Future[Try[QueryResultLike]] = rd( Read.Construct(query:String) )
 

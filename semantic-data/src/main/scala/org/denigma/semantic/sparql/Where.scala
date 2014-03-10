@@ -4,6 +4,8 @@ trait WithWhere extends GroupElement
 {
   self=>
 
+
+
   object WHERE extends WhereClause(List.empty)
   {
     where=>

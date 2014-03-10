@@ -4,7 +4,7 @@ import scala.util.Try
 import com.bigdata.rdf.sail.BigdataSailGraphQuery
 import org.openrdf.query.QueryLanguage
 import org.denigma.semantic.reading.CanRead
-import org.denigma.semantic.commons.WI
+import org.denigma.semantic.vocabulary.WI
 
 /*
 sends closure that deal with construct requests

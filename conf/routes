@@ -19,7 +19,6 @@ GET         /models/sparql             controllers.Queries.sendQuery(query:Strin
 
 
 #GET         /results              controllers.Queries.results()
-GET         /config                    controllers.Queries.main()
 GET         /models/menus/*name        controllers.Application.menu(name)
 GET         /pages/*page               controllers.Application.page(page)
 

@@ -1,11 +1,11 @@
 package org.denigma.semantic.writing
 
-import org.denigma.semantic.commons.WI
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import org.openrdf.query.QueryLanguage
 import scala.util.Try
 import org.denigma.semantic.files.SemanticFileParser
 import com.bigdata.rdf.changesets.IChangeLog
+import org.denigma.semantic.vocabulary.WI
 
 
 /**

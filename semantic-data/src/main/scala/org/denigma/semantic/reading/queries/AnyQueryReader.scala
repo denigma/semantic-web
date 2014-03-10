@@ -7,7 +7,7 @@ import org.denigma.semantic.reading._
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading.constructs._
 import org.denigma.semantic.reading.questions._
-import org.denigma.semantic.commons.WI
+import org.denigma.semantic.vocabulary.WI
 
 
 /**

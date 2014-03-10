@@ -8,9 +8,9 @@ read only messages
  */
 object Read {
 
-  case class Query(query:String,offset:Long = 0, limit:Long = Long.MaxValue) extends Paginated
+  case class Query(query:String,offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated
 
-  case class Select(query:String,offset:Long = 0, limit:Long = Long.MaxValue) extends Paginated
+  case class Select(query:String,offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated
 
   case class Bind(query:String,binds:Map[String,String],offset:Long = 0, limit:Long = Long.MaxValue) extends Paginated
 
@@ -48,6 +48,6 @@ object Read {
 trait Paginated extends QueryLike{
   def offset:Long
   def limit:Long
-  def isPaginated = offset>0 || limit != Long.MaxValue
+  def isPaginated = offset>0 || (limit != Long.MaxValue && limit>0)
 
 }

@@ -9,10 +9,10 @@ import play.api.test.WithApplication
 import org.denigma.semantic.test.LoveHater
 import org.denigma.semantic.reading.selections.SelectResult
 import org.denigma.semantic.controllers.sync.{SyncSimpleController, SyncJsController}
-import org.denigma.semantic.commons.WI
 import scala.util.Try
 import org.openrdf.query.TupleQueryResult
 import org.denigma.semantic.reading.selections._
+import org.denigma.semantic.vocabulary.WI
 
 /**
 tests BigDataWrapper

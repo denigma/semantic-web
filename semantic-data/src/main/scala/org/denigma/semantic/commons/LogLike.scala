@@ -21,6 +21,4 @@ trait LogLike extends scala.AnyRef {
 }
 
 
-case class AppLogger(logger: org.slf4j.Logger) extends LoggerLike with LogLike{
-
-}
+case class AppLogger(logger: org.slf4j.Logger) extends LoggerLike with LogLike

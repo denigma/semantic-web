@@ -5,7 +5,7 @@ import scala.util.Try
 import org.openrdf.query.QueryLanguage
 import scala.util.Failure
 import scala.util.Success
-import org.denigma.semantic.commons.{WI, Logged}
+import org.denigma.semantic.commons.Logged
 
 
 /*

@@ -60,6 +60,7 @@ class SparqlSpec extends Specification with LoveHater {
        Pat( ?("s"), IRI("http://denigma.org/relations/resources/loves"), ?("o") )
       }
 
+
       val resFull2 = aw { this.select(q2) }
       resFull2.isSuccess shouldEqual(true)
       resFull2.get.toList.size shouldEqual(6)

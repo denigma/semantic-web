@@ -9,9 +9,11 @@ import org.openrdf.model.datatypes.XMLDatatypeUtil
 import org.joda.time.{LocalDate, DateTime}
 
 
-//case class LitString(value:String, override val language:String = "en") extends TypedLiteral(value,xe.STRING)
-//case class LitDouble(value:Double) extends TypedLiteral(value.toString,xe.DOUBLE)
-//case class LitLong(value:Long) extends TypedLiteral(value.toString,xe.LONG)
+case class LitStr(value:String) extends LiteralImpl(value,xe.STRING)
+
+case class LitString(value:String, language:String) extends LiteralImpl(value,language)
+case class LitDouble(value:Double) extends LiteralImpl(value.toString,xe.DOUBLE)
+case class LitLong(value:Long) extends LiteralImpl(value.toString,xe.LONG)
 //
 //
 ////TODO: rewrite

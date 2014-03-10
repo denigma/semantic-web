@@ -23,16 +23,9 @@ import play.api.mvc.SimpleResult
 object  Queries extends PJaxPlatformWith("query") with JsQueryController {
 
 
-  val defQ:String="""
-           SELECT ?subject ?object WHERE
-           {
-              ?subject <http://denigma.org/relations/resources/loves> ?object.
-           }
-                  """
-
-  def main(query:String=defQ) = Action {
+  def main() = Action {
     implicit request=>
-       Ok(pj("main",views.html.queries.main(query)))
+       Ok(pj("main",views.html.queries.main()))
   }
 
   def toProp(kv:(String,String)): JsObject = Json.obj("name"->kv._1,"value"->kv._2,"id"->kv.hashCode())
@@ -46,8 +39,8 @@ object  Queries extends PJaxPlatformWith("query") with JsQueryController {
       Ok(SelectResult.badRequest(q,er)).as("application/sparql-results+json")
   }
 
-  def sendQuery(q:String=defQ, offset:Long = 0, limit:Long = defLimit) = Action.async{
-    implicit request=>  this.handleQuery(q,this.query(q,limit,offset))
+  def sendQuery(q:String, offset:Long = 0, limit:Long = defLimit) = Action.async{
+    implicit request=>  this.handleQuery(q,this.query(q,offset,limit, false))
   }
 
 

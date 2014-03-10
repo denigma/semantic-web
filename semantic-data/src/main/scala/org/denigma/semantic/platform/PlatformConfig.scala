@@ -4,7 +4,7 @@ package org.denigma.semantic.platform
 import play.api.Configuration
 import scala.collection.immutable._
 import scala.collection.JavaConversions._
-import org.denigma.semantic.commons.WI
+import org.denigma.semantic.vocabulary.WI
 
 
 /*
@@ -18,9 +18,9 @@ class PlatformConfig(conf:Configuration)
   val filesConf: scala.List[Configuration] = conf.getConfigList("files").map(_.toList).getOrElse(Nil)
   //lazy val semanticConf = conf.getConfig("semantic")
 
-  val CONFIG_CONTEXT = conf.getString("config_context").getOrElse(WI.CONFIG)
-  val MAIN_CONTEXT =  conf.getString("main_context").getOrElse(WI.RESOURCE)
-  val POLICY_CONTEXT =  conf.getString("main_context").getOrElse(WI.POLICY)
+  val CONFIG_CONTEXT: String = conf.getString("config_context").getOrElse(WI.CONFIG.stringValue)
+  val MAIN_CONTEXT: String =  conf.getString("main_context").getOrElse(WI.RESOURCE)
+  val POLICY_CONTEXT: String =  conf.getString("main_context").getOrElse(WI.POLICY.stringValue)
   val loadInitial: Boolean = conf.getBoolean("load_initial").getOrElse(true)
 
   val readers = conf.getConfig("readers").get

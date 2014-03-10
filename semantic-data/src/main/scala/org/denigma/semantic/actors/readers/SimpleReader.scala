@@ -19,8 +19,8 @@ trait SimpleReader {
 
     case sel:sparql.SelectQuery => sender ! qsm.select(sel.stringValue)
 
-    case sel @ SimpleRead.Select(query,offset,limit) =>
-      if(sel.isPaginated) sender ! qsm.select(query,offset,limit) else sender ! qsm.select(query)
+    case sel @ SimpleRead.Select(query,offset,limit,rewrite) =>
+      if(sel.isPaginated) sender ! qsm.select(query,offset,limit,rewrite) else sender ! qsm.select(query)
 
 
     case SimpleRead.Question(query)=>sender ! qsm.question(query)
