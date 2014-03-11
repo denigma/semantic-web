@@ -1,5 +1,6 @@
 package org.denigma.semantic.sparql
 
+import org.denigma.semantic.model.QueryElement
 
 
 trait Filtered {
@@ -7,7 +8,7 @@ trait Filtered {
 
   object FILTER extends  GP
   {
-    var children = List.empty[GroupElement]
+    var children = List.empty[QueryElement]
 
     val parent:self.type = self
 
@@ -25,7 +26,7 @@ trait HavingContainer
 
   object HAVING  extends GP
   {
-    var children = List.empty[GroupElement]
+    var children = List.empty[QueryElement]
     val parent:self.type = self
 
     def apply() = parent
@@ -66,6 +67,6 @@ case class Count(v:Variable)extends Aggregate(v) {
  * Aggregator class
  * @param variable variable that should be aggregated
  */
-abstract class Aggregate(variable:Variable) extends GroupElement{
+abstract class Aggregate(variable:Variable) extends QueryElement{
 
 }

@@ -1,5 +1,7 @@
 package org.denigma.semantic.sparql
 
+import org.denigma.semantic.model.{Trip, QueryElement}
+
 /**
  * grph that may contains only triplets (used by INSERT/DELETE DATA)
  * @param id id of the Graph
@@ -16,14 +18,14 @@ class PatternGraph(val id:IRIPatEl)(val triplets:List[TripletPattern]) extends S
 
   type Triplet = TripletPattern
 
-  override def children: List[GroupElement] = triplets.toList
+  override def children: List[QueryElement] = triplets.toList
 }
 
 trait SPARQLGraph extends GP{
 
   def id:IRIPatEl
 
-  type Triplet<:GroupElement
+  type Triplet<:QueryElement
 
   val triplets:List[Triplet]
 
@@ -32,6 +34,6 @@ trait SPARQLGraph extends GP{
     case other=> s" GRAPH ${other.stringValue} \n{ ${this.foldChildren} } "
   }
 
-  override def children: List[GroupElement] = triplets.toList
+  override def children: List[QueryElement] = triplets.toList
 
 }

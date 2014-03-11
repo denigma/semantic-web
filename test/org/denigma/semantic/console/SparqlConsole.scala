@@ -1,16 +1,20 @@
 package org.denigma.semantic.console
 
-import play.api.test.WithApplication
-import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController}
-import scala.concurrent.Future
-import scala.util.Try
-import play.api.libs.concurrent.Akka
-import org.denigma.semantic.model.IRI
-
 /*
 just a code to copy-paste to play console
 */
 object SparqlConsole {
+
+  import org.openrdf.model._
+  import org.openrdf.model.impl._
+
+  import org.denigma.semantic.vocabulary._
+  import play.api.test.WithApplication
+  import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController}
+  import scala.concurrent.Future
+  import scala.util.Try
+  import play.api.libs.concurrent.Akka
+  import org.denigma.semantic.model.IRI
   import org.denigma.semantic.sparql._
 
   import scala.collection.JavaConversions._

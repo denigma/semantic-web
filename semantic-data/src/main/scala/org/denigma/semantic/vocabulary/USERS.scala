@@ -16,7 +16,7 @@ object USERS extends PrefixConfig(WI.namespace / "users")
   object props {
 
     val hasPasswordHash = (WI.PROPERTIES / "hasPasswordHash").iri
-    val hasEmail = FOAF.MBOX
+    val hasEmail = IRI(FOAF.MBOX)
 
   }
 

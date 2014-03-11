@@ -3,16 +3,17 @@ package org.denigma.semantic.cache
 import com.bigdata.rdf.spo.ISPO
 import org.denigma.semantic.commons.{Logged, LogLike}
 import com.bigdata.rdf.changesets.{InMemChangeLog, ChangeAction, IChangeRecord, IChangeLog}
+import org.denigma.semantic.model.Quad
 
 
-case class UpdateInfo(transaction:String,inserted:Set[ISPO],removed:Set[ISPO] = Set.empty,inferred:Set[ISPO] = Set.empty)
+case class UpdateInfo(transaction:String,inserted:Set[Quad],removed:Set[Quad] = Set.empty,inferred:Set[Quad] = Set.empty)
 
 
 trait UpdateInfoLike{
 
-  def removed: Set[ISPO]
-  def inserted: Set[ISPO]
-  def inferred: Set[ISPO]
+  def removed: Set[Quad]
+  def inserted: Set[Quad]
+  def inferred: Set[Quad]
 
 }
 
@@ -20,7 +21,7 @@ trait UpdateInfoLike{
 is used for inmemory data caching
 it asumes that it is used in onewriter mode
  */
-abstract class ChangeListener(transaction:String,val lg:LogLike) extends IChangeLog with Logged with UpdateInfoLike{
+abstract class ChangeListener(transaction:String,val lg:LogLike) extends IChangeLog with Logged{
 
   var removed = Set.empty[ISPO]
   var inserted = Set.empty[ISPO]
@@ -55,7 +56,10 @@ abstract class ChangeListener(transaction:String,val lg:LogLike) extends IChange
 
   }
 
-  def prepareUpdate(): UpdateInfo =  UpdateInfo(transaction,inserted,removed,inferred)
+  def prepareUpdate(): UpdateInfo =  {
+    inserted.map(i=>i.getSubject)
+    UpdateInfo(transaction,inserted.map(Quad(_)),removed.map(Quad(_)),inferred.map(Quad(_)))
+  }
 
 
   def refresh() = {

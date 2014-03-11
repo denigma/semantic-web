@@ -1,7 +1,7 @@
 package org.denigma.semantic.sparql
 
 import org.openrdf.model.{Resource, Literal, Value, URI}
-import org.denigma.semantic.model.BlankNode
+import org.denigma.semantic.model.{QueryElement, BlankNode}
 
 
 
@@ -36,7 +36,7 @@ trait PatternImplicits {
     override def stringValue: String = a.stringValue
   }
 
-  trait SelectElement extends GroupElement{
+  trait SelectElement extends QueryElement{
     def isVar:Boolean = false
     def isAgg:Boolean = false
   }
@@ -52,7 +52,7 @@ trait PatternImplicits {
 
     override def resourceOrNull: Resource = u
 
-    override def canBind(value: Value): Boolean = u==value
+    override def canBind(value: Value): Boolean = u.stringValue() == value.stringValue()
   }
 
   implicit class BNodeExtended(bnode:BlankNode) extends ResourcePatEl{
@@ -64,7 +64,7 @@ trait PatternImplicits {
 
     override def valueOrNull: Value = bnode
 
-    override def canBind(value: Value): Boolean = value == bnode
+    override def canBind(value: Value): Boolean = value.stringValue() == bnode.stringValue()
   }
 
   implicit class LiteralExtended(literal:Literal) extends ValuePatEl
@@ -73,11 +73,11 @@ trait PatternImplicits {
 
     override def isLiteral = true
 
-    override def stringValue: String = "\""+literal.stringValue+"\""
+    override def stringValue: String = literal.stringValue() //if(literal.getDatatype==null) "\""+literal.stringValue+"\"" else literal.stringValue()
 
     override def valueOrNull: Value = literal
 
-    override def canBind(value: Value): Boolean =(value==literal)
+    override def canBind(value: Value): Boolean = value.stringValue() == literal.stringValue()
   }
 
 

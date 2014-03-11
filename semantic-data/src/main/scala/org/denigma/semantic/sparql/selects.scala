@@ -1,6 +1,6 @@
 package org.denigma.semantic.sparql
 
-import org.denigma.semantic.model.IRI
+import org.denigma.semantic.model.{QueryElement, IRI}
 
 
 object SELECT
@@ -26,7 +26,7 @@ trait Sliced {
   /**
    * Limit object
    */
-  object LIMIT extends GroupElement
+  object LIMIT extends QueryElement
   {
     var limit:Long = Long.MaxValue
     def apply(limitValue:Long):self.type = {
@@ -40,7 +40,7 @@ trait Sliced {
     override def stringValue = if(hasLimit) s" LIMIT $limit" else ""
   }
 
-  object OFFSET extends GroupElement
+  object OFFSET extends QueryElement
   {
     var offset:Long = 0
     def apply(offsetValue:Long):self.type  = {

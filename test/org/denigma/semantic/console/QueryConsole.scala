@@ -23,6 +23,7 @@ object QueryConsole {
   import org.denigma.semantic.commons._
   import org.denigma.semantic.reading.selections._
 
+
   implicit val writeTimeout:Timeout = Timeout(5 seconds)
 
   implicit val readTimeout:Timeout = Timeout(5 seconds)

@@ -5,7 +5,6 @@ import org.openrdf.model.{URI, Statement}
 import org.denigma.semantic.controllers.{WithSemanticReader, QueryController}
 import org.denigma.semantic.actors.WatchProtocol.{PatternRequest, PatternResult}
 import org.denigma.semantic.actors.WatchProtocol
-import com.bigdata.rdf.spo.ISPO
 import scala.collection.mutable
 import org.openrdf.model._
 import scala.concurrent.Future
@@ -13,6 +12,7 @@ import scala.util.Try
 import akka.actor.Status.Success
 import org.denigma.semantic.commons.Logged
 import play.api.libs.concurrent.Execution.Implicits._
+import org.denigma.semantic.model.Quad
 
 /**
  * Makes decision based on union of patterns that it has
@@ -52,11 +52,11 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
    * Activates cache
    */
   def activate() = {
-    this.fill.foreach{ res=>
+    this.fill().foreach{ res=>
       res.foreach{this.onResult}
       this.active = true
     }
-    this.fill.onFailure{
+    this.fill().onFailure{
       case f: Throwable =>
         this.lg.error(s"cache request $name failed with: $f")
         this.active = false
@@ -70,15 +70,15 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
   }
 
   /**
-   *
+   *sends pattern request
    * @return
    */
-  protected def fill: Future[Try[PatternResult]] = this.rd(WatchProtocol.PatternRequest(name,this.patterns))
+  def fill(): Future[Try[PatternResult]] = this.rd(WatchProtocol.PatternRequest(name,this.patterns))
 
 
-  def groupByPattern(sts:Set[ISPO]): mutable.MultiMap[Pat, ISPO] = {
+  def groupByPattern(sts:Set[Quad]): mutable.MultiMap[Pat, Quad] = {
 
-    val quads:mutable.MultiMap[Pat, ISPO] = new mutable.HashMap[Pat, mutable.Set[ISPO]] with mutable.MultiMap[Pat,ISPO]
+    val quads:mutable.MultiMap[Pat, Quad] = new mutable.HashMap[Pat, mutable.Set[Quad]] with mutable.MultiMap[Pat,Quad]
 
     for {
       p <-patterns
@@ -88,15 +88,15 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
     quads
   }
 
-  def groupBySubject(sts:Set[ISPO]):  mutable.MultiMap[Resource, (Pat, ISPO)] = {
+  def groupBySubject(sts:Set[Quad]):  mutable.MultiMap[Resource, (Pat, Quad)] = {
 
-    val quads= new mutable.HashMap[Resource, mutable.Set[(Pat,ISPO)]] with mutable.MultiMap[Resource,(Pat,ISPO)]
+    val quads= new mutable.HashMap[Resource, mutable.Set[(Pat,Quad)]] with mutable.MultiMap[Resource,(Pat,Quad)]
 
     for {
       p <-patterns
       st <- sts
       if p.canBind(st)
-    } quads.addBinding(st.getSubject(),(p,st))
+    } quads.addBinding(st.getSubject,(p,st))
     quads
   }
 

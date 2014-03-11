@@ -1,6 +1,8 @@
 package org.denigma.semantic.sparql
 
-trait WithWhere extends GroupElement
+import org.denigma.semantic.model.QueryElement
+
+trait WithWhere extends QueryElement
 {
   self=>
 
@@ -10,7 +12,7 @@ trait WithWhere extends GroupElement
   {
     where=>
 
-    def apply(elements:GroupElement*):self.type = {
+    def apply(elements:QueryElement*):self.type = {
       this.children = elements.toList
       self
     }
@@ -23,7 +25,7 @@ trait WithWhere extends GroupElement
 
 }
 
-class WhereClause(var children:List[GroupElement]) extends GP
+class WhereClause(var children:List[QueryElement]) extends GP
 {
   where=>
 

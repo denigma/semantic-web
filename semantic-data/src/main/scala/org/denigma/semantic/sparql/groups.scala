@@ -1,26 +1,26 @@
 package org.denigma.semantic.sparql
 
-import org.denigma.semantic.sparql.Trip
+import org.denigma.semantic.model.QueryElement
 
 
 /**
  * Sparql brackets
  * @param elements elements included
  */
-case class Br(elements:GroupElement*) extends GP
+case class Br(elements:QueryElement*) extends GP
 {
 
   override def stringValue = "\n{"+this.foldChildren+" }"
 
-  override lazy val children: List[GroupElement] = elements.toList
+  override lazy val children: List[QueryElement] = elements.toList
 }
 
 /**
 Group of elements
  */
-trait GP extends GroupElement{
+trait GP extends QueryElement{
 
-  def children:List[GroupElement]
+  def children:List[QueryElement]
 
   def hasChildren = !children.isEmpty
 
@@ -35,7 +35,7 @@ trait GP extends GroupElement{
 /**
 unites to groups together
  */
-case class Union(left:GroupElement,right:GroupElement) extends GP {
+case class Union(left:QueryElement,right:QueryElement) extends GP {
 
   override def stringValue = s" ${left.stringValue} UNION ${right.stringValue}"
 
@@ -44,7 +44,7 @@ case class Union(left:GroupElement,right:GroupElement) extends GP {
 
 }
 
-case class Optional(gp:GroupElement) extends GP
+case class Optional(gp:QueryElement) extends GP
 {
   def stringValue = "\n OPTIONAL "+ gp.toString
 
@@ -52,14 +52,9 @@ case class Optional(gp:GroupElement) extends GP
 
 }
 
-trait GroupElement {
 
-  override def toString = this.stringValue
-  def stringValue:String
 
-}
-
-trait VarContainer extends GroupElement{
+trait VarContainer extends QueryElement{
 
  var vars = Map.empty[String,Variable]
 

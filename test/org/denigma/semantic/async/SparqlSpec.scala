@@ -10,7 +10,7 @@ import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.controllers.{SimpleQueryController, UpdateController}
 import scala.concurrent.Future
 import play.api.libs.concurrent.Akka
-import org.denigma.semantic.model.IRI
+import org.denigma.semantic.model.{Trip, IRI}
 import org.denigma.semantic.sparql._
 import org.denigma.semantic.sparql
 import scala.collection.JavaConversions._

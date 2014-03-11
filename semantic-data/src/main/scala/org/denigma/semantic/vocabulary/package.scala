@@ -20,7 +20,7 @@ package object vocabulary {
 
     def /(child:URI): IRI =  IRI(str / child.toString)
 
-    def iri = IRI(str)
+    def iri: IRI = IRI(str)
 
   }
 }

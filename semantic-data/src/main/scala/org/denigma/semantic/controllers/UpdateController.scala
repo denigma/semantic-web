@@ -26,8 +26,8 @@ trait UpdateController extends WithSemanticWriter{
 
   def update(str:String): Future[Try[Unit]] =  this.writer.ask(Update.Update(str))(this.writeTimeout).mapTo[Try[Unit]]
 
-  def insert(q:InsertQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
-  def delete(q:DeleteQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
+  def insert(ins:InsertQuery): Future[Try[Unit]] =  this.writer.ask(ins)(this.writeTimeout).mapTo[Try[Unit]]
+  def delete(del:DeleteQuery): Future[Try[Unit]] =  this.writer.ask(del)(this.writeTimeout).mapTo[Try[Unit]]
   def deleteInsert(q:DeleteInsertQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
   def insertDelete(q:InsertDeleteQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
 

@@ -2,6 +2,14 @@ package org.denigma.semantic.model
 import org.openrdf.model._
 
 
+object IRI {
+
+  def apply(res:URI): IRI = res match {
+    case r:IRI=>r
+    case r:URI=>IRI(r.stringValue())
+  }
+
+}
 /*
 implementation of openrdf URI class
  */

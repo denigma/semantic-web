@@ -1,6 +1,6 @@
 package org.denigma.semantic.actors
 
-import org.denigma.semantic.sparql.{Quad, Pat}
+import org.denigma.semantic.sparql.Pat
 import org.openrdf.model.Statement
 
 /**

@@ -1,8 +1,7 @@
 package org.denigma.semantic.sparql
 
-import org.denigma.semantic.model.{ BlankNode, IRI}
+import org.denigma.semantic.model.{QueryElement, BlankNode, IRI}
 import org.openrdf.model.{Statement, Value, Resource, URI}
-import com.bigdata.rdf.internal.impl.literal.FullyInlineTypedLiteralIV
 
 
 
@@ -28,7 +27,7 @@ trait QuadPattern extends TripletPattern{
 
 }
 
-trait TripletPattern extends GroupElement
+trait TripletPattern extends QueryElement
 {
   def s:ResourcePatEl
   def p:IRIPatEl
@@ -60,7 +59,7 @@ trait ValuePatEl extends PatternElement
 /*
  TODO: add binding for vars
  */
-trait PatternElement extends GroupElement
+trait PatternElement extends QueryElement
 {
   def isVar:Boolean = false
   def isIRI:Boolean = false

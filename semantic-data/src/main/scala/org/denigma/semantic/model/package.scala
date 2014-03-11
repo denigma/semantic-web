@@ -1,7 +1,8 @@
 package org.denigma.semantic
 
-import org.openrdf.model.Literal
+import org.openrdf.model._
 import org.openrdf.model.vocabulary.{XMLSchema=>xe}
+
 
 /**
  * implicits for models
@@ -43,6 +44,7 @@ package object model {
     override def isString: Boolean = l.getDatatype == xe.STRING || l.getDatatype == xe.NORMALIZEDSTRING
 
     override def isAny: Boolean = l.getDatatype == null
+
     
 
   }

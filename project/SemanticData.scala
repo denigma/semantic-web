@@ -10,7 +10,7 @@ trait SemanticData extends Macroses with Wesin{
 
   def semanticDataAppPath = "."
 
-  val semanticDataAppDependencies: Seq[ModuleID] = Dependencies.graphDeps++Dependencies.rdfDeps++Dependencies.miscDeps++Dependencies.testDeps
+  val semanticDataAppDependencies: Seq[ModuleID] = Dependencies.graphDeps++Dependencies.rdfDeps++Dependencies.miscDeps++Dependencies.authDepth++Dependencies.testDeps
 
   val src = "src"
 

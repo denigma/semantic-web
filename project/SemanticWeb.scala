@@ -10,8 +10,6 @@ trait SemanticWeb extends Collaboration with SemanticData{
   override def semanticDataAppPath = "./semantic-data"
 
 
-
-
 //  val testOptions = "-Dconfig.file=conf/" + Option(System.getProperty("test.config")).getOrElse("application") + ".conf"
 
 

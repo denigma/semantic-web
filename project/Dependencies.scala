@@ -37,7 +37,7 @@ object Dependencies {
 
     "org.webjars" % "jquery-ui-themes" % "1.10.3",
 
-    "org.webjars" % "Semantic-UI" % "0.11.0", //less/css framework
+    "org.webjars" % "Semantic-UI" % "0.13.0", //less/css framework
 
     "org.webjars" % "jquery-file-upload" % "9.5.4",
 

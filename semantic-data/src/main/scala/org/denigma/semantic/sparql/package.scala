@@ -1,6 +1,6 @@
 package org.denigma.semantic
 
-import org.denigma.semantic.model.{BlankNode, IRI}
+import org.denigma.semantic.model.{QueryElement, BlankNode, IRI}
 import com.hp.hpl.jena.sparql.engine.optimizer.reorder.PatternElements
 import org.openrdf.model.{Resource, URI}
 import com.hp.hpl.jena.rdf.model.Literal
@@ -23,7 +23,7 @@ package object sparql extends PatternImplicits{
     def stringValue = s"?$name"
   }
 
-  class Filter extends GroupElement
+  class Filter extends QueryElement
   {
     def stringValue = "FILTER"
   }

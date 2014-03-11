@@ -1,7 +1,7 @@
 package org.denigma.semantic.sparql
 import org.denigma.semantic.sparql._
 
-import org.denigma.semantic.model.IRI
+import org.denigma.semantic.model.{Trip, QueryElement, IRI}
 
 
 
@@ -12,7 +12,7 @@ case class InsertQuery(insert:Insert)
 
 case class DeleteQuery(delete:Delete)
 
-class Insert(var children: List[GroupElement]) extends GP with WithWhere
+class Insert(var children: List[QueryElement]) extends GP with WithWhere
 {
 
   lazy val hasDATA = children.exists(_.isInstanceOf[Data])
@@ -34,7 +34,7 @@ object INSERT
 /**
  * Class to Delete values
  */
-class Delete(var children: List[GroupElement]) extends GP with WithWhere {
+class Delete(var children: List[QueryElement]) extends GP with WithWhere {
 
   lazy val hasDATA = children.exists(_.isInstanceOf[Data])
 
@@ -73,7 +73,7 @@ object GRAPH {
 
 
 
-class Data(val children:List[GroupElement]) extends GP {
+class Data(val children:List[QueryElement]) extends GP {
 
 
   override def stringValue: String = s"DATA \n{ ${this.foldChildren} }\n"

@@ -10,7 +10,8 @@ import org.denigma.semantic.reading.queries.{SimpleQueryManager, SemanticQueryMa
 import org.denigma.semantic.controllers.{LoggerProvider, UpdateController, JsQueryController}
 import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
 import org.denigma.semantic.vocabulary.WI
-import org.denigma.semantic.cache.{Schema, ChangeManager, Users}
+import org.denigma.semantic.cache.{Schema, ChangeManager}
+import org.denigma.semantic.users.Users
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -102,10 +103,12 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController{
     val sys = Akka.system(app)
     this.databaseActorsFactory = new DatabaseActorsFactory(db,db,sys,(platformConfig.minReaders,platformConfig.defReaders,platformConfig.maxReaders))
     if(platformConfig.loadInitial)  this.loadInitialData()
+    this.initCache()
   }
 
-  def initCachers()  = {
+  def initCache()  = {
     ChangeManager.subscribe(Users)
+    ChangeManager.subscribe(Schema)
     Users.activate()
     Schema.activate()
 

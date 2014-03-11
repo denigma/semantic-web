@@ -24,9 +24,9 @@ class DatabaseWriter(db:CanWrite, val watcher:ChangeWatcher) extends  WatchedWri
     case Update.Upload(file:File,contextStr:String)=> this.parseFile(file,contextStr)
 
 
-    case InsertQuery(q) => sender ! this.watchedUpdate(q.stringValue)
+    case InsertQuery(ins) => sender ! this.watchedUpdate(ins.stringValue)
 
-    case DeleteQuery(q) =>  sender ! this.watchedUpdate(q.stringValue)
+    case DeleteQuery(del) =>  sender ! this.watchedUpdate(del.stringValue)
 
     case InsertDeleteQuery(i,d) => sender ! this.watchedUpdate(i.stringValue+" \n"+d.stringValue)
 

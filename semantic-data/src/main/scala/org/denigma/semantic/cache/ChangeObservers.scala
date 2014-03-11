@@ -1,16 +1,8 @@
 package org.denigma.semantic.cache
 
-import com.bigdata.rdf.changesets._
 import org.denigma.semantic.commons.LogLike
-import com.bigdata.rdf.store.BigdataStatementIterator
-import com.bigdata.rdf.model.BigdataStatement
-import com.bigdata.rdf.spo.ISPO
-import com.bigdata.striterator.ChunkedArrayIterator
-import org.denigma.semantic.writing.DataWriter
-import com.bigdata.rdf.lexicon.LexiconRelation
-import org.denigma.semantic.sparql.Trip
 import akka.actor.ActorRef
-import scala.util.{Success, Failure, Try}
+import scala.util.{Success, Failure}
 
 
 class ActorChangeObserver(transaction:String="",lg:LogLike,sender:ActorRef) extends ChangeListener(transaction,lg)
@@ -35,12 +27,17 @@ class ActorChangeObserver(transaction:String="",lg:LogLike,sender:ActorRef) exte
 class ChangeObserver(transaction:String="",lg:LogLike,onCompleted:(UpdateInfo)=>Unit,onAborted:(String)=>Unit) extends ChangeListener(transaction,lg)
 {
   override def transactionAborted(): Unit = {
-    if(onAborted!=null) onAborted(transaction)
+    this.refresh()
+    if(onAborted!=null)
+      onAborted(transaction)
   }
 
   override def transactionCommited(commitTime: Long): Unit = {
+    val quads: UpdateInfo = prepareUpdate()
     this.refresh()
-    if(onCompleted!=null)onCompleted(prepareUpdate())
+    if(onCompleted!=null)
+      onCompleted(quads)
+
   }
 }
 

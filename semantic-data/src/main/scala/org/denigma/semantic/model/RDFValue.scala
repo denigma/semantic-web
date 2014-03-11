@@ -5,6 +5,6 @@ import org.openrdf.model.Value
 /**
 RDF value implementation
  */
-class RDFValue extends Value{
+trait RDFValue extends Value{
   override def stringValue: String = this.toString
 }
