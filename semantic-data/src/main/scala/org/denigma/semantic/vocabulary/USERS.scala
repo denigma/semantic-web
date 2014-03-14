@@ -20,6 +20,10 @@ object USERS extends PrefixConfig(WI.namespace / "users")
 
   }
 
+  object classes {
+    val User: IRI = WI.CLASSES / "User" iri
+  }
+
 
 
 

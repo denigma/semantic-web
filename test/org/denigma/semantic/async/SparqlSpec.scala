@@ -5,9 +5,9 @@ import play.api.test.WithApplication
 
 import org.denigma.semantic.test.LoveHater
 import scala.util.Try
-import org.openrdf.query.TupleQueryResult
+import org.openrdf.query.{QueryLanguage, TupleQueryResult}
 import org.denigma.semantic.reading.selections._
-import org.denigma.semantic.controllers.{SimpleQueryController, UpdateController}
+import org.denigma.semantic.controllers._
 import scala.concurrent.Future
 import play.api.libs.concurrent.Akka
 import org.denigma.semantic.model.{Trip, IRI}
@@ -16,6 +16,9 @@ import org.denigma.semantic.sparql
 import scala.collection.JavaConversions._
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
+
+import org.denigma.semantic.model._
+import org.denigma.semantic.vocabulary.WI
 
 class SparqlSpec extends Specification with LoveHater {
 
@@ -40,6 +43,27 @@ class SparqlSpec extends Specification with LoveHater {
     this.addRel("Ilia","loves","Immortality")
     this.addRel("Edouard","loves","Immortality")
   }
+
+  val del: Delete = DELETE (
+    DATA (
+      Trip(
+        IRI("http://denigma.org/actors/resources/Daniel"),
+        IRI("http://denigma.org/relations/resources/loves"),
+        IRI("http://denigma.org/actors/resources/RDF")
+      )
+    )
+  )
+
+  val ins: Insert = INSERT (
+    DATA (
+      Trip(
+        IRI("http://denigma.org/actors/resources/Anton"),
+        IRI("http://denigma.org/relations/resources/hates"),
+        IRI("http://denigma.org/actors/resources/Anton")
+      )
+    )
+  )
+
 
 
   "DSL for sparql should" should {
@@ -92,29 +116,9 @@ class SparqlSpec extends Specification with LoveHater {
       self.addTestRels()
 
 
-      val del: DeleteQuery = DeleteQuery {
-        DELETE (
-          DATA (
-            Trip(
-              IRI("http://denigma.org/actors/resources/Daniel"),
-              IRI("http://denigma.org/relations/resources/loves"),
-              IRI("http://denigma.org/actors/resources/RDF")
-            )
-          )
-        )
-      }
+      val delQ: DeleteQuery = DeleteQuery { del  }
 
-      val ins: InsertQuery = InsertQuery {
-        INSERT (
-          DATA (
-            Trip(
-              IRI("http://denigma.org/actors/resources/Anton"),
-              IRI("http://denigma.org/relations/resources/hates"),
-              IRI("http://denigma.org/actors/resources/Anton")
-            )
-          )
-        )
-      }
+      val insQ: InsertQuery = InsertQuery { ins  }
 
 
 
@@ -123,16 +127,87 @@ class SparqlSpec extends Specification with LoveHater {
       self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
 
 
-      this.awaitWrite( this.delete(del))
+      this.awaitWrite( this.delete(delQ))
 
       self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
 
-      this.awaitWrite( this.insert(ins))
+      this.awaitWrite( this.insert(insQ))
+
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
+
+    }
+
+    "make conditional operations" in new WithTestApp{
+      self.addTestRels()
+
+      val condFalse = ASK(
+        Pat(
+          IRI("http://denigma.org/actors/resources/Daniel"),
+          IRI("http://denigma.org/relations/resources/hates"),
+          IRI("http://denigma.org/actors/resources/Immortality")
+        ))
+
+//      val condTrue: AskQuery = ASK(
+//        Pat(
+//          IRI("http://denigma.org/actors/resources/Ilia"),
+//          IRI("http://denigma.org/relations/resources/loves"),
+//          IRI("http://denigma.org/actors/resources/Immortality")
+//        ))
+
+      val condTrue: AskQuery = ASK(
+        Pat(
+          ?("subject"),?("predicate"),?("object")
+        ))
+
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+
+
+      val falseC = this.awaitRead( this.question(condFalse.stringValue))
+
+      falseC.isSuccess should beTrue
+      falseC.get should beFalse
+
+      val df = this.awaitWriteCond( this.deleteConditional(ConditionalDeleteQuery(condFalse,del)))
+      df.isSuccess should beTrue
+      df.get should beFalse
+
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 6
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+
+
+      val trueC = this.awaitRead( this.question(condTrue.stringValue))
+      trueC.isSuccess should beTrue
+      trueC.get should beTrue
+
+      val dt: Try[Boolean] = this.awaitWriteCond( this.deleteConditional(ConditionalDeleteQuery(condTrue,del)))
+      dt.isSuccess should beTrue
+      dt.get should beTrue
+
+
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+
+      val insF = this.awaitWriteCond( this.insertConditional( ConditionalInsertQuery(condFalse,ins)))
+      insF.isSuccess should beTrue
+      insF.get should beFalse
+
+      self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
+      self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
+
+      val insT = this.awaitWriteCond( this.insertConditional( ConditionalInsertQuery(condTrue,ins)))
+      insT.isSuccess should beTrue
+      insT.get should beTrue
+
 
       self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 2
 
     }
  }
+
+
+
 }

@@ -1,6 +1,7 @@
 package org.denigma.semantic.console
 
-import org.denigma.semantic.vocabulary.WI
+import com.bigdata.rdf.internal.IV
+
 
 /*
 just a code to copy-paste to play console
@@ -22,7 +23,12 @@ object QueryConsole {
   import org.denigma.semantic.controllers.sync._
   import org.denigma.semantic.commons._
   import org.denigma.semantic.reading.selections._
-
+  import org.denigma.semantic.sparql._
+  import org.denigma.semantic.model._
+  import scala.collection.JavaConversions._
+  import com.bigdata.rdf.internal.constraints._
+  import org.denigma.semantic.vocabulary._
+  import com.bigdata.bop._
 
   implicit val writeTimeout:Timeout = Timeout(5 seconds)
 
@@ -39,12 +45,15 @@ object QueryConsole {
   val prop = "<http://denigma.org/relations/resources/loves>"
 
 
-//  val s1 =s"SELECT ?subject ?property ?object WHERE { ?subject $prop ?object .}"
+ // val s1 =s"SELECT ?subject ?property ?object WHERE { ?subject ?$prop ?object .}"
 //  val s2 =s"SELECT ?subject ?property ?object WHERE { ?subject ?property ?object . }"
-  val s =s"""SELECT ?subject ?property ?object WHERE { ?subject ?property ?object . FILTER regex(STR(?property), "hates") . }"""
+  val s =s"""SELECT ?property WHERE { ?subject ?property ?object . FILTER regex(STR(?property), "hate") ) }"""
+//
+//  val sLove ="SELECT ?property WHERE { ?subject ?property ?object . FILTER regex(STR(?property), \"lov\")  }"
+//
   def cl(o:AnyRef) = o.getClass
-
-  //def r = this.writeCon.clear()
+//
+//  //def r = this.writeCon.clear()
   def t() = app.addTestRels()
 
   def upd(str:String): BigdataSailUpdate = app.writeConnection.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,str,WI.RESOURCE)
@@ -64,11 +73,28 @@ object QueryConsole {
 
   val a = astR(q)
   val w = a.getWhereClause
+//
   val ch = w.getChildren.toList
-  val f: FilterNode = ch.collectFirst{case p:FilterNode=>p}.get
-  val fn: FunctionNode = f.args().collectFirst{case p:FunctionNode=>p}.get
 
-  app.var2Str("property")
+  val vp = new VarNode("property")
+  val gl = new GlobalAnnotations(lex.getNamespace,lex.getTimestamp)
+  val strB: StrBOp = new StrBOp(new VarNode("property").getValueExpression,gl)
+  val fn  = new FunctionNode(FunctionRegistry.STR,null,vp)
+  fn.setValueExpression(strB)
+
+  //val reg = new RegexBOp()
+
+  //  val f: FilterNode = ch.collectFirst{case p:FilterNode=>p}.get
+//  val fn: FunctionNode = f.args().collectFirst{case p:FunctionNode=>p}.get
+//  val cn: ConstantNode = fn.get(1).asInstanceOf[ConstantNode]
+//
+//  val v = new VarNode("hello")
+//
+//  def gl() = new GlobalAnnotations(lex.getNamespace,lex.getTimestamp)
+//
+//  new StrBOp(v.getValueExpression,gl())
+//
+//  app.var2Str("property")
 
 
   //

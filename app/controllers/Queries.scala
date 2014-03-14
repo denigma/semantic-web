@@ -1,4 +1,5 @@
 package controllers
+
 import play.api.mvc._
 import org.openrdf.repository.RepositoryResult
 import scala.collection.JavaConversions._
@@ -23,7 +24,7 @@ import play.api.mvc.SimpleResult
 object  Queries extends PJaxPlatformWith("query") with JsQueryController {
 
 
-  def main() = Action {
+  def main() = UserAction {
     implicit request=>
        Ok(pj("main",views.html.queries.main()))
   }
@@ -39,10 +40,10 @@ object  Queries extends PJaxPlatformWith("query") with JsQueryController {
       Ok(SelectResult.badRequest(q,er)).as("application/sparql-results+json")
   }
 
-  def sendQuery(q:String, offset:Long = 0, limit:Long = defLimit) = Action.async{
-    implicit request=>  this.handleQuery(q,this.query(q,offset,limit, false))
+  def sendQuery(q:String, offset:Long = 0, limit:Long = defLimit) = UserAction.async{
+    implicit request=>
+      this.handleQuery(q,this.query(q,offset,limit, rewrite = false))
   }
-
 
   /*
   turns sparql query json result in Future of Simple Result

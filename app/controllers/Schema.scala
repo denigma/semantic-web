@@ -20,13 +20,13 @@ import org.denigma.semantic.reading.selections.SelectResult
  */
 object Schema  extends PJaxPlatformWith("schema") {
 
-  def sankey() = Action {
+  def sankey() = UserAction {
     implicit request=>
       //Ok(pj("sankey",views.html.schema.sankey()))
       Ok(views.html.schema.sankey())
   }
 
-  def distortion() = Action {
+  def distortion() = UserAction {
     implicit request=>
       Ok(pj("distortion",views.html.schema.distortion()))
   }

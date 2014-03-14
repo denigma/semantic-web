@@ -8,6 +8,13 @@ import org.denigma.semantic.model.{Trip, QueryElement, IRI}
 case class InsertDeleteQuery(insert:Insert,delete:Delete)
 case class DeleteInsertQuery(delete:Delete,insert:Insert)
 
+case class ConditionalInsertQuery(question:AskQuery,insert:Insert)
+case class ConditionalDeleteQuery(question:AskQuery,delete:Delete)
+case class ConditionalInsertDeleteQuery(question:AskQuery,insert:Insert,delete:Delete)
+case class ConditionalDeleteInsertQuery(question:AskQuery,delete:Delete,insert:Insert)
+
+
+
 case class InsertQuery(insert:Insert)
 
 case class DeleteQuery(delete:Delete)
@@ -26,7 +33,7 @@ object INSERT
 {
   def apply(data:Data): Insert = new Insert(data::Nil)
 
-  def apply(graph:PatternGraph) = new Insert(graph::Nil)
+  def apply(graph:PatternGraph): Insert = new Insert(graph::Nil)
 }
 
 

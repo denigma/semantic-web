@@ -3,6 +3,7 @@ package org.denigma.semantic.storage
 import com.bigdata.rdf.sail._
 import java.io.File
 import org.denigma.semantic.commons.LogLike
+import com.bigdata.rdf.store.AbstractTripleStore
 
 
 /**
@@ -43,4 +44,5 @@ class SemanticStore(val conf:DBConfig,val lg:LogLike) extends RDFStore{
    */
   def shutDown() = this.repo.shutDown()
 
+  override def db: AbstractTripleStore = this.repo.getDatabase
 }

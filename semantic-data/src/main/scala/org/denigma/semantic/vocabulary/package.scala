@@ -12,6 +12,7 @@ package object vocabulary {
   implicit class URIPath(uri:URI) {
     def /(child:String): IRI = IRI(uri.stringValue / child)
     def /(child:URI): IRI = this / child.stringValue()
+    def iri: IRI = IRI(uri)
 
   }
 

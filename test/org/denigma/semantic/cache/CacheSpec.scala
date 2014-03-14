@@ -26,7 +26,7 @@ import org.denigma.semantic.model.IRI
 import org.denigma.semantic.sparql.InsertQuery
 import org.denigma.semantic.model._
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
-import org.denigma.semantic.users.Users
+import org.denigma.semantic.users.Accounts
 
 
 
@@ -146,15 +146,15 @@ class CacheSpec extends Specification {
 
       //Users.mails.size shouldEqual 2
 
-      val patres: Future[Try[PatternResult]] = Users.fill()
+      val patres: Future[Try[PatternResult]] = Accounts.fill()
       val tu: Try[PatternResult] = this.awaitRead(patres)
       tu.isSuccess should beTrue
       val utr = tu.get
 
-      utr.name shouldEqual Users.name
+      utr.name shouldEqual Accounts.name
       utr.results.size shouldEqual 2
-      utr.results(Users.hasEmail).exists(p=>p.getObject.stringValue()=="anton@gmail.com") should beTrue
-      utr.results(Users.hasEmail).exists(p=>p.getObject.stringValue()=="daniel@gmail.com") should beTrue
+      utr.results(Accounts.hasEmail).exists(p=>p.getObject.stringValue()=="anton@gmail.com") should beTrue
+      utr.results(Accounts.hasEmail).exists(p=>p.getObject.stringValue()=="daniel@gmail.com") should beTrue
 
 
     }
@@ -165,7 +165,7 @@ class CacheSpec extends Specification {
 
       val upq = basic.insert.stringValue
 
-      ChangeManager.consumers.contains(Users) should beTrue
+      ChangeManager.consumers.contains(Accounts) should beTrue
 
 
       val u = this.update(upq)
@@ -183,9 +183,9 @@ class CacheSpec extends Specification {
       val rl = r.get.toList
       rl.size shouldEqual 1
 
-      Users.mails.size shouldEqual 2
-      Users.mails.contains(anton iri) should beTrue
-      Users.hashes.contains(daniel iri) should beTrue
+      Accounts.mails.size shouldEqual 2
+      Accounts.mails.contains(anton iri) should beTrue
+      Accounts.hashes.contains(daniel iri) should beTrue
 
 
     }

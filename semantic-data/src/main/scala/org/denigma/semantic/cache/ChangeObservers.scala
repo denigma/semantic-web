@@ -3,9 +3,11 @@ package org.denigma.semantic.cache
 import org.denigma.semantic.commons.LogLike
 import akka.actor.ActorRef
 import scala.util.{Success, Failure}
+import org.denigma.semantic.writing.WriteConnection
+import com.bigdata.rdf.store.AbstractTripleStore
 
 
-class ActorChangeObserver(transaction:String="",lg:LogLike,sender:ActorRef) extends ChangeListener(transaction,lg)
+class ActorChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,sender:ActorRef) extends ChangeListener(db,transaction,lg)
 {
   override def transactionAborted(): Unit = {
     sender ! Failure[UpdateInfo](new Exception("transaction aborted"))
@@ -17,14 +19,8 @@ class ActorChangeObserver(transaction:String="",lg:LogLike,sender:ActorRef) exte
   }
 }
 
-/**
- * Adds handlers
- * @param transaction transaction that is done with this observer
- * @param lg logger
- * @param onCompleted on completed handler
- * @param onAborted onAborted handler
- */
-class ChangeObserver(transaction:String="",lg:LogLike,onCompleted:(UpdateInfo)=>Unit,onAborted:(String)=>Unit) extends ChangeListener(transaction,lg)
+
+class ChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,onCompleted:(UpdateInfo)=>Unit,onAborted:(String)=>Unit) extends ChangeListener(db,transaction,lg)
 {
   override def transactionAborted(): Unit = {
     this.refresh()

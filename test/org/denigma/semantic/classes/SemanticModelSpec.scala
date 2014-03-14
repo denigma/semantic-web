@@ -15,6 +15,8 @@ import org.denigma.semantic.platform.SP
 class SemanticModelSpec  extends Specification {
   val self = this
 
+  skipAllIf(true) //TODO: throw it away
+
   val ant=new URIImpl("http://webintelligence.eu/ontology/actor/antonkulaga")
   val hev =new URIImpl("http://webintelligence.eu/ontology/actor/hevok")
   val il=new URIImpl("http://webintelligence.eu/ontology/actor/ILA")

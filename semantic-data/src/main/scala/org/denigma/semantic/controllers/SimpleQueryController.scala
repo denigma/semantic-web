@@ -34,6 +34,7 @@ trait SimpleQueryController extends WithSemanticReader
 
   def select(query:sparql.SelectQuery):Future[Try[TupleQueryResult]] = reader.ask(query)(readTimeout).mapTo[Try[TupleQueryResult]]
   def select(query:String,offset:Long = defOffset, limit:Long = defLimit):Future[Try[TupleQueryResult]] = reader.ask(SimpleRead.Select(query,offset,limit))(readTimeout).mapTo[Try[TupleQueryResult]]
+  def question(query:String):Future[Try[Boolean]] = reader.ask(SimpleRead.Question(query))(readTimeout).mapTo[Try[Boolean]]
 
 
   def rd[T](message:T):Future[Try[T]] =    reader.ask(message)(readTimeout).mapTo[Try[T]]

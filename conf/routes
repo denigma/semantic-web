@@ -2,6 +2,8 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 GET         /                          controllers.Application.index(controller="query",action="main")
+GET         /                          controllers.Application.index(controller="query",action="main")
+
 GET         /resource/*url             controllers.Ontologies.resource(url)
 
 

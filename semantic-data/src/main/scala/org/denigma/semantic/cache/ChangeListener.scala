@@ -4,6 +4,11 @@ import com.bigdata.rdf.spo.ISPO
 import org.denigma.semantic.commons.{Logged, LogLike}
 import com.bigdata.rdf.changesets.{InMemChangeLog, ChangeAction, IChangeRecord, IChangeLog}
 import org.denigma.semantic.model.Quad
+import com.bigdata.rdf.store.{BigdataStatementIterator, AbstractTripleStore}
+import com.bigdata.striterator.ChunkedArrayIterator
+import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
+import org.denigma.semantic.cache._
+import com.bigdata.rdf.model.BigdataStatement
 
 
 case class UpdateInfo(transaction:String,inserted:Set[Quad],removed:Set[Quad] = Set.empty,inferred:Set[Quad] = Set.empty)
@@ -21,11 +26,12 @@ trait UpdateInfoLike{
 is used for inmemory data caching
 it asumes that it is used in onewriter mode
  */
-abstract class ChangeListener(transaction:String,val lg:LogLike) extends IChangeLog with Logged{
+abstract class ChangeListener(db:AbstractTripleStore,transaction:String, lg:LogLike) extends IChangeLog with Logged{
 
   var removed = Set.empty[ISPO]
   var inserted = Set.empty[ISPO]
   var inferred = Set.empty[ISPO]
+
 
 
   override def transactionAborted(): Unit = {
@@ -45,6 +51,7 @@ abstract class ChangeListener(transaction:String,val lg:LogLike) extends IChange
   }
 
   override def changeEvent(record: IChangeRecord): Unit = {
+
     record.getChangeAction match {
       case ChangeAction.INSERTED => inserted+=record.getStatement
 
@@ -57,8 +64,7 @@ abstract class ChangeListener(transaction:String,val lg:LogLike) extends IChange
   }
 
   def prepareUpdate(): UpdateInfo =  {
-    inserted.map(i=>i.getSubject)
-    UpdateInfo(transaction,inserted.map(Quad(_)),removed.map(Quad(_)),inferred.map(Quad(_)))
+    UpdateInfo(transaction,this.resolve(inserted),this.resolve(removed),this.resolve(inferred))
   }
 
 
@@ -67,5 +73,18 @@ abstract class ChangeListener(transaction:String,val lg:LogLike) extends IChange
     inserted = Set.empty[ISPO]
     inferred = Set.empty[ISPO]
   }
+
+
+  def resolve(coll:Set[ISPO]): Set[Quad] = {
+    if(coll.size==0) return Set.empty[Quad]
+    val arr = coll.toArray
+    val src = new ChunkedArrayIterator[ISPO](arr)
+    db.asStatementIterator(src).filter(_!=null).map(Quad(_)).toSet[Quad]
+    //if(db==null) this.lg.error("NULL DB")
+    //coll.map(Quad(_)).toSet
+  }
+
+
+
 
 }

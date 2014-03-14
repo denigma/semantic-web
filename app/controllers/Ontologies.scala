@@ -13,7 +13,7 @@ Should show ontological info
  */
 object Ontologies extends PJaxPlatformWith("ontology") {
 
-  def resource(uri:String) = Action {
+  def resource(uri:String) = UserAction {
     implicit request=>
       Ok(pj("resource",views.html.ontologies.resource()))
   }

@@ -10,8 +10,9 @@ import org.denigma.semantic.reading.queries.{SimpleQueryManager, SemanticQueryMa
 import org.denigma.semantic.controllers.{LoggerProvider, UpdateController, JsQueryController}
 import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
 import org.denigma.semantic.vocabulary.WI
-import org.denigma.semantic.cache.{Schema, ChangeManager}
-import org.denigma.semantic.users.Users
+import org.denigma.semantic.cache.ChangeManager
+import org.denigma.semantic.users.Accounts
+import org.denigma.semantic.schema.Schema
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
@@ -107,9 +108,9 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController{
   }
 
   def initCache()  = {
-    ChangeManager.subscribe(Users)
+    ChangeManager.subscribe(Accounts)
     ChangeManager.subscribe(Schema)
-    Users.activate()
+    Accounts.activate()
     Schema.activate()
 
   }

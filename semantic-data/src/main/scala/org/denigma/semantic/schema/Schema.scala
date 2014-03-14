@@ -1,12 +1,8 @@
-package org.denigma.semantic.cache
+package org.denigma.semantic.schema
 
-import org.denigma.semantic.sparql._
-import org.denigma.semantic.actors.WatchProtocol.PatternResult
-import org.denigma.semantic.commons.LogLike
 import org.denigma.semantic.controllers.WithLogger
-import org.openrdf.model.vocabulary
 import org.openrdf.model.vocabulary.{OWL, RDF, RDFS}
-import org.denigma.semantic.cache.UpdateInfo
+import org.denigma.semantic.cache.{PatternCache, UpdateInfo}
 import org.denigma.semantic.sparql._
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 

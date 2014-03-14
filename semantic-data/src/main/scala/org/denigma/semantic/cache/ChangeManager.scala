@@ -5,6 +5,8 @@ import org.denigma.semantic.controllers.{WithLogger, UpdateController}
 import play.api.libs.concurrent.Execution.Implicits._
 import org.denigma.semantic.commons.{ChangeWatcher, LogLike}
 import com.bigdata.rdf.changesets.IChangeLog
+import org.denigma.semantic.writing.WriteConnection
+import com.bigdata.rdf.store.AbstractTripleStore
 
 
 /**
@@ -15,7 +17,7 @@ object ChangeManager extends ChangeWatcher with WithLogger
   var consumers = Set.empty[Consumer]
 
 
-  def apply(transaction:String,lg:LogLike):  IChangeLog = new ChangeObserver(transaction,lg,committedHandler,abortedHandler)
+  def apply(db:AbstractTripleStore,transaction:String,lg:LogLike):  IChangeLog = new ChangeObserver(db,transaction,lg,committedHandler,abortedHandler)
 
 
   def committedHandler(upd:UpdateInfo): Unit = {

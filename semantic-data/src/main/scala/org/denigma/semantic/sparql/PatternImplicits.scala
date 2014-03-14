@@ -52,7 +52,7 @@ trait PatternImplicits {
 
     override def resourceOrNull: Resource = u
 
-    override def canBind(value: Value): Boolean = u.stringValue() == value.stringValue()
+    override def canBind(value: Value): Boolean = !(value==null) && u.stringValue() == value.stringValue()
   }
 
   implicit class BNodeExtended(bnode:BlankNode) extends ResourcePatEl{
@@ -64,7 +64,7 @@ trait PatternImplicits {
 
     override def valueOrNull: Value = bnode
 
-    override def canBind(value: Value): Boolean = value.stringValue() == bnode.stringValue()
+    override def canBind(value: Value): Boolean = !(value==null) && value.stringValue() == bnode.stringValue()
   }
 
   implicit class LiteralExtended(literal:Literal) extends ValuePatEl
@@ -77,7 +77,7 @@ trait PatternImplicits {
 
     override def valueOrNull: Value = literal
 
-    override def canBind(value: Value): Boolean = value.stringValue() == literal.stringValue()
+    override def canBind(value: Value): Boolean = !(value==null) && value.stringValue() == literal.stringValue()
   }
 
 
