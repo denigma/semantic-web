@@ -9,5 +9,4 @@ Trait that can provide writeConnection. It is used everywhere where we need to w
 trait CanWrite extends Logged{
 
   def writeConnection:WriteConnection
-  def db:AbstractTripleStore //required to resolve changes
 }

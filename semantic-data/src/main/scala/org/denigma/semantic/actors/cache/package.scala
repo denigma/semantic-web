@@ -1,10 +1,9 @@
-package org.denigma.semantic
+package org.denigma.semantic.actors
 
-import com.bigdata.striterator.IChunkedOrderedIterator
 import cutthecrap.utils.striterators.ICloseableIterator
 
 /**
- * Created by antonkulaga on 3/14/14.
+ * Implicit classes for cache
  */
 package object cache {
 
@@ -13,6 +12,4 @@ package object cache {
 
     override def hasNext: Boolean = it.hasNext
   }
-
-
 }

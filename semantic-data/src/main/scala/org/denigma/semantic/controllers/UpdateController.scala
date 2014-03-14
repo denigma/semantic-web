@@ -28,17 +28,23 @@ trait UpdateController extends WithSemanticWriter{
   def update(str:String): Future[Try[Unit]] =  this.writer.ask(Update.Update(str))(this.writeTimeout).mapTo[Try[Unit]]
 
   def insert(ins:InsertQuery): Future[Try[Unit]] =  this.writer.ask(ins)(this.writeTimeout).mapTo[Try[Unit]]
-  def insertConditional(ins:ConditionalInsertQuery): Future[Try[Boolean]] =  this.writer.ask(ins)(this.writeTimeout).mapTo[Try[Boolean]]
+
+
+  def insertOnlyIf(ins:InsertOnlyIf): Future[Try[Boolean]] =  this.writer.ask(ins)(this.writeTimeout).mapTo[Try[Boolean]]
+  def insertUnless(ins:InsertUnless): Future[Try[Boolean]] =  this.writer.ask(ins)(this.writeTimeout).mapTo[Try[Boolean]]
 
   def delete(del:DeleteQuery): Future[Try[Unit]] =  this.writer.ask(del)(this.writeTimeout).mapTo[Try[Unit]]
-  def deleteConditional(del:ConditionalDeleteQuery): Future[Try[Boolean]] =  this.writer.ask(del)(this.writeTimeout).mapTo[Try[Boolean]]
+  def deleteOnlyIf(del:DeleteOnlyIf): Future[Try[Boolean]] =  this.writer.ask(del)(this.writeTimeout).mapTo[Try[Boolean]]
+  def deleteUnless(del:DeleteUnless): Future[Try[Boolean]] =  this.writer.ask(del)(this.writeTimeout).mapTo[Try[Boolean]]
 
   def deleteInsert(q:DeleteInsertQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
-  def deleteInsertConditional(q:ConditionalDeleteInsertQuery): Future[Try[Boolean]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Boolean]]
+  def deleteInsertOnlyIf(q:DeleteInsertOnlyIf): Future[Try[Boolean]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Boolean]]
+  def deleteInsertUnless(q:DeleteInsertUnless): Future[Try[Boolean]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Boolean]]
 
 
   def insertDelete(q:InsertDeleteQuery): Future[Try[Unit]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Unit]]
-  def insertDeleteConditional(q:ConditionalInsertDeleteQuery): Future[Try[Boolean]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Boolean]]
+  def insertDeleteOnlyIf(q:InsertDeleteOnlyIf): Future[Try[Boolean]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Boolean]]
+  def insertDeleteUnless(q:InsertDeleteUnless): Future[Try[Boolean]] =  this.writer.ask(q)(this.writeTimeout).mapTo[Try[Boolean]]
 
 
 

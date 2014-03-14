@@ -18,13 +18,13 @@ object SyncWriter extends CanWrite{
 
   def writeEnabled = this.writer!=null
 
-  override def db: AbstractTripleStore = writer.db
+
 }
 
 trait WithSyncWriter extends DataWriter{
 
   override def lg = SyncWriter.lg
   override def writeConnection = SyncWriter.writeConnection
-  override def db = SyncWriter.db
+
 
 }

@@ -38,11 +38,12 @@ trait Updater extends CanWrite  with SemanticFileParser{
 
   }
 
-  def writeConditionalUpdate(condition:String,queryStr:String,update:UpdateHandler,logger:IChangeLog = null)(implicit base:String = WI.RESOURCE): Try[Boolean] = {
+  def writeConditionalUpdate(queryStr:String,condition:String,update:UpdateHandler,negation:Boolean=false,logger:IChangeLog = null)(implicit base:String = WI.RESOURCE): Try[Boolean] = {
     val con: BigdataSailRepositoryConnection = this.writeConnection
     con.setAutoCommit(false)
     val res: Try[Boolean] = Try{
-      val toWrite: Boolean = con.prepareBooleanQuery(QueryLanguage.SPARQL,condition).evaluate()
+      val cond: Boolean = con.prepareBooleanQuery(QueryLanguage.SPARQL,condition).evaluate()
+      val toWrite = if(negation) !cond else cond
       if(toWrite)
       {
         if(logger!=null) con.addChangeLog(logger)
@@ -54,7 +55,7 @@ trait Updater extends CanWrite  with SemanticFileParser{
     con.close()
     res.recoverWith{case
       e=>
-      lg.error(s"UPDATE query \n $queryStr \nfailed because of \n"+e.getMessage)
+      lg.error(s"Conditional UPDATE query with condition: \n$condition\n and query string: \n $queryStr \nfailed because of \n"+e.getMessage)
       res
     }
 
@@ -66,7 +67,8 @@ trait Updater extends CanWrite  with SemanticFileParser{
 
   def update(query:String,logger:IChangeLog = null): Try[Unit] = this.writeUpdate(query,updateHandler,logger)
 
-  def conditionalUpdate(condition:String,query:String,logger:IChangeLog = null): Try[Boolean] = this.writeConditionalUpdate(condition,query,updateHandler,logger)
+  def updateOnlyIf(query:String,condition:String,logger:IChangeLog = null): Try[Boolean] = this.writeConditionalUpdate(query,condition,updateHandler,negation = false,logger)
+  def updateUnless(query:String,condition:String,logger:IChangeLog = null): Try[Boolean] = this.writeConditionalUpdate(query,condition,updateHandler,negation = true,logger)
 
 
 

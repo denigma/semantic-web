@@ -1,25 +1,27 @@
 package org.denigma.semantic.users
 
 import org.denigma.semantic.sparql._
-import org.denigma.semantic.model.{LitStr, Trip, IRI, Quad}
-import org.denigma.semantic.sparql.Pat
+import org.denigma.semantic.model.{Trip, IRI, Quad}
 import scala.collection.mutable.MultiMap
 import org.openrdf.model._
-import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.controllers.{UpdateController, WithLogger}
 import org.denigma.semantic.vocabulary._
-import org.denigma.semantic.cache.{UpdateInfo, PatternCache}
-import scala.util.{Failure, Success, Try}
-import org.denigma.semantic.sparql._
+import scala.util.Try
 import org.openrdf.model.vocabulary.RDF
 import scala.concurrent.Future
+import org.denigma.semantic.actors.cache.PatternCache
+import org.denigma.semantic.actors.WatchProtocol.PatternResult
+import org.denigma.semantic.sparql.Br
+import org.denigma.semantic.model.LitStr
+import org.denigma.semantic.actors.cache.Cache.UpdateInfo
+import org.denigma.semantic.sparql.Pat
+import org.denigma.semantic.sparql.InsertUnless
 
 /**
 * user watcher that keeps all users inmemory
 */
 object Accounts extends PatternCache with WithLogger with UpdateController
 {
-
 
   var mails= Map.empty[Resource,String]
   var hashes = Map.empty[Resource,String]
@@ -117,8 +119,8 @@ object Accounts extends PatternCache with WithLogger with UpdateController
     Try {
       import com.github.t3hnar.bcrypt._
       this.userByName(username).map{user=>
-        if(!password.isBcrypted(user.hash)) new Exception(s"password does not match for $username !")
-    }.getOrElse(throw new Exception(s"user $username not found"))
+        if(!password.isBcrypted(user.hash)) throw WrongPasswordForUser(username,password)
+    }.getOrElse(throw UserNotFound(username))
     }
   }
 
@@ -126,8 +128,8 @@ object Accounts extends PatternCache with WithLogger with UpdateController
     Try {
       import com.github.t3hnar.bcrypt._
       this.userByEmail(email).map{user=>
-        if(!password.isBcrypted(user.hash)) new Exception(s"password does not match for $email !")
-      }.getOrElse(throw new Exception(s"user with email $email not found"))
+        if(!password.isBcrypted(user.hash)) throw WrongPasswordForEmail(password,email)
+      }.getOrElse(throw EmailNotFound(email))
     }
   }
 
@@ -135,44 +137,58 @@ object Accounts extends PatternCache with WithLogger with UpdateController
   protected def isValidEmail(email: String): Boolean = """(\w+)@([\w\.]+)""".r.unapplySeq(email).isDefined
 
 
-  /**
-   * Checks if it is possible to register user with such params
-   * @param username
-   * @param email
-   * @param password
-   * @return
-   */
-  protected def canRegister(username:String,email:String,password:String): Try[Unit] = Try {
-    if(this.mails.exists(kv=>kv._2==email)) throw new Exception(s"email $email has already been registered")
-    if(this.isValidEmail(email)) throw new Exception(s"email $email is not valid")
-    if(this.userByName(username).isDefined) throw new Exception(s"user with username $username already exists")
-    if(password.length<5) throw new Exception(s"password is too short")
-    if(password.length>20) throw new Exception(s"password is too long")
 
-    if(password.contains(username)) throw new Exception(s"password should not contain username")
+  def register(username:String,email:String,password:String): Future[Try[Boolean]] =  {
+
+    //TODO: fix this ugly code
+    if(this.mails.exists(kv=>kv._2==email)) return Future.failed( EmailAlreadyRegisteredException(email))
+    if(!this.isValidEmail(email)) return Future.failed(EmailNotValidException(email))
+    if(this.userByName(username).isDefined) return Future.failed( new UserAlreadyRegisteredException(username))
+    if(password.length<5) return Future.failed( PasswordTooShortException(password) )
+    if(password.length>20) return Future.failed(PasswordTooLongException(password) )
+    if(password.contains(username) ) return Future.failed ( PasswordTooSimpleException(password) )
+    import com.github.t3hnar.bcrypt._
+
+    val user: IRI = this.userIRI(username)
+    val hash: String = password.bcrypt
+
+    val ins =
+     INSERT{
+      DATA(
+        GRAPH(IRI(USERS.namespace),
+          Trip(user,RDF.TYPE iri, USERS.classes.User),
+          Trip(user, USERS.props.hasEmail, LitStr(email)),
+          Trip(user,USERS.props.hasPasswordHash,LitStr(hash))
+        )
+      )
+    }
+
+    val cond = ASK (
+      Br(
+        Pat(user,RDF.TYPE iri, USERS.classes.User)
+      ) UNION Br(
+        Pat(?("anyuser"),USERS.props.hasEmail,LitStr(email)),
+        Pat(?("anyuser"),RDF.TYPE iri, USERS.classes.User)
+      )
+    )
+
+    this.insertUnless(InsertUnless(ins,cond))
   }
 
-  def register(username:String,email:String,password:String): Future[Try[Unit]] = this.canRegister(username,email,password) match
-  {
-    case Failure(ex) => Future.failed(ex)
-    case _ =>
-      import com.github.t3hnar.bcrypt._
 
-      val user = this.userIRI(username)
-      val hash: String = password.bcrypt
-      val ins = InsertQuery{
-        INSERT{
-          DATA(
-            GRAPH(IRI(USERS.namespace),
-              Trip(user,RDF.TYPE iri, USERS.classes.User),
-              Trip(user, USERS.props.hasEmail, LitStr(email)),
-              Trip(user,USERS.props.hasPasswordHash,LitStr(hash))
-            )
-          )
-        }
-      }
-      this.insert(ins)
-  }
+  case class EmailAlreadyRegisteredException(email:String) extends Exception(s"email $email has already been registered")
+  case class EmailNotValidException(email:String) extends Exception(s"email $email is not valid")
+  case class UserAlreadyRegisteredException(user:String) extends Exception(s"email $user has already been registered")
+  case class PasswordTooShortException(password:String) extends Exception(s"password $password is too short")
+  case class PasswordTooLongException(password:String) extends Exception(s"password $password is too long")
+  case class PasswordTooSimpleException(password:String) extends Exception(s"password $password is too simple")
+  case class WrongPasswordForEmail(password:String,email:String) extends Exception(s"password $password for email $email is WRONG!")
+  case class WrongPasswordForUser(password:String,user:String) extends Exception(s"password $password for user $user is WRONG!")
+  case class UserNotFound(user:String) extends Exception(s"User $user was not found!")
+  case class EmailNotFound(email:String) extends Exception(s"User for  $email was not found!")
+
+
+
 
 
 }

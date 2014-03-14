@@ -6,5 +6,5 @@ import com.bigdata.rdf.store.AbstractTripleStore
 
 trait ChangeWatcher {
 
-  def apply(db:AbstractTripleStore,transaction:String,lg:LogLike): IChangeLog
+  def apply(transaction:String,lg:LogLike): IChangeLog
 }

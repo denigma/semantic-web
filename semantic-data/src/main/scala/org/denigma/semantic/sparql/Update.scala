@@ -4,20 +4,21 @@ import org.denigma.semantic.sparql._
 import org.denigma.semantic.model.{Trip, QueryElement, IRI}
 
 
-
+case class InsertQuery(insert:Insert)
+case class DeleteQuery(delete:Delete)
 case class InsertDeleteQuery(insert:Insert,delete:Delete)
 case class DeleteInsertQuery(delete:Delete,insert:Insert)
 
-case class ConditionalInsertQuery(question:AskQuery,insert:Insert)
-case class ConditionalDeleteQuery(question:AskQuery,delete:Delete)
-case class ConditionalInsertDeleteQuery(question:AskQuery,insert:Insert,delete:Delete)
-case class ConditionalDeleteInsertQuery(question:AskQuery,delete:Delete,insert:Insert)
+case class InsertOnlyIf(insert:Insert,question:AskQuery)
+case class DeleteOnlyIf(delete:Delete,question:AskQuery)
+case class InsertDeleteOnlyIf(insert:Insert,delete:Delete,question:AskQuery)
+case class DeleteInsertOnlyIf(delete:Delete,insert:Insert,question:AskQuery)
 
+case class InsertUnless(insert:Insert,question:AskQuery)
+case class DeleteUnless(delete:Delete,question:AskQuery)
+case class InsertDeleteUnless(insert:Insert,delete:Delete,question:AskQuery)
+case class DeleteInsertUnless(delete:Delete,insert:Insert,question:AskQuery)
 
-
-case class InsertQuery(insert:Insert)
-
-case class DeleteQuery(delete:Delete)
 
 class Insert(var children: List[QueryElement]) extends GP with WithWhere
 {

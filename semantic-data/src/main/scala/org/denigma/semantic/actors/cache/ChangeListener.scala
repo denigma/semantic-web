@@ -1,26 +1,12 @@
-package org.denigma.semantic.cache
+package org.denigma.semantic.actors.cache
 
 import com.bigdata.rdf.spo.ISPO
 import org.denigma.semantic.commons.{Logged, LogLike}
-import com.bigdata.rdf.changesets.{InMemChangeLog, ChangeAction, IChangeRecord, IChangeLog}
+import com.bigdata.rdf.changesets.{ChangeAction, IChangeRecord, IChangeLog}
 import org.denigma.semantic.model.Quad
-import com.bigdata.rdf.store.{BigdataStatementIterator, AbstractTripleStore}
+import com.bigdata.rdf.store.AbstractTripleStore
 import com.bigdata.striterator.ChunkedArrayIterator
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.denigma.semantic.cache._
-import com.bigdata.rdf.model.BigdataStatement
 
-
-case class UpdateInfo(transaction:String,inserted:Set[Quad],removed:Set[Quad] = Set.empty,inferred:Set[Quad] = Set.empty)
-
-
-trait UpdateInfoLike{
-
-  def removed: Set[Quad]
-  def inserted: Set[Quad]
-  def inferred: Set[Quad]
-
-}
 
 /*
 is used for inmemory data caching
@@ -63,8 +49,8 @@ abstract class ChangeListener(db:AbstractTripleStore,transaction:String, lg:LogL
 
   }
 
-  def prepareUpdate(): UpdateInfo =  {
-    UpdateInfo(transaction,this.resolve(inserted),this.resolve(removed),this.resolve(inferred))
+  def prepareUpdate(): Cache.UpdateInfo =  {
+    Cache.UpdateInfo(transaction,this.resolve(inserted),this.resolve(removed),this.resolve(inferred))
   }
 
 

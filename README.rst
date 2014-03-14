@@ -145,7 +145,7 @@ some nice methods for limiting/offseting quries (there is also modifiers package
 Inmemory cache
 --------------
 
-Not implemented yet, Wesin (based on scala-graph) is going to be used for this purpose
+Writer actors received a change watcher that sends update to cache actor that on its turn updates all cache consumers
 
 
 Wesin subproject

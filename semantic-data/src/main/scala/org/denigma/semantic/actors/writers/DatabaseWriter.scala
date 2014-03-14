@@ -9,39 +9,25 @@ import org.denigma.semantic.actors.AkkaLog
 import org.denigma.semantic.sparql._
 import scala.util.Try
 import com.bigdata.rdf.changesets.IChangeLog
+import org.denigma.semantic.sparql.InsertDeleteOnlyIf
+import org.denigma.semantic.sparql.DeleteInsertOnlyIf
+import org.denigma.semantic.sparql.InsertQuery
+import org.denigma.semantic.sparql.InsertDeleteQuery
+import org.denigma.semantic.sparql.DeleteInsertQuery
+import org.denigma.semantic.sparql.DeleteQuery
+import org.denigma.semantic.sparql.DeleteOnlyIf
+import org.denigma.semantic.actors.AkkaLog
+import org.denigma.semantic.sparql.InsertOnlyIf
+import org.denigma.semantic.sparql.InsertUnless
 
 /**
 class that is responsible for writes into database. It does NOT process read queries
 @param writer just an object that can provide WriteConnection, can be db, can be anything else
  */
-class DatabaseWriter(writer:CanWrite, val watcher:ChangeWatcher) extends  WatchedWriter{
+class DatabaseWriter(writer:CanWrite, val watcher:ChangeWatcher) extends  WatchedWriter with ConditionalWriter{
 
 
-  override def receive: Actor.Receive = {
-
-
-
-    case Update.Update(query:String)=>sender ! this.watchedUpdate(query)
-
-    case Update.Upload(file:File,contextStr:String)=> sender ! this.parseFile(file,contextStr)
-
-    case InsertQuery(ins) => sender ! this.watchedUpdate(ins.stringValue)
-
-    case ConditionalInsertQuery(question,insert)=> sender ! this.watchedConditionalUpdate(question.stringValue,insert.stringValue)
-
-    case DeleteQuery(del) =>  sender ! this.watchedUpdate(del.stringValue)
-
-    case ConditionalDeleteQuery(question,delete)=> sender ! this.watchedConditionalUpdate(question.stringValue,delete.stringValue)
-
-    case InsertDeleteQuery(i,d) => sender ! this.watchedUpdate(i.stringValue+" \n"+d.stringValue)
-
-    case ConditionalInsertDeleteQuery(question,i,d)=> sender ! this.watchedConditionalUpdate(question.stringValue,i.stringValue+" \n"+d.stringValue)
-
-    case DeleteInsertQuery(d,i) => sender ! this.watchedUpdate(d.stringValue+" \n"+i.stringValue)
-
-    case ConditionalDeleteInsertQuery(question,d,i)=> sender ! this.watchedConditionalUpdate(question.stringValue,d.stringValue+" \n"+i.stringValue)
-
-
+  override def receive: Actor.Receive = this.simpleUpdates.orElse(this.updatesOnlyIf).orElse(this.updatesUnless).orElse {
 
     case v=>
         this.log.error(s"something strange received by writer: \n $v")
@@ -49,16 +35,31 @@ class DatabaseWriter(writer:CanWrite, val watcher:ChangeWatcher) extends  Watche
 
   }
 
+
+
+  def simpleUpdates:Actor.Receive = {
+    case Update.Update(query:String)=>sender ! this.watchedUpdate(query)
+
+    case Update.Upload(file:File,contextStr:String)=> sender ! this.parseFile(file,contextStr)
+
+    case InsertQuery(ins) => sender ! this.watchedUpdate(ins.stringValue)
+
+    case DeleteQuery(del) =>  sender ! this.watchedUpdate(del.stringValue)
+
+    case InsertDeleteQuery(i,d) => sender ! this.watchedUpdate(i.stringValue+" \n"+d.stringValue)
+
+    case DeleteInsertQuery(d,i) => sender ! this.watchedUpdate(d.stringValue+" \n"+i.stringValue)
+
+  }
+
+
   override def lg: LogLike = new AkkaLog(this.log)
 
   override def writeConnection:WriteConnection= writer.writeConnection
 
-  override def db = writer.db
 
+  def watchedUpdate(queryString:String): Try[Unit] = this.update(queryString,watcher(queryString,lg))
 
-  def watchedUpdate(queryString:String): Try[Unit] = this.update(queryString,watcher(this.db,queryString,lg))
-
-  def watchedConditionalUpdate(condition:String,queryString:String): Try[Boolean] = this.conditionalUpdate(condition,queryString,watcher(this.db,queryString,lg))
 
 
 }
@@ -70,5 +71,4 @@ trait WatchedWriter extends NamedActor with Updater{
 
   def watchedUpdate(queryString:String): Try[Unit]
 
-  def watchedConditionalUpdate(condition:String,queryString:String): Try[Boolean]
 }

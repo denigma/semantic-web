@@ -44,5 +44,9 @@ class SemanticStore(val conf:DBConfig,val lg:LogLike) extends RDFStore{
    */
   def shutDown() = this.repo.shutDown()
 
-  override def db: AbstractTripleStore = this.repo.getDatabase
+  /**
+   * Abstract triplestore
+   * @return
+   */
+  def db: AbstractTripleStore = this.repo.getDatabase
 }

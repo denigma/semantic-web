@@ -1,19 +1,17 @@
-package org.denigma.semantic.cache
+package org.denigma.semantic.actors.cache
 
 import org.denigma.semantic.sparql.Pat
-import org.openrdf.model.{URI, Statement}
-import org.denigma.semantic.controllers.{WithSemanticReader, QueryController}
-import org.denigma.semantic.actors.WatchProtocol.{PatternRequest, PatternResult}
+import org.denigma.semantic.controllers.QueryController
+import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.actors.WatchProtocol
 import scala.collection.mutable
 import org.openrdf.model._
 import scala.concurrent.Future
 import scala.util.Try
-import akka.actor.Status.Success
 import org.denigma.semantic.commons.Logged
 import play.api.libs.concurrent.Execution.Implicits._
 import org.denigma.semantic.model.Quad
-
+import akka.pattern.ask
 /**
  * Makes decision based on union of patterns that it has
  */
@@ -25,7 +23,6 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
   var patterns: Set[Pat]
 
   var active:Boolean = false
-
 
 
   /**
@@ -51,17 +48,30 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
   /**
    * Activates cache
    */
-  def activate() = {
-    this.fill().foreach{ res=>
-      res.foreach{this.onResult}
+  def activate(): Future[Try[PatternResult]] =
+  {
+    this.lastActivation = this.fill()
+
+    for {
+      res <- this.fill()
+      sub <-this.cache ? Cache.Subscribe(this)
+    }
+    {
+      res.foreach(this.onResult)
       this.active = true
     }
-    this.fill().onFailure{
+    this.lastActivation.onFailure{
       case f: Throwable =>
         this.lg.error(s"cache request $name failed with: $f")
         this.active = false
     }
+
+    this.lastActivation
   }
+
+  //TODO: fix bad code
+  var lastActivation:Future[Try[PatternResult]] = null
+
 
   def reset() = {
     this.active = false

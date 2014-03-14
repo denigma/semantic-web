@@ -170,7 +170,7 @@ class SparqlSpec extends Specification with LoveHater {
       falseC.isSuccess should beTrue
       falseC.get should beFalse
 
-      val df = this.awaitWriteCond( this.deleteConditional(ConditionalDeleteQuery(condFalse,del)))
+      val df = this.awaitWriteCond( this.deleteOnlyIf(DeleteOnlyIf(del,condFalse)))
       df.isSuccess should beTrue
       df.get should beFalse
 
@@ -182,7 +182,7 @@ class SparqlSpec extends Specification with LoveHater {
       trueC.isSuccess should beTrue
       trueC.get should beTrue
 
-      val dt: Try[Boolean] = this.awaitWriteCond( this.deleteConditional(ConditionalDeleteQuery(condTrue,del)))
+      val dt: Try[Boolean] = this.awaitWriteCond( this.deleteOnlyIf(DeleteOnlyIf(del,condTrue)))
       dt.isSuccess should beTrue
       dt.get should beTrue
 
@@ -190,14 +190,14 @@ class SparqlSpec extends Specification with LoveHater {
       self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
 
-      val insF = this.awaitWriteCond( this.insertConditional( ConditionalInsertQuery(condFalse,ins)))
+      val insF = this.awaitWriteCond( this.insertOnlyIf( InsertOnlyIf(ins,condFalse)))
       insF.isSuccess should beTrue
       insF.get should beFalse
 
       self.read{ con=>con.getStatements(null,loves,null,false).toList }.get.size shouldEqual 5
       self.read{ con=>con.getStatements(null,hates,null,false).toList }.get.size shouldEqual 1
 
-      val insT = this.awaitWriteCond( this.insertConditional( ConditionalInsertQuery(condTrue,ins)))
+      val insT = this.awaitWriteCond( this.insertOnlyIf( InsertOnlyIf(ins,condTrue)))
       insT.isSuccess should beTrue
       insT.get should beTrue
 

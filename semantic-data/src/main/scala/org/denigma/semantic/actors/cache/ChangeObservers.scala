@@ -1,26 +1,27 @@
-package org.denigma.semantic.cache
+package org.denigma.semantic.actors.cache
 
 import org.denigma.semantic.commons.LogLike
 import akka.actor.ActorRef
 import scala.util.{Success, Failure}
-import org.denigma.semantic.writing.WriteConnection
 import com.bigdata.rdf.store.AbstractTripleStore
+import org.denigma.semantic.actors.cache.Cache.UpdateInfo
 
 
 class ActorChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,sender:ActorRef) extends ChangeListener(db,transaction,lg)
 {
   override def transactionAborted(): Unit = {
-    sender ! Failure[UpdateInfo](new Exception("transaction aborted"))
+    val f: Failure[UpdateInfo] = Failure[Cache.UpdateInfo](new Exception("transaction aborted"))
+    sender ! f
   }
 
   override def transactionCommited(commitTime: Long): Unit = {
+    sender ! Success[Cache.UpdateInfo](this.prepareUpdate())
     this.refresh()
-    sender ! Success[UpdateInfo](this.prepareUpdate())
   }
 }
 
 
-class ChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,onCompleted:(UpdateInfo)=>Unit,onAborted:(String)=>Unit) extends ChangeListener(db,transaction,lg)
+class ChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,onCompleted:(Cache.UpdateInfo)=>Unit,onAborted:(String)=>Unit) extends ChangeListener(db,transaction,lg)
 {
   override def transactionAborted(): Unit = {
     this.refresh()
@@ -29,7 +30,7 @@ class ChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike
   }
 
   override def transactionCommited(commitTime: Long): Unit = {
-    val quads: UpdateInfo = prepareUpdate()
+    val quads: Cache.UpdateInfo = prepareUpdate()
     this.refresh()
     if(onCompleted!=null)
       onCompleted(quads)
