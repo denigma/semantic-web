@@ -7,6 +7,11 @@ implementation of Resource
  */
 trait Res extends RDFValue with Resource{
   override def stringValue: String = this.toString
+
+  override def equals(any:Any) = any match {
+    case res:Resource=>this.stringValue == res.stringValue()
+    case _ =>false
+  }
 }
 
 object Res {

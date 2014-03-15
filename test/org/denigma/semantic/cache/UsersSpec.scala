@@ -1,7 +1,7 @@
 package org.denigma.semantic.cache
 
 
-import play.api.test.WithApplication
+import play.api.test.{FakeApplication, FakeRequest, WithApplication}
 
 import org.denigma.semantic.controllers.{WithLogger, SimpleQueryController, UpdateController}
 import org.specs2.mutable.Specification
@@ -9,7 +9,13 @@ import org.denigma.semantic.model.IRI
 import org.denigma.semantic.vocabulary.USERS
 import org.denigma.semantic.users.{Account, Accounts}
 import scala.util.Try
-
+import play.api.mvc.SimpleResult
+import play.api.test.Helpers._
+import play.api.test.FakeApplication
+import play.api.test._
+import play.api._
+import play.api.mvc._
+import play.api.libs.json._
 
 class UsersSpec extends Specification {
 
@@ -41,11 +47,11 @@ class UsersSpec extends Specification {
     {
 
       this.awaitRead(Accounts.lastActivation)
-      this.awaitRead{ Accounts.register("nick","nick@gmail.com","adm") } should throwA[Accounts.PasswordTooShortException]
+      this.awaitRead{ Accounts.register("nick","nick@gmail.com","adm") } should beFailedTry[Boolean] //throwA[Accounts.PasswordTooShortException]
 
       Accounts.awaitRead{
         Accounts.register("nick","nickogmail.com","admin")
-      }  should throwA[Accounts.EmailNotValidException]
+      }  should beFailedTry[Boolean]//throwA[Accounts.EmailNotValidException]
 
 
       Accounts.userByEmail("nick@gmail.com").isDefined should  beFalse
@@ -96,6 +102,55 @@ class UsersSpec extends Specification {
       Accounts.authByEmail("antonkulaga@gmail.com","password").isSuccess should beTrue
 
 
+
+    }
+
+
+    "Provide REST right" in new WithTestApp {
+
+      val Some(result1) = route(FakeRequest(GET, "/users/login?username=anton&password=wrong"))
+      status(result1)(defaultAwaitTimeout) shouldEqual(UNAUTHORIZED)
+      session(result1)(defaultAwaitTimeout).get("user").isDefined should beFalse
+
+
+      val Some(result2) = route(FakeRequest(GET, "/users/register?username=antonkulaga&email=anton@email.com&password=rightpassword"))
+      status(result2)(defaultAwaitTimeout) shouldEqual(OK)
+      val ou = session(result2)(defaultAwaitTimeout).get("user")
+      ou.isDefined should beTrue
+      ou.get.contains("antonkulaga") should beTrue
+
+
+      val Some(result3) = route(FakeRequest(GET, "/users/register?username=antonkulaga&email=anton@email.compassword=otherpassword"))
+      status(result3)(defaultAwaitTimeout) shouldEqual(BAD_REQUEST)
+
+//      val Some(result4) = route(FakeRequest(GET, "/users/login?username=antonkulaga&password=rightpassword"))
+//      session(result4)(defaultAwaitTimeout).get("user").isDefined should beTrue
+//      status(result4)(defaultAwaitTimeout) shouldEqual(BAD_REQUEST)
+
+//      val Some(result5) = route(FakeRequest(GET, "/users/logout"))
+//      status(result5)(defaultAwaitTimeout) shouldEqual(OK)
+//      session(result5)(defaultAwaitTimeout).get("user").isDefined should beFalse
+//
+//      val Some(result6) = route(FakeRequest(GET, "/users/login?username=anton@email.com&password=wrongpassword"))
+//      session(result6)(defaultAwaitTimeout).get("user").isDefined should beFalse
+//      status(result6)(defaultAwaitTimeout) shouldEqual(BAD_REQUEST)
+//
+//      val Some(result7) = route(FakeRequest(GET, "/users/login?username=anton@email.com&password=rightpassword"))
+//      status(result7)(defaultAwaitTimeout) shouldEqual(OK)
+//      session(result7)(defaultAwaitTimeout).get("user").isDefined should beTrue
+
+
+      //      status(result) must equalTo(OK)
+//      contentType(result) must beSome("text/html")
+//      charset(result) must beSome("utf-8")
+//      contentAsString(result) must contain("Hello Bob")
+//
+//        val pwd ="onegenetorulethemall"
+//        val result: SimpleResult = this.awaitRead{ controllers.Application.login("daniel","password")(FakeRequest()) }
+//
+//        status(result) must equalTo(OK)
+//        contentType(result) must beSome("text/plain")
+//        contentAsString(result) must contain("Hello Bob")
 
     }
 

@@ -30,6 +30,9 @@ case class IRI(uri:String) extends Res with URI
 
   override def hashCode: Int = uri.hashCode
 
+
+
+
 //  override val isIRI = true
 //
 //  override val isVar = false

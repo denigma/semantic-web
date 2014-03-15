@@ -18,7 +18,7 @@ import akka.pattern.ask
 abstract class PatternCache extends Consumer with QueryController[PatternResult] with Logged
 {
 
-  val name:String
+  val cacheName:String
 
   var patterns: Set[Pat]
 
@@ -62,7 +62,7 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
     }
     this.lastActivation.onFailure{
       case f: Throwable =>
-        this.lg.error(s"cache request $name failed with: $f")
+        this.lg.error(s"cache request $cacheName failed with: $f")
         this.active = false
     }
 
@@ -83,7 +83,7 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
    *sends pattern request
    * @return
    */
-  def fill(): Future[Try[PatternResult]] = this.rd(WatchProtocol.PatternRequest(name,this.patterns))
+  def fill(): Future[Try[PatternResult]] = this.rd(WatchProtocol.PatternRequest(cacheName,this.patterns))
 
 
   def groupByPattern(sts:Set[Quad]): mutable.MultiMap[Pat, Quad] = {

@@ -145,7 +145,7 @@ class CacheSpec extends Specification {
       tu.isSuccess should beTrue
       val utr = tu.get
 
-      utr.name shouldEqual Accounts.name
+      utr.name shouldEqual Accounts.cacheName
       utr.results.size shouldEqual 2
       utr.results(Accounts.hasEmail).exists(p=>p.getObject.stringValue()=="anton@gmail.com") should beTrue
       utr.results(Accounts.hasEmail).exists(p=>p.getObject.stringValue()=="daniel@gmail.com") should beTrue

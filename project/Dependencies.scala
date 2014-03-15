@@ -5,9 +5,6 @@ object Dependencies {
 
   val authDepth = Seq(
 
-    "jp.t2v" %% "play2-auth"      % "0.11.0",
-
-    "jp.t2v" %% "play2-auth-test" % "0.11.0" % "test",
 
     "com.github.t3hnar" % "scala-bcrypt_2.10" % "2.3"
   )

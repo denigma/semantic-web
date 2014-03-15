@@ -6,7 +6,7 @@ import scala.collection.mutable.MultiMap
 import org.openrdf.model._
 import org.denigma.semantic.controllers.{UpdateController, WithLogger}
 import org.denigma.semantic.vocabulary._
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 import org.openrdf.model.vocabulary.RDF
 import scala.concurrent.Future
 import org.denigma.semantic.actors.cache.PatternCache
@@ -32,7 +32,7 @@ object Accounts extends PatternCache with WithLogger with UpdateController
   val hasEmail = this pattern Pat(?("user"),USERS.props.hasEmail,?("email"), USERS.namespace iri)
   val hasPassword = this pattern Pat(?("user"),USERS.props.hasPasswordHash,?("password"), USERS.namespace iri)
 
-  override val name: String = "Users"
+  override val cacheName: String = "Users"
 
   def removeFacts(upd:UpdateInfo) = {
     val removed = this.groupByPattern(upd.removed)
@@ -119,8 +119,8 @@ object Accounts extends PatternCache with WithLogger with UpdateController
     Try {
       import com.github.t3hnar.bcrypt._
       this.userByName(username).map{user=>
-        if(!password.isBcrypted(user.hash)) throw WrongPasswordForUser(username,password)
-    }.getOrElse(throw UserNotFound(username))
+        if(!password.isBcrypted(user.hash)) throw WrongPasswordForUser(password,username)
+    }.getOrElse(throw UserNotFound(userIRI(username).stringValue+" == "+mails.keys.head.stringValue()+" == "+hashes.keys.head.stringValue()))
     }
   }
 
@@ -128,7 +128,7 @@ object Accounts extends PatternCache with WithLogger with UpdateController
     Try {
       import com.github.t3hnar.bcrypt._
       this.userByEmail(email).map{user=>
-        if(!password.isBcrypted(user.hash)) throw WrongPasswordForEmail(password,email)
+        if(!password.isBcrypted(user.hash)) throw WrongPasswordForEmail(email,password)
       }.getOrElse(throw EmailNotFound(email))
     }
   }
@@ -137,55 +137,66 @@ object Accounts extends PatternCache with WithLogger with UpdateController
   protected def isValidEmail(email: String): Boolean = """(\w+)@([\w\.]+)""".r.unapplySeq(email).isDefined
 
 
+  /**
+   * validates params before sending to the database
+   * @param username
+   * @param email
+   * @param password
+   * @return
+   */
+  protected def canRegister(username:String,email:String,password:String):Try[Boolean] = Try{
+    if(this.mails.exists(kv=>kv._2==email)) throw  EmailAlreadyRegisteredException(email)
+    if(!this.isValidEmail(email)) throw   EmailNotValidException(email)
+    if(this.userByName(username).isDefined) throw UserAlreadyRegisteredException(username)
+    if(password.length<5) throw PasswordTooShortException(password)
+    if(password.length>20) throw PasswordTooLongException(password)
+    if(password.contains(username) ) throw  PasswordTooSimpleException(password)
+    true
+  }
 
-  def register(username:String,email:String,password:String): Future[Try[Boolean]] =  {
+  def register(username:String,email:String,password:String): Future[Try[Boolean]] =  this.canRegister(username,email,password) match
+  {
+    case f@ Failure(tw)=>Future.successful(f)
+    case _=>
+      import com.github.t3hnar.bcrypt._
 
-    //TODO: fix this ugly code
-    if(this.mails.exists(kv=>kv._2==email)) return Future.failed( EmailAlreadyRegisteredException(email))
-    if(!this.isValidEmail(email)) return Future.failed(EmailNotValidException(email))
-    if(this.userByName(username).isDefined) return Future.failed( new UserAlreadyRegisteredException(username))
-    if(password.length<5) return Future.failed( PasswordTooShortException(password) )
-    if(password.length>20) return Future.failed(PasswordTooLongException(password) )
-    if(password.contains(username) ) return Future.failed ( PasswordTooSimpleException(password) )
-    import com.github.t3hnar.bcrypt._
+      val user: IRI = this.userIRI(username)
+      val hash: String = password.bcrypt
 
-    val user: IRI = this.userIRI(username)
-    val hash: String = password.bcrypt
+      val ins =
+       INSERT{
+        DATA(
+          GRAPH(IRI(USERS.namespace),
+            Trip(user,RDF.TYPE iri, USERS.classes.User),
+            Trip(user, USERS.props.hasEmail, LitStr(email)),
+            Trip(user,USERS.props.hasPasswordHash,LitStr(hash))
+          )
+        )
+      }
 
-    val ins =
-     INSERT{
-      DATA(
-        GRAPH(IRI(USERS.namespace),
-          Trip(user,RDF.TYPE iri, USERS.classes.User),
-          Trip(user, USERS.props.hasEmail, LitStr(email)),
-          Trip(user,USERS.props.hasPasswordHash,LitStr(hash))
+      val cond = ASK (
+        Br(
+          Pat(user,RDF.TYPE iri, USERS.classes.User)
+        ) UNION Br(
+          Pat(?("anyuser"),USERS.props.hasEmail,LitStr(email)),
+          Pat(?("anyuser"),RDF.TYPE iri, USERS.classes.User)
         )
       )
-    }
 
-    val cond = ASK (
-      Br(
-        Pat(user,RDF.TYPE iri, USERS.classes.User)
-      ) UNION Br(
-        Pat(?("anyuser"),USERS.props.hasEmail,LitStr(email)),
-        Pat(?("anyuser"),RDF.TYPE iri, USERS.classes.User)
-      )
-    )
-
-    this.insertUnless(InsertUnless(ins,cond))
+      this.insertUnless(InsertUnless(ins,cond))
   }
 
 
-  case class EmailAlreadyRegisteredException(email:String) extends Exception(s"email $email has already been registered")
-  case class EmailNotValidException(email:String) extends Exception(s"email $email is not valid")
-  case class UserAlreadyRegisteredException(user:String) extends Exception(s"email $user has already been registered")
-  case class PasswordTooShortException(password:String) extends Exception(s"password $password is too short")
-  case class PasswordTooLongException(password:String) extends Exception(s"password $password is too long")
-  case class PasswordTooSimpleException(password:String) extends Exception(s"password $password is too simple")
-  case class WrongPasswordForEmail(password:String,email:String) extends Exception(s"password $password for email $email is WRONG!")
-  case class WrongPasswordForUser(password:String,user:String) extends Exception(s"password $password for user $user is WRONG!")
+  case class EmailAlreadyRegisteredException(email:String) extends Exception(s"email $email has already been registered!")
+  case class EmailNotValidException(email:String) extends Exception(s"email $email is not valid!")
+  case class UserAlreadyRegisteredException(user:String) extends Exception(s"email $user has already been registered!")
+  case class PasswordTooShortException(password:String) extends Exception(s"password $password is too short!")
+  case class PasswordTooLongException(password:String) extends Exception(s"password $password is too long!")
+  case class PasswordTooSimpleException(password:String) extends Exception(s"password $password is too simple!")
+  case class WrongPasswordForEmail(password:String,email:String) extends Exception(s"password $password for email $email is wrong!")
+  case class WrongPasswordForUser(password:String,user:String) extends Exception(s"password $password for user $user is wrong!")
   case class UserNotFound(user:String) extends Exception(s"User $user was not found!")
-  case class EmailNotFound(email:String) extends Exception(s"User for  $email was not found!")
+  case class EmailNotFound(email:String) extends Exception(s"User for $email was not found!")
 
 
 

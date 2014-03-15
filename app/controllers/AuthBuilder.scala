@@ -16,7 +16,7 @@ trait UserRequestHeader extends RequestHeader{
 object UserAction extends ActionBuilder[AuthRequest] {
   override protected def invokeBlock[A](request: Request[A], block: (AuthRequest[A]) => Future[SimpleResult]): Future[SimpleResult] =
   {
-    val user = request.session.get("user").map(name=>if(name.contains(":")) IRI(name) else IRI(USERS.user / "name"))
+    val user: Option[IRI] = request.session.get("user").map(name=>if(name.contains(":")) IRI(name) else IRI(USERS.user / "name"))
     val req = AuthRequest(user,request)
     block(req)
   }
@@ -49,5 +49,5 @@ case class WithUser[A](action: Action[A]) extends Action[A] {
 case class AuthRequest[A](username: Option[IRI], request: Request[A]) extends WrappedRequest[A](request) with UserRequestHeader
 {
   def isGuest = username.isEmpty
-  def signed = username.isDefined
+  def isSigned = username.isDefined
 }

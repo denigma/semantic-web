@@ -13,7 +13,7 @@ import org.denigma.semantic.actors.cache.Cache.UpdateInfo
 object Schema extends PatternCache with WithLogger
 {
 
-  override val name: String = "Schema"
+  override val cacheName: String = "Schema"
 
   override def updateHandler(updateInfo: UpdateInfo): Unit = {
 
