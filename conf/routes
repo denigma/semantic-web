@@ -1,48 +1,52 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
-GET         /                             controllers.Application.index(controller="query",action="main")
-GET         /users/login                 controllers.Application.login(username:String,password:String)
-GET         /users/register             controllers.Application.register(username:String,email,password:String)
-GET         /users/logout                 controllers.Application.logout()
+GET         /                          controllers.Application.index(controller="query",action="main")
+GET         /users/login               controllers.Application.login(username:String,password:String)
+GET         /users/register            controllers.Application.register(username:String,email,password:String)
+GET         /users/logout              controllers.Application.logout()
 
 
-GET         /resource/*url                controllers.Ontologies.resource(url)
+GET         /resource/*url             controllers.Ontologies.resource(url)
 
 
-GET         /query                        controllers.Queries.main()
-GET         /query/main                   controllers.Queries.main()
-GET         /schema                       controllers.Schema.sankey()
-GET         /schema/sankey                controllers.Schema.sankey()
-GET         /schema/distortion            controllers.Schema.distortion()
+GET         /query                     controllers.Queries.main()
+GET         /query/main                controllers.Queries.main()
+GET         /schema                    controllers.Schema.sankey()
+GET         /schema/sankey             controllers.Schema.sankey()
+GET         /schema/distortion         controllers.Schema.distortion()
 
 #quries
-GET         /models/sparql                controllers.Queries.sendQuery(query:String)
+GET         /models/sparql             controllers.Queries.sendQuery(query:String)
 #POST       /models/sparql/bind         controllers.Queries.bindQuery()
 #POST       /models/sparql/search       controllers.Queries.searchForQuery()
 
 
 
 #GET         /results              controllers.Queries.results()
-GET         /models/menus/*name           controllers.Application.menu(name)
-GET         /pages/*page                  controllers.Application.page(page)
+GET         /models/menus/*name        controllers.Application.menu(name)
+GET         /pages/*page               controllers.Application.page(page)
 
 #GET        /sparql                      controllers.Graphs.vertices(id:String ="")
 #GET        /sparql/:id                  controllers.Graphs.vertices(id:String)
 
 #GET        /upload             controllers.Application.testUpload
-POST        /upload                       controllers.Application.upload
+POST        /upload                    controllers.Application.upload
 
-GET         /webjars/*file                controllers.WebJarAssets.at(file)
+GET         /webjars/*file             controllers.WebJarAssets.at(file)
+
+
+GET         /test                      controllers.Tests.test
+GET         /test/editor               controllers.Tests.editor
+GET         /test/sigma                controllers.Tests.sigma
+GET         /test/scala              controllers.Tests.scalaJS()
+
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                 controllers.Assets.at(path="/public", file)
-GET         /public/*file                 controllers.Assets.at(path="/public", file)
-GET         /*file                        controllers.Assets.at(path="/public", file)
+GET         /assets/*file              controllers.Assets.at(path="/public", file)
+GET         /public/*file              controllers.Assets.at(path="/public", file)
+GET         /*file                     controllers.Assets.at(path="/public", file)
 
-GET         /test                         controllers.Tests.test
-GET         /test/editor                  controllers.Tests.editor
-GET         /test/sigma                   controllers.Tests.sigma
 
 
 

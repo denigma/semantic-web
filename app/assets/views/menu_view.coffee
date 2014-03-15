@@ -15,6 +15,10 @@ class Denigma.View extends Batman.View
 
   activate: ->
 
+  host: =>"http://#{window.location.host}/"
+  withHost: (str)=> @host()+str
+
+
 class Denigma.States extends Batman.DelegatingStateMachine
 
   canGo: (transition)->@canStartTransition(transition)

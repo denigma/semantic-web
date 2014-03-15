@@ -47,12 +47,14 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with Semanti
   def login(username:String,password:String) = UserAction{
     implicit request=>
       if(request.isSigned)
+      {
        BadRequest(Json.obj("status" ->"KO","message"->"you are already logged in")).as("application/json")
+      }
       else
      {
        val au: Try[Unit] = if(username.contains("@")) Accounts.authByEmail(username,password) else Accounts.auth(username,password)
        au  match {
-         case Success(_)=> Ok(Json.obj("status" ->"OK","message"->"login successful")).as("application/json").withSession("user" -> username)
+         case Success(_)=> Ok(Json.obj("status" ->"OK","message"->s"logged in as $username")).as("application/json").withSession("user" -> username)
          case Failure(th) =>  Unauthorized(Json.obj("status" ->"KO", "message"->th.getMessage))
        }
      }

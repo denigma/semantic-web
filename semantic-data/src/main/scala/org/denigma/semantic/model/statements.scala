@@ -1,7 +1,6 @@
 package org.denigma.semantic.model
 
-import org.openrdf.model.{Statement, URI, Value, Resource}
-import com.hp.hpl.jena.rdf.model.Literal
+import org.openrdf.model._
 import org.denigma.semantic.model.LitString
 import scalax.collection.GraphEdge.DiHyperEdge
 

@@ -134,23 +134,12 @@ class UsersSpec extends Specification {
 //      val Some(result6) = route(FakeRequest(GET, "/users/login?username=anton@email.com&password=wrongpassword"))
 //      session(result6)(defaultAwaitTimeout).get("user").isDefined should beFalse
 //      status(result6)(defaultAwaitTimeout) shouldEqual(BAD_REQUEST)
-//
+
 //      val Some(result7) = route(FakeRequest(GET, "/users/login?username=anton@email.com&password=rightpassword"))
 //      status(result7)(defaultAwaitTimeout) shouldEqual(OK)
 //      session(result7)(defaultAwaitTimeout).get("user").isDefined should beTrue
 
 
-      //      status(result) must equalTo(OK)
-//      contentType(result) must beSome("text/html")
-//      charset(result) must beSome("utf-8")
-//      contentAsString(result) must contain("Hello Bob")
-//
-//        val pwd ="onegenetorulethemall"
-//        val result: SimpleResult = this.awaitRead{ controllers.Application.login("daniel","password")(FakeRequest()) }
-//
-//        status(result) must equalTo(OK)
-//        contentType(result) must beSome("text/plain")
-//        contentAsString(result) must contain("Hello Bob")
 
     }
 

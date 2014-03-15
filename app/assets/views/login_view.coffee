@@ -39,13 +39,24 @@ class Denigma.LoginView extends Denigma.View
 
   constructor: ->
     super
-    if(@get("currentUser")? && @get("token")?)
+    if(@get("currentUser")?)
       @set("states", new LoginStates('signed',@))
     else
       @set("states", new LoginStates('unsigned',@))
     @set("password","")
     @set("repeat","")
-    @set("login","")
+    @set("username","")
+    @states.onEnter("auth",@authHandler)
+
+  authHandler: =>
+    link = @withHost("users/login?username=#{@get("username")}&password=#{@get("password")}")
+    fun = (data,status)=>
+      alert(JSON.strinfigy(data))
+      alert(status)
+    $.ajax
+      url: link,
+      dataType : "json",
+      success: fun
 
     #@on "unsigned->application",
   emailRegEx: new RegExp(/^((?!\.)[a-z0-9._%+-]+(?!\.)\w)@[a-z0-9-\.]+\.[a-z.]{2,5}(?!\.)\w$/i)
@@ -67,17 +78,19 @@ class Denigma.LoginView extends Denigma.View
     get: -> @get("valid_password") && @get("valid_login")
 
   login: (node, event) ->
+    console.log "login from state #{@get("states.state")}"
     unless @states.tryGo "login"
       unless @states.tryGo "reset"
         console.log "other state #{@get("states.state")}"
+    console.log "login to state #{@get("states.state")}"
 
   register: (node,event) ->
-    console.log "other state #{@get("states.state")}"
+    console.log "register from state #{@get("states.state")}"
     unless @states.tryGo "register"
       unless @states.tryGo "apply"
         unless @states.tryGo "signup"
           console.log "other state #{@get("states.state")}"
-    console.log "other state #{@get("states.state")}"
+    console.log "register to state #{@get("states.state")}"
 
 
   @accessor "registerLabel", -> if(@get("state")=="application") then "Register" else "Sign up"
@@ -89,7 +102,3 @@ class Denigma.LoginView extends Denigma.View
   @accessor "currentUser",
     get: -> Denigma.get("currentUser")
     set: (value)->Denigma.set("currentUser",value)
-
-  @accessor "token",
-    get: -> Denigma.get("token")
-    set: (value)->Denigma.set("token",value)

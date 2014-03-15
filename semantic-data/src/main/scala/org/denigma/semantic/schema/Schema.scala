@@ -20,7 +20,7 @@ object Schema extends PatternCache with WithLogger
   }
 
   override def onResult(p: PatternResult): Unit = {
-    lg.debug(s"GRAPH cache received ${p.toString}")
+    //lg.debug(s"GRAPH cache received ${p.toString}")
   }
   val classes:Set[Pat] = Set(
     Pat(?("class"),RDFS.SUBCLASSOF,?("parent")),

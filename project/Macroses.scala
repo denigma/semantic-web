@@ -17,5 +17,5 @@ trait Macroses{
     //libraryDependencies += "org.scala-lang" % "scala-reflect" % scala
 
 
-    )
+    ) settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 }

@@ -23,9 +23,6 @@ To set up the project you need to (most of instructions are for Deiban/Ubuntu ba
     - install nodejs ( https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager )
     - install coffeescript with
         $  sudo npm install -g coffee-script
-* Init submodules:
-    $   git submodule init
-    $   git submodule update
 * run tests:
     $ play test
 * run the app:
@@ -47,7 +44,6 @@ Architecture
 At the moment it consists of tree projects:
  * semantic-web (main project) that is web-application
  * semantic-data ( subproject ) that contains the code that deales with BigData rdf QuadStore and quries to it
- * wesin ( subproject ) RDF graph project that will be used for inmemory caching of Ontologies + config + userdata + rules and for some traversals/inferencing
  * macro ( subproject ) that contains macroses implementations
  * collaboration ( not included in build yet) that contains code of websocket chats and live updates that will be partially ported in
  order to provide nice collaboration experience
@@ -58,7 +54,7 @@ Semantic-Web project
 ====================
 
 The is a root project of the app, where the web App and UI resides.
-At the moment not much is done there, mostly interactive SPARQL endpoint for readonly sparql quries, not yet working login, and some half-working charts.
+At the moment not much is done there, mostly interactive SPARQL endpoint for readonly sparql queries, not yet working login, and some half-working charts.
 Most of the code is inside app subfolder.
 
 Front-end

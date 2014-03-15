@@ -1,9 +1,7 @@
 package org.denigma.semantic
 
 import org.denigma.semantic.model.{QueryElement, BlankNode, IRI}
-import com.hp.hpl.jena.sparql.engine.optimizer.reorder.PatternElements
 import org.openrdf.model.{Resource, URI}
-import com.hp.hpl.jena.rdf.model.Literal
 
 /**
  * contains important implicits

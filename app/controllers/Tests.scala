@@ -41,6 +41,12 @@ object Tests  extends Controller{
       Ok(str)
   }
 
+  def scalaJS = Action {
+    implicit request=>
+      Ok(views.html.test.learnScalaJavaScript())
+
+  }
+
 
 
 }

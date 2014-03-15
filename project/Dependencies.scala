@@ -53,7 +53,9 @@ object Dependencies {
 
 
   val rdfDeps = Seq(
-    "com.bigdata" % "bigdata" % "1.3.0"
+    "com.bigdata" % "bigdata" % "1.3.0",
+
+    "org.openrdf.sesame" % "sesame-model" % "2.7.10"
 
     //    "org.openrdf.sesame" % "sesame" % sesameVersion,
     //    "org.openrdf.sesame" % "sesame-query" % sesameVersion,
@@ -71,9 +73,9 @@ object Dependencies {
   val graphDeps = Seq(
 
 
-    "com.assembla.scala-incubator" % "graph-core_2.10" % "1.7.3",
+    "com.assembla.scala-incubator" % "graph-core_2.10" % "1.8.0",
 
-    "com.assembla.scala-incubator" % "graph-json_2.10" % "1.7.3"
+    "com.assembla.scala-incubator" % "graph-json_2.10" % "1.8.0"
 
 
   )
@@ -124,7 +126,6 @@ object Dependencies {
 //  val scalaTimeVersion = "0.6.0"
 //
 //  val scalaUriVersion = "0.4.0"
-//  //val sesameVersion = "2.7.10"
 //  //val sesameVersion = "2.6.10" //BIGDATA doesnot support latest Sesame version
 //
 //  //val scalaZVersion ="7.0.5"
