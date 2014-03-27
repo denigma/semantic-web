@@ -33,9 +33,6 @@ object Model {
   }
 
 
-
-
-
 }
 
 object Macros {

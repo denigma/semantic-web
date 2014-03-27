@@ -1,0 +1,49 @@
+// Configuration / reset.
+//-----------------------------------------------------------------------------
+@import "mercury/config";
+@import "mercury/reset";
+
+// Core css and utility.
+//-----------------------------------------------------------------------------
+@import "mercury/core/fonts/icon";
+@import "mercury/core/fonts/toolbar";
+@import "mercury/core/fonts";
+@import "mercury/core/general";
+@import "mercury/core/region";
+@import "mercury/core/view";
+
+// View modules/views.
+//-----------------------------------------------------------------------------
+@import "mercury/views/modules/dialog_forms";
+@import "mercury/views/modules/dialog_buttons";
+
+@import "mercury/views/base_interface";
+@import "mercury/views/frame_interface";
+@import "mercury/views/lightview";
+@import "mercury/views/modal";
+@import "mercury/views/panel";
+@import "mercury/views/statusbar";
+@import "mercury/views/toolbar";
+@import "mercury/views/uploader";
+
+// Plugins.
+//-----------------------------------------------------------------------------
+@import "mercury/plugins/blocks";
+@import "mercury/plugins/character";
+@import "mercury/plugins/color";
+@import "mercury/plugins/history";
+@import "mercury/plugins/link";
+@import "mercury/plugins/media";
+@import "mercury/plugins/notes";
+@import "mercury/plugins/snippets";
+@import "mercury/plugins/styles";
+@import "mercury/plugins/table";
+
+// Themes.
+//-----------------------------------------------------------------------------
+@import "mercury/themes/small";
+@import "mercury/themes/flat";
+
+// Finalizer.
+//-----------------------------------------------------------------------------
+@import "mercury/finalizer";

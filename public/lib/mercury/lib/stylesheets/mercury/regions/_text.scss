@@ -1,0 +1,17 @@
+.mercury-text-region {
+  textarea.mercury-text-region-textarea {
+    @include mercury-border-box;
+    @include mercury-region-outline;
+    outline: 0;
+    border: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    color: inherit;
+    resize: vertical;
+  }
+}

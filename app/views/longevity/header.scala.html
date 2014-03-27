@@ -1,0 +1,56 @@
+@(implicit request: UserRequestHeader)
+
+
+<header>
+    <nav class="ui top transparent blue menu">
+
+
+        <section data-another="another" id="testnode" class="semantic ui" style="color: green; background-color: darkred" width="200" height="300" data-some="some">section</section>
+
+        <section data-view="menu" data-html="menu"></section>
+
+
+
+        <div class="right menu" data-hideif="isSigned">
+
+            <div class="item">
+                <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
+                    <input type="text" placeholder="login" data-bind="username">
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
+                    <input type="text" data-bind="password" placeholder="password">
+                </div>
+            </div>
+
+            <div class="item" data-showif="state | equals 'application'">
+                <div class="ui input" data-removeclass-invalid="valid_password" data-addclass-invalid="valid_password | not">
+                    <input type="text" data-bind="repeat" placeholder="repeat password">
+                </div>
+            </div>
+
+           <div class="item">
+                <div class="ui positive button"  data-event-click="login">Login</div>
+           </div>
+
+
+            <div class="item">
+                <div class="ui positive button" data-bind="registerLabel" data-event-click="register">Sign up</div>
+            </div>
+        </div>
+
+
+        <div class="right menu" data-showif="isSigned">
+            <div class="item">
+                <div>Logged in as </div>
+            </div>
+            <div class="item">
+                <div class="ui positive button">Log out</div>
+            </div>
+        </div>
+
+    </nav>
+
+</header>

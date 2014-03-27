@@ -2,7 +2,7 @@ package org.denigma.semantic.actors
 
 import akka.actor.{ActorRef, Actor}
 import java.util.{UUID, Calendar, Date}
-import akka.event.SubchannelClassification
+import akka.event.{EventStream, SubchannelClassification}
 
 /**
  * this is just a trait of the actor that has name
@@ -50,5 +50,8 @@ trait NamedActor  extends Actor  with akka.actor.ActorLogging {
    * @return unique id
    */
   def makeId: String = UUID.randomUUID().toString()
+
+  def bus: EventStream = context.system.eventStream
+
 
 }

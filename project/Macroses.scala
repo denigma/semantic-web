@@ -14,8 +14,7 @@ trait Macroses{
 
     libraryDependencies <+=Dependencies.compilerDep
 
-    //libraryDependencies += "org.scala-lang" % "scala-reflect" % scala
-
+    //libraryDependencies ++= Dependencies.jsDeps,
 
     ) settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 }

@@ -1,0 +1,18 @@
+@mixin mercury-toolbar-subview {
+  @include mercury-transition(opacity, ease-in-out, 0.1s);
+  @include mercury-border-radius(4px);
+  @include mercury-font(8.5pt);
+  @include mercury-box-shadow(1px 1px 4px rgba(0, 0, 0, .5));
+  position: absolute;
+  z-index: 20100;
+  top: 0;
+  left: 0;
+  min-width: 30px;
+  min-height: 10px;
+  margin: 0 -2px -2px;
+  overflow: auto;
+  white-space: normal;
+  border: 1px solid $toolbar_subview_border_color;
+  background: $toolbar_subview_bg;
+  color: $toolbar_subview_color;
+}

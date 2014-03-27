@@ -1,0 +1,32 @@
+@(implicit request: UserRequestHeader)
+
+<html>
+    <head>
+        <title>Denigma Knowledge Management System</title>
+        @libs()
+        @if(play.api.Play.isDev(play.api.Play.current)==true) {
+            <script src="@routes.Assets.at("javascripts/scalajs/scala-js-frontend-preopt.js")" type="text/javascript"></script>
+        } else {
+            <script src="@routes.Assets.at("javascripts/scalajs/scala-js-frontend-preopt.js")" type="text/javascript"></script>
+        }
+    </head>
+    <body>
+        @longevity.header(request)
+        <section class="ui segment main" data-view="random">
+            <section data-html="segment"></section>
+        </section>
+        @longevity.sidebar(request)
+
+
+    </body>
+
+    <script>
+    ScalaJavaScript().main();
+    $('.sidebar').sidebar({ exclusive: false });
+    $('.ui.menu').sidebar({ exclusive: false });
+
+    </script>
+
+
+</html>
+

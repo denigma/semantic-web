@@ -1,0 +1,91 @@
+.developer-interface {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  cursor: default;
+  overflow: hidden;
+
+  position: fixed;
+  z-index: 20000;
+  right: 10px;
+  bottom: 30px;
+  border: 1px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  background: rgba(0, 0, 0, .7);
+  padding: 10px;
+  margin: 0;
+  list-style: none;
+  li {
+    cursor: pointer;
+    &:hover {
+      color: #f00;
+    }
+  }
+}
+
+.region {
+  position: relative;
+  .region-controls {
+    position: absolute;
+    right: 0;
+    top: -10px;
+    background: rgba(0, 0, 0, .6);
+    border-radius: 4px;
+    color: #fff;
+    padding: 2px;
+    a {
+      padding: 0 7px;
+      font-style: normal;
+      cursor: pointer;
+    }
+  }
+}
+
+.button {
+  border: 2px solid black;
+  border-radius: 6px;
+  font-size: 20px;
+  text-align: center;
+  padding: 5px 10px;
+  float: left;
+  cursor: pointer;
+  transition-property: background-color, color;
+  transition-duration: 0.5s;
+  transition-timing-function: ease-in-out;
+}
+
+hr {
+  clear: both;
+}
+
+// Override how mercury regions look on this page.
+[data-mercury] {
+  margin: 10px 0;
+}
+[data-mercury-region] {
+  outline: 5px solid #ccc !important;
+  min-height: 20px;
+  min-width: 5px;
+  &:focus {
+    box-shadow: none !important;
+    outline: 5px solid #00bce5 !important;
+  }
+}
+
+// Custom region style overrides.
+.mercury-button-region[data-mercury-region] {
+  outline: none !important;
+  cursor: text;
+}
+
+// Styles that are defined in the base styles plugin.
+.red {
+  color: red;
+}
+.blue {
+  color: blue;
+}
+.highlight {
+  background: yellow;
+}

@@ -1,0 +1,26 @@
+mercury {
+  .mercury-history-panel {
+    input.mercury-filter {
+      margin-bottom: 15px;
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      li {
+        padding: 5px 0;
+        border-bottom: 1px solid #666;
+        font-size: 80%;
+        color: #ccc;
+        a {
+          display: block;
+          font-weight: bold;
+          margin: 0;
+          font-size: 120%;
+          text-shadow: 1px 1px #000;
+          color: #eee !important;
+        }
+      }
+    }
+  }
+}

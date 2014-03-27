@@ -1,0 +1,13 @@
+.mercury-unknown-region {
+  @include mercury-region-placeholder;
+  &[data-mercury-region] {
+    min-width: 5px;
+    min-height: 20px;
+  }
+  &:focus {
+    outline: none;
+    -webkit-box-shadow: 0 0 7px red, 0 0 2px red / 3;
+    -moz-box-shadow: 0 0 7px red, 0 0 2px red / 3;
+    box-shadow: 0 0 7px red, 0 0 2px red / 3;
+  }
+}

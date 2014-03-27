@@ -1,0 +1,15 @@
+coverage
+log/*.log
+tmp
+
+uploads
+temp
+
+# Misc Ruby
+.rbenv-gemsets
+.rbenv-version
+.irbrc
+.bundle
+.gems
+.fontcustom-data
+.bin

@@ -1,0 +1,239 @@
+mercury .mercury-toolbar {
+  @extend .mercury-clearfix;
+  @include mercury-no-selection;
+  @include mercury-transition(top);
+  position: fixed;
+  z-index: 10600;
+  top: 0;
+  left: 0;
+  width: 100%;
+  cursor: default;
+  font-size: 15px;
+  .mercury-toolbar-container {
+    @include mercury-border-box;
+    @include mercury-gradient($toolbar_bg_1, $toolbar_bg_2);
+    min-height: 24px;
+    padding: 3px 3px 0px 10px;
+    border-top: 1px solid $toolbar_border_color_top;
+    border-bottom: 1px solid $toolbar_border_color_bottom;
+  }
+  .mercury-toolbar-collection {
+    display: inline;
+  }
+  .mercury-toolbar-group,
+  .mercury-toolbar-separator,
+  .mercury-toolbar-line-separator,
+  .mercury-toolbar-button {
+    display: inline-block;
+  }
+  .mercury-toolbar-separator,
+  .mercury-toolbar-line-separator {
+    height: 15px;
+    width: 6px;
+  }
+  .mercury-toolbar-line-separator {
+    position: relative;
+    top: -1px;
+    width: 0;
+    height: 17px;
+    margin: -1px 3px;
+    border-left: 1px solid $toolbar_line_separator_color;
+  }
+  .mercury-toolbar-collection:last-child .mercury-toolbar-group:last-child {
+    .mercury-toolbar-separator:last-child,
+    .mercury-toolbar-line-separator:last-child {
+      display: none;
+    }
+  }
+  .mercury-toolbar-expander {
+    @include mercury-toolbar-button-base;
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 11px;
+    height: 57px;
+    background: $toolbar_bg_1;
+    border-left: 1px solid $toolbar_button_border_color;
+    &:hover {
+      background: $toolbar_bg_2;
+    }
+    &:before {
+      content: 'W';
+      left: -6px;
+      top: 40px;
+      text-shadow: #eee 0 1px 0;
+    }
+    .mercury-dialog {
+      width: 120px;
+      li {
+        @include mercury-icon-base(16px, auto, auto);
+        padding: 2px 5px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 16px;
+        &:before {
+          margin-right: 4px;
+        }
+        &.mercury-button-disabled {
+          opacity: .5;
+        }
+      }
+    }
+  }
+  .mercury-toolbar-button {
+    @include mercury-border-box;
+    @include mercury-toolbar-button-base;
+    @include mercury-border-radius(2px);
+    @include mercury-gradient($toolbar_button_bg_1, $toolbar_button_bg_2);
+    position: relative;
+    width: 24px;
+    height: 17px;
+    border: 1px solid $toolbar_button_border_color;
+    cursor: pointer;
+    &+ .mercury-toolbar-button {
+      @include mercury-border-radius(0 2px 2px 0);
+      margin-left: -1px;
+    }
+    &:before, em {
+      color: $toolbar_button_color;
+      text-shadow: #eee 0 1px 0;
+    }
+    &.mercury-button-disabled {
+      opacity: .5;
+    }
+    &.mercury-button-active,
+    &.mercury-button-pressed {
+      @include mercury-gradient($toolbar_button_active_bg_2, $toolbar_button_active_bg_1);
+      &:before, em {
+        color: $toolbar_button_active_color;
+        text-shadow: none;
+      }
+    }
+    &.mercury-button-pressed {
+      &:before {
+        top: 1px;
+      }
+    }
+    > em {
+      display: none;
+    }
+    &.mercury-loading-indicator {
+      @include mercury-loading-indicator;
+    }
+    &[data-type="select"] {
+      width: auto;
+      &:before {
+        content: '\002c';
+        float: right;
+        width: 18px;
+      }
+      > em {
+        @include mercury-font(8pt);
+        display: block;
+        float: left;
+        padding: 0 0 0 6px;
+        line-height: 15px;
+        font-style: normal;
+        position: relative;
+        text-transform: lowercase;
+      }
+    }
+  }
+  .mercury-toolbar-select,
+  .mercury-toolbar-palette {
+    @include mercury-toolbar-subview;
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 4px;
+    }
+  }
+  .mercury-toolbar-select {
+    li {
+      padding: 2px 10px;
+      &:hover {
+        background-color: $toolbar_select_hover_bg !important;
+        color: $toolbar_select_hover_color !important;
+      }
+    }
+  }
+  .mercury-toolbar-palette {
+    height: auto;
+    padding: 1px;
+    ul {
+      @extend .mercury-clearfix;
+      margin-right: -1px;
+    }
+    li {
+      padding: 0;
+      display: block;
+      float: left;
+      width: 15px;
+      height: 15px;
+      margin: 0 1px 1px 0;
+      text-align: center;
+      line-height: 15px;
+      -webkit-box-sizing: content-box;
+      -moz-box-sizing: content-box;
+      box-sizing: content-box;
+      &:hover {
+        margin: -1px 0 0 -1px;
+        border: 1px solid $toolbar_palette_hover_border_color;
+      }
+    }
+  }
+  // primary toolbar overrides
+  .mercury-toolbar-primary-container {
+    @include mercury-gradient($toolbar_primary_bg_1, $toolbar_primary_bg_2);
+    display: block;
+    height: 58px;
+    padding: 0;
+    overflow: hidden;
+    border-top: 0;
+    .mercury-toolbar-separator,
+    .mercury-toolbar-line-separator {
+      width: 40px;
+      height: 52px;
+    }
+    .mercury-toolbar-line-separator {
+      width: 0;
+      height: 45px;
+      margin: 0 20px;
+      border-left: 1px solid $toolbar_primary_line_separator_left_color;
+      border-right: 1px solid $toolbar_primary_line_separator_right_color;
+    }
+    .mercury-toolbar-button {
+      @include mercury-icon-base(32px, 46px, 50px);
+      height: 58px;
+      min-width: 55px;
+      border: 0;
+      background: transparent;
+      text-align: center;
+      white-space: nowrap;
+      color: $toolbar_primary_button_color;
+      > em {
+        @include mercury-font(8.5pt);
+        text-shadow: #eee 0 1px 0 !important;
+        display: block;
+        margin: -5px;
+        height: 15px;
+        line-height: 15px;
+        font-style: normal;
+        color: $toolbar_primary_button_label_color;
+      }
+      &:before {
+        left: 0;
+      }
+      &.mercury-button-toggled {
+        background-size: 100% 100%;
+        background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAA6CAMAAADFsvruAAAAwFBMVEV+fn6MjIx3d3d6enqIiIiEhISSkpKBgYGYmJijo6OVlZWPj4+ZmZlra2tubm6lpaWnp6dzc3OpqamcnJyenp7Hx8egoKDGxsbV1dW5ubmrq6vMzMzX19fS0tK/v7/R0dHExMTBwcG6urrNzc3Ozs7IyMi7u7vU1NTY2NjPz8+9vb3W1tbFxcXKysq8vLzb2du4uLjb2tvZ2dnCwsK1tbWysrKzs7O2traxsbGurq63t7ewsLCsrKy0tLSvr6+tra0qWOxfAAADRklEQVR42pWVe1vqMAzGo6hcBYQ5ZQMRBjIueibs0m2s+/7f6iSlFw8CHn9Nk/RN8rT8M+Dz18CfXwPbrf+59bcUfN///Nz+i49LeHLYgHWgjExotA2+VMkTMsDzerheD/2hvx6ix02sCSpQhuozVoWC/hkWizUGZI2LJFEiRB03Fqi2OPQsRuCORwtkhEYLTS+hy8R0eLBxZ+PxeISbAhoxVujDCBf65dJ7gt37UjBTwXBCGS/dCaze3Rnhzb7jKe956EX05iuYvrqe63oemsEVUFAnisK/DiDczd13hcrOC/NJCHwyn88fyeRGKBrw+EWY5NBbPT4hm6fNBjcmGpLEUQbR9rjqQeftVbB5lRExOZrKZDrtgJ3tdrvJ7hQTUzBZYIMVHnUdD00omvnMgka0enl5mdBGk0tDqZaFixpwl64u8qKidOkdNPnHL3j7KJtw5bxNp2QXoDItoryCm+4gmA4GU2RASzAltCRzkoOgdwPVbpJkWZZkiSAzkIJbkR1cpwpQD8NCERc/kIR1gIqNnXEUx8oZUCAw0RSFXYFrW8miJJslUax0Nc/sa3iw8ihnOUOj9RWt5pQjdOg/QLvPOc85YaI6njj329CulftLOLgNZdpqw31rX15mj6Z6nLJ1D/eN/fnm4wPeU8ORmoOZwnGOniUFI+Mt7RYKsuaoEcPRudzjb3nop+mptxjlq5aW/QccwXhUvvDLuBjZ78/1GG/AkWsrRXj6E1w4vOUaKv1Sq+dmjYi3VKBq8ZyfJTdbuJRbAFU7x5yMxDw/M6mxqnBrae1su6mw3L6FW5vLB2tvkBLnqsRp5KaeI8w4IjewgzHy5Oo30OzgWU5omEArTI9GeecKR7CESFFjblVb+KjThLtuxFjEIoTREkQHRMLkOpTi3h00ukyUxJzpFVAUmnRk3QbUeiyWX6QTXxhllNOKWK8GlhPF6rsXoxXfiVWkjr0NdlkU4X9ThCmO8POf1Vg60xGFaR16PNQdp2Zi/WYiLFgXenn4GwrmAC+yzPwXUKAoSI4hpWAQyxHZiqZRmg6UhTEkQRJkQZDhRo9BQxoZqRTJ0RhkwUAIwmRdY7plJUAgwUtwixuOHhagnMhXJJl++F95aSoJNDmBGwAAAABJRU5ErkJggg==);
+      }
+    }
+  }
+}
+mercury.mercury-floating .mercury-toolbar {
+  z-index: 10200;
+}

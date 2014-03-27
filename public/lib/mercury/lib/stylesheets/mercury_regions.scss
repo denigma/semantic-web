@@ -1,0 +1,15 @@
+// Configuration.
+//-----------------------------------------------------------------------------
+@import "mercury/config";
+
+// Core css and utility.
+//-----------------------------------------------------------------------------
+@import "mercury/core/fonts/icon";
+@import "mercury/core/fonts";
+@import "mercury/core/general";
+@import "mercury/core/region";
+@import "mercury/core/view";
+
+// All region types.
+//-----------------------------------------------------------------------------
+@import "mercury/regions";

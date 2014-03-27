@@ -1,0 +1,172 @@
+!!!
+%html
+  %head
+    = csrf_meta_tag
+    = stylesheet_link_tag "mercury"
+    = javascript_include_tag "mercury"
+
+    = stylesheet_link_tag "styles/examples"
+    = javascript_include_tag "developer_interface", "example_snippet", "example_plugin", "example_region", "functionality_adding", "functionality_overriding", "advanced/caman_region"
+    = javascript_include_tag "http://www.google.com/jsapi"
+    :javascript
+      google.load('feeds', '1')
+    %meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+  %body.mercury-transitions
+    %h1 Mercury2 <a href="/teaspoon">Specs</a>
+
+    %p
+      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+      <br/>
+      %img(src="http://goo.gl/ZoJd4")
+      <br/>
+      = link_to 'Google Link', 'http://google.com', class: 'mercury-ignored'
+      = link_to 'DailyJS', 'http://dailyjs.com/'
+      = link_to 'DailyJS', 'http://dailyjs.com/', class: 'mercury-ignored'
+      = link_to 'Plain Page', '/plain', class: 'mercury-ignored'
+
+    %hr
+    -# -----------------------------------------------------------------------------------------------------------------
+    %h2#new_regions New Regions
+
+
+    -#%hr
+    -#-# -----------------------------------------------------------------------------------------------------------------
+    -#%h2 Caman Image Regions
+    -#
+    -#%img#caman1(data-mercury="caman-image" src="/assets/advanced/caman-example.jpg")
+
+
+    %hr
+    -# -----------------------------------------------------------------------------------------------------------------
+    %h2 Snippet Regions
+    #snippet1(data-mercury="snippet" data-region-options='{"placeholder": "Drop a snippet on me"}' style="float:left;width:49%")
+    %section#snippet2(data-mercury="snippet" style="position:relative;float:right;width:49%")
+
+
+    %hr
+    -# -----------------------------------------------------------------------------------------------------------------
+    %h2 Markdown Regions
+    #markdown1(data-mercury="markdown" data-region-options='{"name": "markdown_region_1", "allowDirection": true, "placeholder": "This is a placeholder"}')
+      :preserve
+        1
+        **something here**
+        2
+
+        paragraph1
+        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+
+        paragraph2
+
+        paragraph3
+    #markdown2(data-mercury="markdown") Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    #markdown_empty(data-mercury="markdown")
+
+
+    %hr
+    -# -----------------------------------------------------------------------------------------------------------------
+    %h2 HTML Regions
+    #html1(data-mercury="html") Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+    %section#html2(data-mercury="html") section
+    %p#html3(data-mercury="html" style="width:200px;float:right") paragraph
+    %span#html4(data-mercury="html" data-region-options='{"placeholder": "Drop a snippet on me"}') span
+    %ul
+      %li#html5(data-mercury="html") list item
+    %table
+      %tr
+        %td#html6(data-mercury="html") table cell
+        %td another table cell
+    %span#html_empty(data-mercury="html")
+
+    %h3 Plain HTML Regions
+    %h2#plain(data-mercury="plain") Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+    #plain_empty(data-mercury="plain" data-region-options='{"newlines": true}')
+
+
+    %hr
+    -# -----------------------------------------------------------------------------------------------------------------
+    %h2 Text Regions
+    %h3#text1(data-mercury="text" data-region-options='{"wrapping": false}') Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy
+    #text2(data-mercury="text" data-region-options='{"height": 100, "autoSize": false}') Lorem<br/><br/>Testing
+    #text_empty(data-mercury="text")
+
+
+    %hr
+    -# -----------------------------------------------------------------------------------------------------------------
+    %h2 Image Regions
+    %img#image1(data-mercury="image" src="http://goo.gl/glCCId" width="200")
+    %img#image2(data-mercury="image" src="http://goo.gl/glCCId" width="200")
+
+
+    %hr
+    -# -----------------------------------------------------------------------------------------------------------------
+    %h2#new_regions Custom Regions
+    #button1.button(data-mercury="button") Text Value
+
+
+    %hr
+    -# -----------------------------------------------------------------------------------------------------------------
+    %h2 Gallery Region
+    #gallery1(data-mercury="gallery")
+      .slides
+        .slide= image_tag('http://goo.gl/yBRji')
+        .slide= image_tag('http://goo.gl/iKIkP')
+
+    EOF
+
+:javascript
+  // If we're in an an iframe and Mercury is present in the parent we can shortcut the load time by initializing
+  // manually. This will tell Mercury that this document has loaded and it can begin looking for regions. It has to be
+  // at the end of the document, or in a dom:loaded handler.
+  if (parent.Mercury) {
+    parent.Mercury.initialize();
+    window.Mercury = parent.Mercury;
+  }
+
+  // If we're editing this page let's instantiate the developer toolbar for example usage/interactions. The developer
+  // toolbar has many examples of how you can interact with Mercury. Also note that if we're in an iframe or not Mercury
+  // will be exposed to us after it's been initialized.
+  new Mercury.DeveloperInterface();
+
+  // To load content and snippet options (and potentially other information) back into Mercury when editing, you can
+  // provide the JSON that the server saved in a script tag with the type set to "json/mercury". Mercury will look for
+  // this script tag and will load the JSON within it.
+  //
+  // We use this approach because there are ECMA Script utf-8 characters that can be within the content, and can break
+  // javascript parsing -- U+2028 & U+2029 (http://goo.gl/u67t6B) specifically.
+  //
+  // This example shows what can be loaded back into Mercury. You'll notice the data-mercury-snippet attribute directly
+  // correlates to the snippet cid in the snippets object.
+  //
+  // Alternatly, you can tell Mercury to load content via ajax. To do this, just use: Mercury.loadUrl('url')
+  // The server is expected to respond with the JSON that has been saved for the specific page, and how this is
+  // accomplished is left to you. Worth noting is that any json/mercury script tag that's on the page will override
+  // anything that you may have loaded via ajax.
+:plain
+  <script type="json/mercury">
+  {
+    "snippet1": {
+      "snippets": {
+        "c1": {
+          "cid": "c1",
+          "name": "plugins"
+        }
+      },
+      "value": "<div class=\"mercury-plugin-snippet\" data-mercury-snippet=\"c1\"></div>"
+    },
+
+    "snippet2": {
+      "data": {},
+      "snippets": {
+        "c2": {
+          "cid": "c2",
+          "name": "beer",
+          "attributes": {
+            "name": "jejacks0n",
+            "beer": "French & Belgian-Style Saison"
+          }
+        }
+      },
+      "value": "<div class=\"mercury-beer-snippet\" data-mercury-snippet=\"c2\"></div>"
+    }
+  }
+  </script>

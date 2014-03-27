@@ -36,6 +36,6 @@ class CacheActor extends NamedActor{
     case Cache.UnSubscribe(consumer) => this.consumers = this.consumers - consumer
       sender ! true
 
-
   }
+
 }

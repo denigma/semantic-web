@@ -1,6 +1,9 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
+
+GET         /                          controllers.Longevity.index()
+
 GET         /                          controllers.Application.index(controller="query",action="main")
 GET         /users/login               controllers.Application.login(username:String,password:String)
 GET         /users/register            controllers.Application.register(username:String,email,password:String)
@@ -36,10 +39,12 @@ POST        /upload                    controllers.Application.upload
 GET         /webjars/*file             controllers.WebJarAssets.at(file)
 
 
-GET         /test                      controllers.Tests.test
+POST        /test                      controllers.Tests.test
+GET        /test                      controllers.Tests.test
+
 GET         /test/editor               controllers.Tests.editor
 GET         /test/sigma                controllers.Tests.sigma
-GET         /test/scala              controllers.Tests.scalaJS()
+GET         /test/scala                controllers.Tests.scalaJS()
 
 
 # Map static resources from the /public folder to the /assets URL path

@@ -6,7 +6,7 @@ trait SemanticData extends Macroses {
   //lazy val banana =  RootProject(uri("git://github.com/antonkulaga/banana-rdf.git#master"))
 
   val semanticDataAppName         = "semantic-data"
-  val semanticDataAppVersion      = "0.01"
+  val semanticDataAppVersion      = "0.02"
 
   def semanticDataAppPath = "."
 

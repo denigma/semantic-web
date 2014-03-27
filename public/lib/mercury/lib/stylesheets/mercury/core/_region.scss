@@ -1,0 +1,43 @@
+@mixin mercury-region-outline {
+  &:focus {
+    outline-offset: 0;
+    outline: none;
+    -webkit-box-shadow: 0 0 7px $focus_color, 0 0 2px $focus_color / 3;
+    -moz-box-shadow: 0 0 7px $focus_color, 0 0 2px $focus_color / 3;
+    box-shadow: 0 0 7px $focus_color, 0 0 2px $focus_color / 3;
+  }
+}
+
+@mixin mercury-region-drop-indicator {
+  @include mercury-transition-visibility;
+  @include mercury-transition-hide;
+  @include mercury-border-radius(10px);
+  @include mercury-icon-base(32px, 60px, 60px);
+  @extend .mercury-icon-upload;
+  display: none;
+  opacity: 0;
+  position: absolute;
+  z-index: 20;
+  top: 30px;
+  left: 30px;
+  width: 60px;
+  height: 60px;
+  margin: -30px;
+  background: $region_drop_indicator_bg;
+  color: $region_drop_indicator_color;
+  pointer-events: none;
+  &.mercury-region-snippet-drop-indicator:before {
+    content: "\f109"; // this can break easily
+  }
+  &.mercury-shown {
+    @include mercury-transition-show;
+  }
+}
+
+@mixin mercury-region-placeholder {
+  &[data-mercury-region]:empty:before {
+    overflow: hidden;
+    content: attr(data-placeholder);
+    color: #bbb;
+  }
+}

@@ -11,6 +11,7 @@ import org.denigma.semantic.actors.cache.{CacheWatcher, CacheActor}
 import org.denigma.semantic.commons.{LogLike, ChangeWatcher}
 import com.bigdata.rdf.store.AbstractTripleStore
 import com.bigdata.rdf.changesets.IChangeLog
+import akka.event.EventStream
 
 /**
 * @constructor create a new person with a name and age.
@@ -48,5 +49,7 @@ class DatabaseActorsFactory(db:AbstractTripleStore,canRead:CanRead,canWrite:CanW
   SemanticReader.cache = cache
 
   SemanticWriter.writer = writer
+
+  def bus: EventStream = this.sys.eventStream
 
 }
