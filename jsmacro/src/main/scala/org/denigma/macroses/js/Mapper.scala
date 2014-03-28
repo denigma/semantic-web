@@ -95,6 +95,28 @@ object TagRxMap extends BinderObject {
   }
 }
 
+trait MapRxMap[T] {
+  def asMapRxMap(t: T): Map[String,Rx[Map[String,Any]]]
+}
+
+object MapRxMap extends BinderObject
+{
+  implicit def materialize[T]: MapRxMap[T] = macro impl[T]
+
+  def impl[T: c.WeakTypeTag](c: Context): c.Expr[MapRxMap[T]] = {
+    import c.universe._
+    val mapExpr = extract[T,Rx[Map[String,Any]]](c)
+
+    reify {
+      new MapRxMap[T] {
+        def asMapRxMap(t: T) = mapExpr.splice
+      }
+    }
+  }
+}
+
+
+
 trait ListRxMap[T] {
   def asListRxMap(t: T): Map[String,Rx[List[Map[String,Any]]]]
 }

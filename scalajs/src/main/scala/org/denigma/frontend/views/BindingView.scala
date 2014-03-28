@@ -4,12 +4,11 @@ import scala.collection.immutable.Map
 import rx._
 import scalatags.HtmlTag
 import org.scalajs.dom
-import org.scalajs.dom.{HTMLElement, Node}
+import org.scalajs.dom.{Attr, HTMLElement, Node}
 import org.scalajs.dom.extensions._
 import org.denigma.frontend.extensions._
 import org.denigma.frontend.views._
 import org.denigma.macroses.js.Binder
-import org.scalajs.dom.HTMLElement
 import scala.collection.mutable
 import scala.scalajs.js
 import org.denigma.frontend.views._
@@ -24,7 +23,7 @@ object BindingView {
    * @param elem
    */
   class JustView(name:String,elem:dom.HTMLElement) extends BindingView(name,elem){
-    override def bindAttributes(el: HTMLElement, ats: mutable.Map[String, js.String]): Unit = {
+    override def bindAttributes(el: HTMLElement, ats: mutable.Map[String, dom.Attr]): Unit = {
       //does nothing
     }
   }
@@ -51,8 +50,6 @@ abstract class BindingView(val name:String,elem:dom.HTMLElement)
     elem.id
   }
 
-
-
   var subviews = Map.empty[String,BindingView]
 
 
@@ -74,15 +71,15 @@ abstract class BindingView(val name:String,elem:dom.HTMLElement)
     this.bind(value)
   }
 
-  def bindAttributes(el:HTMLElement,ats:mutable.Map[String, js.String])
+  def bindAttributes(el:HTMLElement,ats:mutable.Map[String, Attr] )
 
   /**
    * Binds element
    * @param el
    */
   def bindElement(el:HTMLElement) = {
-    val ats: mutable.Map[String, js.String] = el.attributes.collect{
-      case (key,attr) if key.contains("data-") && !key.contains("data-view") => (key.replace("data-",""),attr.value)
+    val ats: mutable.Map[String, Attr] = el.attributes.collect{
+      case (key,attr) if key.contains("data-") && !key.contains("data-view") => (key.replace("data-",""),attr)
     }
     this.bindAttributes(el,ats)
 

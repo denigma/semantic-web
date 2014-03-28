@@ -7,7 +7,7 @@ import scalatags.HtmlTag
 import org.denigma.frontend.bindings.{PropertyBinding, HtmlBinding}
 import scala.collection.mutable
 import scala.scalajs.js
-import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.{Attr, HTMLElement}
 import scala.Predef
 
 
@@ -19,7 +19,7 @@ import scala.Predef
 abstract class OrdinaryView(name:String,elem:dom.HTMLElement) extends BindingView(name,elem) with PropertyBinding with HtmlBinding
 {
 
-  override def bindAttributes(el:HTMLElement,ats:mutable.Map[String, js.String]) = {
+  override def bindAttributes(el:HTMLElement,ats:mutable.Map[String, Attr]) = {
     this.bindHTML(el,ats)
     this.bindProperties(el,ats)
 

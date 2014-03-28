@@ -25,12 +25,10 @@ trait HtmlBinding {
 
 
 
-  def bindHTML(el:HTMLElement,ats:mutable.Map[String, js.String]) =
-    ats.get("html").flatMap(value=>this.tags.get(value).map(v=>(value,v))).foreach{case (key,rx)=>
+  def bindHTML(el:HTMLElement,ats:mutable.Map[String, dom.Attr]) =
+    ats.get("html").flatMap(value=>this.tags.get(value.value).map(v=>(value.value,v))).foreach{case (key,rx)=>
       this.updateAttrByRx(key,el,rx)
-
     }
-
 
   def updateAttrByRx(key:String,el:org.scalajs.dom.HTMLElement ,rtag:Rx[HtmlTag]) = {
     val tg = rtag()

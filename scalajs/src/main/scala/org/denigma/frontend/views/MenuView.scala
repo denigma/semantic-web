@@ -7,9 +7,9 @@ import models.WebIRI
 import scalatags.HtmlTag
 import models.MenuItem
 import org.scalajs.dom
-import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.{Attr, HTMLElement}
 import scala.collection.immutable.{Seq, Map}
-import scala.collection.{immutable, mutable}
+import scala.collection.{mutable, immutable}
 import scala.scalajs.js
 import org.denigma.macroses.js.asMap
 import org.denigma.frontend.bindings.PropertyBinding
@@ -47,7 +47,7 @@ class MenuView(el:HTMLElement) extends BindingView("menu",el) with PropertyBindi
 
   case class TestCase(hello:String,world:String)
 
- 
+
 
 
 //  val menu: Rx[HtmlTag] = Rx {
@@ -55,9 +55,8 @@ class MenuView(el:HTMLElement) extends BindingView("menu",el) with PropertyBindi
 //    this.testMenu().children.map(this.menuItemTemplate)
 //    div(items)
 //  }
-
-  override def bindAttributes(el: HTMLElement, ats: mutable.Map[String, js.String]): Unit ={
-
+  override def bindAttributes(el: HTMLElement, ats: mutable.Map[String, Attr]): Unit = {
+    dom.console.log("menus are not implemented yet")
   }
 }
 

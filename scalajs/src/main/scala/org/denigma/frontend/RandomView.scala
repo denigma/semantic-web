@@ -25,6 +25,9 @@ class RandomView(el:HTMLElement) extends OrdinaryView("random",el){
     )
   }
 
+  val shortText = Var{"Some very short text"}
+  val longText = Var{"Some very long text"}
+
 
   val list = List("ONE","TWO","THREE","FOUR","SOME TEXT","THAT IS RANDOM")
 

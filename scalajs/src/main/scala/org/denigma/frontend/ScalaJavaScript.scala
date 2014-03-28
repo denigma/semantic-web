@@ -79,8 +79,6 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body) {
 
     this.bind(this.element)
 
-
-
   }
 
 }
