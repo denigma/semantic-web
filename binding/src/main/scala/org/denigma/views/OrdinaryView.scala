@@ -4,11 +4,12 @@ import org.scalajs.dom
 import scala.collection.immutable.Map
 import rx._
 import scalatags.HtmlTag
-import org.denigma.frontend.bindings.{PropertyBinding, HtmlBinding}
+
 import scala.collection.mutable
 import scala.scalajs.js
 import org.scalajs.dom.{Attr, HTMLElement}
 import scala.Predef
+import org.denigma.binding.{HtmlBinding, PropertyBinding}
 
 
 /**

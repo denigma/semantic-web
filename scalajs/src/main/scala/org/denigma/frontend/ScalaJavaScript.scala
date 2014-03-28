@@ -6,6 +6,7 @@ import scala.scalajs.js
 import scalatags.all._
 import scalatags.{UntypedAttr, HtmlTag}
 import rx._
+import org.denigma.extensions
 import extensions._
 import scala.scalajs.js.annotation.JSExport
 

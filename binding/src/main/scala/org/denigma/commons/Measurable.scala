@@ -1,4 +1,4 @@
-package org.denigma.frontend
+package org.denigma.commons
 
 import scala.scalajs.js.Number
 

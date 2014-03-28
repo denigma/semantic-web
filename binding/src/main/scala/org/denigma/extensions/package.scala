@@ -1,13 +1,11 @@
-package org.denigma.frontend
+package org.denigma
 
 import org.scalajs.dom._
 
-import org.scalajs.dom.{Attr, NamedNodeMap}
+import org.scalajs.dom.Attr
 import scala.collection.mutable
-import scala.scalajs.js.Undefined
-import scala.scalajs.js
 import org.scalajs.dom
-import org.denigma.macroses.js.ClassToMap
+import org.denigma.binding.macroses.ClassToMap
 
 /**
  * Useful implicit classes

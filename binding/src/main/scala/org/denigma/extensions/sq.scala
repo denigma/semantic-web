@@ -1,4 +1,4 @@
-package org.denigma.frontend.extensions
+package org.denigma.extensions
 
 import org.scalajs.dom
 import org.scalajs.dom.{Attr, NodeList, Element, HTMLElement}

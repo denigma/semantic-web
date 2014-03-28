@@ -3,14 +3,12 @@ package org.denigma.frontend
 import org.denigma.frontend.views.OrdinaryView
 import org.scalajs.dom.HTMLElement
 import rx.core.Var
-import scalatags.HtmlTag
 import scalatags.all._
 import scalatags.HtmlTag
 import scala.util.Random
 import rx.Rx
 import scala.collection.immutable.Map
 import org.scalajs.dom
-import org.denigma.macroses
 
 
 /**

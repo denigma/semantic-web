@@ -1,11 +1,10 @@
-package org.denigma.frontend.bindings
+package org.denigma.binding
 
-import org.denigma.macroses.js.ListRxMap
 import org.scalajs.dom.HTMLElement
 import scala.collection.mutable
 import scala.scalajs.js
 import rx.Rx
-import org.denigma.frontend.extensions._
+import org.denigma.binding.macroses.ListRxMap
 
 /**
  * Trait that provides collection binding

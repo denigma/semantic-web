@@ -6,15 +6,17 @@ import scalatags.HtmlTag
 import org.scalajs.dom
 import org.scalajs.dom.{Attr, HTMLElement, Node}
 import org.scalajs.dom.extensions._
-import org.denigma.frontend.extensions._
 import org.denigma.frontend.views._
-import org.denigma.macroses.js.Binder
 import scala.collection.mutable
 import scala.scalajs.js
 import org.denigma.frontend.views._
 import org.scalajs.dom
+import org.denigma.extensions
+import extensions._
 
 import js.Dynamic.{ global => g }
+import org.denigma.binding.macroses.Binder
+import org.denigma.binding.JustBinding
 
 object BindingView {
   /**
@@ -36,19 +38,13 @@ object BindingView {
  * @param name
  * @param elem
  */
-abstract class BindingView(val name:String,elem:dom.HTMLElement)
+abstract class BindingView(val name:String,elem:dom.HTMLElement) extends JustBinding
 {
+
   /**
    * Id of this view
    */
-  val id: String ={
-
-    if(elem.id === null)
-    {
-      elem.id = name+"_"+math.random
-    }
-    elem.id
-  }
+  val id: String =this.makeId(elem,this.name)
 
   var subviews = Map.empty[String,BindingView]
 
@@ -56,6 +52,13 @@ abstract class BindingView(val name:String,elem:dom.HTMLElement)
   def addView(view:BindingView) = this.subviews = this.subviews + (view.id -> view)
 
 
+  /**
+   * Extracts view by name from element
+   * @param viewName name of the view
+   * @param el html element
+   * @param other some other optional params needed to init the view
+   * @return
+   */
   def inject(viewName:String,el:HTMLElement,other:AnyRef*): BindingView ={factories.get(viewName) match {
     case Some(fun)=>fun(el,other)
     case _ =>

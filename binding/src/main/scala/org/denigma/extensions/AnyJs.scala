@@ -1,4 +1,4 @@
-package org.denigma.frontend.extensions
+package org.denigma.extensions
 
 import scala.scalajs.js.Undefined
 import scala.scalajs.js
@@ -13,13 +13,10 @@ trait AnyJs {
    * @param obj
    */
   implicit class AnyJs(obj:scalajs.js.Any){
-    /**
-     * As Javascript has both null and undefined often if(element.obj==null) returns false when obj is undefined,
-     * it is especially  unpleasant with dom wrappers
-     * @param other another object to compare to
-     * @return
-     */
-    def ===(other:Any): Boolean = if(other==null) obj==null || obj.isInstanceOf[Undefined] || obj=="" else obj==other
+
+    //def ===(other:Any): Boolean = if(other==null) obj==null || obj.isInstanceOf[Undefined] || obj=="" else obj==other
+
+    def isNullOrUndef = obj==null || obj.isInstanceOf[js.Undefined] || obj ==""
 
     /**
      * Just a shorter conversion to dynamic object
@@ -34,9 +31,10 @@ trait AnyJs {
      */
     def \ (key:String): Option[js.Dynamic] = dyn.selectDynamic(key) match {
       case null=>
-        dom.document.getElementById("").parentElement.tagName
         None
+
       case v:Undefined=>None
+
       case validValue=>Some(validValue)
     }
   }

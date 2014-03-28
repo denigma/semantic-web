@@ -1,19 +1,23 @@
-package org.denigma.frontend.bindings
-
+package org.denigma.binding
 
 import rx._
-import org.denigma.macroses.js._
 import org.scalajs.dom.HTMLElement
 import scala.collection.mutable
-import scala.scalajs.js
 import scala.collection.immutable._
 import org.scalajs.dom
-import org.denigma.frontend.extensions._
+import org.denigma.binding.macroses.{BooleanRxMap, ClassToMap, StringRxMap}
+import org.denigma.extensions._
+
+import dom.extensions._
+import scalatags.all._
+import scala.Some
+
+
 
 /**
- * Binds separate properties
+ * Binds separate properties to HTML nodes
  */
-trait PropertyBinding{
+trait PropertyBinding  extends JustBinding{
 
   def bools:Map[String,Rx[Boolean]]
   def strings:Map[String,Rx[String]]
@@ -33,7 +37,7 @@ trait PropertyBinding{
   def bindProperties(el:HTMLElement,ats:mutable.Map[String, dom.Attr]) = for {
     (key, value) <- ats
   }{
-    key match {
+    key.toString match {
 
       case "showif" => this.showIf(el,value.value)
       case "hideif" => this.hideIf(el,value.value)
@@ -57,19 +61,48 @@ trait PropertyBinding{
     }
 
 
+
   /**
    * Binds property value to attribute
    * @param el Element
-   * @param key
-   * @param att
+   * @param key name of the binding key
+   * @param att binding attribute
    */
-  def bindProperty(el:HTMLElement,key:String,att:dom.Attr) = (key,el.tagName.toLowerCase) match {
-    //case ("bind","input")=>
+  def bindProperty(el:HTMLElement,key:String,att:dom.Attr) = (key.toString,el.tagName.toLowerCase().toString) match {
+    case ("bind","input")=>
+      el.attributes.get("type").map(_.value.toString) match {
+      case Some("checkbox") => this.bools.get(att.value.toString).foreach{b=>
+        this.bindCheckBox(el,key,b)
+      }
+      case _ => this.strings.get(att.value).foreach{str=>
+        this.bindInput(el,key,str)
+      }
 
-    case ("bind",other)=> el.textContent = att.value
-    case _=> dom.console.info(s"unknown binding")
+    }
+    case ("bind","textarea")=>
+      this.strings.get(att.value.toString).foreach{str=>
+        this.bindText(el,key,str)
+      }
+
+     case ("bind",other)=> this.strings.get(att.value.toString).foreach{str=>
+       this.bindText(el,key,str)
+     }
+
+     case _=> dom.console.error(s"unknown binding")
+
+  }
+
+  def bindInput(el:HTMLElement,key:String,rx:Rx[String]) = this.bindRx(key,el:HTMLElement,rx){ (el,value)=>
+    el.attributes.setNamedItem( ("value" -> value.toString ).toAtt )
+  }
+
+  def bindText(el:HTMLElement,key:String,rx:Rx[String]) = this.bindRx(key,el:HTMLElement,rx){ (el,value)=>
+    el.textContent = value
+  }
 
 
+  def bindCheckBox(el:HTMLElement,key:String,rx:Rx[Boolean]) = this.bindRx(key,el:HTMLElement,rx){ (el,value)=>
+    el.attributes.setNamedItem( ("checked" -> value.toString ).toAtt )
   }
 
 

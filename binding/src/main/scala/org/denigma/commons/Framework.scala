@@ -1,9 +1,8 @@
-package org.denigma.frontend
+package org.denigma.commons
 
 import scalatags.{Attr, Modifier}
 import scala.util.Random
 import scalatags.all._
-import rx.core.{Rx, Obs}
 import org.scalajs.dom
 import scala.scalajs.js
 import scalatags.HtmlTag

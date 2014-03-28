@@ -1,5 +1,4 @@
-package org.denigma.frontend.extensions
-
+package org.denigma.extensions
 
 import scala.collection.immutable._
 import rx._

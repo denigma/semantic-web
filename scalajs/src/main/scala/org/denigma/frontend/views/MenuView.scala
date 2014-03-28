@@ -8,12 +8,9 @@ import scalatags.HtmlTag
 import models.MenuItem
 import org.scalajs.dom
 import org.scalajs.dom.{Attr, HTMLElement}
-import scala.collection.immutable.{Seq, Map}
-import scala.collection.{mutable, immutable}
-import scala.scalajs.js
-import org.denigma.macroses.js.asMap
-import org.denigma.frontend.bindings.PropertyBinding
-
+import scala.collection.immutable.Map
+import scala.collection.mutable
+import org.denigma.binding._
 
 class MenuView(el:HTMLElement) extends BindingView("menu",el) with PropertyBinding
 {

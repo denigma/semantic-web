@@ -1,4 +1,5 @@
-package org.denigma.macroses.js
+package org.denigma.binding.macroses
+
 
 import scala.language.experimental.macros
 import rx._
