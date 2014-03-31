@@ -37,9 +37,6 @@ object ClassToMap extends BinderObject {
 }
 
 
-
-
-
 trait TagRxMap[T] {
   def asTagRxMap(t: T): Map[String,Rx[scalatags.HtmlTag]]
 }

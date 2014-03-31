@@ -18,6 +18,7 @@ trait HtmlBinding extends JustBinding{
 
   def tags:Map[String,Rx[HtmlTag]]
 
+
   //def extractTags[T]:Map[String,Rx[HtmlTag]] = macro Binder.htmlBindings_impl[T]
 
   def extractTagRx[T: TagRxMap](t: T) =  implicitly[TagRxMap[T]].asTagRxMap(t)

@@ -1,8 +1,8 @@
-package org.denigma.frontend
+package org.denigma
 
 import scala.collection.immutable.Map
 import org.scalajs.dom.{HTMLElement, Node}
-import org.denigma.frontend.views.BindingView
+
 
 /**
  * Implicits for views

@@ -1,28 +1,22 @@
-package org.denigma.frontend.views
+package org.denigma.views
 
 import scala.collection.immutable.Map
-import rx._
-import scalatags.HtmlTag
-import org.scalajs.dom
-import org.scalajs.dom.{Attr, HTMLElement, Node}
+import org.scalajs.dom.{Attr, HTMLElement}
 import org.scalajs.dom.extensions._
-import org.denigma.frontend.views._
 import scala.collection.mutable
-import scala.scalajs.js
-import org.denigma.frontend.views._
 import org.scalajs.dom
 import org.denigma.extensions
 import extensions._
 
+import scala.scalajs.js
 import js.Dynamic.{ global => g }
-import org.denigma.binding.macroses.Binder
 import org.denigma.binding.JustBinding
 
 object BindingView {
   /**
    * created if we do not know the view at all
-   * @param name
-   * @param elem
+   * @param name of the view
+   * @param elem dom element inside
    */
   class JustView(name:String,elem:dom.HTMLElement) extends BindingView(name,elem){
     override def bindAttributes(el: HTMLElement, ats: mutable.Map[String, dom.Attr]): Unit = {
@@ -35,8 +29,8 @@ object BindingView {
 
 /**
  * Basic view for binding
- * @param name
- * @param elem
+ * @param name of te view
+ * @param elem element inside
  */
 abstract class BindingView(val name:String,elem:dom.HTMLElement) extends JustBinding
 {

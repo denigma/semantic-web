@@ -11,7 +11,7 @@
 
 
 
-        <div class="right menu" data-hideif="isSigned">
+        <div class="right menu" data-hideif="isSigned" data-view="login">
 
             <div class="item">
                 <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
@@ -32,21 +32,19 @@
             </div>
 
            <div class="item">
-                <div class="ui positive button"  data-event-click="login">Login</div>
+                <div class="ui positive button"  data-event-click="loginClick" data-event-click="registerClick">Login</div>
            </div>
 
 
             <div class="item">
-                <div class="ui positive button" data-bind="registerLabel" data-event-click="register">Sign up</div>
+                <div class="ui positive button" data-bind="registerLabel" data-event-click="registerClick">Sign up</div>
             </div>
-        </div>
 
 
-        <div class="right menu" data-showif="isSigned">
-            <div class="item">
+            <div class="item"  data-showif="isSigned">
                 <div>Logged in as </div>
             </div>
-            <div class="item">
+            <div class="item"  data-showif="isSigned">
                 <div class="ui positive button">Log out</div>
             </div>
         </div>

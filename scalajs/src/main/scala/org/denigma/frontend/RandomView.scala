@@ -1,7 +1,6 @@
 package org.denigma.frontend
 
-import org.denigma.frontend.views.OrdinaryView
-import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.{TextEvent, MouseEvent, HTMLElement}
 import rx.core.Var
 import scalatags.all._
 import scalatags.HtmlTag
@@ -9,6 +8,8 @@ import scala.util.Random
 import rx.Rx
 import scala.collection.immutable.Map
 import org.scalajs.dom
+import org.denigma.views.OrdinaryView
+import scala.Predef
 
 
 /**
@@ -56,4 +57,8 @@ class RandomView(el:HTMLElement) extends OrdinaryView("random",el){
   lazy val strings: Map[String, Rx[String]] = this.extractStringRx(this)
 
   lazy val bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
+
+  override def textEvents: Predef.Map[String, rx.Var[TextEvent]] = this.extractTextEvents(this)
+
+  override def mouseEvents: Predef.Map[String, rx.Var[MouseEvent]] = this.extractMouseEvens(this)
 }

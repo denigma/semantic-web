@@ -11,6 +11,7 @@ import org.scalajs.dom.{Attr, HTMLElement}
 import scala.collection.immutable.Map
 import scala.collection.mutable
 import org.denigma.binding._
+import org.denigma.views._
 
 class MenuView(el:HTMLElement) extends BindingView("menu",el) with PropertyBinding
 {

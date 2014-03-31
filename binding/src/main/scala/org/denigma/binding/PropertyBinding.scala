@@ -1,7 +1,7 @@
 package org.denigma.binding
 
 import rx._
-import org.scalajs.dom.HTMLElement
+import org.scalajs.dom.{KeyboardEvent, MouseEvent, Event, HTMLElement}
 import scala.collection.mutable
 import scala.collection.immutable._
 import org.scalajs.dom
@@ -29,9 +29,40 @@ trait PropertyBinding  extends JustBinding{
   //  def extractDoubles[T]:Map[String,Rx[Double]] = macro Binder.doubleBindings_impl[T]
 
 
-  def extractAll[T: ClassToMap](t: T) =  implicitly[ClassToMap[T]].asMap(t)
-  def extractStringRx[T: StringRxMap](t: T) =  implicitly[StringRxMap[T]].asStringRxMap(t)
-  def extractBooleanRx[T: BooleanRxMap](t: T) =  implicitly[BooleanRxMap[T]].asBooleanRxMap(t)
+  def extractAll[T: ClassToMap](t: T): Map[String, Any] =  implicitly[ClassToMap[T]].asMap(t)
+  def extractStringRx[T: StringRxMap](t: T): Map[String, Rx[String]] =  implicitly[StringRxMap[T]].asStringRxMap(t)
+  def extractBooleanRx[T: BooleanRxMap](t: T): Map[String, Rx[Boolean]] =  implicitly[BooleanRxMap[T]].asBooleanRxMap(t)
+
+
+  def makeTextHandler(el:HTMLElement,par:Rx[String]):(KeyboardEvent)=>Unit = this.makeEventHandler(el,par){ (ev,v,elem)=>
+    if(elem.textContent.toString!=v.now) {
+      v()=elem.textContent.toString
+    }
+  }
+
+  def makePropHandler[T<:Event](el:HTMLElement,par:Rx[String],pname:String):(T)=>Unit = this.makeEventHandler[T,String](el,par){ (ev,v,elem)=>
+    elem \ pname  match {
+      case Some(pvalue)=>
+        if(v.now!=pvalue.toString) {
+          v()=pvalue.toString
+        }
+
+      case None => dom.console.error(s"no attributed for $pname")
+    }
+  }
+
+
+
+  def makeAttHandler[T<:Event](el:HTMLElement,par:Rx[String],atname:String):(T)=>Unit = this.makeEventHandler[T,String](el,par){ (ev,v,elem)=>
+    elem.attributes.get(atname) match {
+      case Some(att)=>
+        if(v.now!=att.value.toString) {
+        v()=att.value
+      }
+
+      case None => dom.console.error(s"no attributed for $atname")
+    }
+  }
 
 
   def bindProperties(el:HTMLElement,ats:mutable.Map[String, dom.Attr]) = for {
@@ -61,7 +92,6 @@ trait PropertyBinding  extends JustBinding{
     }
 
 
-
   /**
    * Binds property value to attribute
    * @param el Element
@@ -75,16 +105,19 @@ trait PropertyBinding  extends JustBinding{
         this.bindCheckBox(el,key,b)
       }
       case _ => this.strings.get(att.value).foreach{str=>
+        el.onkeyup =this.makePropHandler[KeyboardEvent](el,str,"value")
         this.bindInput(el,key,str)
       }
 
     }
     case ("bind","textarea")=>
       this.strings.get(att.value.toString).foreach{str=>
+        el.onkeyup = this.makePropHandler(el,str,"value")
         this.bindText(el,key,str)
       }
 
      case ("bind",other)=> this.strings.get(att.value.toString).foreach{str=>
+       el.onkeyup = this.makePropHandler(el,str,"value")
        this.bindText(el,key,str)
      }
 
@@ -92,11 +125,11 @@ trait PropertyBinding  extends JustBinding{
 
   }
 
-  def bindInput(el:HTMLElement,key:String,rx:Rx[String]) = this.bindRx(key,el:HTMLElement,rx){ (el,value)=>
-    el.attributes.setNamedItem( ("value" -> value.toString ).toAtt )
+  def bindInput(el:HTMLElement,key:String,str:Rx[String]) = this.bindRx(key,el:HTMLElement,str){ (el,value)=>
+    if(el.dyn.value!=value) el.dyn.value=value
   }
 
-  def bindText(el:HTMLElement,key:String,rx:Rx[String]) = this.bindRx(key,el:HTMLElement,rx){ (el,value)=>
+  def bindText(el:HTMLElement,key:String,str:Rx[String]) = this.bindRx(key,el:HTMLElement,str){ (el,value)=>
     el.textContent = value
   }
 
@@ -106,11 +139,6 @@ trait PropertyBinding  extends JustBinding{
   }
 
 
-  def attrib(key:String,el:HTMLElement) = if(key=="bind") {
-    if(el.tagName.toString.toLowerCase.contains("input")){
-
-    }
-  }
 
 
 

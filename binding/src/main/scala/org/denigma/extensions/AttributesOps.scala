@@ -3,6 +3,7 @@ package org.denigma.extensions
 import org.scalajs.dom.{Attr, NamedNodeMap}
 import scala.collection.mutable
 import org.scalajs.dom
+import scala.scalajs.js
 
 /**
  * Attribues
@@ -40,6 +41,7 @@ trait AttributesOps {
 
     override def get(key: String): Option[Attr] = attributes.getNamedItem(key) match {
       case null => None
+      case un:js.Undefined => None
       case attr => Some(attr)
     }
 
