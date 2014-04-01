@@ -95,7 +95,7 @@ object Dependencies {
 
   )
 
-  val scalaVer = "2.10.4"
+  val scalaVer = "2.10.3"
 
   val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",
     url("http://dl.bintray.com/content/scala-js/scala-js-releases"))(

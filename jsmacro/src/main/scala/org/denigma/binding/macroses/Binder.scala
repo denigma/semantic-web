@@ -38,3 +38,9 @@ object Binder {
 
 
 }
+
+/**
+ * Just for the stuff that should be binded
+ */
+class Bindable
+

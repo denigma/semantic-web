@@ -5,7 +5,7 @@ import org.scalajs.dom.{KeyboardEvent, MouseEvent, Event, HTMLElement}
 import scala.collection.mutable
 import scala.collection.immutable._
 import org.scalajs.dom
-import org.denigma.binding.macroses.{BooleanRxMap, ClassToMap, StringRxMap}
+import org.denigma.binding.macroses.{TypeClass, BooleanRxMap, ClassToMap, StringRxMap}
 import org.denigma.extensions._
 
 import dom.extensions._
@@ -32,6 +32,8 @@ trait PropertyBinding  extends JustBinding{
   def extractAll[T: ClassToMap](t: T): Map[String, Any] =  implicitly[ClassToMap[T]].asMap(t)
   def extractStringRx[T: StringRxMap](t: T): Map[String, Rx[String]] =  implicitly[StringRxMap[T]].asStringRxMap(t)
   def extractBooleanRx[T: BooleanRxMap](t: T): Map[String, Rx[Boolean]] =  implicitly[BooleanRxMap[T]].asBooleanRxMap(t)
+
+
 
 
   def makeTextHandler(el:HTMLElement,par:Rx[String]):(KeyboardEvent)=>Unit = this.makeEventHandler(el,par){ (ev,v,elem)=>
@@ -74,7 +76,7 @@ trait PropertyBinding  extends JustBinding{
       case "hideif" => this.hideIf(el,value.value)
       case "bind" => this.bindProperty(el,key,value)
       case _ => //some other thing to do
-  }
+    }
   }
 
   def showIf(el:HTMLElement,show: String) = for ( b<-bools.get(show) )

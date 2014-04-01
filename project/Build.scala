@@ -49,12 +49,13 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
 
       scalacOptions ++= Seq("-feature", "-language:_"),
 
-
       sharedScalaSetting,
 
       resolvers +=   Dependencies.scalajsResolver,
 
       parallelExecution in Test := false,
+
+      //scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
 
       scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
 
@@ -64,14 +65,7 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
 
       sharedFromJS,
 
-
-
-      scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs" ,
-
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
-
-    //      compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
-
 
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
 
@@ -121,7 +115,7 @@ trait ScalaJS extends Binding{
 trait Binding {
 
   //lazy val sharedScalaSetting = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala"
-  val bindingOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
+  //val bindingOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
 
   lazy val bindingSettings =
     scalaJSSettings ++ Seq(

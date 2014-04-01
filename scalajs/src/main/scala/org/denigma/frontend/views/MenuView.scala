@@ -13,7 +13,7 @@ import scala.collection.mutable
 import org.denigma.binding._
 import org.denigma.views._
 
-class MenuView(el:HTMLElement) extends BindingView("menu",el) with PropertyBinding
+class MenuView(el:HTMLElement, params:Map[String,Any]) extends BindingView("menu",el) with PropertyBinding
 {
 
   lazy val strings: Map[String, Rx[String]] = this.extractStringRx(this)

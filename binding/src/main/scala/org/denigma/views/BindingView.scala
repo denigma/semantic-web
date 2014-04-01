@@ -11,6 +11,7 @@ import extensions._
 import scala.scalajs.js
 import js.Dynamic.{ global => g }
 import org.denigma.binding.JustBinding
+import scala.util.{Success, Failure}
 
 object BindingView {
   /**
@@ -50,11 +51,22 @@ abstract class BindingView(val name:String,elem:dom.HTMLElement) extends JustBin
    * Extracts view by name from element
    * @param viewName name of the view
    * @param el html element
-   * @param other some other optional params needed to init the view
+   * @param params some other optional params needed to init the view
    * @return
    */
-  def inject(viewName:String,el:HTMLElement,other:AnyRef*): BindingView ={factories.get(viewName) match {
-    case Some(fun)=>fun(el,other)
+  def inject(viewName:String,el:HTMLElement,params:Map[String,Any]): BindingView ={factories.get(viewName) match {
+    case Some(fun)=>
+      fun(el,params) match {
+        case Success(view)=>view
+
+        case Failure(e)=>
+          //dom.console.error(e.toString)
+          if(e!=null)
+            dom.console.error(s"cannot initialize the view for $viewName because of ${e.toString}")
+          else
+            dom.console.error(s"Cannot initialize the view for $viewName")
+          BindingView.apply(name,el)
+    }
     case _ =>
       dom.console.error(s"cannot find view class for $viewName")
       BindingView.apply(name,el)
@@ -89,11 +101,14 @@ abstract class BindingView(val name:String,elem:dom.HTMLElement) extends JustBin
   def bind(el:HTMLElement):Unit =   el.attributes.get("data-view") match {
 
         case Some(view) if el.id.toString!=this.id =>
-          this.subviews.getOrElse(el.id,   {
-            val v = this.inject(view.value,el)
+          this.subviews.getOrElse(el.id,
+          {
+            val params = el.attributes.collect{case (key,value) if key.contains("data-param-")=> key.replace("data-param-", "") -> value.value.asInstanceOf[Any]}.toMap
+            val v = this.inject(view.value,el,params)
             v.bind(el)
             this.addView(v) //the order is intentional
-            v   } )
+            v
+          } )
 
         case _=>
           this.bindElement(el)

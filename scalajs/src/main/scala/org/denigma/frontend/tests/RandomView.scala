@@ -1,4 +1,4 @@
-package org.denigma.frontend
+package org.denigma.frontend.tests
 
 import org.scalajs.dom.{TextEvent, MouseEvent, HTMLElement}
 import rx.core.Var
@@ -9,13 +9,13 @@ import rx.Rx
 import scala.collection.immutable.Map
 import org.scalajs.dom
 import org.denigma.views.OrdinaryView
-import scala.Predef
+
 
 
 /**
  * For test purposes only
  */
-class RandomView(el:HTMLElement) extends OrdinaryView("random",el){
+class RandomView(el:HTMLElement, params:Map[String,Any]) extends OrdinaryView("random",el){
 
   val segment: Var[HtmlTag] = Var{
     div(`class`:="ui segment",
@@ -58,7 +58,7 @@ class RandomView(el:HTMLElement) extends OrdinaryView("random",el){
 
   lazy val bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
 
-  override def textEvents: Predef.Map[String, rx.Var[TextEvent]] = this.extractTextEvents(this)
+  override def textEvents:Map[String, rx.Var[TextEvent]] = this.extractTextEvents(this)
 
-  override def mouseEvents: Predef.Map[String, rx.Var[MouseEvent]] = this.extractMouseEvens(this)
+  override def mouseEvents: Map[String, rx.Var[MouseEvent]] = this.extractMouseEvens(this)
 }

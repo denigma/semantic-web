@@ -8,11 +8,12 @@ import scala.collection.immutable.Map
 
 import org.scalajs.dom.MouseEvent
 import org.scalajs.dom
+import org.denigma.binding.macroses
 
 /**
  * Login view
  */
-class LoginView(element:HTMLElement) extends OrdinaryView("login",element)
+class LoginView(element:HTMLElement, params:Map[String,Any]) extends OrdinaryView("login",element)
 {
   lazy val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
 

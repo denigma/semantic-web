@@ -11,6 +11,26 @@ import org.scalajs.dom
  * Just some experiments
  */
 
+trait TypeClass[T,R]{
+  def asMap(t:T):Map[String,R]
+}
+
+object TypeClass extends BinderObject{
+  implicit def materialize[T,R]: TypeClass[T,R] = macro impl[T,R]
+
+  def impl[T: c.WeakTypeTag,R: c.WeakTypeTag](c: Context): c.Expr[TypeClass[T,R]] = {
+    import c.universe._
+    val mapExpr = extract[T,R](c)
+
+    reify {
+      new TypeClass[T,R] {
+        def asMap(t: T) = mapExpr.splice
+      }
+    }
+  }
+
+}
+
 /**
  * Trait for materialization
  * @tparam T

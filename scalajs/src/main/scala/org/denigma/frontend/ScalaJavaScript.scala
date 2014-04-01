@@ -21,16 +21,19 @@ import js.Dynamic.{ global => g }
 import org.scalajs.jquery.{jQuery => jq, JQueryXHR}
 import org.denigma.frontend.views._
 import org.denigma.views._
-import scala.Predef
+import org.denigma.frontend.tests.{LongListView, RandomView}
+import scala.util.{Failure, Success, Try}
+import scala.collection.immutable._
 
 @JSExport
 object ScalaJavaScript extends OrdinaryView("main",dom.document.body) {
 
 
   org.denigma.views
-    .register("login", (el, params) => new LoginView(el))
-    .register("menu", (el, params) => new MenuView(el))
-    .register("random",(el,params)=> new RandomView(el))
+    .register("login", (el, params) =>Try(new LoginView(el,params)))
+    .register("menu", (el, params) =>Try{ new MenuView(el,params) })
+    .register("random",(el,params)=> Try {new RandomView(el,params)})
+    .register("lists",(el,params)=>Try {new LongListView(el,params)})
 
   val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
 
@@ -77,7 +80,7 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body) {
 
   }
 
-  override def textEvents: Predef.Map[String, Var[TextEvent]] = this.extractTextEvents(this)
+  override def textEvents: Map[String, Var[TextEvent]] = this.extractTextEvents(this)
 
-  override def mouseEvents: Predef.Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
+  override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
 }
