@@ -36,6 +36,10 @@ object BindingView {
 abstract class BindingView(val name:String,elem:dom.HTMLElement) extends JustBinding
 {
 
+  var parent:Option[BindingView] = None
+
+  def hasParent = parent.isDefined
+
   /**
    * Id of this view
    */
@@ -80,19 +84,45 @@ abstract class BindingView(val name:String,elem:dom.HTMLElement) extends JustBin
     this.bind(value)
   }
 
-  def bindAttributes(el:HTMLElement,ats:mutable.Map[String, Attr] )
+  protected def bindAttributes(el:HTMLElement,ats:mutable.Map[String, Attr] )
 
   /**
    * Binds element
    * @param el
    */
-  def bindElement(el:HTMLElement) = {
+  protected def bindElement(el:HTMLElement) = {
     val ats: mutable.Map[String, Attr] = el.attributes.collect{
       case (key,attr) if key.contains("data-") && !key.contains("data-view") => (key.replace("data-",""),attr)
     }
     this.bindAttributes(el,ats)
 
   }
+
+
+  /**
+   * Fires when view was binded by default does the same as bind
+   * @param el
+   */
+  def bindView(el:HTMLElement) = this.bind(el)
+
+  protected def attributesToParams(el:HTMLElement): Map[String, Any] = el.attributes.collect{case (key,value) if key.contains("data-param-")=> key.replace("data-param-", "") -> value.value.asInstanceOf[Any]}.toMap
+
+
+  /**
+   * Creates view
+   * @param el
+   * @param viewAtt
+   * @return
+   */
+  protected def createView(el:HTMLElement,viewAtt:dom.Attr) =     {
+      val params = this.attributesToParams(el)
+      val v = this.inject(viewAtt.value,el,params)
+      v.parent = Some(this)
+      v.bindView(el)
+      this.addView(v) //the order is intentional
+      v
+
+    }
 //
   /**
    * Binds nodes to the element
@@ -101,14 +131,7 @@ abstract class BindingView(val name:String,elem:dom.HTMLElement) extends JustBin
   def bind(el:HTMLElement):Unit =   el.attributes.get("data-view") match {
 
         case Some(view) if el.id.toString!=this.id =>
-          this.subviews.getOrElse(el.id,
-          {
-            val params = el.attributes.collect{case (key,value) if key.contains("data-param-")=> key.replace("data-param-", "") -> value.value.asInstanceOf[Any]}.toMap
-            val v = this.inject(view.value,el,params)
-            v.bind(el)
-            this.addView(v) //the order is intentional
-            v
-          } )
+          this.subviews.getOrElse(el.id, this.createView(el,view))
 
         case _=>
           this.bindElement(el)

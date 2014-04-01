@@ -1,57 +1,146 @@
 package org.denigma.views
 
-import org.scalajs.dom.{Attr, TextEvent, MouseEvent, HTMLElement}
-import scala.collection.mutable
-import scala.scalajs.js
+import org.scalajs.dom._
 import org.scalajs.dom
 import org.denigma.views.OrdinaryView
 import rx.{Var, Rx}
 import scalatags.HtmlTag
 import dom.extensions._
-import org.denigma.binding.CollectionBinding
-import scala.collection.immutable.Map
+import org.denigma.binding.{EventBinding, HtmlBinding, PropertyBinding, CollectionBinding}
+import scala.collection.immutable._
+import scala.collection.mutable
+import scala.Some
+import org.denigma.extensions._
 
+object ListView {
+
+  class JustMapView(el:HTMLElement,props:Map[String,Any]) extends MapView("justmapview",el,props){
+    override def tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
+
+    override def strings: Map[String, Rx[String]] = this.extractStringRx(this)
+
+    override def bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
+
+    override def textEvents: Map[String, Var[TextEvent]] = this.extractTagRx(this)
+
+    override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
+  }
+
+
+  def apply(el:HTMLElement,props:Map[String,Any]):MapView = {
+    new JustMapView(el,props)
+  }
+}
+
+
+
+abstract class MapView(name:String,element:HTMLElement,props:Map[String,Any]) extends OrdinaryView(name,element)
+{
+  val reactiveMap:Map[String,Var[String]] = props.map(kv=>(kv._1,Var(kv._2.toString)))
+
+  override def bindProperties(el:HTMLElement,ats:mutable.Map[String, dom.Attr]) = for {
+    (key, value) <- ats
+  }{
+    key.toString match {
+
+      case "showif" => this.showIf(el,value.value)
+      case "hideif" => this.hideIf(el,value.value)
+      case "bind" => this.bindProperty(el,key,value)
+      case "item-bind"=>this.bindItemProperty(el,key,value)
+      case _ => //some other thing to do
+    }
+  }
+
+  override def bindAttributes(el:HTMLElement,ats:mutable.Map[String,Attr]) ={
+    super.bindAttributes(el,ats)
+
+  }
+
+  /**
+   * Binds property value to attribute
+   * @param el Element
+   * @param key name of the binding key
+   * @param att binding attribute
+   */
+  def bindItemProperty(el:HTMLElement,key:String,att:dom.Attr) = (key.toString,el.tagName.toLowerCase().toString) match {
+    case ("item-bind","input")=>
+      el.attributes.get("type").map(_.value.toString) match {
+        case Some("checkbox") => //skip
+
+        case _ => this.reactiveMap.get(att.value).foreach{str=>
+          el.onkeyup =this.makePropHandler[KeyboardEvent](el,str,"value")
+          this.bindInput(el,key,str)
+        }
+
+      }
+
+    case ("item-bind","textarea")=>
+      this.reactiveMap.get(att.value.toString).foreach{str=>
+        el.onkeyup = this.makePropHandler(el,str,"value")
+        this.bindText(el,key,str)
+      }
+
+    case ("item-bind",other)=> this.reactiveMap.get(att.value.toString).foreach{str=>
+      el.onkeyup = this.makePropHandler(el,str,"value")
+      this.bindText(el,key,str)
+    }
+
+    case _=> dom.console.error(s"unknown binding")
+
+  }
+
+}
 
 abstract class ListView(name:String,element:HTMLElement, params:Map[String,Any]) extends BindingView(name,element) with CollectionBinding
 {
-//  val key = params.getOrElse("items").toString
-//  if(!lists.contains(key)) throw new Exception(s"not items with key == $key")
+  val key = params.get("items").getOrElse("items").toString
+
+  val disp = element.style.display
+
+  val template: HTMLElement = this.element.cloneNode(true).asInstanceOf[HTMLElement]
 
 
-  //val disp = element.style.display
-//  element.attributes.get("data-item-view") match {
-//
-//    case Some()
-//    case None=> dm
-//
-//  }
-
-  //val template: HTMLElement = this.element.cloneNode(true).asInstanceOf[HTMLElement]
-//  element.childNodes.foreach {
-//    n =>
-//      if(n!=null) {
-//        dom.console.info("removing n: " + n.toString)
-//        element.removeChild(n)
-//      }
-//  }
-//
-//
-//
-////
   def newItem(mp:Map[String, Any]) = {
-    //val item = template.cloneNode(true).asInstanceOf[HTMLElement]
-    //item.setAttribute("data-view",("data-view"->"item").toAtt)
-    //item
+    val el = template.cloneNode(true).asInstanceOf[HTMLElement]
+    val view: MapView = el.attributes.get("item-view") match {
+      case None=> ListView.apply(el,mp)
+      case Some(v)=> this.inject(v.value,el,mp) match {
+        case item:MapView=> item
+        case _=>
+          dom.console.error(s"view ${v.value} exists but does not inherit MapView")
+          ListView.apply(el,mp)
+      }
+    }
+    view
   }
 
-  override def bind(el:HTMLElement) = {
-/*
-    val items = this.lists(key)
-    items.now.foreach{i=>
-     // this.element.appendChild(this.newItem(i))
+  /**
+   * Creates view
+   * @param el
+   * @param viewAtt
+   * @return
+   */
+  protected def createView(el:HTMLElement,viewAtt:dom.Attr,item:Map[String,Any]) =     {
+
+    val v = this.inject(viewAtt.value,el,params)
+    v.parent = Some(this)
+    v.bindView(el)
+    this.addView(v) //the order is intentional
+    v
+
+  }
+
+  //TODO: maybe dangerous!!!
+  override def bindView(el:HTMLElement) = {
+    element.children.toList.foreach(element.removeChild)
+    if(!this.lists.contains(key)) throw new Exception(s"not items with key == $key")
+    val items = this.lists(key).now.map(this.newItem)
+    items.foreach{i=>
+      this.addView(i)
+      element.appendChild(i.element)
+      i.bindView(i.element)
     }
-    */
-    //super.bind(el)
+
   }
 
 }

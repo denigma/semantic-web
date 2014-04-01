@@ -40,7 +40,7 @@ object ListRxMap extends BinderObject {
 
     reify {
       new ListRxMap[T] {
-        def asListRxMap(t: T) = mapExpr.splice
+        def asListRxMap(t: T): Map[String, Rx[List[Map[String, Any]]]] = mapExpr.splice
       }
     }
   }
