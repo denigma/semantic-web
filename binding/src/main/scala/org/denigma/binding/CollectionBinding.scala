@@ -1,12 +1,10 @@
 package org.denigma.binding
 
-import org.scalajs.dom.{Attr, HTMLElement}
-import scala.collection.mutable
-import scala.scalajs.js
+import org.scalajs.dom.HTMLElement
+import scala.collection.immutable._
 import rx.Rx
 import org.denigma.binding.macroses.ListRxMap
 import org.scalajs.dom
-import org.denigma.extensions._
 /**
  * Trait that provides collection binding
  */

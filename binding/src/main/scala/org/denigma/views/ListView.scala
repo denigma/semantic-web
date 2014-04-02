@@ -38,6 +38,7 @@ abstract class MapView(name:String,element:HTMLElement,props:Map[String,Any]) ex
 {
   val reactiveMap:Map[String,Var[String]] = props.map(kv=>(kv._1,Var(kv._2.toString)))
 
+  //TODO: rewrite props
   override def bindProperties(el:HTMLElement,ats:mutable.Map[String, dom.Attr]) = for {
     (key, value) <- ats
   }{
@@ -45,8 +46,10 @@ abstract class MapView(name:String,element:HTMLElement,props:Map[String,Any]) ex
 
       case "showif" => this.showIf(el,value.value)
       case "hideif" => this.hideIf(el,value.value)
+      case bname if bname.startsWith("bind-")=>this.bindAttribute(el,key.replace("bind-",""),value.value,this.strings)
       case "bind" => this.bindProperty(el,key,value)
       case "item-bind"=>this.bindItemProperty(el,key,value)
+      case bname if bname.startsWith("item-bind-")=>this.bindAttribute(el,key.replace("item-bind-",""),value.value,this.reactiveMap)
       case _ => //some other thing to do
     }
   }
@@ -62,28 +65,29 @@ abstract class MapView(name:String,element:HTMLElement,props:Map[String,Any]) ex
    * @param key name of the binding key
    * @param att binding attribute
    */
-  def bindItemProperty(el:HTMLElement,key:String,att:dom.Attr) = (key.toString,el.tagName.toLowerCase().toString) match {
-    case ("item-bind","input")=>
+  def bindItemProperty(el:HTMLElement,key:String,att:dom.Attr) = (key.toString.replace("item-",""),el.tagName.toLowerCase().toString) match {
+    case ("bind","input")=>
       el.attributes.get("type").map(_.value.toString) match {
         case Some("checkbox") => //skip
-
         case _ => this.reactiveMap.get(att.value).foreach{str=>
           el.onkeyup =this.makePropHandler[KeyboardEvent](el,str,"value")
           this.bindInput(el,key,str)
         }
-
       }
 
-    case ("item-bind","textarea")=>
+    case ("bind","textarea")=>
       this.reactiveMap.get(att.value.toString).foreach{str=>
         el.onkeyup = this.makePropHandler(el,str,"value")
         this.bindText(el,key,str)
       }
 
-    case ("item-bind",other)=> this.reactiveMap.get(att.value.toString).foreach{str=>
+    case ("bind",other)=> this.reactiveMap.get(att.value.toString).foreach{str=>
       el.onkeyup = this.makePropHandler(el,str,"value")
       this.bindText(el,key,str)
     }
+
+
+
 
     case _=> dom.console.error(s"unknown binding")
 
@@ -91,13 +95,20 @@ abstract class MapView(name:String,element:HTMLElement,props:Map[String,Any]) ex
 
 }
 
-abstract class ListView(name:String,element:HTMLElement, params:Map[String,Any]) extends BindingView(name,element) with CollectionBinding
+abstract class ListView(name:String,element:HTMLElement, params:Map[String,Any]) extends OrdinaryView(name,element) with CollectionBinding
 {
   val key = params.get("items").getOrElse("items").toString
 
   val disp = element.style.display
 
-  val template: HTMLElement = this.element.cloneNode(true).asInstanceOf[HTMLElement]
+  val template: HTMLElement = this.extractTemplate()
+
+  /**
+   * Extracts item template
+   * @return
+   */
+  protected def extractTemplate() =   element.childNodes.collectFirst{case element:HTMLElement=>element}.getOrElse(element)
+
 
 
   def newItem(mp:Map[String, Any]) = {

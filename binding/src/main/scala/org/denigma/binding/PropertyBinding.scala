@@ -1,7 +1,7 @@
 package org.denigma.binding
 
 import rx._
-import org.scalajs.dom.{KeyboardEvent, MouseEvent, Event, HTMLElement}
+import org.scalajs.dom._
 import scala.collection.mutable
 import scala.collection.immutable._
 import org.scalajs.dom
@@ -11,7 +11,7 @@ import org.denigma.extensions._
 import dom.extensions._
 import scalatags.all._
 import scala.Some
-
+import scala.Some
 
 
 /**
@@ -67,6 +67,7 @@ trait PropertyBinding  extends JustBinding{
   }
 
 
+  //TODO: rewrite
   def bindProperties(el:HTMLElement,ats:mutable.Map[String, dom.Attr]) = for {
     (key, value) <- ats
   }{
@@ -74,6 +75,7 @@ trait PropertyBinding  extends JustBinding{
 
       case "showif" => this.showIf(el,value.value)
       case "hideif" => this.hideIf(el,value.value)
+      case bname if bname.startsWith("bind-")=>this.bindAttribute(el,key.replace("bind-",""),value.value,this.strings)
       case "bind" => this.bindProperty(el,key,value)
       case _ => //some other thing to do
     }
@@ -94,13 +96,15 @@ trait PropertyBinding  extends JustBinding{
     }
 
 
+  //TODO: split into subfunctions
   /**
    * Binds property value to attribute
    * @param el Element
    * @param key name of the binding key
    * @param att binding attribute
    */
-  def bindProperty(el:HTMLElement,key:String,att:dom.Attr) = (key.toString,el.tagName.toLowerCase().toString) match {
+  def bindProperty(el:HTMLElement,key:String,att:dom.Attr): Unit = (key.toString,el.tagName.toLowerCase().toString) match
+  {
     case ("bind","input")=>
       el.attributes.get("type").map(_.value.toString) match {
       case Some("checkbox") => this.bools.get(att.value.toString).foreach{b=>
@@ -123,9 +127,33 @@ trait PropertyBinding  extends JustBinding{
        this.bindText(el,key,str)
      }
 
-     case _=> dom.console.error(s"unknown binding")
+     case _=> dom.console.error(s"unknown binding for $key with attribute ${att.value}")
 
   }
+
+//  protected def bindTextArea(el:HTMLElement,key:String,att:Attr,mp:Map[String,Rx[String]]):PartialFunction[(String,String),Unit] = {
+//    case ("bind", "textarea") =>
+//      mp.get(att.value.toString).foreach {
+//        str =>
+//          el.onkeyup = this.makePropHandler(el, str, "value")
+//          this.bindText(el, key, str)
+//      }
+//  }
+
+  def bindAttribute(el:HTMLElement,key:String,value:String,mp:Map[String,Rx[String]]) =  mp.get(value) match
+  {
+    case Some(str)=>
+      this.bindRx(key, el: HTMLElement, str) {
+        (el, value) =>
+          //dom.console.info((key -> value.toString).toAtt.toString)
+          el.attributes.setNamedItem((key -> str.now).toAtt)
+          el.dyn.updateDynamic(key)(str.now) //TODO: check if redundant
+      }
+
+    case _=>  dom.console.error(s"unknown binding for $key with attribute $value")
+
+  }
+
 
   def bindInput(el:HTMLElement,key:String,str:Rx[String]) = this.bindRx(key,el:HTMLElement,str){ (el,value)=>
     if(el.dyn.value!=value) el.dyn.value=value
@@ -134,6 +162,7 @@ trait PropertyBinding  extends JustBinding{
   def bindText(el:HTMLElement,key:String,str:Rx[String]) = this.bindRx(key,el:HTMLElement,str){ (el,value)=>
     el.textContent = value
   }
+
 
 
   def bindCheckBox(el:HTMLElement,key:String,rx:Rx[Boolean]) = this.bindRx(key,el:HTMLElement,rx){ (el,value)=>

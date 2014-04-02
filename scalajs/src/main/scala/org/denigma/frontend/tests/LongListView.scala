@@ -13,7 +13,6 @@ import scala.collection.immutable.Map
 class LongListView(element:HTMLElement, params:Map[String,Any]) extends ListView("lists",element,params){
 
 
-  override lazy val lists: Map[String, Rx[List[Map[String, Any]]]] = this.extractListRx(this)
 
   val items: Var[List[Map[String, Any]]] = Var{
     List(
@@ -27,4 +26,15 @@ class LongListView(element:HTMLElement, params:Map[String,Any]) extends ListView
 
 
   }
+  override lazy val lists: Map[String, Rx[List[Map[String, Any]]]] = this.extractListRx(this)
+
+  override lazy val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
+
+  override lazy val strings: Map[String, Rx[String]] = this.extractStringRx(this)
+
+  override lazy val bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
+
+  override lazy val textEvents: Map[String, Var[TextEvent]] = this.extractTextEvents(this)
+
+  override lazy val mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
 }
