@@ -4,9 +4,9 @@ import org.scalajs.dom.HTMLElement
 import scala.scalajs.js
 
 /**
- * Created by antonkulaga on 31.03.14.
+ * Extensions for HTMLElement
  */
-class ElementOps {
+trait ElementOps {
 
   implicit class Element(el:HTMLElement) {
 

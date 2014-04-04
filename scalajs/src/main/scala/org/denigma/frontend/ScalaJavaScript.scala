@@ -43,36 +43,9 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body) {
 
   lazy val bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
 
-//  def onSuccess(data: js.Any, textStatus: js.String, jqXHR: JQueryXHR) = {
-//    val d = pr.unpickle(data)
-//    val m = d.asInstanceOf[Message]
-//    console.log(s"data=$data,text=$textStatus,jqXHR=$jqXHR")
-//  }
-//
-//
-//  def send(path: String, message: Message) = {
-//    val mes = pr.pickle(message)
-//    val settings = js.Dynamic.literal(
-//      url = path,
-//      success = {
-//        this.onSuccess _
-//      },
-//      error = {
-//        (jqXHR: JQueryXHR, textStatus: js.String, errorThrow: js.String) =>
-//          console.log(s"jqXHR=$jqXHR,text=$textStatus,err=$errorThrow")
-//      },
-//      contentType = "application/json",
-//      dataType = "json",
-//      data = g.JSON.stringify(mes),
-//      `type` = "POST"
-//    ).asInstanceOf[org.scalajs.jquery.JQueryAjaxSettings]
-//  }
-
 
   @JSExport
   def main(): Unit = {
-
-    rp.registerPicklers()
 
     val str = s"http://${dom.window.location.host}/test"
 

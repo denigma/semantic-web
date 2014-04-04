@@ -1,11 +1,23 @@
 package org.denigma.extensions
 
+import rx.core.Obs
+import rx.core.Rx
+import org.denigma.extensions.Swap
 import scala.collection.immutable._
-import rx._
-import rx.ops._
 
+import scala.collection.immutable._
+import rx.ops._
 //NOTE THIS CODE IS NOT TESTED YET
-trait RxCollectionOps {
+trait RxOps {
+
+
+  implicit class AnyRx[T](reactive:Rx[T]) {
+
+
+    def handler(callback: => Unit) = Obs(reactive, skipInitial = true)(callback)
+
+  }
+
   /**
    * Watch changes in the collection
    * @param col

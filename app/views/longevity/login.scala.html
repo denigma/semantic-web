@@ -1,0 +1,38 @@
+@(implicit request: UserRequestHeader)
+<div class="right menu" data-hideif="isSigned" data-view="login">
+
+    <div class="item">
+        <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
+            <input type="text" placeholder="login" data-bind="username">
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
+            <input type="text" data-bind="password" placeholder="password">
+        </div>
+    </div>
+
+    <div class="item" data-showif="state | equals 'application'">
+        <div class="ui input" data-removeclass-invalid="valid_password" data-addclass-invalid="valid_password | not">
+            <input type="text" data-bind="repeat" placeholder="repeat password">
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="ui positive button"  data-event-click="loginClick" data-event-click="registerClick">Login</div>
+    </div>
+
+
+    <div class="item">
+        <div class="ui positive button" data-event-click="registerClick">Sign up</div>
+    </div>
+
+
+    <div class="item"  data-showif="isSigned">
+        <div>Logged in as </div>
+    </div>
+    <div class="item"  data-showif="isSigned">
+        <div class="ui positive button">Log out</div>
+    </div>
+</div>

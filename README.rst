@@ -8,8 +8,9 @@ At the moment the project includes:
 * sparql helpers that analyze AST and add binding/limits
 * some demo pages with d3js visualizations
 * some code from other projects ( wesin, collaboration) that will be integrated in future
+* scalajs based micro-binding framework
 
-Most of the code that deals with bigdata is inside SemanticData subproject.
+Most of the code that deals with bigdata is inside SemanticData subproject as well as ScalaJS binding microframework.
 
 Setting Up
 ==========
@@ -36,17 +37,22 @@ Notes
 -----
 
 As the code is young there are many rough edges. Only very small set of features are working, some features (like login/logout)
-are not implemented (or partially imlemented)
+are not implemented (or partially implemented)
 
 
 Architecture
 ============
-At the moment it consists of tree projects:
+At the moment it consists of a bunch of projects:
  * semantic-web (main project) that is web-application
  * semantic-data ( subproject ) that contains the code that deales with BigData rdf QuadStore and quries to it
  * macro ( subproject ) that contains macroses implementations
  * collaboration ( not included in build yet) that contains code of websocket chats and live updates that will be partially ported in
  order to provide nice collaboration experience
+
+There is also a bunch of ScalaJS projects:
+* jsmacro project for scalajs macroses
+* binding project with scalajs binding microframework that allows binding of different reactive variables to HTML properties
+* scala shared source folder - for classes that are shared between backend and frontend
 
  Build definitions are situated in build.sbt and inside project folder.
 
@@ -60,12 +66,15 @@ Most of the code is inside app subfolder.
 Front-end
 ---------
 
-
 A bunch of fronted javascript/coffeescript libs are used. Some of them are loaded with Webjars, some of them reside in semantic-web/public
 folder, due to a high number of javascript libs github even mistakenly classified this project as javascript-one
 
 The main javascript code is inside app/assets folder and is written with coffeescript. There Batmanjs fronted framework is used and
 it has only its coffeescript models/controllers/views.
+
+NOTE: at the moment there is a migration from coffeescript to ScalaJS, so at the first page there is some testing code.
+Overall fronted part consists of play2 twirl tempaltes (in semantic-web/views), macrojs project, scala shared source folder and scalajs project.
+
 
 Configuration
 -------------

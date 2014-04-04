@@ -3,6 +3,8 @@
 # ~~~~
 
 GET         /                          controllers.Longevity.index()
+POST        /test                      controllers.Tests.test
+GET         /test                      controllers.Tests.test
 
 GET         /                          controllers.Application.index(controller="query",action="main")
 GET         /users/login               controllers.Application.login(username:String,password:String)
@@ -39,8 +41,7 @@ POST        /upload                    controllers.Application.upload
 GET         /webjars/*file             controllers.WebJarAssets.at(file)
 
 
-POST        /test                      controllers.Tests.test
-GET        /test                      controllers.Tests.test
+
 
 GET         /test/editor               controllers.Tests.editor
 GET         /test/sigma                controllers.Tests.sigma

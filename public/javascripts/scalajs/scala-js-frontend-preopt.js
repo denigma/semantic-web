@@ -1176,9 +1176,9 @@ ScalaJS.impls.org_denigma_binding_PropertyBinding$class__bindText__Lorg_denigma_
 });
 ScalaJS.impls.org_denigma_binding_PropertyBinding$class__bindCheckBox__Lorg_denigma_binding_PropertyBinding__Lorg_scalajs_dom_HTMLElement__T__Lrx_core_Rx__V = (function($$this, el, key, rx) {
   ScalaJS.as.org_denigma_binding_JustBinding($$this).bindRx__T__Lorg_scalajs_dom_HTMLElement__Lrx_core_Rx__Lscala_Function2__V(key, el, rx, new ScalaJS.c.scala_scalajs_runtime_AnonFunction2().init___Lscala_scalajs_js_Function2((function() {
-    return (function(el, value) {
+    return (function(el$4, value) {
       value = ScalaJS.uZ(value);
-      el["attributes"]["setNamedItem"](ScalaJS.modules.org_denigma_extensions_package().AttrFactory__Lscala_Tuple2__Lorg_denigma_extensions_AttributesOps$AttrFactory(ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("checked"), ScalaJS.objectToString(ScalaJS.bZ(value)))).toAtt__Lorg_scalajs_dom_Attr());
+      el$4["attributes"]["setNamedItem"](ScalaJS.modules.org_denigma_extensions_package().AttrFactory__Lscala_Tuple2__Lorg_denigma_extensions_AttributesOps$AttrFactory(ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("checked"), ScalaJS.objectToString(ScalaJS.bZ(value)))).toAtt__Lorg_scalajs_dom_Attr());
       return ScalaJS.bV(undefined)
     })
   })()))
@@ -1201,8 +1201,17 @@ ScalaJS.impls.org_denigma_extensions_AttributesOps$class__Attributes__Lorg_denig
 ScalaJS.impls.org_denigma_extensions_AttributesOps$class__$init$__Lorg_denigma_extensions_AttributesOps__V = (function($$this) {
   /*<skip>*/
 });
-ScalaJS.impls.org_denigma_extensions_RxCollectionOps$class__$init$__Lorg_denigma_extensions_RxCollectionOps__V = (function($$this) {
+ScalaJS.impls.org_denigma_extensions_RxOps$class__AnyRx__Lorg_denigma_extensions_RxOps__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx = (function($$this, reactive) {
+  return new ScalaJS.c.org_denigma_extensions_RxOps$AnyRx().init___Lorg_denigma_extensions_RxOps__Lrx_core_Rx($$this, reactive)
+});
+ScalaJS.impls.org_denigma_extensions_RxOps$class__$init$__Lorg_denigma_extensions_RxOps__V = (function($$this) {
   /*<skip>*/
+});
+ScalaJS.impls.org_scalajs_spickling_PicklerRegistry$class__pickle$default$3__Lorg_scalajs_spickling_PicklerRegistry__O__Lorg_scalajs_spickling_PicklerRegistry = (function($$this, value$2) {
+  return $$this
+});
+ScalaJS.impls.org_scalajs_spickling_PicklerRegistry$class__unpickle$default$3__Lorg_scalajs_spickling_PicklerRegistry__O__Lorg_scalajs_spickling_PicklerRegistry = (function($$this, pickle) {
+  return $$this
 });
 ScalaJS.impls.org_scalajs_spickling_PicklerRegistry$class__$init$__Lorg_scalajs_spickling_PicklerRegistry__V = (function($$this) {
   /*<skip>*/
@@ -1332,6 +1341,9 @@ ScalaJS.impls.scala_Function0$class__apply$mcV$sp__Lscala_Function0__V = (functi
   $$this.apply__O()
 });
 ScalaJS.impls.scala_Function0$class__$init$__Lscala_Function0__V = (function($$this) {
+  /*<skip>*/
+});
+ScalaJS.impls.scala_Function0$mcZ$sp$class__$init$__Lscala_Function0$mcZ$sp__V = (function($$this) {
   /*<skip>*/
 });
 ScalaJS.impls.scala_Function1$class__toString__Lscala_Function1__T = (function($$this) {
@@ -5572,6 +5584,9 @@ ScalaJS.c.java_lang_System$.prototype.out__Ljava_io_PrintStream = (function() {
 ScalaJS.c.java_lang_System$.prototype.err__Ljava_io_PrintStream = (function() {
   return this.err$1
 });
+ScalaJS.c.java_lang_System$.prototype.currentTimeMillis__J = (function() {
+  return ScalaJS.modules.scala_scalajs_runtime_Long().fromDouble__D__Lscala_scalajs_runtime_Long(new ScalaJS.g["Date"]()["getTime"]())
+});
 ScalaJS.c.java_lang_System$.prototype.arraycopy__O__I__O__I__I__V = (function(src, srcPos, dest, destPos, length) {
   var jsSrc = ScalaJS.modules.java_lang_reflect_Array().getUnderlying__O__Lscala_scalajs_js_Array(src);
   var jsDest = ScalaJS.modules.java_lang_reflect_Array().getUnderlying__O__Lscala_scalajs_js_Array(dest);
@@ -6994,6 +7009,78 @@ ScalaJS.modules.models_AcceptPrivateChat = (function() {
   };
   return ScalaJS.moduleInstances.models_AcceptPrivateChat
 });
+/** @constructor */
+ScalaJS.c.models_Connect = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.user$1 = null
+});
+ScalaJS.c.models_Connect.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_Connect.prototype.constructor = ScalaJS.c.models_Connect;
+ScalaJS.c.models_Connect.prototype.user__Lmodels_User = (function() {
+  return this.user$1
+});
+ScalaJS.c.models_Connect.prototype.productPrefix__T = (function() {
+  return "Connect"
+});
+ScalaJS.c.models_Connect.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_Connect.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.user__Lmodels_User();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_Connect.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_Connect.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_Connect(x$1)
+});
+ScalaJS.c.models_Connect.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_Connect.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_Connect.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_Connect(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var Connect$1 = ScalaJS.as.models_Connect(x$1);
+      return (ScalaJS.anyRefEqEq(this.user__Lmodels_User(), Connect$1.user__Lmodels_User()) && Connect$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_Connect.prototype.init___Lmodels_User = (function(user) {
+  this.user$1 = user;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_Connect = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_Connect.prototype = ScalaJS.c.models_Connect.prototype;
 ScalaJS.is.models_Connect = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_Connect)))
 });
@@ -7024,6 +7111,79 @@ ScalaJS.data.models_Connect = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_Connect.prototype.$classData = ScalaJS.data.models_Connect;
+/** @constructor */
+ScalaJS.c.models_Join = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.room$1 = null
+});
+ScalaJS.c.models_Join.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_Join.prototype.constructor = ScalaJS.c.models_Join;
+ScalaJS.c.models_Join.prototype.room__Lmodels_Room = (function() {
+  return this.room$1
+});
+ScalaJS.c.models_Join.prototype.productPrefix__T = (function() {
+  return "Join"
+});
+ScalaJS.c.models_Join.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_Join.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.room__Lmodels_Room();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_Join.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_Join.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_Join(x$1)
+});
+ScalaJS.c.models_Join.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_Join.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_Join.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_Join(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var Join$1 = ScalaJS.as.models_Join(x$1);
+      return (ScalaJS.anyRefEqEq(this.room__Lmodels_Room(), Join$1.room__Lmodels_Room()) && Join$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_Join.prototype.init___Lmodels_Room = (function(room) {
+  this.room$1 = room;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_Join = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_Join.prototype = ScalaJS.c.models_Join.prototype;
 ScalaJS.is.models_Join = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_Join)))
 });
@@ -7054,6 +7214,79 @@ ScalaJS.data.models_Join = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_Join.prototype.$classData = ScalaJS.data.models_Join;
+/** @constructor */
+ScalaJS.c.models_JoinedRoom = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.users$1 = null
+});
+ScalaJS.c.models_JoinedRoom.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_JoinedRoom.prototype.constructor = ScalaJS.c.models_JoinedRoom;
+ScalaJS.c.models_JoinedRoom.prototype.users__Lscala_collection_immutable_List = (function() {
+  return this.users$1
+});
+ScalaJS.c.models_JoinedRoom.prototype.productPrefix__T = (function() {
+  return "JoinedRoom"
+});
+ScalaJS.c.models_JoinedRoom.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_JoinedRoom.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.users__Lscala_collection_immutable_List();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_JoinedRoom.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_JoinedRoom.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_JoinedRoom(x$1)
+});
+ScalaJS.c.models_JoinedRoom.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_JoinedRoom.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_JoinedRoom.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_JoinedRoom(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var JoinedRoom$1 = ScalaJS.as.models_JoinedRoom(x$1);
+      return (ScalaJS.anyRefEqEq(this.users__Lscala_collection_immutable_List(), JoinedRoom$1.users__Lscala_collection_immutable_List()) && JoinedRoom$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_JoinedRoom.prototype.init___Lscala_collection_immutable_List = (function(users) {
+  this.users$1 = users;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_JoinedRoom = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_JoinedRoom.prototype = ScalaJS.c.models_JoinedRoom.prototype;
 ScalaJS.is.models_JoinedRoom = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_JoinedRoom)))
 });
@@ -7084,6 +7317,7 @@ ScalaJS.data.models_JoinedRoom = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_JoinedRoom.prototype.$classData = ScalaJS.data.models_JoinedRoom;
 /** @constructor */
 ScalaJS.c.models_Leave$ = (function() {
   ScalaJS.c.java_lang_Object.call(this)
@@ -7372,6 +7606,102 @@ ScalaJS.data.models_MenuItem = new ScalaJS.ClassTypeData({
   java_lang_Object: 1
 });
 ScalaJS.c.models_MenuItem.prototype.$classData = ScalaJS.data.models_MenuItem;
+/** @constructor */
+ScalaJS.c.models_Message = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.user$1 = null;
+  this.text$1 = null;
+  this.timestamp$1 = ScalaJS.modules.scala_scalajs_runtime_Long().zero__Lscala_scalajs_runtime_Long()
+});
+ScalaJS.c.models_Message.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_Message.prototype.constructor = ScalaJS.c.models_Message;
+ScalaJS.c.models_Message.prototype.user__Lmodels_User = (function() {
+  return this.user$1
+});
+ScalaJS.c.models_Message.prototype.text__T = (function() {
+  return this.text$1
+});
+ScalaJS.c.models_Message.prototype.timestamp__J = (function() {
+  return this.timestamp$1
+});
+ScalaJS.c.models_Message.prototype.productPrefix__T = (function() {
+  return "Message"
+});
+ScalaJS.c.models_Message.prototype.productArity__I = (function() {
+  return 3
+});
+ScalaJS.c.models_Message.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.user__Lmodels_User();
+        break
+      };
+    case 1:
+      {
+        return this.text__T();
+        break
+      };
+    case 2:
+      {
+        return ScalaJS.bJ(this.timestamp__J());
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_Message.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_Message.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_Message(x$1)
+});
+ScalaJS.c.models_Message.prototype.hashCode__I = (function() {
+  var acc = -889275714;
+  acc = ScalaJS.modules.scala_runtime_Statics().mix__I__I__I(acc, ScalaJS.modules.scala_runtime_Statics().anyHash__O__I(this.user__Lmodels_User()));
+  acc = ScalaJS.modules.scala_runtime_Statics().mix__I__I__I(acc, ScalaJS.modules.scala_runtime_Statics().anyHash__O__I(this.text__T()));
+  acc = ScalaJS.modules.scala_runtime_Statics().mix__I__I__I(acc, ScalaJS.modules.scala_runtime_Statics().longHash__J__I(this.timestamp__J()));
+  return ScalaJS.modules.scala_runtime_Statics().finalizeHash__I__I__I(acc, 3)
+});
+ScalaJS.c.models_Message.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_Message.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_Message(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var Message$1 = ScalaJS.as.models_Message(x$1);
+      return (((ScalaJS.anyRefEqEq(this.user__Lmodels_User(), Message$1.user__Lmodels_User()) && ScalaJS.anyRefEqEq(this.text__T(), Message$1.text__T())) && this.timestamp__J().equals__O__Z(Message$1.timestamp__J())) && Message$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_Message.prototype.init___Lmodels_User__T__J = (function(user, text, timestamp) {
+  this.user$1 = user;
+  this.text$1 = text;
+  this.timestamp$1 = timestamp;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_Message = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_Message.prototype = ScalaJS.c.models_Message.prototype;
 ScalaJS.is.models_Message = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_Message)))
 });
@@ -7402,6 +7732,79 @@ ScalaJS.data.models_Message = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_Message.prototype.$classData = ScalaJS.data.models_Message;
+/** @constructor */
+ScalaJS.c.models_ReceiveMessage = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.message$1 = null
+});
+ScalaJS.c.models_ReceiveMessage.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_ReceiveMessage.prototype.constructor = ScalaJS.c.models_ReceiveMessage;
+ScalaJS.c.models_ReceiveMessage.prototype.message__Lmodels_Message = (function() {
+  return this.message$1
+});
+ScalaJS.c.models_ReceiveMessage.prototype.productPrefix__T = (function() {
+  return "ReceiveMessage"
+});
+ScalaJS.c.models_ReceiveMessage.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_ReceiveMessage.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.message__Lmodels_Message();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_ReceiveMessage.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_ReceiveMessage.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_ReceiveMessage(x$1)
+});
+ScalaJS.c.models_ReceiveMessage.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_ReceiveMessage.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_ReceiveMessage.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_ReceiveMessage(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var ReceiveMessage$1 = ScalaJS.as.models_ReceiveMessage(x$1);
+      return (ScalaJS.anyRefEqEq(this.message__Lmodels_Message(), ReceiveMessage$1.message__Lmodels_Message()) && ReceiveMessage$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_ReceiveMessage.prototype.init___Lmodels_Message = (function(message) {
+  this.message$1 = message;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_ReceiveMessage = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_ReceiveMessage.prototype = ScalaJS.c.models_ReceiveMessage.prototype;
 ScalaJS.is.models_ReceiveMessage = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_ReceiveMessage)))
 });
@@ -7432,6 +7835,7 @@ ScalaJS.data.models_ReceiveMessage = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_ReceiveMessage.prototype.$classData = ScalaJS.data.models_ReceiveMessage;
 /** @constructor */
 ScalaJS.c.models_RegisterPicklers$ = (function() {
   ScalaJS.c.java_lang_Object.call(this)
@@ -7951,6 +8355,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$14$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$14$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$14$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$14$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$14$.prototype.pickle__Lscala_collection_immutable_$colon$colon__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("hd$1", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.hd$1__O(), builder, registry$2)), new ScalaJS.c.scala_Tuple2().init___O__O("tl$1", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.tl$1__Lscala_collection_immutable_List(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$14$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lscala_collection_immutable_$colon$colon__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.scala_collection_immutable_$colon$colon(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$14$ = (function() {
   /*<skip>*/
@@ -7990,6 +8400,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$15$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$15$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$15$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$15$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$15$.prototype.pickle__Lmodels_User__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("nick", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.nick__T(), builder, registry$2)), new ScalaJS.c.scala_Tuple2().init___O__O("avatar", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.avatar__T(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$15$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_User__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_User(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$15$ = (function() {
   /*<skip>*/
@@ -8029,6 +8445,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$16$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$16$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$16$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$16$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$16$.prototype.pickle__Lmodels_Room__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("name", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.name__T(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$16$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_Room__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_Room(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$16$ = (function() {
   /*<skip>*/
@@ -8068,6 +8490,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$17$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$17$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$17$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$17$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$17$.prototype.pickle__Lmodels_Message__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("user", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.user__Lmodels_User(), builder, registry$2)), new ScalaJS.c.scala_Tuple2().init___O__O("text", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.text__T(), builder, registry$2)), new ScalaJS.c.scala_Tuple2().init___O__O("timestamp", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(ScalaJS.bJ(value.timestamp__J()), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$17$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_Message__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_Message(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$17$ = (function() {
   /*<skip>*/
@@ -8107,6 +8535,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$18$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$18$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$18$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$18$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$18$.prototype.pickle__Lmodels_Connect__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("user", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.user__Lmodels_User(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$18$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_Connect__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_Connect(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$18$ = (function() {
   /*<skip>*/
@@ -8146,6 +8580,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$19$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$19$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$19$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$19$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$19$.prototype.pickle__Lmodels_Join__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("room", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.room__Lmodels_Room(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$19$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_Join__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_Join(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$19$ = (function() {
   /*<skip>*/
@@ -8185,6 +8625,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$20$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$20$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$20$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$20$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$20$.prototype.pickle__Lmodels_SendMessage__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("message", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.message__Lmodels_Message(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$20$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_SendMessage__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_SendMessage(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$20$ = (function() {
   /*<skip>*/
@@ -8224,6 +8670,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$21$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$21$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$21$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$21$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$21$.prototype.pickle__Lmodels_RequestPrivateChat__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("peer", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.peer__Lmodels_User(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$21$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_RequestPrivateChat__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_RequestPrivateChat(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$21$ = (function() {
   /*<skip>*/
@@ -8263,6 +8715,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$22$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$22$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$22$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$22$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$22$.prototype.pickle__Lmodels_RoomListChanged__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("rooms", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.rooms__Lscala_collection_immutable_List(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$22$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_RoomListChanged__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_RoomListChanged(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$22$ = (function() {
   /*<skip>*/
@@ -8302,6 +8760,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$23$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$23$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$23$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$23$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$23$.prototype.pickle__Lmodels_JoinedRoom__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("users", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.users__Lscala_collection_immutable_List(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$23$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_JoinedRoom__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_JoinedRoom(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$23$ = (function() {
   /*<skip>*/
@@ -8341,6 +8805,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$24$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$24$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$24$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$24$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$24$.prototype.pickle__Lmodels_UserJoined__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("user", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.user__Lmodels_User(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$24$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_UserJoined__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_UserJoined(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$24$ = (function() {
   /*<skip>*/
@@ -8380,6 +8850,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$25$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$25$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$25$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$25$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$25$.prototype.pickle__Lmodels_UserLeft__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("user", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.user__Lmodels_User(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$25$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_UserLeft__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_UserLeft(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$25$ = (function() {
   /*<skip>*/
@@ -8419,6 +8895,12 @@ ScalaJS.c.models_RegisterPicklers$GenPickler$26$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenPickler$26$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenPickler$26$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenPickler$26$;
+ScalaJS.c.models_RegisterPicklers$GenPickler$26$.prototype.pickle__Lmodels_ReceiveMessage__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(value, registry$2, builder) {
+  return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("message", registry$2.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(value.message__Lmodels_Message(), builder, registry$2))]), 1)))
+});
+ScalaJS.c.models_RegisterPicklers$GenPickler$26$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Lmodels_ReceiveMessage__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.models_ReceiveMessage(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenPickler$26$ = (function() {
   /*<skip>*/
@@ -8458,6 +8940,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$14$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$14$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$14$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$14$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$14$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lscala_collection_immutable_$colon$colon = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.scala_collection_immutable_$colon$colon().init___O__Lscala_collection_immutable_List(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "hd$1"), reader, registry$3), ScalaJS.as.scala_collection_immutable_List(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "tl$1"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$14$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lscala_collection_immutable_$colon$colon(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$14$ = (function() {
   /*<skip>*/
@@ -8497,6 +8985,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$15$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$15$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$15$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$15$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$15$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_User = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_User().init___T__T(ScalaJS.as.java_lang_String(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "nick"), reader, registry$3)), ScalaJS.as.java_lang_String(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "avatar"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$15$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_User(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$15$ = (function() {
   /*<skip>*/
@@ -8536,6 +9030,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$16$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$16$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$16$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$16$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$16$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_Room = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_Room().init___T(ScalaJS.as.java_lang_String(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "name"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$16$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_Room(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$16$ = (function() {
   /*<skip>*/
@@ -8575,6 +9075,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$17$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$17$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$17$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$17$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$17$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_Message = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_Message().init___Lmodels_User__T__J(ScalaJS.as.models_User(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "user"), reader, registry$3)), ScalaJS.as.java_lang_String(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "text"), reader, registry$3)), ScalaJS.uJ(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "timestamp"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$17$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_Message(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$17$ = (function() {
   /*<skip>*/
@@ -8614,6 +9120,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$18$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$18$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$18$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$18$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$18$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_Connect = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_Connect().init___Lmodels_User(ScalaJS.as.models_User(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "user"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$18$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_Connect(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$18$ = (function() {
   /*<skip>*/
@@ -8653,6 +9165,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$19$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$19$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$19$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$19$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$19$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_Join = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_Join().init___Lmodels_Room(ScalaJS.as.models_Room(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "room"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$19$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_Join(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$19$ = (function() {
   /*<skip>*/
@@ -8692,6 +9210,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$20$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$20$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$20$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$20$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$20$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_SendMessage = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_SendMessage().init___Lmodels_Message(ScalaJS.as.models_Message(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "message"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$20$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_SendMessage(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$20$ = (function() {
   /*<skip>*/
@@ -8731,6 +9255,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$21$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$21$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$21$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$21$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$21$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_RequestPrivateChat = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_RequestPrivateChat().init___Lmodels_User(ScalaJS.as.models_User(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "peer"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$21$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_RequestPrivateChat(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$21$ = (function() {
   /*<skip>*/
@@ -8770,6 +9300,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$22$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$22$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$22$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$22$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$22$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_RoomListChanged = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_RoomListChanged().init___Lscala_collection_immutable_List(ScalaJS.as.scala_collection_immutable_List(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "rooms"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$22$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_RoomListChanged(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$22$ = (function() {
   /*<skip>*/
@@ -8809,6 +9345,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$23$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$23$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$23$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$23$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$23$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_JoinedRoom = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_JoinedRoom().init___Lscala_collection_immutable_List(ScalaJS.as.scala_collection_immutable_List(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "users"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$23$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_JoinedRoom(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$23$ = (function() {
   /*<skip>*/
@@ -8848,6 +9390,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$24$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$24$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$24$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$24$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$24$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_UserJoined = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_UserJoined().init___Lmodels_User(ScalaJS.as.models_User(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "user"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$24$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_UserJoined(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$24$ = (function() {
   /*<skip>*/
@@ -8887,6 +9435,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$25$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$25$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$25$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$25$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$25$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_UserLeft = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_UserLeft().init___Lmodels_User(ScalaJS.as.models_User(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "user"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$25$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_UserLeft(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$25$ = (function() {
   /*<skip>*/
@@ -8926,6 +9480,12 @@ ScalaJS.c.models_RegisterPicklers$GenUnpickler$26$ = (function() {
 });
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$26$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.models_RegisterPicklers$GenUnpickler$26$.prototype.constructor = ScalaJS.c.models_RegisterPicklers$GenUnpickler$26$;
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$26$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_ReceiveMessage = (function(pickle, registry$3, reader) {
+  return new ScalaJS.c.models_ReceiveMessage().init___Lmodels_Message(ScalaJS.as.models_Message(registry$3.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(reader.readObjectField__O__T__O(pickle, "message"), reader, registry$3)))
+});
+ScalaJS.c.models_RegisterPicklers$GenUnpickler$26$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Lmodels_ReceiveMessage(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.models_RegisterPicklers$GenUnpickler$26$ = (function() {
   /*<skip>*/
@@ -9033,6 +9593,78 @@ ScalaJS.modules.models_RejectPrivateChat = (function() {
   };
   return ScalaJS.moduleInstances.models_RejectPrivateChat
 });
+/** @constructor */
+ScalaJS.c.models_RequestPrivateChat = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.peer$1 = null
+});
+ScalaJS.c.models_RequestPrivateChat.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_RequestPrivateChat.prototype.constructor = ScalaJS.c.models_RequestPrivateChat;
+ScalaJS.c.models_RequestPrivateChat.prototype.peer__Lmodels_User = (function() {
+  return this.peer$1
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.productPrefix__T = (function() {
+  return "RequestPrivateChat"
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.peer__Lmodels_User();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_RequestPrivateChat(x$1)
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_RequestPrivateChat(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var RequestPrivateChat$1 = ScalaJS.as.models_RequestPrivateChat(x$1);
+      return (ScalaJS.anyRefEqEq(this.peer__Lmodels_User(), RequestPrivateChat$1.peer__Lmodels_User()) && RequestPrivateChat$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_RequestPrivateChat.prototype.init___Lmodels_User = (function(peer) {
+  this.peer$1 = peer;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_RequestPrivateChat = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_RequestPrivateChat.prototype = ScalaJS.c.models_RequestPrivateChat.prototype;
 ScalaJS.is.models_RequestPrivateChat = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_RequestPrivateChat)))
 });
@@ -9063,6 +9695,79 @@ ScalaJS.data.models_RequestPrivateChat = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_RequestPrivateChat.prototype.$classData = ScalaJS.data.models_RequestPrivateChat;
+/** @constructor */
+ScalaJS.c.models_Room = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.name$1 = null
+});
+ScalaJS.c.models_Room.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_Room.prototype.constructor = ScalaJS.c.models_Room;
+ScalaJS.c.models_Room.prototype.name__T = (function() {
+  return this.name$1
+});
+ScalaJS.c.models_Room.prototype.productPrefix__T = (function() {
+  return "Room"
+});
+ScalaJS.c.models_Room.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_Room.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.name__T();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_Room.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_Room.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_Room(x$1)
+});
+ScalaJS.c.models_Room.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_Room.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_Room.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_Room(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var Room$1 = ScalaJS.as.models_Room(x$1);
+      return (ScalaJS.anyRefEqEq(this.name__T(), Room$1.name__T()) && Room$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_Room.prototype.init___T = (function(name) {
+  this.name$1 = name;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_Room = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_Room.prototype = ScalaJS.c.models_Room.prototype;
 ScalaJS.is.models_Room = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_Room)))
 });
@@ -9093,6 +9798,79 @@ ScalaJS.data.models_Room = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_Room.prototype.$classData = ScalaJS.data.models_Room;
+/** @constructor */
+ScalaJS.c.models_RoomListChanged = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.rooms$1 = null
+});
+ScalaJS.c.models_RoomListChanged.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_RoomListChanged.prototype.constructor = ScalaJS.c.models_RoomListChanged;
+ScalaJS.c.models_RoomListChanged.prototype.rooms__Lscala_collection_immutable_List = (function() {
+  return this.rooms$1
+});
+ScalaJS.c.models_RoomListChanged.prototype.productPrefix__T = (function() {
+  return "RoomListChanged"
+});
+ScalaJS.c.models_RoomListChanged.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_RoomListChanged.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.rooms__Lscala_collection_immutable_List();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_RoomListChanged.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_RoomListChanged.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_RoomListChanged(x$1)
+});
+ScalaJS.c.models_RoomListChanged.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_RoomListChanged.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_RoomListChanged.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_RoomListChanged(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var RoomListChanged$1 = ScalaJS.as.models_RoomListChanged(x$1);
+      return (ScalaJS.anyRefEqEq(this.rooms__Lscala_collection_immutable_List(), RoomListChanged$1.rooms__Lscala_collection_immutable_List()) && RoomListChanged$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_RoomListChanged.prototype.init___Lscala_collection_immutable_List = (function(rooms) {
+  this.rooms$1 = rooms;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_RoomListChanged = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_RoomListChanged.prototype = ScalaJS.c.models_RoomListChanged.prototype;
 ScalaJS.is.models_RoomListChanged = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_RoomListChanged)))
 });
@@ -9123,6 +9901,79 @@ ScalaJS.data.models_RoomListChanged = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_RoomListChanged.prototype.$classData = ScalaJS.data.models_RoomListChanged;
+/** @constructor */
+ScalaJS.c.models_SendMessage = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.message$1 = null
+});
+ScalaJS.c.models_SendMessage.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_SendMessage.prototype.constructor = ScalaJS.c.models_SendMessage;
+ScalaJS.c.models_SendMessage.prototype.message__Lmodels_Message = (function() {
+  return this.message$1
+});
+ScalaJS.c.models_SendMessage.prototype.productPrefix__T = (function() {
+  return "SendMessage"
+});
+ScalaJS.c.models_SendMessage.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_SendMessage.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.message__Lmodels_Message();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_SendMessage.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_SendMessage.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_SendMessage(x$1)
+});
+ScalaJS.c.models_SendMessage.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_SendMessage.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_SendMessage.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_SendMessage(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var SendMessage$1 = ScalaJS.as.models_SendMessage(x$1);
+      return (ScalaJS.anyRefEqEq(this.message__Lmodels_Message(), SendMessage$1.message__Lmodels_Message()) && SendMessage$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_SendMessage.prototype.init___Lmodels_Message = (function(message) {
+  this.message$1 = message;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_SendMessage = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_SendMessage.prototype = ScalaJS.c.models_SendMessage.prototype;
 ScalaJS.is.models_SendMessage = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_SendMessage)))
 });
@@ -9153,6 +10004,89 @@ ScalaJS.data.models_SendMessage = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_SendMessage.prototype.$classData = ScalaJS.data.models_SendMessage;
+/** @constructor */
+ScalaJS.c.models_User = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.nick$1 = null;
+  this.avatar$1 = null
+});
+ScalaJS.c.models_User.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_User.prototype.constructor = ScalaJS.c.models_User;
+ScalaJS.c.models_User.prototype.nick__T = (function() {
+  return this.nick$1
+});
+ScalaJS.c.models_User.prototype.avatar__T = (function() {
+  return this.avatar$1
+});
+ScalaJS.c.models_User.prototype.productPrefix__T = (function() {
+  return "User"
+});
+ScalaJS.c.models_User.prototype.productArity__I = (function() {
+  return 2
+});
+ScalaJS.c.models_User.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.nick__T();
+        break
+      };
+    case 1:
+      {
+        return this.avatar__T();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_User.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_User.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_User(x$1)
+});
+ScalaJS.c.models_User.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_User.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_User.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_User(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var User$1 = ScalaJS.as.models_User(x$1);
+      return ((ScalaJS.anyRefEqEq(this.nick__T(), User$1.nick__T()) && ScalaJS.anyRefEqEq(this.avatar__T(), User$1.avatar__T())) && User$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_User.prototype.init___T__T = (function(nick, avatar) {
+  this.nick$1 = nick;
+  this.avatar$1 = avatar;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_User = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_User.prototype = ScalaJS.c.models_User.prototype;
 ScalaJS.is.models_User = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_User)))
 });
@@ -9183,6 +10117,7 @@ ScalaJS.data.models_User = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_User.prototype.$classData = ScalaJS.data.models_User;
 /** @constructor */
 ScalaJS.c.models_UserDoesNotExist$ = (function() {
   ScalaJS.c.java_lang_Object.call(this)
@@ -9257,6 +10192,78 @@ ScalaJS.modules.models_UserDoesNotExist = (function() {
   };
   return ScalaJS.moduleInstances.models_UserDoesNotExist
 });
+/** @constructor */
+ScalaJS.c.models_UserJoined = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.user$1 = null
+});
+ScalaJS.c.models_UserJoined.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_UserJoined.prototype.constructor = ScalaJS.c.models_UserJoined;
+ScalaJS.c.models_UserJoined.prototype.user__Lmodels_User = (function() {
+  return this.user$1
+});
+ScalaJS.c.models_UserJoined.prototype.productPrefix__T = (function() {
+  return "UserJoined"
+});
+ScalaJS.c.models_UserJoined.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_UserJoined.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.user__Lmodels_User();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_UserJoined.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_UserJoined.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_UserJoined(x$1)
+});
+ScalaJS.c.models_UserJoined.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_UserJoined.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_UserJoined.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_UserJoined(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var UserJoined$1 = ScalaJS.as.models_UserJoined(x$1);
+      return (ScalaJS.anyRefEqEq(this.user__Lmodels_User(), UserJoined$1.user__Lmodels_User()) && UserJoined$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_UserJoined.prototype.init___Lmodels_User = (function(user) {
+  this.user$1 = user;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_UserJoined = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_UserJoined.prototype = ScalaJS.c.models_UserJoined.prototype;
 ScalaJS.is.models_UserJoined = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_UserJoined)))
 });
@@ -9287,6 +10294,79 @@ ScalaJS.data.models_UserJoined = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_UserJoined.prototype.$classData = ScalaJS.data.models_UserJoined;
+/** @constructor */
+ScalaJS.c.models_UserLeft = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.user$1 = null
+});
+ScalaJS.c.models_UserLeft.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.models_UserLeft.prototype.constructor = ScalaJS.c.models_UserLeft;
+ScalaJS.c.models_UserLeft.prototype.user__Lmodels_User = (function() {
+  return this.user$1
+});
+ScalaJS.c.models_UserLeft.prototype.productPrefix__T = (function() {
+  return "UserLeft"
+});
+ScalaJS.c.models_UserLeft.prototype.productArity__I = (function() {
+  return 1
+});
+ScalaJS.c.models_UserLeft.prototype.productElement__I__O = (function(x$1) {
+  var x1 = x$1;
+  switch (x1) {
+    case 0:
+      {
+        return this.user__Lmodels_User();
+        break
+      };
+    default:
+      throw new ScalaJS.c.java_lang_IndexOutOfBoundsException().init___T(ScalaJS.objectToString(ScalaJS.bI(x$1)));
+  }
+});
+ScalaJS.c.models_UserLeft.prototype.productIterator__Lscala_collection_Iterator = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().typedProductIterator__Lscala_Product__Lscala_collection_Iterator(this)
+});
+ScalaJS.c.models_UserLeft.prototype.canEqual__O__Z = (function(x$1) {
+  return ScalaJS.is.models_UserLeft(x$1)
+});
+ScalaJS.c.models_UserLeft.prototype.hashCode__I = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undhashCode__Lscala_Product__I(this)
+});
+ScalaJS.c.models_UserLeft.prototype.toString__T = (function() {
+  return ScalaJS.modules.scala_runtime_ScalaRunTime().$$undtoString__Lscala_Product__T(this)
+});
+ScalaJS.c.models_UserLeft.prototype.equals__O__Z = (function(x$1) {
+  if ((this === x$1)) {
+    return true
+  } else {
+    var x1 = x$1;
+    matchEnd4: {
+      if (ScalaJS.is.models_UserLeft(x1)) {
+        var jsx$1 = true;
+        break matchEnd4
+      };
+      var jsx$1 = false;
+      break matchEnd4
+    };
+    if (jsx$1) {
+      var UserLeft$1 = ScalaJS.as.models_UserLeft(x$1);
+      return (ScalaJS.anyRefEqEq(this.user__Lmodels_User(), UserLeft$1.user__Lmodels_User()) && UserLeft$1.canEqual__O__Z(this))
+    } else {
+      return false
+    }
+  }
+});
+ScalaJS.c.models_UserLeft.prototype.init___Lmodels_User = (function(user) {
+  this.user$1 = user;
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.impls.scala_Product$class__$init$__Lscala_Product__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.models_UserLeft = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_UserLeft.prototype = ScalaJS.c.models_UserLeft.prototype;
 ScalaJS.is.models_UserLeft = (function(obj) {
   return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_UserLeft)))
 });
@@ -9317,6 +10397,7 @@ ScalaJS.data.models_UserLeft = new ScalaJS.ClassTypeData({
   scala_Equals: 1,
   java_lang_Object: 1
 });
+ScalaJS.c.models_UserLeft.prototype.$classData = ScalaJS.data.models_UserLeft;
 /** @constructor */
 ScalaJS.c.models_WebResource = (function() {
   ScalaJS.c.java_lang_Object.call(this)
@@ -10261,12 +11342,72 @@ ScalaJS.data.org_denigma_extensions_AttributesOps$Attributes$$anon$1 = new Scala
 });
 ScalaJS.c.org_denigma_extensions_AttributesOps$Attributes$$anon$1.prototype.$classData = ScalaJS.data.org_denigma_extensions_AttributesOps$Attributes$$anon$1;
 /** @constructor */
+ScalaJS.c.org_denigma_extensions_RxOps$AnyRx = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.reactive$1 = null;
+  this.$$outer$f = null
+});
+ScalaJS.c.org_denigma_extensions_RxOps$AnyRx.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.org_denigma_extensions_RxOps$AnyRx.prototype.constructor = ScalaJS.c.org_denigma_extensions_RxOps$AnyRx;
+ScalaJS.c.org_denigma_extensions_RxOps$AnyRx.prototype.handler__Lscala_Function0__Lrx_core_Obs = (function(callback) {
+  var x$2 = this.reactive$1;
+  var x$3 = true;
+  var x$4 = ScalaJS.modules.rx_core_Obs().apply$default$2__T();
+  var x$5 = callback;
+  return ScalaJS.modules.rx_core_Obs().apply__Lrx_core_Emitter__T__Z__Lscala_Function0__Lrx_core_Obs(x$2, x$4, x$3, x$5)
+});
+ScalaJS.c.org_denigma_extensions_RxOps$AnyRx.prototype.init___Lorg_denigma_extensions_RxOps__Lrx_core_Rx = (function($$outer, reactive) {
+  this.reactive$1 = reactive;
+  if (($$outer === null)) {
+    throw new ScalaJS.c.java_lang_NullPointerException().init___()
+  } else {
+    this.$$outer$f = $$outer
+  };
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.org_denigma_extensions_RxOps$AnyRx = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.org_denigma_extensions_RxOps$AnyRx.prototype = ScalaJS.c.org_denigma_extensions_RxOps$AnyRx.prototype;
+ScalaJS.is.org_denigma_extensions_RxOps$AnyRx = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_denigma_extensions_RxOps$AnyRx)))
+});
+ScalaJS.as.org_denigma_extensions_RxOps$AnyRx = (function(obj) {
+  if ((ScalaJS.is.org_denigma_extensions_RxOps$AnyRx(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.denigma.extensions.RxOps$AnyRx")
+  }
+});
+ScalaJS.isArrayOf.org_denigma_extensions_RxOps$AnyRx = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_denigma_extensions_RxOps$AnyRx)))
+});
+ScalaJS.asArrayOf.org_denigma_extensions_RxOps$AnyRx = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_denigma_extensions_RxOps$AnyRx(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.denigma.extensions.RxOps$AnyRx;", depth)
+  }
+});
+ScalaJS.data.org_denigma_extensions_RxOps$AnyRx = new ScalaJS.ClassTypeData({
+  org_denigma_extensions_RxOps$AnyRx: 0
+}, false, "org.denigma.extensions.RxOps$AnyRx", ScalaJS.data.java_lang_Object, {
+  org_denigma_extensions_RxOps$AnyRx: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.org_denigma_extensions_RxOps$AnyRx.prototype.$classData = ScalaJS.data.org_denigma_extensions_RxOps$AnyRx;
+/** @constructor */
 ScalaJS.c.org_denigma_extensions_package$ = (function() {
   ScalaJS.c.java_lang_Object.call(this);
   this.Attributes$module$1 = null
 });
 ScalaJS.c.org_denigma_extensions_package$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_denigma_extensions_package$.prototype.constructor = ScalaJS.c.org_denigma_extensions_package$;
+ScalaJS.c.org_denigma_extensions_package$.prototype.AnyRx__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx = (function(reactive) {
+  return ScalaJS.impls.org_denigma_extensions_RxOps$class__AnyRx__Lorg_denigma_extensions_RxOps__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx(this, reactive)
+});
 ScalaJS.c.org_denigma_extensions_package$.prototype.AnyJs__Lscala_scalajs_js_Any__Lorg_denigma_extensions_AnyJs$AnyJs = (function(obj) {
   return ScalaJS.impls.org_denigma_extensions_AnyJs$class__AnyJs__Lorg_denigma_extensions_AnyJs__Lscala_scalajs_js_Any__Lorg_denigma_extensions_AnyJs$AnyJs(this, obj)
 });
@@ -10295,7 +11436,7 @@ ScalaJS.c.org_denigma_extensions_package$.prototype.init___ = (function() {
   ScalaJS.moduleInstances.org_denigma_extensions_package = this;
   ScalaJS.impls.org_denigma_extensions_AttributesOps$class__$init$__Lorg_denigma_extensions_AttributesOps__V(this);
   ScalaJS.impls.org_denigma_extensions_AnyJs$class__$init$__Lorg_denigma_extensions_AnyJs__V(this);
-  ScalaJS.impls.org_denigma_extensions_RxCollectionOps$class__$init$__Lorg_denigma_extensions_RxCollectionOps__V(this);
+  ScalaJS.impls.org_denigma_extensions_RxOps$class__$init$__Lorg_denigma_extensions_RxOps__V(this);
   return this
 });
 /** @constructor */
@@ -10327,7 +11468,7 @@ ScalaJS.data.org_denigma_extensions_package$ = new ScalaJS.ClassTypeData({
   org_denigma_extensions_package$: 0
 }, false, "org.denigma.extensions.package$", ScalaJS.data.java_lang_Object, {
   org_denigma_extensions_package$: 1,
-  org_denigma_extensions_RxCollectionOps: 1,
+  org_denigma_extensions_RxOps: 1,
   org_denigma_extensions_AnyJs: 1,
   org_denigma_extensions_AttributesOps: 1,
   java_lang_Object: 1
@@ -11017,7 +12158,7 @@ ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2 = (function() {
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2.prototype.constructor = ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2;
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2.prototype.asStringRxMap__Lorg_denigma_frontend_views_LoginView__Lscala_collection_immutable_Map = (function(t$3) {
-  return ScalaJS.as.scala_collection_immutable_Map(ScalaJS.modules.scala_collection_immutable_Map().apply__Lscala_collection_Seq__Lscala_collection_GenMap(ScalaJS.modules.scala_collection_immutable_Nil()))
+  return ScalaJS.as.scala_collection_immutable_Map(ScalaJS.modules.scala_collection_immutable_Map().apply__Lscala_collection_Seq__Lscala_collection_GenMap(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("repeat"), t$3.repeat__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("password"), t$3.password__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("login"), t$3.login__Lrx_core_Var())]), 1))))
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2.prototype.asStringRxMap__O__Lscala_collection_immutable_Map = (function(t) {
   return this.asStringRxMap__Lorg_denigma_frontend_views_LoginView__Lscala_collection_immutable_Map(ScalaJS.as.org_denigma_frontend_views_LoginView(t))
@@ -11066,7 +12207,7 @@ ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3 = (function() {
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3.prototype.constructor = ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3;
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3.prototype.asBooleanRxMap__Lorg_denigma_frontend_views_LoginView__Lscala_collection_immutable_Map = (function(t$3) {
-  return ScalaJS.as.scala_collection_immutable_Map(ScalaJS.modules.scala_collection_immutable_Map().apply__Lscala_collection_Seq__Lscala_collection_GenMap(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("isSigned"), t$3.isSigned__Lrx_core_Var())]), 1))))
+  return ScalaJS.as.scala_collection_immutable_Map(ScalaJS.modules.scala_collection_immutable_Map().apply__Lscala_collection_Seq__Lscala_collection_GenMap(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("emailLogin"), t$3.emailLogin__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("canSend"), t$3.canSend__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("inLogging"), t$3.inLogging__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("inSigningUp"), t$3.inSigningUp__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("isSigned"), t$3.isSigned__Lrx_core_Var())]), 1))))
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3.prototype.asBooleanRxMap__O__Lscala_collection_immutable_Map = (function(t) {
   return this.asBooleanRxMap__Lorg_denigma_frontend_views_LoginView__Lscala_collection_immutable_Map(ScalaJS.as.org_denigma_frontend_views_LoginView(t))
@@ -11860,6 +13001,9 @@ ScalaJS.c.org_scalajs_dom_extensions_EasySeq.prototype.to__Lscala_collection_gen
 ScalaJS.c.org_scalajs_dom_extensions_EasySeq.prototype.stringPrefix__T = (function() {
   return ScalaJS.impls.scala_collection_TraversableLike$class__stringPrefix__Lscala_collection_TraversableLike__T(this)
 });
+ScalaJS.c.org_scalajs_dom_extensions_EasySeq.prototype.withFilter__Lscala_Function1__Lscala_collection_generic_FilterMonadic = (function(p) {
+  return ScalaJS.impls.scala_collection_TraversableLike$class__withFilter__Lscala_collection_TraversableLike__Lscala_Function1__Lscala_collection_generic_FilterMonadic(this, p)
+});
 ScalaJS.c.org_scalajs_dom_extensions_EasySeq.prototype.collectFirst__Lscala_PartialFunction__Lscala_Option = (function(pf) {
   return ScalaJS.impls.scala_collection_TraversableOnce$class__collectFirst__Lscala_collection_TraversableOnce__Lscala_PartialFunction__Lscala_Option(this, pf)
 });
@@ -12251,6 +13395,12 @@ ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.constructor = ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry;
+ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.pickle$default$3__O__Lorg_scalajs_spickling_PicklerRegistry = (function(value) {
+  return ScalaJS.impls.org_scalajs_spickling_PicklerRegistry$class__pickle$default$3__Lorg_scalajs_spickling_PicklerRegistry__O__Lorg_scalajs_spickling_PicklerRegistry(this, value)
+});
+ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.unpickle$default$3__O__Lorg_scalajs_spickling_PicklerRegistry = (function(pickle) {
+  return ScalaJS.impls.org_scalajs_spickling_PicklerRegistry$class__unpickle$default$3__Lorg_scalajs_spickling_PicklerRegistry__O__Lorg_scalajs_spickling_PicklerRegistry(this, pickle)
+});
 ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.picklers__p1__Lscala_collection_mutable_HashMap = (function() {
   return this.picklers$1
 });
@@ -12276,6 +13426,36 @@ ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.register__Lscala_r
 ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.register__O__Lorg_scalajs_spickling_PicklerRegistry$SingletonFullName__V = (function(obj, name) {
   this.singletons__p1__Lscala_collection_mutable_HashMap().update__O__O__V(obj, name.name__T());
   this.singletonsRev__p1__Lscala_collection_mutable_HashMap().update__O__O__V(name.name__T(), obj)
+});
+ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O = (function(value, builder, registry) {
+  if (ScalaJS.anyRefEqEq(value, null)) {
+    return builder.makeNull__O()
+  } else {
+    var x1 = this.singletons__p1__Lscala_collection_mutable_HashMap().get__O__Lscala_Option(value);
+    if (ScalaJS.is.scala_Some(x1)) {
+      var x2 = ScalaJS.as.scala_Some(x1);
+      var name = ScalaJS.as.java_lang_String(x2.x__O());
+      return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("s", builder.makeString__T__O(name))]), 1)))
+    };
+    var className = ScalaJS.objectGetClass(value).getName__T();
+    var pickler = ScalaJS.as.org_scalajs_spickling_Pickler(this.picklers__p1__Lscala_collection_mutable_HashMap().apply__O__O(className));
+    var pickledValue = pickler.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(value, registry, builder);
+    return builder.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("t", builder.makeString__T__O(className)), new ScalaJS.c.scala_Tuple2().init___O__O("v", pickledValue)]), 1)))
+  }
+});
+ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O = (function(pickle, reader, registry) {
+  if (reader.isNull__O__Z(pickle)) {
+    return null
+  } else {
+    var s = reader.readObjectField__O__T__O(pickle, "s");
+    if ((!reader.isUndefined__O__Z(s))) {
+      return this.singletonsRev__p1__Lscala_collection_mutable_HashMap().apply__O__O(reader.readString__O__T(s))
+    } else {
+      var className = reader.readString__O__T(reader.readObjectField__O__T__O(pickle, "t"));
+      var unpickler = ScalaJS.as.org_scalajs_spickling_Unpickler(this.unpicklers__p1__Lscala_collection_mutable_HashMap().apply__O__O(className));
+      return unpickler.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O(reader.readObjectField__O__T__O(pickle, "v"), registry, reader)
+    }
+  }
 });
 ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.registerBuiltinPicklers__p1__V = (function() {
   this.registerPrimitive__p1__Lscala_reflect_ClassTag__Lscala_reflect_ClassTag__Lorg_scalajs_spickling_Pickler__Lorg_scalajs_spickling_Unpickler__V(ScalaJS.modules.scala_reflect_ClassTag().Boolean__Lscala_reflect_ClassTag(), ScalaJS.modules.scala_reflect_ClassTag().apply__Ljava_lang_Class__Lscala_reflect_ClassTag(ScalaJS.data.java_lang_Boolean.getClassOf()), ScalaJS.modules.org_scalajs_spickling_Pickler$BooleanPickler(), ScalaJS.modules.org_scalajs_spickling_Unpickler$BooleanUnpickler());
@@ -12335,12 +13515,44 @@ ScalaJS.data.org_scalajs_spickling_BasePicklerRegistry = new ScalaJS.ClassTypeDa
   java_lang_Object: 1
 });
 ScalaJS.c.org_scalajs_spickling_BasePicklerRegistry.prototype.$classData = ScalaJS.data.org_scalajs_spickling_BasePicklerRegistry;
+ScalaJS.is.org_scalajs_spickling_Pickler = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_scalajs_spickling_Pickler)))
+});
+ScalaJS.as.org_scalajs_spickling_Pickler = (function(obj) {
+  if ((ScalaJS.is.org_scalajs_spickling_Pickler(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.scalajs.spickling.Pickler")
+  }
+});
+ScalaJS.isArrayOf.org_scalajs_spickling_Pickler = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_scalajs_spickling_Pickler)))
+});
+ScalaJS.asArrayOf.org_scalajs_spickling_Pickler = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_scalajs_spickling_Pickler(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.scalajs.spickling.Pickler;", depth)
+  }
+});
+ScalaJS.data.org_scalajs_spickling_Pickler = new ScalaJS.ClassTypeData({
+  org_scalajs_spickling_Pickler: 0
+}, true, "org.scalajs.spickling.Pickler", undefined, {
+  org_scalajs_spickling_Pickler: 1,
+  java_lang_Object: 1
+});
 /** @constructor */
 ScalaJS.c.org_scalajs_spickling_Pickler$BooleanPickler$ = (function() {
   ScalaJS.c.java_lang_Object.call(this)
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$BooleanPickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$BooleanPickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$BooleanPickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$BooleanPickler$.prototype.pickle__Z__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x, registry, builder) {
+  return builder.makeBoolean__Z__O(x)
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$BooleanPickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__Z__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.uZ(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$BooleanPickler$ = (function() {
   /*<skip>*/
@@ -12387,6 +13599,12 @@ ScalaJS.c.org_scalajs_spickling_Pickler$BytePickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$BytePickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$BytePickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$BytePickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$BytePickler$.prototype.pickle__B__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x$2, registry$3, builder$3) {
+  return builder$3.makeNumber__D__O(x$2)
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$BytePickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__B__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.uB(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$BytePickler$ = (function() {
   /*<skip>*/
@@ -12433,6 +13651,12 @@ ScalaJS.c.org_scalajs_spickling_Pickler$CharPickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$CharPickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$CharPickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$CharPickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$CharPickler$.prototype.pickle__C__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x$2, registry$3, builder$3) {
+  return builder$3.makeString__T__O(ScalaJS.objectToString(ScalaJS.bC(x$2)))
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$CharPickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__C__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.uC(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$CharPickler$ = (function() {
   /*<skip>*/
@@ -12479,6 +13703,12 @@ ScalaJS.c.org_scalajs_spickling_Pickler$DoublePickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$DoublePickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$DoublePickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$DoublePickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$DoublePickler$.prototype.pickle__D__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x$2, registry$3, builder$3) {
+  return builder$3.makeNumber__D__O(x$2)
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$DoublePickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__D__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.uD(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$DoublePickler$ = (function() {
   /*<skip>*/
@@ -12525,6 +13755,12 @@ ScalaJS.c.org_scalajs_spickling_Pickler$FloatPickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$FloatPickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$FloatPickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$FloatPickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$FloatPickler$.prototype.pickle__F__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x$2, registry$3, builder$3) {
+  return builder$3.makeNumber__D__O(x$2)
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$FloatPickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__F__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.uF(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$FloatPickler$ = (function() {
   /*<skip>*/
@@ -12571,6 +13807,12 @@ ScalaJS.c.org_scalajs_spickling_Pickler$IntPickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$IntPickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$IntPickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$IntPickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$IntPickler$.prototype.pickle__I__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x$2, registry$3, builder$3) {
+  return builder$3.makeNumber__D__O(x$2)
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$IntPickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__I__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.uI(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$IntPickler$ = (function() {
   /*<skip>*/
@@ -12617,6 +13859,12 @@ ScalaJS.c.org_scalajs_spickling_Pickler$LongPickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$LongPickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$LongPickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$LongPickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$LongPickler$.prototype.pickle__J__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x$2, registry$3, builder$3) {
+  return builder$3.makeObject__Lscala_collection_Seq__O(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [new ScalaJS.c.scala_Tuple2().init___O__O("l", builder$3.makeNumber__D__O((x$2.toInt__I() & 4194303))), new ScalaJS.c.scala_Tuple2().init___O__O("m", builder$3.makeNumber__D__O((x$2.$$greater$greater__I__Lscala_scalajs_runtime_Long(ScalaJS.modules.scala_scalajs_runtime_Long().fromInt__I__Lscala_scalajs_runtime_Long(22)).toInt__I() & 4194303))), new ScalaJS.c.scala_Tuple2().init___O__O("h", builder$3.makeNumber__D__O(x$2.$$greater$greater__I__Lscala_scalajs_runtime_Long(ScalaJS.modules.scala_scalajs_runtime_Long().fromInt__I__Lscala_scalajs_runtime_Long(44)).toInt__I()))]), 1)))
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$LongPickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__J__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.uJ(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$LongPickler$ = (function() {
   /*<skip>*/
@@ -12663,6 +13911,12 @@ ScalaJS.c.org_scalajs_spickling_Pickler$ShortPickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$ShortPickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$ShortPickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$ShortPickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$ShortPickler$.prototype.pickle__S__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x$2, registry$3, builder$3) {
+  return builder$3.makeNumber__D__O(x$2)
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$ShortPickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__S__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.uS(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$ShortPickler$ = (function() {
   /*<skip>*/
@@ -12709,6 +13963,12 @@ ScalaJS.c.org_scalajs_spickling_Pickler$StringPickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Pickler$StringPickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Pickler$StringPickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Pickler$StringPickler$;
+ScalaJS.c.org_scalajs_spickling_Pickler$StringPickler$.prototype.pickle__T__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(x$2, registry$3, builder$3) {
+  return builder$3.makeString__T__O(x$2)
+});
+ScalaJS.c.org_scalajs_spickling_Pickler$StringPickler$.prototype.pickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O = (function(obj, registry, builder) {
+  return this.pickle__T__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PBuilder__O(ScalaJS.as.java_lang_String(obj), registry, builder)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Pickler$StringPickler$ = (function() {
   /*<skip>*/
@@ -12796,12 +14056,44 @@ ScalaJS.data.org_scalajs_spickling_PicklerRegistry$SingletonFullName = new Scala
   java_lang_Object: 1
 });
 ScalaJS.c.org_scalajs_spickling_PicklerRegistry$SingletonFullName.prototype.$classData = ScalaJS.data.org_scalajs_spickling_PicklerRegistry$SingletonFullName;
+ScalaJS.is.org_scalajs_spickling_Unpickler = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_scalajs_spickling_Unpickler)))
+});
+ScalaJS.as.org_scalajs_spickling_Unpickler = (function(obj) {
+  if ((ScalaJS.is.org_scalajs_spickling_Unpickler(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.scalajs.spickling.Unpickler")
+  }
+});
+ScalaJS.isArrayOf.org_scalajs_spickling_Unpickler = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_scalajs_spickling_Unpickler)))
+});
+ScalaJS.asArrayOf.org_scalajs_spickling_Unpickler = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_scalajs_spickling_Unpickler(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.scalajs.spickling.Unpickler;", depth)
+  }
+});
+ScalaJS.data.org_scalajs_spickling_Unpickler = new ScalaJS.ClassTypeData({
+  org_scalajs_spickling_Unpickler: 0
+}, true, "org.scalajs.spickling.Unpickler", undefined, {
+  org_scalajs_spickling_Unpickler: 1,
+  java_lang_Object: 1
+});
 /** @constructor */
 ScalaJS.c.org_scalajs_spickling_Unpickler$BooleanUnpickler$ = (function() {
   ScalaJS.c.java_lang_Object.call(this)
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$BooleanUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$BooleanUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$BooleanUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$BooleanUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Z = (function(pickle, registry, reader) {
+  return reader.readBoolean__O__Z(pickle)
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$BooleanUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return ScalaJS.bZ(this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__Z(pickle, registry, reader))
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$BooleanUnpickler$ = (function() {
   /*<skip>*/
@@ -12848,6 +14140,12 @@ ScalaJS.c.org_scalajs_spickling_Unpickler$ByteUnpickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$ByteUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$ByteUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$ByteUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$ByteUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__B = (function(pickle$2, registry$2, reader$2) {
+  return (reader$2.readNumber__O__D(pickle$2) | 0)
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$ByteUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return ScalaJS.bB(this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__B(pickle, registry, reader))
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$ByteUnpickler$ = (function() {
   /*<skip>*/
@@ -12894,6 +14192,12 @@ ScalaJS.c.org_scalajs_spickling_Unpickler$CharUnpickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$CharUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$CharUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$CharUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$CharUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__C = (function(pickle$2, registry$2, reader$2) {
+  return ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__charAt__Lscala_scalajs_runtime_RuntimeString__I__C(reader$2.readString__O__T(pickle$2), 0)
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$CharUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return ScalaJS.bC(this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__C(pickle, registry, reader))
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$CharUnpickler$ = (function() {
   /*<skip>*/
@@ -12940,6 +14244,12 @@ ScalaJS.c.org_scalajs_spickling_Unpickler$DoubleUnpickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$DoubleUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$DoubleUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$DoubleUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$DoubleUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__D = (function(pickle$2, registry$2, reader$2) {
+  return reader$2.readNumber__O__D(pickle$2)
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$DoubleUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return ScalaJS.bD(this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__D(pickle, registry, reader))
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$DoubleUnpickler$ = (function() {
   /*<skip>*/
@@ -12986,6 +14296,12 @@ ScalaJS.c.org_scalajs_spickling_Unpickler$FloatUnpickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$FloatUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$FloatUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$FloatUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$FloatUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__F = (function(pickle$2, registry$2, reader$2) {
+  return reader$2.readNumber__O__D(pickle$2)
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$FloatUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return ScalaJS.bF(this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__F(pickle, registry, reader))
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$FloatUnpickler$ = (function() {
   /*<skip>*/
@@ -13032,6 +14348,12 @@ ScalaJS.c.org_scalajs_spickling_Unpickler$IntUnpickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$IntUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$IntUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$IntUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$IntUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__I = (function(pickle$2, registry$2, reader$2) {
+  return (reader$2.readNumber__O__D(pickle$2) | 0)
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$IntUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return ScalaJS.bI(this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__I(pickle, registry, reader))
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$IntUnpickler$ = (function() {
   /*<skip>*/
@@ -13078,6 +14400,15 @@ ScalaJS.c.org_scalajs_spickling_Unpickler$LongUnpickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$LongUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$LongUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$LongUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$LongUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__J = (function(pickle$2, registry$2, reader$2) {
+  var l = reader$2.readNumber__O__D(reader$2.readObjectField__O__T__O(pickle$2, "l"));
+  var m = reader$2.readNumber__O__D(reader$2.readObjectField__O__T__O(pickle$2, "m"));
+  var h = reader$2.readNumber__O__D(reader$2.readObjectField__O__T__O(pickle$2, "h"));
+  return ScalaJS.modules.scala_scalajs_runtime_Long().fromDouble__D__Lscala_scalajs_runtime_Long(h).$$less$less__I__Lscala_scalajs_runtime_Long(ScalaJS.modules.scala_scalajs_runtime_Long().fromInt__I__Lscala_scalajs_runtime_Long(44)).$$bar__Lscala_scalajs_runtime_Long__Lscala_scalajs_runtime_Long(ScalaJS.modules.scala_scalajs_runtime_Long().fromDouble__D__Lscala_scalajs_runtime_Long(m).$$less$less__I__Lscala_scalajs_runtime_Long(ScalaJS.modules.scala_scalajs_runtime_Long().fromInt__I__Lscala_scalajs_runtime_Long(22))).$$bar__Lscala_scalajs_runtime_Long__Lscala_scalajs_runtime_Long(ScalaJS.modules.scala_scalajs_runtime_Long().fromDouble__D__Lscala_scalajs_runtime_Long(l))
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$LongUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return ScalaJS.bJ(this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__J(pickle, registry, reader))
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$LongUnpickler$ = (function() {
   /*<skip>*/
@@ -13124,6 +14455,12 @@ ScalaJS.c.org_scalajs_spickling_Unpickler$ShortUnpickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$ShortUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$ShortUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$ShortUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$ShortUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__S = (function(pickle$2, registry$2, reader$2) {
+  return (reader$2.readNumber__O__D(pickle$2) | 0)
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$ShortUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return ScalaJS.bS(this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__S(pickle, registry, reader))
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$ShortUnpickler$ = (function() {
   /*<skip>*/
@@ -13170,6 +14507,12 @@ ScalaJS.c.org_scalajs_spickling_Unpickler$StringUnpickler$ = (function() {
 });
 ScalaJS.c.org_scalajs_spickling_Unpickler$StringUnpickler$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_scalajs_spickling_Unpickler$StringUnpickler$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_Unpickler$StringUnpickler$;
+ScalaJS.c.org_scalajs_spickling_Unpickler$StringUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__T = (function(pickle$2, registry$2, reader$2) {
+  return reader$2.readString__O__T(pickle$2)
+});
+ScalaJS.c.org_scalajs_spickling_Unpickler$StringUnpickler$.prototype.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__O = (function(pickle, registry, reader) {
+  return this.unpickle__O__Lorg_scalajs_spickling_PicklerRegistry__Lorg_scalajs_spickling_PReader__T(pickle, registry, reader)
+});
 /** @constructor */
 ScalaJS.inheritable.org_scalajs_spickling_Unpickler$StringUnpickler$ = (function() {
   /*<skip>*/
@@ -13209,6 +14552,254 @@ ScalaJS.modules.org_scalajs_spickling_Unpickler$StringUnpickler = (function() {
     ScalaJS.moduleInstances.org_scalajs_spickling_Unpickler$StringUnpickler = new ScalaJS.c.org_scalajs_spickling_Unpickler$StringUnpickler$().init___()
   };
   return ScalaJS.moduleInstances.org_scalajs_spickling_Unpickler$StringUnpickler
+});
+/** @constructor */
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$ = (function() {
+  ScalaJS.c.java_lang_Object.call(this)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$;
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeNull__Lscala_scalajs_js_Any = (function() {
+  return null
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeBoolean__Z__Lscala_scalajs_js_Any = (function(b) {
+  return b
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeNumber__D__Lscala_scalajs_js_Any = (function(x) {
+  return x
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeString__T__Lscala_scalajs_js_Any = (function(s) {
+  return s
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeObject__Lscala_collection_Seq__Lscala_scalajs_js_Any = (function(fields) {
+  var result = ScalaJS.modules.scala_scalajs_js_Dictionary().empty__Lscala_scalajs_js_Dictionary();
+  fields.withFilter__Lscala_Function1__Lscala_collection_generic_FilterMonadic(new ScalaJS.c.scala_scalajs_runtime_AnonFunction1().init___Lscala_scalajs_js_Function1((function() {
+    return (function(check$ifrefutable$1) {
+      var x1 = check$ifrefutable$1;
+      matchEnd3: {
+        if ((x1 !== null)) {
+          var jsx$1 = true;
+          break matchEnd3
+        };
+        var jsx$1 = false;
+        break matchEnd3
+      };
+      return ScalaJS.bZ(jsx$1)
+    })
+  })())).foreach__Lscala_Function1__V(new ScalaJS.c.scala_scalajs_runtime_AnonFunction1().init___Lscala_scalajs_js_Function1((function(result$1) {
+    return (function(x$1) {
+      var x1 = x$1;
+      matchEnd3: {
+        if ((x1 !== null)) {
+          var prop = ScalaJS.as.java_lang_String(x1.$$und1__O());
+          var value = x1.$$und2__O();
+          result$1[prop] = value;
+          ScalaJS.modules.scala_runtime_BoxedUnit().UNIT__Lscala_runtime_BoxedUnit();
+          break matchEnd3
+        };
+        throw new ScalaJS.c.scala_MatchError().init___O(x1)
+      };
+      return ScalaJS.bV(undefined)
+    })
+  })(result)));
+  return result
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeObject__Lscala_collection_Seq__O = (function(fields) {
+  return this.makeObject__Lscala_collection_Seq__Lscala_scalajs_js_Any(fields)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeString__T__O = (function(s) {
+  return this.makeString__T__Lscala_scalajs_js_Any(s)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeNumber__D__O = (function(x) {
+  return this.makeNumber__D__Lscala_scalajs_js_Any(x)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeBoolean__Z__O = (function(b) {
+  return this.makeBoolean__Z__Lscala_scalajs_js_Any(b)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.makeNull__O = (function() {
+  return this.makeNull__Lscala_scalajs_js_Any()
+});
+/** @constructor */
+ScalaJS.inheritable.org_scalajs_spickling_jsany_JSPBuilder$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.org_scalajs_spickling_jsany_JSPBuilder$.prototype = ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype;
+ScalaJS.is.org_scalajs_spickling_jsany_JSPBuilder$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_scalajs_spickling_jsany_JSPBuilder$)))
+});
+ScalaJS.as.org_scalajs_spickling_jsany_JSPBuilder$ = (function(obj) {
+  if ((ScalaJS.is.org_scalajs_spickling_jsany_JSPBuilder$(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.scalajs.spickling.jsany.JSPBuilder")
+  }
+});
+ScalaJS.isArrayOf.org_scalajs_spickling_jsany_JSPBuilder$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_scalajs_spickling_jsany_JSPBuilder$)))
+});
+ScalaJS.asArrayOf.org_scalajs_spickling_jsany_JSPBuilder$ = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_scalajs_spickling_jsany_JSPBuilder$(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.scalajs.spickling.jsany.JSPBuilder;", depth)
+  }
+});
+ScalaJS.data.org_scalajs_spickling_jsany_JSPBuilder$ = new ScalaJS.ClassTypeData({
+  org_scalajs_spickling_jsany_JSPBuilder$: 0
+}, false, "org.scalajs.spickling.jsany.JSPBuilder$", ScalaJS.data.java_lang_Object, {
+  org_scalajs_spickling_jsany_JSPBuilder$: 1,
+  org_scalajs_spickling_PBuilder: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$.prototype.$classData = ScalaJS.data.org_scalajs_spickling_jsany_JSPBuilder$;
+ScalaJS.moduleInstances.org_scalajs_spickling_jsany_JSPBuilder = undefined;
+ScalaJS.modules.org_scalajs_spickling_jsany_JSPBuilder = (function() {
+  if ((!ScalaJS.moduleInstances.org_scalajs_spickling_jsany_JSPBuilder)) {
+    ScalaJS.moduleInstances.org_scalajs_spickling_jsany_JSPBuilder = new ScalaJS.c.org_scalajs_spickling_jsany_JSPBuilder$().init___()
+  };
+  return ScalaJS.moduleInstances.org_scalajs_spickling_jsany_JSPBuilder
+});
+/** @constructor */
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$ = (function() {
+  ScalaJS.c.java_lang_Object.call(this)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$;
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.isUndefined__Lscala_scalajs_js_Any__Z = (function(x$2) {
+  return (typeof(x$2) === "undefined")
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.isNull__Lscala_scalajs_js_Any__Z = (function(x) {
+  return (x === null)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.readBoolean__Lscala_scalajs_js_Any__Z = (function(x) {
+  return x
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.readNumber__Lscala_scalajs_js_Any__D = (function(x) {
+  return x
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.readString__Lscala_scalajs_js_Any__T = (function(x) {
+  return x
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.readObjectField__Lscala_scalajs_js_Any__T__Lscala_scalajs_js_Any = (function(x, field) {
+  return x[field]
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.readObjectField__O__T__O = (function(x, field) {
+  return this.readObjectField__Lscala_scalajs_js_Any__T__Lscala_scalajs_js_Any(x, field)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.readString__O__T = (function(x) {
+  return this.readString__Lscala_scalajs_js_Any__T(x)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.readNumber__O__D = (function(x) {
+  return this.readNumber__Lscala_scalajs_js_Any__D(x)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.readBoolean__O__Z = (function(x) {
+  return this.readBoolean__Lscala_scalajs_js_Any__Z(x)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.isNull__O__Z = (function(x) {
+  return this.isNull__Lscala_scalajs_js_Any__Z(x)
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.isUndefined__O__Z = (function(x) {
+  return this.isUndefined__Lscala_scalajs_js_Any__Z(x)
+});
+/** @constructor */
+ScalaJS.inheritable.org_scalajs_spickling_jsany_JSPReader$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.org_scalajs_spickling_jsany_JSPReader$.prototype = ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype;
+ScalaJS.is.org_scalajs_spickling_jsany_JSPReader$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_scalajs_spickling_jsany_JSPReader$)))
+});
+ScalaJS.as.org_scalajs_spickling_jsany_JSPReader$ = (function(obj) {
+  if ((ScalaJS.is.org_scalajs_spickling_jsany_JSPReader$(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.scalajs.spickling.jsany.JSPReader")
+  }
+});
+ScalaJS.isArrayOf.org_scalajs_spickling_jsany_JSPReader$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_scalajs_spickling_jsany_JSPReader$)))
+});
+ScalaJS.asArrayOf.org_scalajs_spickling_jsany_JSPReader$ = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_scalajs_spickling_jsany_JSPReader$(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.scalajs.spickling.jsany.JSPReader;", depth)
+  }
+});
+ScalaJS.data.org_scalajs_spickling_jsany_JSPReader$ = new ScalaJS.ClassTypeData({
+  org_scalajs_spickling_jsany_JSPReader$: 0
+}, false, "org.scalajs.spickling.jsany.JSPReader$", ScalaJS.data.java_lang_Object, {
+  org_scalajs_spickling_jsany_JSPReader$: 1,
+  org_scalajs_spickling_PReader: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$.prototype.$classData = ScalaJS.data.org_scalajs_spickling_jsany_JSPReader$;
+ScalaJS.moduleInstances.org_scalajs_spickling_jsany_JSPReader = undefined;
+ScalaJS.modules.org_scalajs_spickling_jsany_JSPReader = (function() {
+  if ((!ScalaJS.moduleInstances.org_scalajs_spickling_jsany_JSPReader)) {
+    ScalaJS.moduleInstances.org_scalajs_spickling_jsany_JSPReader = new ScalaJS.c.org_scalajs_spickling_jsany_JSPReader$().init___()
+  };
+  return ScalaJS.moduleInstances.org_scalajs_spickling_jsany_JSPReader
+});
+/** @constructor */
+ScalaJS.c.org_scalajs_spickling_jsany_package$ = (function() {
+  ScalaJS.c.java_lang_Object.call(this);
+  this.builder$1 = null;
+  this.reader$1 = null
+});
+ScalaJS.c.org_scalajs_spickling_jsany_package$.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.org_scalajs_spickling_jsany_package$.prototype.constructor = ScalaJS.c.org_scalajs_spickling_jsany_package$;
+ScalaJS.c.org_scalajs_spickling_jsany_package$.prototype.builder__Lorg_scalajs_spickling_jsany_JSPBuilder$ = (function() {
+  return this.builder$1
+});
+ScalaJS.c.org_scalajs_spickling_jsany_package$.prototype.reader__Lorg_scalajs_spickling_jsany_JSPReader$ = (function() {
+  return this.reader$1
+});
+ScalaJS.c.org_scalajs_spickling_jsany_package$.prototype.init___ = (function() {
+  ScalaJS.c.java_lang_Object.prototype.init___.call(this);
+  ScalaJS.moduleInstances.org_scalajs_spickling_jsany_package = this;
+  this.builder$1 = ScalaJS.modules.org_scalajs_spickling_jsany_JSPBuilder();
+  this.reader$1 = ScalaJS.modules.org_scalajs_spickling_jsany_JSPReader();
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.org_scalajs_spickling_jsany_package$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.org_scalajs_spickling_jsany_package$.prototype = ScalaJS.c.org_scalajs_spickling_jsany_package$.prototype;
+ScalaJS.is.org_scalajs_spickling_jsany_package$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_scalajs_spickling_jsany_package$)))
+});
+ScalaJS.as.org_scalajs_spickling_jsany_package$ = (function(obj) {
+  if ((ScalaJS.is.org_scalajs_spickling_jsany_package$(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.scalajs.spickling.jsany.package")
+  }
+});
+ScalaJS.isArrayOf.org_scalajs_spickling_jsany_package$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_scalajs_spickling_jsany_package$)))
+});
+ScalaJS.asArrayOf.org_scalajs_spickling_jsany_package$ = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_scalajs_spickling_jsany_package$(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.scalajs.spickling.jsany.package;", depth)
+  }
+});
+ScalaJS.data.org_scalajs_spickling_jsany_package$ = new ScalaJS.ClassTypeData({
+  org_scalajs_spickling_jsany_package$: 0
+}, false, "org.scalajs.spickling.jsany.package$", ScalaJS.data.java_lang_Object, {
+  org_scalajs_spickling_jsany_package$: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.org_scalajs_spickling_jsany_package$.prototype.$classData = ScalaJS.data.org_scalajs_spickling_jsany_package$;
+ScalaJS.moduleInstances.org_scalajs_spickling_jsany_package = undefined;
+ScalaJS.modules.org_scalajs_spickling_jsany_package = (function() {
+  if ((!ScalaJS.moduleInstances.org_scalajs_spickling_jsany_package)) {
+    ScalaJS.moduleInstances.org_scalajs_spickling_jsany_package = new ScalaJS.c.org_scalajs_spickling_jsany_package$().init___()
+  };
+  return ScalaJS.moduleInstances.org_scalajs_spickling_jsany_package
 });
 /** @constructor */
 ScalaJS.c.rx_core_Dynamic = (function() {
@@ -13616,6 +15207,12 @@ ScalaJS.c.rx_core_Obs$.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.rx_core_Obs$.prototype.constructor = ScalaJS.c.rx_core_Obs$;
 ScalaJS.c.rx_core_Obs$.prototype.apply__Lrx_core_Emitter__T__Z__Lscala_Function0__Lrx_core_Obs = (function(es, name, skipInitial, callback) {
   return new ScalaJS.c.rx_core_Obs().init___Lrx_core_Emitter__Lscala_Function0__T__Z(es, callback, name, skipInitial)
+});
+ScalaJS.c.rx_core_Obs$.prototype.apply$default$2__T = (function() {
+  return ""
+});
+ScalaJS.c.rx_core_Obs$.prototype.apply$default$3__Z = (function() {
+  return false
 });
 /** @constructor */
 ScalaJS.inheritable.rx_core_Obs$ = (function() {
@@ -27678,6 +29275,54 @@ ScalaJS.modules.scala_scalajs_js_Any = (function() {
   return ScalaJS.moduleInstances.scala_scalajs_js_Any
 });
 /** @constructor */
+ScalaJS.c.scala_scalajs_js_Dictionary$ = (function() {
+  ScalaJS.c.java_lang_Object.call(this)
+});
+ScalaJS.c.scala_scalajs_js_Dictionary$.prototype = new ScalaJS.inheritable.java_lang_Object();
+ScalaJS.c.scala_scalajs_js_Dictionary$.prototype.constructor = ScalaJS.c.scala_scalajs_js_Dictionary$;
+ScalaJS.c.scala_scalajs_js_Dictionary$.prototype.empty__Lscala_scalajs_js_Dictionary = (function() {
+  return {}
+});
+/** @constructor */
+ScalaJS.inheritable.scala_scalajs_js_Dictionary$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.scala_scalajs_js_Dictionary$.prototype = ScalaJS.c.scala_scalajs_js_Dictionary$.prototype;
+ScalaJS.is.scala_scalajs_js_Dictionary$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.scala_scalajs_js_Dictionary$)))
+});
+ScalaJS.as.scala_scalajs_js_Dictionary$ = (function(obj) {
+  if ((ScalaJS.is.scala_scalajs_js_Dictionary$(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "scala.scalajs.js.Dictionary")
+  }
+});
+ScalaJS.isArrayOf.scala_scalajs_js_Dictionary$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.scala_scalajs_js_Dictionary$)))
+});
+ScalaJS.asArrayOf.scala_scalajs_js_Dictionary$ = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.scala_scalajs_js_Dictionary$(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lscala.scalajs.js.Dictionary;", depth)
+  }
+});
+ScalaJS.data.scala_scalajs_js_Dictionary$ = new ScalaJS.ClassTypeData({
+  scala_scalajs_js_Dictionary$: 0
+}, false, "scala.scalajs.js.Dictionary$", ScalaJS.data.java_lang_Object, {
+  scala_scalajs_js_Dictionary$: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.scala_scalajs_js_Dictionary$.prototype.$classData = ScalaJS.data.scala_scalajs_js_Dictionary$;
+ScalaJS.moduleInstances.scala_scalajs_js_Dictionary = undefined;
+ScalaJS.modules.scala_scalajs_js_Dictionary = (function() {
+  if ((!ScalaJS.moduleInstances.scala_scalajs_js_Dictionary)) {
+    ScalaJS.moduleInstances.scala_scalajs_js_Dictionary = new ScalaJS.c.scala_scalajs_js_Dictionary$().init___()
+  };
+  return ScalaJS.moduleInstances.scala_scalajs_js_Dictionary
+});
+/** @constructor */
 ScalaJS.c.scala_scalajs_runtime_Long = (function() {
   ScalaJS.c.java_lang_Object.call(this);
   this.l$1 = 0;
@@ -33383,6 +35028,128 @@ ScalaJS.data.java_util_Formatter$$anonfun$format$1 = new ScalaJS.ClassTypeData({
 });
 ScalaJS.c.java_util_Formatter$$anonfun$format$1.prototype.$classData = ScalaJS.data.java_util_Formatter$$anonfun$format$1;
 /** @constructor */
+ScalaJS.c.models_Message$ = (function() {
+  ScalaJS.c.scala_runtime_AbstractFunction3.call(this)
+});
+ScalaJS.c.models_Message$.prototype = new ScalaJS.inheritable.scala_runtime_AbstractFunction3();
+ScalaJS.c.models_Message$.prototype.constructor = ScalaJS.c.models_Message$;
+ScalaJS.c.models_Message$.prototype.toString__T = (function() {
+  return "Message"
+});
+ScalaJS.c.models_Message$.prototype.apply__Lmodels_User__T__J__Lmodels_Message = (function(user, text, timestamp) {
+  return new ScalaJS.c.models_Message().init___Lmodels_User__T__J(user, text, timestamp)
+});
+ScalaJS.c.models_Message$.prototype.apply$default$3__J = (function() {
+  return ScalaJS.modules.java_lang_System().currentTimeMillis__J()
+});
+ScalaJS.c.models_Message$.prototype.apply__O__O__O__O = (function(v1, v2, v3) {
+  return this.apply__Lmodels_User__T__J__Lmodels_Message(ScalaJS.as.models_User(v1), ScalaJS.as.java_lang_String(v2), ScalaJS.uJ(v3))
+});
+/** @constructor */
+ScalaJS.inheritable.models_Message$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_Message$.prototype = ScalaJS.c.models_Message$.prototype;
+ScalaJS.is.models_Message$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_Message$)))
+});
+ScalaJS.as.models_Message$ = (function(obj) {
+  if ((ScalaJS.is.models_Message$(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "models.Message")
+  }
+});
+ScalaJS.isArrayOf.models_Message$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.models_Message$)))
+});
+ScalaJS.asArrayOf.models_Message$ = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.models_Message$(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lmodels.Message;", depth)
+  }
+});
+ScalaJS.data.models_Message$ = new ScalaJS.ClassTypeData({
+  models_Message$: 0
+}, false, "models.Message$", ScalaJS.data.scala_runtime_AbstractFunction3, {
+  models_Message$: 1,
+  scala_Serializable: 1,
+  java_io_Serializable: 1,
+  scala_runtime_AbstractFunction3: 1,
+  scala_Function3: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.models_Message$.prototype.$classData = ScalaJS.data.models_Message$;
+ScalaJS.moduleInstances.models_Message = undefined;
+ScalaJS.modules.models_Message = (function() {
+  if ((!ScalaJS.moduleInstances.models_Message)) {
+    ScalaJS.moduleInstances.models_Message = new ScalaJS.c.models_Message$().init___()
+  };
+  return ScalaJS.moduleInstances.models_Message
+});
+/** @constructor */
+ScalaJS.c.models_User$ = (function() {
+  ScalaJS.c.scala_runtime_AbstractFunction2.call(this)
+});
+ScalaJS.c.models_User$.prototype = new ScalaJS.inheritable.scala_runtime_AbstractFunction2();
+ScalaJS.c.models_User$.prototype.constructor = ScalaJS.c.models_User$;
+ScalaJS.c.models_User$.prototype.toString__T = (function() {
+  return "User"
+});
+ScalaJS.c.models_User$.prototype.apply__T__T__Lmodels_User = (function(nick, avatar) {
+  return new ScalaJS.c.models_User().init___T__T(nick, avatar)
+});
+ScalaJS.c.models_User$.prototype.apply$default$2__T = (function() {
+  return ""
+});
+ScalaJS.c.models_User$.prototype.apply__O__O__O = (function(v1, v2) {
+  return this.apply__T__T__Lmodels_User(ScalaJS.as.java_lang_String(v1), ScalaJS.as.java_lang_String(v2))
+});
+/** @constructor */
+ScalaJS.inheritable.models_User$ = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.models_User$.prototype = ScalaJS.c.models_User$.prototype;
+ScalaJS.is.models_User$ = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.models_User$)))
+});
+ScalaJS.as.models_User$ = (function(obj) {
+  if ((ScalaJS.is.models_User$(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "models.User")
+  }
+});
+ScalaJS.isArrayOf.models_User$ = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.models_User$)))
+});
+ScalaJS.asArrayOf.models_User$ = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.models_User$(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lmodels.User;", depth)
+  }
+});
+ScalaJS.data.models_User$ = new ScalaJS.ClassTypeData({
+  models_User$: 0
+}, false, "models.User$", ScalaJS.data.scala_runtime_AbstractFunction2, {
+  models_User$: 1,
+  scala_Serializable: 1,
+  java_io_Serializable: 1,
+  scala_runtime_AbstractFunction2: 1,
+  scala_Function2: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.models_User$.prototype.$classData = ScalaJS.data.models_User$;
+ScalaJS.moduleInstances.models_User = undefined;
+ScalaJS.modules.models_User = (function() {
+  if ((!ScalaJS.moduleInstances.models_User)) {
+    ScalaJS.moduleInstances.models_User = new ScalaJS.c.models_User$().init___()
+  };
+  return ScalaJS.moduleInstances.models_User
+});
+/** @constructor */
 ScalaJS.c.models_WebIRI = (function() {
   ScalaJS.c.models_WebResource.call(this);
   this.url$2 = null
@@ -37127,6 +38894,66 @@ ScalaJS.data.scala_collection_immutable_Stream$StreamCanBuildFrom = new ScalaJS.
 });
 ScalaJS.c.scala_collection_immutable_Stream$StreamCanBuildFrom.prototype.$classData = ScalaJS.data.scala_collection_immutable_Stream$StreamCanBuildFrom;
 /** @constructor */
+ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter = (function() {
+  ScalaJS.c.scala_collection_TraversableLike$WithFilter.call(this);
+  this.scala$collection$immutable$Stream$StreamWithFilter$$p$f = null
+});
+ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter.prototype = new ScalaJS.inheritable.scala_collection_TraversableLike$WithFilter();
+ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter.prototype.constructor = ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter;
+ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter.prototype.foreach__Lscala_Function1__V = (function(f) {
+  this.scala$collection$immutable$Stream$StreamWithFilter$$$outer__Lscala_collection_immutable_Stream().foreach__Lscala_Function1__V(new ScalaJS.c.scala_scalajs_runtime_AnonFunction1().init___Lscala_scalajs_js_Function1((function(arg$outer, f$5) {
+    return (function(x) {
+      if (ScalaJS.uZ(arg$outer.scala$collection$immutable$Stream$StreamWithFilter$$p$f.apply__O__O(x))) {
+        return f$5.apply__O__O(x)
+      } else {
+        return ScalaJS.modules.scala_runtime_BoxedUnit().UNIT__Lscala_runtime_BoxedUnit()
+      }
+    })
+  })(this, f)))
+});
+ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter.prototype.scala$collection$immutable$Stream$StreamWithFilter$$$outer__Lscala_collection_immutable_Stream = (function() {
+  return ScalaJS.as.scala_collection_immutable_Stream(this.$$outer$f)
+});
+ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter.prototype.init___Lscala_collection_immutable_Stream__Lscala_Function1 = (function($$outer, p) {
+  this.scala$collection$immutable$Stream$StreamWithFilter$$p$f = p;
+  ScalaJS.c.scala_collection_TraversableLike$WithFilter.prototype.init___Lscala_collection_TraversableLike__Lscala_Function1.call(this, $$outer, p);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.scala_collection_immutable_Stream$StreamWithFilter = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.scala_collection_immutable_Stream$StreamWithFilter.prototype = ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter.prototype;
+ScalaJS.is.scala_collection_immutable_Stream$StreamWithFilter = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.scala_collection_immutable_Stream$StreamWithFilter)))
+});
+ScalaJS.as.scala_collection_immutable_Stream$StreamWithFilter = (function(obj) {
+  if ((ScalaJS.is.scala_collection_immutable_Stream$StreamWithFilter(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "scala.collection.immutable.Stream$StreamWithFilter")
+  }
+});
+ScalaJS.isArrayOf.scala_collection_immutable_Stream$StreamWithFilter = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.scala_collection_immutable_Stream$StreamWithFilter)))
+});
+ScalaJS.asArrayOf.scala_collection_immutable_Stream$StreamWithFilter = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.scala_collection_immutable_Stream$StreamWithFilter(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lscala.collection.immutable.Stream$StreamWithFilter;", depth)
+  }
+});
+ScalaJS.data.scala_collection_immutable_Stream$StreamWithFilter = new ScalaJS.ClassTypeData({
+  scala_collection_immutable_Stream$StreamWithFilter: 0
+}, false, "scala.collection.immutable.Stream$StreamWithFilter", ScalaJS.data.scala_collection_TraversableLike$WithFilter, {
+  scala_collection_immutable_Stream$StreamWithFilter: 1,
+  scala_collection_TraversableLike$WithFilter: 1,
+  scala_collection_generic_FilterMonadic: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter.prototype.$classData = ScalaJS.data.scala_collection_immutable_Stream$StreamWithFilter;
+/** @constructor */
 ScalaJS.c.scala_collection_immutable_StreamIterator = (function() {
   ScalaJS.c.scala_collection_AbstractIterator.call(this);
   this.these$2 = null
@@ -39958,6 +41785,52 @@ ScalaJS.data.scala_reflect_ManifestFactory$PhantomManifest = new ScalaJS.ClassTy
 });
 ScalaJS.c.scala_reflect_ManifestFactory$PhantomManifest.prototype.$classData = ScalaJS.data.scala_reflect_ManifestFactory$PhantomManifest;
 /** @constructor */
+ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp = (function() {
+  ScalaJS.c.scala_runtime_AbstractFunction0.call(this)
+});
+ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.prototype = new ScalaJS.inheritable.scala_runtime_AbstractFunction0();
+ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.prototype.constructor = ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp;
+ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.prototype.init___ = (function() {
+  ScalaJS.c.scala_runtime_AbstractFunction0.prototype.init___.call(this);
+  ScalaJS.impls.scala_Function0$mcZ$sp$class__$init$__Lscala_Function0$mcZ$sp__V(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.scala_runtime_AbstractFunction0$mcZ$sp = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.scala_runtime_AbstractFunction0$mcZ$sp.prototype = ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.prototype;
+ScalaJS.is.scala_runtime_AbstractFunction0$mcZ$sp = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.scala_runtime_AbstractFunction0$mcZ$sp)))
+});
+ScalaJS.as.scala_runtime_AbstractFunction0$mcZ$sp = (function(obj) {
+  if ((ScalaJS.is.scala_runtime_AbstractFunction0$mcZ$sp(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "scala.runtime.AbstractFunction0$mcZ$sp")
+  }
+});
+ScalaJS.isArrayOf.scala_runtime_AbstractFunction0$mcZ$sp = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.scala_runtime_AbstractFunction0$mcZ$sp)))
+});
+ScalaJS.asArrayOf.scala_runtime_AbstractFunction0$mcZ$sp = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.scala_runtime_AbstractFunction0$mcZ$sp(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lscala.runtime.AbstractFunction0$mcZ$sp;", depth)
+  }
+});
+ScalaJS.data.scala_runtime_AbstractFunction0$mcZ$sp = new ScalaJS.ClassTypeData({
+  scala_runtime_AbstractFunction0$mcZ$sp: 0
+}, false, "scala.runtime.AbstractFunction0$mcZ$sp", ScalaJS.data.scala_runtime_AbstractFunction0, {
+  scala_runtime_AbstractFunction0$mcZ$sp: 1,
+  scala_Function0$mcZ$sp: 1,
+  scala_runtime_AbstractFunction0: 1,
+  scala_Function0: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.prototype.$classData = ScalaJS.data.scala_runtime_AbstractFunction0$mcZ$sp;
+/** @constructor */
 ScalaJS.c.scala_runtime_AbstractFunction1$mcVI$sp = (function() {
   ScalaJS.c.scala_runtime_AbstractFunction1.call(this)
 });
@@ -41655,6 +43528,177 @@ ScalaJS.data.java_lang_VirtualMachineError = new ScalaJS.ClassTypeData({
   java_io_Serializable: 1,
   java_lang_Object: 1
 });
+/** @constructor */
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1 = (function() {
+  ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.call(this)
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype = new ScalaJS.inheritable.scala_runtime_AbstractFunction0$mcZ$sp();
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype.constructor = ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1;
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype.apply__Z = (function() {
+  return this.apply$mcZ$sp__Z()
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype.apply$mcZ$sp__Z = (function() {
+  return false
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype.apply__O = (function() {
+  return ScalaJS.bZ(this.apply__Z())
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype.init___Lorg_denigma_frontend_views_LoginView$$anonfun$4 = (function($$outer) {
+  ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.prototype.init___.call(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1 = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype = ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype;
+ScalaJS.is.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1)))
+});
+ScalaJS.as.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1 = (function(obj) {
+  if ((ScalaJS.is.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.denigma.frontend.views.LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1")
+  }
+});
+ScalaJS.isArrayOf.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1)))
+});
+ScalaJS.asArrayOf.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1 = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.denigma.frontend.views.LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1;", depth)
+  }
+});
+ScalaJS.data.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1 = new ScalaJS.ClassTypeData({
+  org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1: 0
+}, false, "org.denigma.frontend.views.LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1", ScalaJS.data.scala_runtime_AbstractFunction0$mcZ$sp, {
+  org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1: 1,
+  scala_Serializable: 1,
+  java_io_Serializable: 1,
+  scala_runtime_AbstractFunction0$mcZ$sp: 1,
+  scala_Function0$mcZ$sp: 1,
+  scala_runtime_AbstractFunction0: 1,
+  scala_Function0: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1.prototype.$classData = ScalaJS.data.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1;
+/** @constructor */
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2 = (function() {
+  ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.call(this)
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype = new ScalaJS.inheritable.scala_runtime_AbstractFunction0$mcZ$sp();
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype.constructor = ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2;
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype.apply__Z = (function() {
+  return this.apply$mcZ$sp__Z()
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype.apply$mcZ$sp__Z = (function() {
+  return false
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype.apply__O = (function() {
+  return ScalaJS.bZ(this.apply__Z())
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype.init___Lorg_denigma_frontend_views_LoginView$$anonfun$6 = (function($$outer) {
+  ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.prototype.init___.call(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2 = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype = ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype;
+ScalaJS.is.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2)))
+});
+ScalaJS.as.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2 = (function(obj) {
+  if ((ScalaJS.is.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.denigma.frontend.views.LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2")
+  }
+});
+ScalaJS.isArrayOf.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2)))
+});
+ScalaJS.asArrayOf.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2 = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.denigma.frontend.views.LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2;", depth)
+  }
+});
+ScalaJS.data.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2 = new ScalaJS.ClassTypeData({
+  org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2: 0
+}, false, "org.denigma.frontend.views.LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2", ScalaJS.data.scala_runtime_AbstractFunction0$mcZ$sp, {
+  org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2: 1,
+  scala_Serializable: 1,
+  java_io_Serializable: 1,
+  scala_runtime_AbstractFunction0$mcZ$sp: 1,
+  scala_Function0$mcZ$sp: 1,
+  scala_runtime_AbstractFunction0: 1,
+  scala_Function0: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2.prototype.$classData = ScalaJS.data.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2;
+/** @constructor */
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3 = (function() {
+  ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.call(this)
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype = new ScalaJS.inheritable.scala_runtime_AbstractFunction0$mcZ$sp();
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype.constructor = ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3;
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype.apply__Z = (function() {
+  return this.apply$mcZ$sp__Z()
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype.apply$mcZ$sp__Z = (function() {
+  return true
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype.apply__O = (function() {
+  return ScalaJS.bZ(this.apply__Z())
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype.init___Lorg_denigma_frontend_views_LoginView$$anonfun$8 = (function($$outer) {
+  ScalaJS.c.scala_runtime_AbstractFunction0$mcZ$sp.prototype.init___.call(this);
+  return this
+});
+/** @constructor */
+ScalaJS.inheritable.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3 = (function() {
+  /*<skip>*/
+});
+ScalaJS.inheritable.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype = ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype;
+ScalaJS.is.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3 = (function(obj) {
+  return (!(!((obj && obj.$classData) && obj.$classData.ancestors.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3)))
+});
+ScalaJS.as.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3 = (function(obj) {
+  if ((ScalaJS.is.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3(obj) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwClassCastException(obj, "org.denigma.frontend.views.LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3")
+  }
+});
+ScalaJS.isArrayOf.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3 = (function(obj, depth) {
+  return (!(!(((obj && obj.$classData) && (obj.$classData.arrayDepth === depth)) && obj.$classData.arrayBase.ancestors.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3)))
+});
+ScalaJS.asArrayOf.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3 = (function(obj, depth) {
+  if ((ScalaJS.isArrayOf.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3(obj, depth) || (obj === null))) {
+    return obj
+  } else {
+    ScalaJS.throwArrayCastException(obj, "Lorg.denigma.frontend.views.LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3;", depth)
+  }
+});
+ScalaJS.data.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3 = new ScalaJS.ClassTypeData({
+  org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3: 0
+}, false, "org.denigma.frontend.views.LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3", ScalaJS.data.scala_runtime_AbstractFunction0$mcZ$sp, {
+  org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3: 1,
+  scala_Serializable: 1,
+  java_io_Serializable: 1,
+  scala_runtime_AbstractFunction0$mcZ$sp: 1,
+  scala_Function0$mcZ$sp: 1,
+  scala_runtime_AbstractFunction0: 1,
+  scala_Function0: 1,
+  java_lang_Object: 1
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3.prototype.$classData = ScalaJS.data.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3;
 /** @constructor */
 ScalaJS.c.org_denigma_views_BindingView$JustView = (function() {
   ScalaJS.c.org_denigma_views_BindingView.call(this)
@@ -44709,7 +46753,6 @@ ScalaJS.c.org_denigma_frontend_ScalaJavaScript$.prototype.bools__Lscala_collecti
   }
 });
 ScalaJS.c.org_denigma_frontend_ScalaJavaScript$.prototype.main__V = (function() {
-  ScalaJS.modules.models_RegisterPicklers().registerPicklers__V();
   var str = new ScalaJS.c.scala_StringContext().init___Lscala_collection_Seq(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_String.getArrayOf(), ["http://", "/test"]), 1))).s__Lscala_collection_Seq__T(ScalaJS.modules.scala_Predef().genericWrapArray__O__Lscala_collection_mutable_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_Object.getArrayOf(), [ScalaJS.g["window"]["location"]["host"]])));
   this.bind__Lorg_scalajs_dom_HTMLElement__V(this.element__Lorg_scalajs_dom_HTMLElement())
 });
@@ -44949,6 +46992,16 @@ ScalaJS.c.org_denigma_frontend_views_LoginView = (function() {
   this.loginClick$4 = null;
   this.registerClick$4 = null;
   this.isSigned$4 = null;
+  this.inSigningUp$4 = null;
+  this.inLogging$4 = null;
+  this.login$4 = null;
+  this.password$4 = null;
+  this.repeat$4 = null;
+  this.onSigningUp$4 = null;
+  this.canSend$4 = null;
+  this.onLoginClick$4 = null;
+  this.emailLogin$4 = null;
+  this.onSignUpClick$4 = null;
   this.bitmap$0$4 = 0
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype = new ScalaJS.inheritable.org_denigma_views_OrdinaryView();
@@ -45022,6 +47075,40 @@ ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.registerClick__Lrx_core
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.isSigned__Lrx_core_Var = (function() {
   return this.isSigned$4
 });
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.inSigningUp__Lrx_core_Var = (function() {
+  return this.inSigningUp$4
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.inLogging__Lrx_core_Rx = (function() {
+  return this.inLogging$4
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.login__Lrx_core_Var = (function() {
+  return this.login$4
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.password__Lrx_core_Var = (function() {
+  return this.password$4
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.repeat__Lrx_core_Var = (function() {
+  return this.repeat$4
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.canSend__Lrx_core_Rx = (function() {
+  return this.canSend$4
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.emailLogin__Lrx_core_Rx = (function() {
+  return this.emailLogin$4
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.sendTest__V = (function() {
+  ScalaJS.modules.models_RegisterPicklers().registerPicklers__V();
+  var m = new ScalaJS.c.models_Message().init___Lmodels_User__T__J(new ScalaJS.c.models_User().init___T__T("someUser", ScalaJS.modules.models_User().apply$default$2__T()), "hello", ScalaJS.modules.models_Message().apply$default$3__J());
+  var x$1 = m;
+  var x$2 = ScalaJS.modules.org_scalajs_spickling_jsany_package().builder__Lorg_scalajs_spickling_jsany_JSPBuilder$();
+  var x$3 = ScalaJS.modules.org_scalajs_spickling_PicklerRegistry().pickle$default$3__O__Lorg_scalajs_spickling_PicklerRegistry(x$1);
+  var data = ScalaJS.modules.org_scalajs_spickling_PicklerRegistry().pickle__O__Lorg_scalajs_spickling_PBuilder__Lorg_scalajs_spickling_PicklerRegistry__O(x$1, x$2, x$3);
+  var x$4 = data;
+  var x$5 = ScalaJS.modules.org_scalajs_spickling_jsany_package().reader__Lorg_scalajs_spickling_jsany_JSPReader$();
+  var x$6 = ScalaJS.modules.org_scalajs_spickling_PicklerRegistry().unpickle$default$3__O__Lorg_scalajs_spickling_PicklerRegistry(x$4);
+  var mm = ScalaJS.modules.org_scalajs_spickling_PicklerRegistry().unpickle__O__Lorg_scalajs_spickling_PReader__Lorg_scalajs_spickling_PicklerRegistry__O(x$4, x$5, x$6);
+  ScalaJS.g["alert"](("test pickling: " + m.toString__T()))
+});
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.init___Lorg_scalajs_dom_HTMLElement__Lscala_collection_immutable_Map = (function(element, params) {
   ScalaJS.c.org_denigma_views_OrdinaryView.prototype.init___T__Lorg_scalajs_dom_HTMLElement.call(this, "login", element);
   this.loginClick$4 = ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply__Lscala_Function0__T__Lrx_core_Var(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
@@ -45039,6 +47126,75 @@ ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.init___Lorg_scalajs_dom
       return ScalaJS.bZ(false)
     })
   })()), ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply$default$2__T());
+  this.inSigningUp$4 = ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply__Lscala_Function0__T__Lrx_core_Var(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function() {
+    return (function() {
+      return ScalaJS.bZ(false)
+    })
+  })()), ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply$default$2__T());
+  this.inLogging$4 = ScalaJS.modules.rx_package().Rx__Lrx_core_Rx$().apply__Lscala_Function0__Lrx_core_Rx(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
+    return (function() {
+      return ScalaJS.bZ(((!ScalaJS.uZ(arg$outer.inSigningUp__Lrx_core_Var().apply__O())) && (!ScalaJS.uZ(arg$outer.isSigned__Lrx_core_Var().apply__O()))))
+    })
+  })(this)));
+  this.login$4 = ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply__Lscala_Function0__T__Lrx_core_Var(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function() {
+    return (function() {
+      return ""
+    })
+  })()), ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply$default$2__T());
+  this.password$4 = ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply__Lscala_Function0__T__Lrx_core_Var(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function() {
+    return (function() {
+      return ""
+    })
+  })()), ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply$default$2__T());
+  this.repeat$4 = ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply__Lscala_Function0__T__Lrx_core_Var(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function() {
+    return (function() {
+      return ""
+    })
+  })()), ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply$default$2__T());
+  this.onSigningUp$4 = ScalaJS.modules.rx_core_Obs().apply__Lrx_core_Emitter__T__Z__Lscala_Function0__Lrx_core_Obs(this.isSigned__Lrx_core_Var(), ScalaJS.modules.rx_core_Obs().apply$default$2__T(), ScalaJS.modules.rx_core_Obs().apply$default$3__Z(), new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
+    return (function() {
+      if (ScalaJS.uZ(arg$outer.inSigningUp__Lrx_core_Var().now__O())) {
+        arg$outer.inSigningUp__Lrx_core_Var().update__Lscala_Function0__Lrx_core_Propagator__O(new ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$4$$anonfun$apply$mcV$sp$1().init___Lorg_denigma_frontend_views_LoginView$$anonfun$4(this), ScalaJS.modules.rx_core_Propagator$Immediate())
+      };
+      return ScalaJS.bV(undefined)
+    })
+  })(this)));
+  this.canSend$4 = ScalaJS.modules.rx_package().Rx__Lrx_core_Rx$().apply__Lscala_Function0__Lrx_core_Rx(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
+    return (function() {
+      var p = ScalaJS.as.java_lang_String(arg$outer.password__Lrx_core_Var().apply__O());
+      var r = ScalaJS.as.java_lang_String(arg$outer.repeat__Lrx_core_Var().apply__O());
+      var jsx$1 = (((ScalaJS.anyRefEqEq(p, r) || (!ScalaJS.uZ(arg$outer.inSigningUp__Lrx_core_Var().apply__O()))) && (ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__length__Lscala_scalajs_runtime_RuntimeString__I(p) > 4)) && (ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__length__Lscala_scalajs_runtime_RuntimeString__I(ScalaJS.as.java_lang_String(arg$outer.login__Lrx_core_Var().apply__O())) > 0));
+      return ScalaJS.bZ(jsx$1)
+    })
+  })(this)));
+  this.onLoginClick$4 = ScalaJS.modules.org_denigma_extensions_package().AnyRx__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx(this.loginClick__Lrx_core_Var()).handler__Lscala_Function0__Lrx_core_Obs(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
+    return (function() {
+      arg$outer.sendTest__V();
+      if (ScalaJS.uZ(arg$outer.inSigningUp__Lrx_core_Var().now__O())) {
+        arg$outer.inSigningUp__Lrx_core_Var().update__Lscala_Function0__Lrx_core_Propagator__O(new ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$6$$anonfun$apply$mcV$sp$2().init___Lorg_denigma_frontend_views_LoginView$$anonfun$6(this), ScalaJS.modules.rx_core_Propagator$Immediate())
+      } else {
+        if (ScalaJS.uZ(arg$outer.canSend__Lrx_core_Rx().apply__O())) {
+          /*<skip>*/
+        }
+      };
+      return ScalaJS.bV(undefined)
+    })
+  })(this)));
+  this.emailLogin$4 = ScalaJS.modules.rx_package().Rx__Lrx_core_Rx$().apply__Lscala_Function0__Lrx_core_Rx(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
+    return (function() {
+      return ScalaJS.bZ(ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__contains__Lscala_scalajs_runtime_RuntimeString__Ljava_lang_CharSequence__Z(ScalaJS.as.java_lang_String(arg$outer.login__Lrx_core_Var().apply__O()), "@"))
+    })
+  })(this)));
+  this.onSignUpClick$4 = ScalaJS.modules.rx_core_Obs().apply__Lrx_core_Emitter__T__Z__Lscala_Function0__Lrx_core_Obs(this.registerClick__Lrx_core_Var(), ScalaJS.modules.rx_core_Obs().apply$default$2__T(), ScalaJS.modules.rx_core_Obs().apply$default$3__Z(), new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
+    return (function() {
+      if (ScalaJS.uZ(arg$outer.inSigningUp__Lrx_core_Var().now__O())) {
+        /*<skip>*/
+      } else {
+        arg$outer.inSigningUp__Lrx_core_Var().update__Lscala_Function0__Lrx_core_Propagator__O(new ScalaJS.c.org_denigma_frontend_views_LoginView$$anonfun$8$$anonfun$apply$mcV$sp$3().init___Lorg_denigma_frontend_views_LoginView$$anonfun$8(this), ScalaJS.modules.rx_core_Propagator$Immediate())
+      };
+      return ScalaJS.bV(undefined)
+    })
+  })(this)));
   return this
 });
 /** @constructor */
@@ -47718,6 +49874,9 @@ ScalaJS.c.scala_collection_immutable_Stream.prototype.filter__Lscala_Function1__
     return ScalaJS.modules.scala_collection_immutable_Stream$Empty()
   }
 });
+ScalaJS.c.scala_collection_immutable_Stream.prototype.withFilter__Lscala_Function1__Lscala_collection_immutable_Stream$StreamWithFilter = (function(p) {
+  return new ScalaJS.c.scala_collection_immutable_Stream$StreamWithFilter().init___Lscala_collection_immutable_Stream__Lscala_Function1(this, p)
+});
 ScalaJS.c.scala_collection_immutable_Stream.prototype.iterator__Lscala_collection_Iterator = (function() {
   return new ScalaJS.c.scala_collection_immutable_StreamIterator().init___Lscala_collection_immutable_Stream(this)
 });
@@ -47851,6 +50010,9 @@ ScalaJS.c.scala_collection_immutable_Stream.prototype.drop__I__O = (function(n) 
 });
 ScalaJS.c.scala_collection_immutable_Stream.prototype.drop__I__Lscala_collection_LinearSeqOptimized = (function(n) {
   return this.drop__I__Lscala_collection_immutable_Stream(n)
+});
+ScalaJS.c.scala_collection_immutable_Stream.prototype.withFilter__Lscala_Function1__Lscala_collection_generic_FilterMonadic = (function(p) {
+  return this.withFilter__Lscala_Function1__Lscala_collection_immutable_Stream$StreamWithFilter(p)
 });
 ScalaJS.c.scala_collection_immutable_Stream.prototype.filter__Lscala_Function1__O = (function(p) {
   return this.filter__Lscala_Function1__Lscala_collection_immutable_Stream(p)
