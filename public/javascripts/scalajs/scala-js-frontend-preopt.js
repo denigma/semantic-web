@@ -1232,6 +1232,11 @@ ScalaJS.impls.org_denigma_frontend_views_BasicLogin$class__$init$__Lorg_denigma_
       return ""
     })
   })()), ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply$default$2__T()));
+  $$this.org$denigma$frontend$views$BasicLogin$$undsetter$und$email$und$eq__Lrx_core_Var__V(ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply__Lscala_Function0__T__Lrx_core_Var(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function() {
+    return (function() {
+      return ""
+    })
+  })()), ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply$default$2__T()));
   $$this.org$denigma$frontend$views$BasicLogin$$undsetter$und$isSigned$und$eq__Lrx_core_Var__V(ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply__Lscala_Function0__T__Lrx_core_Var(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function() {
     return (function() {
       return ScalaJS.bZ(false)
@@ -1278,7 +1283,10 @@ ScalaJS.impls.org_denigma_frontend_views_Login$class__$init$__Lorg_denigma_front
   $$this.org$denigma$frontend$views$Login$$undsetter$und$authHandler$und$eq__Lrx_core_Obs__V(ScalaJS.modules.org_denigma_extensions_package().AnyRx__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx($$this.authClick__Lrx_core_Rx()).handler__Lscala_Function0__Lrx_core_Obs(new ScalaJS.c.org_denigma_frontend_views_Login$$anonfun$4().init___Lorg_denigma_frontend_views_Login($$this)))
 });
 ScalaJS.impls.org_denigma_frontend_views_Registration$class__register__Lorg_denigma_frontend_views_Registration__Lscala_concurrent_Future = (function($$this) {
-  return ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get__T__T__I__Lscala_collection_Seq__Z__Lscala_concurrent_Future(ScalaJS.modules.org_denigma_extensions_sq().h__T__T(new ScalaJS.c.scala_StringContext().init___Lscala_collection_Seq(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_String.getArrayOf(), ["users/register?username=", "&password=", ""]), 1))).s__Lscala_collection_Seq__T(ScalaJS.modules.scala_Predef().genericWrapArray__O__Lscala_collection_mutable_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_Object.getArrayOf(), [$$this.login__Lrx_core_Var().now__O(), $$this.password__Lrx_core_Var().now__O()])))), ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get$default$2__T(), ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get$default$3__I(), ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get$default$4__Lscala_collection_Seq(), ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get$default$5__Z())
+  return ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get__T__T__I__Lscala_collection_Seq__Z__Lscala_concurrent_Future(ScalaJS.modules.org_denigma_extensions_sq().h__T__T(new ScalaJS.c.scala_StringContext().init___Lscala_collection_Seq(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_String.getArrayOf(), ["users/register?username=", "&password=", "&email=", ""]), 1))).s__Lscala_collection_Seq__T(ScalaJS.modules.scala_Predef().genericWrapArray__O__Lscala_collection_mutable_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_Object.getArrayOf(), [$$this.login__Lrx_core_Var().now__O(), $$this.password__Lrx_core_Var().now__O(), $$this.email__Lrx_core_Var().now__O()])))), ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get$default$2__T(), ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get$default$3__I(), ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get$default$4__Lscala_collection_Seq(), ScalaJS.modules.org_scalajs_dom_extensions_Ajax().get$default$5__Z())
+});
+ScalaJS.impls.org_denigma_frontend_views_Registration$class__isValid__Lorg_denigma_frontend_views_Registration__T__Z = (function($$this, email) {
+  return new ScalaJS.c.scala_collection_immutable_StringOps().init___T(ScalaJS.modules.scala_Predef().augmentString__T__T("(\\w+)@([\\w\\.]+)")).r__Lscala_util_matching_Regex().unapplySeq__O__Lscala_Option(email).isDefined__Z()
 });
 ScalaJS.impls.org_denigma_frontend_views_Registration$class__$init$__Lorg_denigma_frontend_views_Registration__V = (function($$this) {
   $$this.org$denigma$frontend$views$Registration$$undsetter$und$repeat$und$eq__Lrx_core_Var__V(ScalaJS.modules.rx_package().Var__Lrx_core_Var$().apply__Lscala_Function0__T__Lrx_core_Var(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function() {
@@ -1293,7 +1301,7 @@ ScalaJS.impls.org_denigma_frontend_views_Registration$class__$init$__Lorg_denigm
   })($$this))));
   $$this.org$denigma$frontend$views$Registration$$undsetter$und$canRegister$und$eq__Lrx_core_Rx__V(ScalaJS.modules.rx_package().Rx__Lrx_core_Rx$().apply__Lscala_Function0__Lrx_core_Rx(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
     return (function() {
-      return ScalaJS.bZ((ScalaJS.uZ(arg$outer.samePassword__Lrx_core_Rx().apply__O()) && ScalaJS.uZ(arg$outer.canLogin__Lrx_core_Rx().apply__O())))
+      return ScalaJS.bZ(((ScalaJS.uZ(arg$outer.samePassword__Lrx_core_Rx().apply__O()) && ScalaJS.uZ(arg$outer.canLogin__Lrx_core_Rx().apply__O())) && ScalaJS.uZ(arg$outer.emailValid__Lrx_core_Rx().apply__O())))
     })
   })($$this))));
   $$this.org$denigma$frontend$views$Registration$$undsetter$und$toggleRegisterClick$und$eq__Lrx_core_Rx__V(ScalaJS.modules.org_denigma_extensions_package().AnyRx__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx($$this.signupClick__Lrx_core_Var()).takeIf__Lrx_core_Rx__Lrx_core_Rx($$this.inLogin__Lrx_core_Rx()));
@@ -1304,7 +1312,12 @@ ScalaJS.impls.org_denigma_frontend_views_Registration$class__$init$__Lorg_denigm
     })
   })($$this))));
   $$this.org$denigma$frontend$views$Registration$$undsetter$und$registerClick$und$eq__Lrx_core_Rx__V(ScalaJS.modules.org_denigma_extensions_package().AnyRx__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx($$this.signupClick__Lrx_core_Var()).takeIf__Lrx_core_Rx__Lrx_core_Rx($$this.canRegister__Lrx_core_Rx()));
-  $$this.org$denigma$frontend$views$Registration$$undsetter$und$registerHandler$und$eq__Lrx_core_Obs__V(ScalaJS.modules.org_denigma_extensions_package().AnyRx__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx($$this.registerClick__Lrx_core_Rx()).handler__Lscala_Function0__Lrx_core_Obs(new ScalaJS.c.org_denigma_frontend_views_Registration$$anonfun$8().init___Lorg_denigma_frontend_views_Registration($$this)))
+  $$this.org$denigma$frontend$views$Registration$$undsetter$und$registerHandler$und$eq__Lrx_core_Obs__V(ScalaJS.modules.org_denigma_extensions_package().AnyRx__Lrx_core_Rx__Lorg_denigma_extensions_RxOps$AnyRx($$this.registerClick__Lrx_core_Rx()).handler__Lscala_Function0__Lrx_core_Obs(new ScalaJS.c.org_denigma_frontend_views_Registration$$anonfun$8().init___Lorg_denigma_frontend_views_Registration($$this)));
+  $$this.org$denigma$frontend$views$Registration$$undsetter$und$emailValid$und$eq__Lrx_core_Rx__V(ScalaJS.modules.rx_package().Rx__Lrx_core_Rx$().apply__Lscala_Function0__Lrx_core_Rx(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(arg$outer) {
+    return (function() {
+      return ScalaJS.bZ(((ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__length__Lscala_scalajs_runtime_RuntimeString__I(ScalaJS.as.java_lang_String(arg$outer.email__Lrx_core_Var().apply__O())) > 4) && arg$outer.isValid__T__Z(ScalaJS.as.java_lang_String(arg$outer.email__Lrx_core_Var().apply__O()))))
+    })
+  })($$this))))
 });
 ScalaJS.impls.rx_core_Emitter$class__children__Lrx_core_Emitter__Lscala_collection_immutable_Set = (function($$this) {
   return ScalaJS.as.scala_collection_immutable_Set(ScalaJS.as.scala_collection_TraversableLike(ScalaJS.as.scala_collection_TraversableLike($$this.rx$core$Emitter$$childrenHolder__Lrx_core_SpinSet().apply__O()).flatMap__Lscala_Function1__Lscala_collection_generic_CanBuildFrom__O(new ScalaJS.c.scala_scalajs_runtime_AnonFunction1().init___Lscala_scalajs_js_Function1((function() {
@@ -9195,7 +9208,7 @@ ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2 = (function() {
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2.prototype.constructor = ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2;
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2.prototype.asStringRxMap__Lorg_denigma_frontend_views_LoginView__Lscala_collection_immutable_Map = (function(t$3) {
-  return ScalaJS.as.scala_collection_immutable_Map(ScalaJS.modules.scala_collection_immutable_Map().apply__Lscala_collection_Seq__Lscala_collection_GenMap(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("repeat"), t$3.repeat__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("password"), t$3.password__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("login"), t$3.login__Lrx_core_Var())]), 1))))
+  return ScalaJS.as.scala_collection_immutable_Map(ScalaJS.modules.scala_collection_immutable_Map().apply__Lscala_collection_Seq__Lscala_collection_GenMap(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("repeat"), t$3.repeat__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("email"), t$3.email__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("password"), t$3.password__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("login"), t$3.login__Lrx_core_Var())]), 1))))
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$2.prototype.asStringRxMap__O__Lscala_collection_immutable_Map = (function(t) {
   return this.asStringRxMap__Lorg_denigma_frontend_views_LoginView__Lscala_collection_immutable_Map(ScalaJS.as.org_denigma_frontend_views_LoginView(t))
@@ -9244,7 +9257,7 @@ ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3 = (function() {
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3.prototype = new ScalaJS.inheritable.java_lang_Object();
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3.prototype.constructor = ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3;
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3.prototype.asBooleanRxMap__Lorg_denigma_frontend_views_LoginView__Lscala_collection_immutable_Map = (function(t$3) {
-  return ScalaJS.as.scala_collection_immutable_Map(ScalaJS.modules.scala_collection_immutable_Map().apply__Lscala_collection_Seq__Lscala_collection_GenMap(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("emailLogin"), t$3.emailLogin__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("canRegister"), t$3.canRegister__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("samePassword"), t$3.samePassword__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("canLogin"), t$3.canLogin__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("inLogin"), t$3.inLogin__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("inRegistration"), t$3.inRegistration__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("isSigned"), t$3.isSigned__Lrx_core_Var())]), 1))))
+  return ScalaJS.as.scala_collection_immutable_Map(ScalaJS.modules.scala_collection_immutable_Map().apply__Lscala_collection_Seq__Lscala_collection_GenMap(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.scala_Tuple2.getArrayOf(), [ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("emailLogin"), t$3.emailLogin__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("emailValid"), t$3.emailValid__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("canRegister"), t$3.canRegister__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("samePassword"), t$3.samePassword__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("canLogin"), t$3.canLogin__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("inLogin"), t$3.inLogin__Lrx_core_Rx()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("inRegistration"), t$3.inRegistration__Lrx_core_Var()), ScalaJS.modules.scala_Predef$ArrowAssoc().$$minus$greater$extension__O__O__Lscala_Tuple2(ScalaJS.modules.scala_Predef().any2ArrowAssoc__O__O("isSigned"), t$3.isSigned__Lrx_core_Var())]), 1))))
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView$$anon$3.prototype.asBooleanRxMap__O__Lscala_collection_immutable_Map = (function(t) {
   return this.asBooleanRxMap__Lorg_denigma_frontend_views_LoginView__Lscala_collection_immutable_Map(ScalaJS.as.org_denigma_frontend_views_LoginView(t))
@@ -44295,12 +44308,14 @@ ScalaJS.c.org_denigma_frontend_views_LoginView = (function() {
   this.toggleRegisterHandler$4 = null;
   this.registerClick$4 = null;
   this.registerHandler$4 = null;
+  this.emailValid$4 = null;
   this.loginToggleClick$4 = null;
   this.toggleLogin$4 = null;
   this.authClick$4 = null;
   this.authHandler$4 = null;
   this.login$4 = null;
   this.password$4 = null;
+  this.email$4 = null;
   this.isSigned$4 = null;
   this.inRegistration$4 = null;
   this.inLogin$4 = null;
@@ -44358,6 +44373,9 @@ ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.toggleRegisterClick__Lr
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.registerClick__Lrx_core_Rx = (function() {
   return this.registerClick$4
 });
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.emailValid__Lrx_core_Rx = (function() {
+  return this.emailValid$4
+});
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$views$Registration$$undsetter$und$repeat$und$eq__Lrx_core_Var__V = (function(x$1) {
   this.repeat$4 = x$1
 });
@@ -44379,8 +44397,14 @@ ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$vi
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$views$Registration$$undsetter$und$registerHandler$und$eq__Lrx_core_Obs__V = (function(x$1) {
   this.registerHandler$4 = x$1
 });
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$views$Registration$$undsetter$und$emailValid$und$eq__Lrx_core_Rx__V = (function(x$1) {
+  this.emailValid$4 = x$1
+});
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.register__Lscala_concurrent_Future = (function() {
   return ScalaJS.impls.org_denigma_frontend_views_Registration$class__register__Lorg_denigma_frontend_views_Registration__Lscala_concurrent_Future(this)
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.isValid__T__Z = (function(email) {
+  return ScalaJS.impls.org_denigma_frontend_views_Registration$class__isValid__Lorg_denigma_frontend_views_Registration__T__Z(this, email)
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.loginToggleClick__Lrx_core_Rx = (function() {
   return this.loginToggleClick$4
@@ -44409,6 +44433,9 @@ ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.login__Lrx_core_Var = (
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.password__Lrx_core_Var = (function() {
   return this.password$4
 });
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.email__Lrx_core_Var = (function() {
+  return this.email$4
+});
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.isSigned__Lrx_core_Var = (function() {
   return this.isSigned$4
 });
@@ -44432,6 +44459,9 @@ ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$vi
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$views$BasicLogin$$undsetter$und$password$und$eq__Lrx_core_Var__V = (function(x$1) {
   this.password$4 = x$1
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$views$BasicLogin$$undsetter$und$email$und$eq__Lrx_core_Var__V = (function(x$1) {
+  this.email$4 = x$1
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$views$BasicLogin$$undsetter$und$isSigned$und$eq__Lrx_core_Var__V = (function(x$1) {
   this.isSigned$4 = x$1

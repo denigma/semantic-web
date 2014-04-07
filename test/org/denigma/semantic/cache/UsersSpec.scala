@@ -5,10 +5,12 @@ import play.api.test.{FakeApplication, FakeRequest, WithApplication}
 
 import org.denigma.semantic.controllers.{WithLogger, SimpleQueryController, UpdateController}
 import org.specs2.mutable.Specification
+import org.specs2.execute
+
 import org.denigma.semantic.model.IRI
 import org.denigma.semantic.vocabulary.USERS
 import org.denigma.semantic.users.{Account, Accounts}
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 import play.api.mvc.SimpleResult
 import play.api.test.Helpers._
 import play.api.test.FakeApplication
@@ -70,7 +72,14 @@ class UsersSpec extends Specification {
       uso.get.email shouldEqual "nick@gmail.com"
       uso.get.hash shouldNotEqual "admin"
 
-      Accounts.auth("anton","password").isSuccess should beFalse
+      val auf = Accounts.auth("anton","password")
+      auf.isSuccess should beFalse
+      auf match {
+        case Success(some)=> execute.Failure("should be failure")
+        case Failure(f)=> f.getMessage.contains("empty iterator") must beFalse
+
+
+      }
       Accounts.auth("nick","wrongpassword").isSuccess should beFalse
       Accounts.auth("nick","admin").isSuccess should beTrue
 

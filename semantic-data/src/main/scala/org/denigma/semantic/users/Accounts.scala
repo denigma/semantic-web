@@ -79,7 +79,7 @@ object Accounts extends PatternCache with WithLogger with UpdateController
 
   }
 
- def userByName(name:String) =  this.userByIRI(userIRI(name))
+ def userByName(name:String): Option[Account] =  this.userByIRI(userIRI(name))
 
 
   //TODO: improve username security
@@ -120,7 +120,10 @@ object Accounts extends PatternCache with WithLogger with UpdateController
       import com.github.t3hnar.bcrypt._
       this.userByName(username).map{
         user=>  if(!password.isBcrypted(user.hash)) throw WrongPasswordForUser(password,username)
-    }.getOrElse(throw UserNotFound(userIRI(username).stringValue+" == "+mails.keys.head.stringValue()+" == "+hashes.keys.head.stringValue()))
+    }.getOrElse{
+        val user = userIRI(username) //maybe used further
+        throw UserNotFound(username)
+      }
     }
   }
 

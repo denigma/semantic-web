@@ -105,13 +105,14 @@ trait Registration extends BasicLogin{
   val samePassword = Rx{
     password()==repeat()
   }
-  val canRegister = Rx{ samePassword() && canLogin() }
+  val canRegister = Rx{ samePassword() && canLogin() && emailValid()}
 
   val toggleRegisterClick = this.signupClick.takeIf(this.inLogin)
   val toggleRegisterHandler = this.toggleRegisterClick.handler{
     this.inRegistration() = true
   }
-  def register() =  Ajax.get(sq.h(s"users/register?username=${this.login.now}&password=${this.password.now}"))
+
+  protected def register() =  Ajax.get(sq.h(s"users/register?username=${this.login.now}&password=${this.password.now}&email=${this.email.now}"))
 
 
   val registerClick = this.signupClick.takeIf(this.canRegister)
@@ -123,6 +124,10 @@ trait Registration extends BasicLogin{
         this.isSigned() = true
     }
   }
+
+  val emailValid: Rx[Boolean] = Rx {email().length>4 && this.isValid(email())}
+
+  def isValid(email: String): Boolean = """(\w+)@([\w\.]+)""".r.unapplySeq(email).isDefined
 
 
 
@@ -138,6 +143,7 @@ trait BasicLogin extends OrdinaryView
 
   val login = Var("")
   val password = Var("")
+  val email = Var("")
 
 
   val isSigned = Var(false)

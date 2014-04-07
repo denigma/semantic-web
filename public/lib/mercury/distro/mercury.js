@@ -1283,7 +1283,11 @@ Copyright (c) 2013 Jeremy Jackson
     };
 
     Model.url = function(record) {
-      return this.urlPrefix;
+      if (record.isNew()) {
+        return this.urlPrefix;
+      } else {
+        return [this.urlPrefix, record.id].join('/');
+      }
     };
 
     Model.find = function(id) {
@@ -1377,10 +1381,6 @@ Copyright (c) 2013 Jeremy Jackson
         success: (function(_this) {
           return function(json) {
             if (typeof json === 'object') {
-              _this.id = json.id;
-              if (_this.id) {
-                _this.constructor.records[_this.id] = _this;
-              }
               _this.set(json);
               _this.trigger('save', json);
             }
@@ -1454,11 +1454,21 @@ Copyright (c) 2013 Jeremy Jackson
         attrs[key] = value;
       }
       this.pushStack(this.toJSON());
+      if (attrs.id) {
+        this.setId(attrs.id);
+      }
       for (key in attrs) {
         value = attrs[key];
         this.attributes[key] = value;
       }
       return this.trigger('updated', attrs);
+    };
+
+    Model.prototype.setId = function(id) {
+      this.id = id;
+      if (this.id) {
+        return this.constructor.records[this.id] = this;
+      }
     };
 
     Model.prototype.exists = function() {
@@ -3408,7 +3418,7 @@ Copyright (c) 2013 Jeremy Jackson
       if (typeof this.loadSnippets === "function") {
         this.loadSnippets(json.snippets || {});
       }
-      return this.handleAction('load');
+      return this.handleAction('loaded');
     };
 
     Region.prototype.release = function() {

@@ -15,26 +15,26 @@
 
         <div class="right menu" data-view="login">
 
-            <div class="item">
-                <span class="ui input" data-class-valid-if="canLogin">
-                    <input type="text" placeholder="login" data-bind="login">
-                </span>
+
+            <div class="ui input item" data-class-valid-if="canLogin"  data-hideif="isSigned">
+                <input type="text" placeholder="login" data-bind="login">
             </div>
 
-            <div class="item">
-                <span class="ui input" data-class-valid-if="canLogin">
-                    <input type="text" data-bind="password" placeholder="password">
-                </span>
+
+            <div class="ui input item" data-class-valid-if="emailValid"  data-showif="inRegistration" data-hideif="isSigned">
+                <input id="email" type="text" data-bind="email" placeholder="email">
             </div>
 
-            <div class="item" data-showif="inRegistration">
-                <span class="ui input" data-class-valid-if="samePassword" data-class-invalid-unless="samePassword">
-                    <input type="text" data-bind="repeat" placeholder="repeat password">
-                    </input>
-                </span>
+
+            <div class="ui input item" data-class-valid-if="canLogin" data-hideif="isSigned">
+                <input type="text" data-bind="password" placeholder="password">
             </div>
 
-            <div class="ui item toggle buttons">
+            <div class="ui input item" data-class-invalid-unless="samePassword" data-showif="inRegistration" data-hideif="isSigned">
+                <input type="text" data-bind="repeat" placeholder="repeat password">
+            </div>
+
+            <div class="ui item toggle buttons" data-hideif="isSigned">
                 <div id="loginBtn" class="ui button"  data-class-positive-if="inLogin"  data-class-positive-if="canLogin" data-event-click="loginClick" data-event-click="registerClick">Login</div>
                 <div class="or"></div>
                 <div id="registerBtn" class="ui button" data-class-positive-if="inRegistration" data-class-positive-if="canRegister" data-event-click="signupClick">Sign up</div>
