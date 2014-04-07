@@ -40,6 +40,7 @@ object sq{
 
   def byId(id:String): Option[HTMLElement] = dom.document.getElementById(id) match {
     case null=>None
+    case undef:js.Undefined=>None
     case el=>Some(el)
   }
 

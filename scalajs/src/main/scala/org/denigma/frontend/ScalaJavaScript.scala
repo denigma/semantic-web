@@ -53,7 +53,6 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body) {
 
   }
 
-  override def textEvents: Map[String, Var[TextEvent]] = this.extractTextEvents(this)
 
   override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
 }

@@ -49,6 +49,8 @@ object Dependencies {
 
     "org.webjars" % "select2" % "3.4.5", //autocompletion
 
+    "org.webjars" % "pdf-js" % "0.8.1170", //PDFS
+
     "org.webjars" % "famfamfam-flags" % "0.0"
   )
 

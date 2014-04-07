@@ -97,11 +97,11 @@ trait PropertyBinding  extends JustBinding{
    * @param show
    * @param disp
    */
-  def showIf(element:HTMLElement,show: String,disp:String) = for ( b<-bools.get(show) ) this.bindRx("showIf",element,b){
+  def showIf(element:HTMLElement,show: String,disp:String) =  for ( b<-bools.getOrError(show) ) this.bindRx("showIf",element,b){
       case (el,sh)=>   el.style.display = if(sh) disp else "none"
   }
 
-  def hideIf(element:HTMLElement,hide: String,disp:String) = for ( b<-bools.get(hide) ) this.bindRx("showIf",element,b){
+  def hideIf(element:HTMLElement,hide: String,disp:String) = for ( b<-bools.getOrError(hide) ) this.bindRx("showIf",element,b){
     case (el,h)=>   el.style.display = if(h) "none" else disp
   }
 
@@ -111,14 +111,14 @@ trait PropertyBinding  extends JustBinding{
    * @param className
    * @param cond conditional rx
    */
-  def classIf(element:HTMLElement,className: String, cond:String) = for ( b<-bools.get(cond) ) this.bindRx(className,element,b){
+  def classIf(element:HTMLElement,className: String, cond:String) = for ( b<-bools.getOrError(cond) ) this.bindRx(className,element,b){
     case (el,cl) if el.classList.contains(className)=>
       if(!cl) el.classList.remove(className)
     case (el,cl) =>
       if(cl) el.classList.add(className)
   }
 
-  def classUnless(element:HTMLElement,className: String, cond:String) = for ( b<-bools.get(cond) ) this.bindRx(className,element,b){
+  def classUnless(element:HTMLElement,className: String, cond:String) = for ( b<-bools.getOrError(cond) ) this.bindRx(className,element,b){
     case (el,cl) if el.classList.contains(className)=>if(cl) el.classList.remove(className)
     case (el,cl) =>if(!cl) el.classList.add(className)
   }

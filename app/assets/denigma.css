@@ -8,14 +8,14 @@
 .ui.input input {
   max-width: 25em;
 }
-.sufficient {
-  border: 2px solid limegreen;
+.valid {
+  border: 1px solid limegreen;
 }
 .ui.invalid {
-  border: 2px solid red;
+  border: 1px solid red;
 }
 .ui.chosen {
-  border: 2px solid limegreen;
+  border: 1px solid limegreen;
 }
 .node rect {
   cursor: move;

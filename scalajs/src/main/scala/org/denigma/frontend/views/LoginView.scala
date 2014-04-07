@@ -144,7 +144,7 @@ trait BasicLogin extends OrdinaryView
   val inRegistration = Var(false)
   val inLogin = Rx(!inRegistration())
 
-  val canLogin = Rx { login().length>4 && password().length>4 && password()!=login() }
+  val canLogin: Rx[Boolean] = Rx { login().length>4 && password().length>4 &&  password()!=login() }
 
   val loginClick: Var[MouseEvent] = Var(this.createMouseEvent())
 

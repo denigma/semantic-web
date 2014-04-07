@@ -22,7 +22,6 @@ abstract class OrdinaryView(name:String,elem:dom.HTMLElement) extends BindingVie
     this.bindHTML(el,ats)
     this.bindProperties(el,ats)
     this.bindEvents(el,ats)
-
   }
 
 

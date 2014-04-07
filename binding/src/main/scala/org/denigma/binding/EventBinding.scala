@@ -23,7 +23,7 @@ trait EventBinding  extends JustBinding
 
   def mouseEvents: Map[String, Var[MouseEvent]]
 
-  def textEvents:Map[String,Var[TextEvent]]
+  //def textEvents:Map[String,Var[TextEvent]]
 
   def bindEvents(el:HTMLElement,ats:mutable.Map[String, dom.Attr]) = for {
     (key, value) <- ats
