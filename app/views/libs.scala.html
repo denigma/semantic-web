@@ -14,6 +14,14 @@
 <link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("semantic.css"))' type="text/css">
 <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("semantic.js"))'></script>
 
+@*<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("pdf.js"))'></script>*@
+@*<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("compatibility.js"))'></script>*@
+
+@*<script type="text/javascript" src="https://raw.github.com/mozilla/pdf.js/gh-pages/build/pdf.js"></script>*@
+
+
+
+
 @defining("lib/"){
     case (lib)=>{
 
@@ -21,6 +29,15 @@
         <script type="text/javascript" src="@routes.Assets.at(lib+"codemirror/mode/sparql/sparql.js")"></script>
 
         <link rel="stylesheet" href="@routes.Assets.at(lib+"Smoothness/jquery.ui.all.css")" type="text/css">
+        <script type="text/javascript" src="@routes.Assets.at(lib+"pdf/pdf.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at(lib+"pdf/web/pdf_find_bar.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at(lib+"pdf/web/pdf_find_controller.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at(lib+"pdf/web/text_layer_builder.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at(lib+"pdf/web/ui_utils.js")"></script>
+
+        <script type="text/javascript" src="@routes.Assets.at(lib+"pdf/compatibility.js")"></script>
+        @*<script type="text/javascript" src="@routes.Assets.at(lib+"pdf/viewer.js")"></script>*@
+
 
 
         <link rel="stylesheet" href="@routes.Assets.at(lib+"scrollbar/jquery.mCustomScrollbar.css")" type="text/css" />

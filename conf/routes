@@ -7,6 +7,7 @@ GET         /users/login               controllers.Application.login(username:St
 GET         /users/register            controllers.Application.register(username:String,email,password:String)
 GET         /users/logout              controllers.Application.logout()
 
+
 #GET         /                          controllers.Application.index(controller="query",action="main")
 
 GET         /query                     controllers.Queries.main()

@@ -1,5 +1,5 @@
 @(implicit request: UserRequestHeader)
-
+<!DOCTYPE html>
 <html>
     <head>
         <title>Denigma Knowledge Management System</title>
@@ -17,6 +17,8 @@
     </head>
     <body>
         @longevity.header(request)
+        @longevity.sidebar(request)
+
         <section class="ui segment main" data-view="random">
             <section data-html="segment"></section>
             <h1 data-bind="shortText"></h1>
@@ -26,25 +28,22 @@
             <input data-bind="longText">
             <h1 data-bind="longText"></h1>
         </section>
-        <h1>
-        <section data-view="lists">
+
+          <section data-view="lists">
             <h1 data-item-bind="prop">Prop</h1>
         </section>
-
-
-        @longevity.sidebar(request)
+        @longevity.pdf(request)
 
 
     </body>
 
+
     <script>
     ScalaJavaScript().main();
     $(document).ready(function () {
-        $('.sidebar').sidebar({ exclusive: false });
-        $('.ui.menu').sidebar({ exclusive: false });
+        //$('.ui.menu').sidebar({ exclusive: false });
+        $('.ui.sidebar').sidebar({ exclusive: false } ).show();
     });
-
-
     </script>
 
 
