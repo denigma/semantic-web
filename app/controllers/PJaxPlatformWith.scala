@@ -10,6 +10,6 @@ class PJaxPlatformWith(val name:String) extends Controller  {
     pj(name,action:String,html:Html)(req)
 
   def pj[T](controller:String,action:String,html:Html)(implicit req:UserRequestHeader): Html =
-    if(req.headers.keys("X-PJAX")) html  else views.html.index(controller,action,html)(req)
+    if(req.headers.keys("X-PJAX")) html  else views.html.webintelligence.index(controller,action,html)(req)
 
 }

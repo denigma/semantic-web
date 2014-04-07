@@ -2,18 +2,12 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET         /                          controllers.Longevity.index()
-POST        /test                      controllers.Tests.test
-GET         /test                      controllers.Tests.test
-
-GET         /                          controllers.Application.index(controller="query",action="main")
+GET         /                          controllers.Application.index()
 GET         /users/login               controllers.Application.login(username:String,password:String)
 GET         /users/register            controllers.Application.register(username:String,email,password:String)
 GET         /users/logout              controllers.Application.logout()
 
-
-GET         /resource/*url             controllers.Ontologies.resource(url)
-
+#GET         /                          controllers.Application.index(controller="query",action="main")
 
 GET         /query                     controllers.Queries.main()
 GET         /query/main                controllers.Queries.main()

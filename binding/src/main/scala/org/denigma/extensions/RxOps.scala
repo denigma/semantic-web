@@ -7,18 +7,68 @@ import scala.collection.immutable._
 
 import scala.collection.immutable._
 import rx.ops._
+import scala.util.{Success, Failure}
+
 //NOTE THIS CODE IS NOT TESTED YET
 trait RxOps {
 
 
-  implicit class AnyRx[T](reactive:Rx[T]) {
+  implicit class AnyRx[T](source:Rx[T]) {
 
+  def takeIf(b:Rx[Boolean]) = source.filter(el=>b.now)
 
-    def handler(callback: => Unit) = Obs(reactive, skipInitial = true)(callback)
+  def observeIf(b:Rx[Boolean])(callback: => Unit) = Obs(takeIf(b),skipInitial = true)(callback)
+
+  def handler(callback: => Unit) = Obs(source, skipInitial = true)(callback)
+
+   /**
+     * Creates a new [[Rx]] which zips the values of the source [[Rx]] according
+     * to the given `combiner` function. Failures are passed through directly,
+     * and transitioning from a Failure to a Success(s) re-starts the combining
+     * using the result `s` of the Success.
+     */
+    def zip[R](combiner: (T, T) => R): Rx[R] = {
+      new Zipper[T,R](source)(
+        (x, y) => (x, y) match{
+          case (Success(a), Success(b)) => Success(combiner(a, b))
+          case (Failure(a), Success(b)) => Failure(a)
+          case (Success(_), Failure(b)) => Failure(b)
+          case (Failure(_), Failure(b)) => Failure(b)
+        }
+      )
+    }
+    /**
+     * Just simple zip, without mapping
+     */
+    def zip(): Rx[(T, T)] = this.zip[(T,T)]((a,b)=>(a,b))
+
+    def is(value:T): rx.Rx[Boolean] = source.map(_==value)
+    def isnt(value:T): rx.Rx[Boolean] = source.map(_!=value)
+    def is[R<:T]: rx.Rx[Boolean] = source.map(_.isInstanceOf[R])
+    def isnt[R<:T]: rx.Rx[Boolean] = source.map(!_.isInstanceOf[R])
 
   }
 
-  /**
+  implicit class WrappedRx[TW<:Rx[Rx[T]],T](source:TW)
+  {
+    def isIn(obj:TW)(value:T) = Rx{ source()==obj && source.now()==value }
+    def isNotIn(obj:TW)(value:T) = Rx{ source()!=obj || source.now()!=value }
+
+    //def is(obj:TW)(filter:(T=>Boolean)) = Rx{ source()==obj && filter(source.now()) }
+  }
+
+  implicit class ZippedRx[TO,TN](source:Rx[(TO,TN)]) {
+
+    def from(value:TO)(callback: => Unit) = Obs(source,skipInitial = true){    if(source.now._1==value) callback  }
+    def to(value:TN)(callback: => Unit) = Obs(source,skipInitial = true){    if(source.now._2==value) callback  }
+    def transition(from:TO,to:TN)(callback: => Unit) =  Obs(source,skipInitial = true){    if(source.now == (from->to) ) callback  }
+
+    def isFrom(value:TO) = source.map(_._1==value)
+    def isTo(value:TN) = source.map(_._2==value)
+  }
+
+
+    /**
    * Watch changes in the collection
    * @param col
    * @tparam T

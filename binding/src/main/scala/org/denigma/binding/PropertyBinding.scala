@@ -73,27 +73,56 @@ trait PropertyBinding  extends JustBinding{
   }{
     key.toString match {
 
-      case "showif" => this.showIf(el,value.value)
-      case "hideif" => this.hideIf(el,value.value)
+      case "showif" => this.showIf(el,value.value,el.style.display)
+      case "hideif" => this.hideIf(el,value.value,el.style.display)
+      case str if str.startsWith("class-")=> str.replace("class-","") match {
+        case cl if cl.endsWith("-if")=>
+           this.classIf(el,cl.replace("-if",""),value.value)
+        case cl if cl.endsWith("-unless")=>
+          this.classUnless(el,cl.replace("-unless",""),value.value)
+        case _ =>
+          dom.console.error(s"other class bindings are not implemented yet for $str")
+
+        }
+
       case bname if bname.startsWith("bind-")=>this.bindAttribute(el,key.replace("bind-",""),value.value,this.strings)
       case "bind" => this.bindProperty(el,key,value)
       case _ => //some other thing to do
     }
   }
 
-  def showIf(el:HTMLElement,show: String) = for ( b<-bools.get(show) )
-    {
-      val disp: String = el.style.display
-      val rShow: Rx[String] = Rx{ if(b()) disp else "none"}
-      el.style.display = rShow()
-    }
+  /**
+   * Shows element if condition is satisfied
+   * @param element Element that should be shown
+   * @param show
+   * @param disp
+   */
+  def showIf(element:HTMLElement,show: String,disp:String) = for ( b<-bools.get(show) ) this.bindRx("showIf",element,b){
+      case (el,sh)=>   el.style.display = if(sh) disp else "none"
+  }
 
-  def hideIf(el:HTMLElement,hide: String) = for ( b<-bools.get(hide) )
-    {
-      val disp: String = el.style.display
-      val rHide: Rx[String] = Rx{ if(!b()) disp else "none"}
-      el.style.display = rHide()
-    }
+  def hideIf(element:HTMLElement,hide: String,disp:String) = for ( b<-bools.get(hide) ) this.bindRx("showIf",element,b){
+    case (el,h)=>   el.style.display = if(h) "none" else disp
+  }
+
+  /**
+   * Shows only if condition is true
+   * @param element
+   * @param className
+   * @param cond conditional rx
+   */
+  def classIf(element:HTMLElement,className: String, cond:String) = for ( b<-bools.get(cond) ) this.bindRx(className,element,b){
+    case (el,cl) if el.classList.contains(className)=>
+      if(!cl) el.classList.remove(className)
+    case (el,cl) =>
+      if(cl) el.classList.add(className)
+  }
+
+  def classUnless(element:HTMLElement,className: String, cond:String) = for ( b<-bools.get(cond) ) this.bindRx(className,element,b){
+    case (el,cl) if el.classList.contains(className)=>if(cl) el.classList.remove(className)
+    case (el,cl) =>if(!cl) el.classList.add(className)
+  }
+
 
 
   //TODO: split into subfunctions

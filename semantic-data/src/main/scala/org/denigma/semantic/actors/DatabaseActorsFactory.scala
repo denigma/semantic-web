@@ -35,7 +35,7 @@ class DatabaseActorsFactory(db:AbstractTripleStore,canRead:CanRead,canWrite:CanW
 
   val reader = sys.actorOf(readerProps)
 
-  var cache = sys.actorOf(Props(classOf[CacheActor]),"cache")
+  var cache: ActorRef = sys.actorOf(Props(classOf[CacheActor]),"cache")
 
   val cacheWatcher = new CacheWatcher(db,cache)
 

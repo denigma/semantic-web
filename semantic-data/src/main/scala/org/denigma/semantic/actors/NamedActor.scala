@@ -19,7 +19,7 @@ trait NamedActor  extends Actor  with akka.actor.ActorLogging {
   /**
    * Works only if it really has a parent
    */
-  lazy val parent: ActorRef = context.actorFor(self.path.parent)
+  def parent: ActorRef = context.parent
 
   /**
    * Implicit date to generate
@@ -52,6 +52,9 @@ trait NamedActor  extends Actor  with akka.actor.ActorLogging {
   def makeId: String = UUID.randomUUID().toString()
 
   def bus: EventStream = context.system.eventStream
+
+  def publish(event:AnyRef): Unit = context.system.eventStream.publish(event)
+
 
 
 }

@@ -4,6 +4,11 @@
     <head>
         <title>Denigma Knowledge Management System</title>
         @libs()
+
+
+        <link rel="stylesheet" href="@routes.Assets.at("denigma.css")" type="text/css">
+
+
         @if(play.api.Play.isDev(play.api.Play.current)==true) {
             <script src="@routes.Assets.at("javascripts/scalajs/scala-js-frontend-preopt.js")" type="text/javascript"></script>
         } else {
@@ -34,8 +39,11 @@
 
     <script>
     ScalaJavaScript().main();
-    $('.sidebar').sidebar({ exclusive: false });
-    $('.ui.menu').sidebar({ exclusive: false });
+    $(document).ready(function () {
+        $('.sidebar').sidebar({ exclusive: false });
+        $('.ui.menu').sidebar({ exclusive: false });
+    });
+
 
     </script>
 

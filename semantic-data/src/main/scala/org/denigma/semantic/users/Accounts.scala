@@ -118,8 +118,8 @@ object Accounts extends PatternCache with WithLogger with UpdateController
   def auth(username:String,password:String):Try[Unit] = {
     Try {
       import com.github.t3hnar.bcrypt._
-      this.userByName(username).map{user=>
-        if(!password.isBcrypted(user.hash)) throw WrongPasswordForUser(password,username)
+      this.userByName(username).map{
+        user=>  if(!password.isBcrypted(user.hash)) throw WrongPasswordForUser(password,username)
     }.getOrElse(throw UserNotFound(userIRI(username).stringValue+" == "+mails.keys.head.stringValue()+" == "+hashes.keys.head.stringValue()))
     }
   }

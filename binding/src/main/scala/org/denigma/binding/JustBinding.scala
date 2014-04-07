@@ -30,7 +30,9 @@ class JustBinding {
     val eid = this.makeId(el, key)
     lazy val obs: Obs = Obs(rx, eid, skipInitial = false) {
       dom.document.getElementById(eid) match {
-        case null => obs.kill()
+        case null =>
+          dom.console.info(s"$eid was not find, killing observable...")
+          obs.kill()
 
         case element: HTMLElement =>
           val value = rx.now

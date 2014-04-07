@@ -1,33 +1,31 @@
 @(implicit request: UserRequestHeader)
-<div class="right menu" data-hideif="isSigned" data-view="login">
+<div class="right menu" data-view="login">
 
     <div class="item">
-        <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
+        <div class="ui input">
             <input type="text" placeholder="login" data-bind="username">
-        </div>
+
+        </div> <i class="ui green checkmark icon" data-showif="canLogin"></i>
     </div>
 
     <div class="item">
-        <div class="ui input" data-removeclass-sufficient="valid | not" data-addclass-sufficient="valid">
+        <div class="ui input" data-class-valid-if="canLogin">
             <input type="text" data-bind="password" placeholder="password">
         </div>
     </div>
 
-    <div class="item" data-showif="state | equals 'application'">
-        <div class="ui input" data-removeclass-invalid="valid_password" data-addclass-invalid="valid_password | not">
+    <div class="item" data-showif="inRegistration">
+        <div class="ui input" data-class-valid-if="samePassword" data-class-invalid-unless="samePassword">
             <input type="text" data-bind="repeat" placeholder="repeat password">
-        </div>
+
+        </div><i class="ui green checkmark icon" data-showif="samePassword"></i>
     </div>
 
-    <div class="item">
-        <div class="ui positive button"  data-event-click="loginClick" data-event-click="registerClick">Login</div>
+    <div class="ui item toggle buttons">
+        <div id="loginBtn" class="ui button"  data-class-positive-if="inLogin"  data-class-positive-if="canLogin" data-event-click="loginClick" data-event-click="registerClick">Login</div>
+        <div class="or"></div>
+        <div id="registerBtn" class="ui button" data-class-positive-if="inRegistration" data-class-positive-if="canRegister" data-event-click="signupClick">Sign up</div>
     </div>
-
-
-    <div class="item">
-        <div class="ui positive button" data-event-click="registerClick">Sign up</div>
-    </div>
-
 
     <div class="item"  data-showif="isSigned">
         <div>Logged in as </div>

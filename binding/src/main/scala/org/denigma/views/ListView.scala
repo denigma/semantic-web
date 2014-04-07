@@ -44,8 +44,17 @@ abstract class MapView(name:String,element:HTMLElement,props:Map[String,Any]) ex
   }{
     key.toString match {
 
-      case "showif" => this.showIf(el,value.value)
-      case "hideif" => this.hideIf(el,value.value)
+      case "showif" => this.showIf(el,value.value,el.style.display)
+      case "hideif" => this.hideIf(el,value.value,el.style.display)
+      case str if str.startsWith("class-")=> str.replace("class-","") match {
+        case cl if cl.endsWith("-if")=>
+          this.classIf(el,cl.replace("-if",""),value.value)
+        case cl if cl.endsWith("-unless")=>
+          this.classUnless(el,cl.replace("-unless",""),value.value)
+        case _ =>
+          dom.console.error(s"other class bindings are not implemented yet for $str")
+
+      }
       case bname if bname.startsWith("bind-")=>this.bindAttribute(el,key.replace("bind-",""),value.value,this.strings)
       case "bind" => this.bindProperty(el,key,value)
       case "item-bind"=>this.bindItemProperty(el,key,value)
