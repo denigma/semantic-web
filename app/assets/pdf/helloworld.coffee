@@ -73,4 +73,4 @@ jQuery =>
     pdf = PDFJS.getDocument(pdfPath)
     pdf.then renderPdf
 
-  loadPdf(host+ "/files/test.pdf")
+  loadPdf(host+ "/assets/files/test.pdf")

@@ -6,9 +6,8 @@ At the moment the project includes:
 * aktor-based non-blocking BigData driver
 * web-interface to query bigdata
 * sparql helpers that analyze AST and add binding/limits
-* some demo pages with d3js visualizations
-* some code from other projects ( wesin, collaboration) that will be integrated in future
 * scalajs based micro-binding framework
+* small part of front-end (logging/signing up)
 
 Most of the code that deals with bigdata is inside SemanticData subproject as well as ScalaJS binding microframework.
 
@@ -39,7 +38,6 @@ Notes
 As the code is young there are many rough edges. Only very small set of features are working, some features (like login/logout)
 are not implemented (or partially implemented)
 
-
 Architecture
 ============
 At the moment it consists of a bunch of projects:
@@ -56,25 +54,72 @@ There is also a bunch of ScalaJS projects:
 
  Build definitions are situated in build.sbt and inside project folder.
 
+ WARNING: there is also a lot of code that is either experimental or deprecated (will be removed soon), mostly - coffeescript code
+ as well as some packages like org.denigma.semantic.classes
+
 Semantic-Web project
 ====================
 
 The is a root project of the app, where the web App and UI resides.
-At the moment not much is done there, mostly interactive SPARQL endpoint for readonly sparql queries, not yet working login, and some half-working charts.
 Most of the code is inside app subfolder.
+By default Login page is shown plus some test input for bindings.
+
+Note: there used to be interactive SPARQL endpoint for readonly sparql queries, not yet working login, and some half-working charts
+but they were removed to be rewritten with scalajs
+
 
 Front-end
----------
+=========
 
 A bunch of fronted javascript/coffeescript libs are used. Some of them are loaded with Webjars, some of them reside in semantic-web/public
-folder, due to a high number of javascript libs github even mistakenly classified this project as javascript-one
+folder, due to a high number of javascript libs github even mistakenly classified this project as javascript-one.
 
-The main javascript code is inside app/assets folder and is written with coffeescript. There Batmanjs fronted framework is used and
-it has only its coffeescript models/controllers/views.
+At the moment the project in transition from coffeescript (where batman.js was used as framework, most of coffeescript code still resides in
+app/assets folder ) to ScalaJS
 
-NOTE: at the moment there is a migration from coffeescript to ScalaJS, so at the first page there is some testing code.
-Overall fronted part consists of play2 twirl tempaltes (in semantic-web/views), macrojs project, scala shared source folder and scalajs project.
 
+Overall fronted part consists of play2 twirl templates (in semantic-web/views), macrojs project, scala shared source folder and scalajs project.
+
+
+ScalaJS subproject
+------------------
+
+Main frontend code is situated in scalajs project that depends on shared code "scala" folder and binding subproject.
+
+
+Binding subproject
+------------------
+
+
+The main idea behind frontend is binding of scalajs views to html.
+For instance taken following html::
+   <div class="right menu" data-view="login">
+       <div class="item"  data-showif="isSigned">
+            <div class="ui teal button" data-event-click="logoutClick">Log out</div>
+        </div>
+   <!some other code>
+   </div>
+
+Here at the beginning the html is binding to LoginView class, then each data-<something> property is binding to corresponding
+reactive variable (Rx-s and Var-s in ScalaRX https://github.com/scala-js/scala-js ), so when this variable changes so does html.
+There is a view hierarchy, that starts from a view that is automaticly binded to "body" tag
+
+There is also a shared (scala) folder for classes that are shared between frontend and backend, as well as picklers.
+
+JSMacro subproject
+------------------
+
+Under the hood bindings are done with use of macroses. All rx variables are extracted by macroses into Map-s to make them accessible
+for binding views. There is a problem with macro evaluation that I do not know yet how to solve: all macroses are evaluated in classes
+where they are declared,that means that if you declared extractMap(this) and inherit from this class somewhere in ChildClass the maps
+will be done only from the class where the macro was declared. That is the reason why there are a lot of abstract methods (with macroses) that must be
+implemented when you inherit form one of the views.
+
+Scala shared code folder
+------------------------
+
+In this folder a shared code is accumulated, that is used both by backend and frontend.There some case classes as well as
+picklers (to serialize them) are accumulated.
 
 Configuration
 -------------
@@ -85,9 +130,11 @@ is loaded only in development/test/production modes respectively.
 Semantic-Data subproject
 ========================
 This project is concentrated on dealing with the database. Embedded BigData ( http://bigdata.com ) database in QuadMode is used there.
-I used it in embedded mode as we will not have a lot of data in the very beginning and as it does not seem to be hard to move to clastered bigdata.
+I used it in embedded mode as we will not have a lot of data in the very beginning and as it does not seem to be hard to move to clustered bigdata.
 
-Semantic-Data project is structured as Play2 plugin. That means that it is included by ( 10000:org.denigma.semantic.SemanticPlugin ) inside play.plugins inside SemanticWeb configuration.
+Semantic-Data project is structured as Play2 plugin. In fact it is like DB driver for play + DSL to work with SPARQL.
+In fact there is no need to dive into it deeply as in most of the cases it is enough to know SPARQL DSL and extend Query and/or Update controller.
+That means that it is included by ( 10000:org.denigma.semantic.SemanticPlugin ) inside play.plugins inside SemanticWeb configuration.
 So there is SemanticPlugin class, which onstarts method rung when the app has started.
 Than prg.denigma.semantic.platform.SP object acts
     sp.extractConfig(app) //gets PlayConfig file and extracts info from it
@@ -152,12 +199,6 @@ Inmemory cache
 
 Writer actors received a change watcher that sends update to cache actor that on its turn updates all cache consumers
 
-
-Wesin subproject
-=================
-
-Wesin is an inmemory scala-graph that will be used for inmemory caching of important and often used semantic-data (like ontologies, config and so on)
-
 Macro subproject
 ================
 
@@ -168,4 +209,6 @@ Collaboration subproject
 
 This subproject provides collaborative features like websocket webchats/tasks. It was moved from another app and has not been integrated yet.
 This means that it is not part of the application build.
+
+WARNING: in the moment collaboration subproject is NOT a part of the build and probably will be completely rewritten
 

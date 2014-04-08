@@ -67,7 +67,6 @@ class LoginView(element:HTMLElement, params:Map[String,Any]) extends OrdinaryVie
   }
 
 
-
 }
 
 trait Signed extends Registration {
@@ -99,6 +98,19 @@ trait Signed extends Registration {
     this.repeat()=""
     this.email()=""
   }
+  val signupClass: Rx[String] =  Rx{
+    if(this.inRegistration())
+      if(this.canRegister()) "positive" else "teal"
+    else
+      "basic"
+  }
+
+  val loginClass: Rx[String] = Rx{
+    if(this.inLogin())
+      if(this.canLogin()) "positive" else "teal"
+    else
+      "basic"
+  }
 }
 
 /**
@@ -128,6 +140,9 @@ trait Login extends BasicLogin{
         //dom.alert("authed successfuly")
         this.registeredName()=this.login()
         this.isSigned() = true
+        //TODO: get full username
+        //SessionCache.setUser(user)
+
 
       case Failure(ex:AjaxException)=>  this.report(s"Authentication failed: ${ex.xhr.responseText}")
 
@@ -146,7 +161,7 @@ trait Registration extends BasicLogin{
   /**
    * rx property binded to repeat password input
    */
- val repeat = Var("")
+  val repeat = Var("")
   val emailValid: Rx[Boolean] = Rx {email().length>4 && this.isValid(email())}
 
   /**
@@ -184,6 +199,8 @@ trait Registration extends BasicLogin{
         //dom.alert("authed successfuly")
         this.registeredName()=this.login()
         this.isSigned() = true
+        //TODO: get full username
+        //SessionCache.setUser(user)
 
       case Failure(ex:AjaxException)=>  this.report(s"Registration failed: ${ex.xhr.responseText}")
 
@@ -193,7 +210,6 @@ trait Registration extends BasicLogin{
   }
 
 
-
 }
 
 /**
@@ -201,9 +217,10 @@ trait Registration extends BasicLogin{
  */
 trait BasicLogin extends OrdinaryView
 {
-  val initialLogin = g \ "session" \ "user" map(_.toString)
-
-  val registeredName = Var(initialLogin.getOrElse("guest"))
+  /**
+   * Extracts name from global
+   */
+  val registeredName: Var[String] = Var(SessionCache.getUser.map(str=>if(str.contains("/")) str.substring(str.lastIndexOf("/")) else str).getOrElse("guest"))
 
   val login = Var("")
   val password = Var("")
@@ -233,11 +250,28 @@ trait BasicLogin extends OrdinaryView
 
   def reportError(str:String) = dom.console.error(this.report(str))
 
+
 }
 
+//TODO: improve in future
+object SessionCache {
+
+  if(!g.session.isNullOrUndef) g.updateDynamic("session")(new js.Object())
+
+  /**
+   * Updates
+   * @param user
+   */
+  def setUser(user:String) = this.set("user",user)
+
+  def set(prop:String,value:String) = {
+    g.session.updateDynamic(prop)(value)
+  }
+
+  def session = g \ "session"
 
 
-object LoginView {
+  def getUser: Option[String] = session \ "user" map(_.toString)
   // An attempt to make FSM
   // object State {
   //    object SubState {

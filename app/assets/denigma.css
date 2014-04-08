@@ -6,13 +6,7 @@
   height: 500px;
 }
 .ui.input input {
-  max-width: 25em;
-}
-.valid {
-  border: 1px solid limegreen;
-}
-.ui.invalid {
-  border: 1px solid red;
+  max-width: 15em;
 }
 .ui.chosen {
   border: 1px solid limegreen;

@@ -75,6 +75,7 @@ trait PropertyBinding  extends JustBinding{
 
       case "showif" => this.showIf(el,value.value,el.style.display)
       case "hideif" => this.hideIf(el,value.value,el.style.display)
+      case "class" => this.bindClass(el,value.value)
       case str if str.startsWith("class-")=> str.replace("class-","") match {
         case cl if cl.endsWith("-if")=>
            this.classIf(el,cl.replace("-if",""),value.value)
@@ -123,6 +124,13 @@ trait PropertyBinding  extends JustBinding{
     case (el,cl) =>if(!cl) el.classList.add(className)
   }
 
+  def bindClass(element:HTMLElement,prop: String) = for ( str<-strings.get(prop) ) this.bindRx(prop,element,str.zip){
+    case (el,(oldVal,newVal)) =>
+      if(el.classList.contains(oldVal))el.classList.remove(oldVal)
+      el.classList.add(newVal)
+    case _ => dom.console.error(s"error in bindclass for ${prop}")
+  }
+
 
 
   //TODO: split into subfunctions
@@ -169,6 +177,12 @@ trait PropertyBinding  extends JustBinding{
 //      }
 //  }
 
+  /**
+   * @param el
+   * @param key
+   * @param value
+   * @param mp
+   */
   def bindAttribute(el:HTMLElement,key:String,value:String,mp:Map[String,Rx[String]]) =  mp.get(value) match
   {
     case Some(str)=>

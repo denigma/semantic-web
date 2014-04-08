@@ -11,8 +11,10 @@
 <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("codemirror.js"))'></script>
 <link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("codemirror.css"))' type="text/css">
 
-<link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("semantic.css"))' type="text/css">
-<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("semantic.js"))'></script>
+
+@*<link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("semantic.css"))' type="text/css">*@
+@*<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("semantic.js"))'></script>*@
+
 
 @*<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("pdf.js"))'></script>*@
 @*<script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("compatibility.js"))'></script>*@
@@ -25,6 +27,16 @@
 @defining("lib/"){
     case (lib)=>{
 
+        <link rel="stylesheet" href="@routes.Assets.at(lib+"semantic-ui/fonts/basic.icons.svg")" type="text/css">
+        <link rel="stylesheet" href="@routes.Assets.at(lib+"semantic-ui/fonts/basic.icons.eot")" type="text/css">
+        <link rel="stylesheet" href="@routes.Assets.at(lib+"semantic-ui/fonts/basic.icons.woff")" type="text/css">
+        <link rel="stylesheet" href="@routes.Assets.at(lib+"semantic-ui/fonts/icons.svg")" type="text/css">
+        <link rel="stylesheet" href="@routes.Assets.at(lib+"semantic-ui/fonts/icons.eot")" type="text/css">
+        <link rel="stylesheet" href="@routes.Assets.at(lib+"semantic-ui/fonts/icons.woff")" type="text/css">
+
+
+        <link rel="stylesheet" href="@routes.Assets.at(lib+"semantic-ui/css/semantic.css")" type="text/css">
+        <script type='text/javascript' src="@routes.Assets.at(lib+"semantic-ui/javascript/semantic.js")"></script>
 
         <script type="text/javascript" src="@routes.Assets.at(lib+"codemirror/mode/sparql/sparql.js")"></script>
 

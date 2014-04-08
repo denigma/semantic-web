@@ -45,7 +45,7 @@ class JustBinding {
 
 
   /**
-   * Creates and even handler that can be attached to different listiners
+   * Creates and even handler that can be attached to different listeners
    * @param el element
    * @param par rx parameter
    * @param assign function that assigns var values to some element properties

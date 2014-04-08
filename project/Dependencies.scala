@@ -29,7 +29,7 @@ object Dependencies {
   )
 
   val webjars = Seq(
-    "org.webjars" %% "webjars-play" % "2.2.1-2",  //webjars support for play2
+    "org.webjars" %% "webjars-play" % "2.2.2-1",  //webjars support for play2
 
     "org.webjars" % "codemirror" % "3.22", //codemirror
 

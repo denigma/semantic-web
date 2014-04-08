@@ -1,7 +1,0 @@
-.mercury-plain-region {
-  @include mercury-region-outline;
-  &[data-mercury-region] {
-    min-width: 5px;
-    min-height: 20px;
-  }
-}

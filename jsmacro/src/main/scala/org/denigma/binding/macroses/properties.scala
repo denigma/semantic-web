@@ -5,6 +5,7 @@ import rx._
 import scala.reflect.macros.Context
 
 
+
 trait StringRxMap[T] {
   def asStringRxMap(t: T): Map[String,Rx[String]]
 }
