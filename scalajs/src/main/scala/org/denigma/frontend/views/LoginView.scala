@@ -26,7 +26,7 @@ import org.scalajs.jquery.{jQuery => jq}
 import org.denigma.views._
 import scala.collection.immutable._
 import org.denigma.extensions._
-import org.scalajs.dom.extensions.Ajax
+import org.scalajs.dom.extensions.{AjaxException, Ajax}
 import scala.util.{Failure, Success}
 import org.denigma.binding._
 
@@ -36,7 +36,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 /**
  * Login view
  */
-class LoginView(element:HTMLElement, params:Map[String,Any]) extends OrdinaryView("login",element) with Login with Registration
+class LoginView(element:HTMLElement, params:Map[String,Any]) extends OrdinaryView("login",element) with Login with Registration with Signed
 {
   lazy val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
 
@@ -58,9 +58,47 @@ class LoginView(element:HTMLElement, params:Map[String,Any]) extends OrdinaryVie
 
   val emailLogin = Rx{  login().contains("@")}
 
+  /**
+   * If anything changed
+   */
+  val anyChange = Rx{ (login(),password(),email(),repeat(),inLogin())}
+  val clearMessage = anyChange.handler{
+    message()=""
+  }
 
 
 
+}
+
+trait Signed extends Registration {
+  val onLogout = logoutClick.takeIf(this.isSigned)
+
+  def logOut()  = Ajax.get(sq.h(s"users/logout?username=${this.login.now}&password=${this.password.now}"))
+
+  val logoutHandler = onLogout.handler{
+    this.logOut().onComplete{
+      case Success(req)=>
+        this.isSigned()=false
+        this.clearAll()
+
+
+      case Failure(ex:AjaxException)=>  this.report(s"logout failed: ${ex.xhr.responseText}")
+
+      case _=> this.reportError("unknown failure")
+
+    }
+
+  }
+  /**
+   * Clears everything
+   */
+  def clearAll() = {
+    this.inRegistration()=false
+    this.login() = ""
+    this.password()=""
+    this.repeat()=""
+    this.email()=""
+  }
 }
 
 /**
@@ -85,10 +123,15 @@ trait Login extends BasicLogin{
   val authClick = loginClick.takeIf(canLogin)
   val authHandler = authClick.handler{
     this.auth().onComplete{
-      case Failure(f)=>dom.alert(s"auth failure: ${f.toString}")
+
       case Success(req)=>
-        dom.alert("authed successfuly")
+        //dom.alert("authed successfuly")
+        this.registeredName()=this.login()
         this.isSigned() = true
+
+      case Failure(ex:AjaxException)=>  this.report(s"Authentication failed: ${ex.xhr.responseText}")
+
+      case _=> this.reportError("unknown failure")
     }
   }
 
@@ -96,15 +139,33 @@ trait Login extends BasicLogin{
 }
 
 /**
- * Deals with registration
+ * Part of the view that deals with registration
  */
 trait Registration extends BasicLogin{
 
+  /**
+   * rx property binded to repeat password input
+   */
  val repeat = Var("")
+  val emailValid: Rx[Boolean] = Rx {email().length>4 && this.isValid(email())}
 
+  /**
+   * Email regex to check if email is valid
+   * @param email
+   * @return
+   */
+  def isValid(email: String): Boolean = """(\w+)@([\w\.]+)""".r.unapplySeq(email).isDefined
+
+
+  /**
+   * True if password and repeatpassword match
+   */
   val samePassword = Rx{
     password()==repeat()
   }
+  /**
+   * Reactive variable telling if register request can be send
+   */
   val canRegister = Rx{ samePassword() && canLogin() && emailValid()}
 
   val toggleRegisterClick = this.signupClick.takeIf(this.inLogin)
@@ -118,43 +179,60 @@ trait Registration extends BasicLogin{
   val registerClick = this.signupClick.takeIf(this.canRegister)
   val registerHandler = this.registerClick.handler{
     this.register().onComplete{
-      case Failure(f)=>dom.alert(s"registration failure: ${f.toString}")
+
       case Success(req)=>
-        dom.alert("registered successfuly")
+        //dom.alert("authed successfuly")
+        this.registeredName()=this.login()
         this.isSigned() = true
+
+      case Failure(ex:AjaxException)=>  this.report(s"Registration failed: ${ex.xhr.responseText}")
+
+      case _=> this.reportError("unknown failure")
+
     }
   }
-
-  val emailValid: Rx[Boolean] = Rx {email().length>4 && this.isValid(email())}
-
-  def isValid(email: String): Boolean = """(\w+)@([\w\.]+)""".r.unapplySeq(email).isDefined
 
 
 
 }
 
 /**
- * Basic login variables
+ * Basic login varibales/events
  */
 trait BasicLogin extends OrdinaryView
 {
+  val initialLogin = g \ "session" \ "user" map(_.toString)
 
-
+  val registeredName = Var(initialLogin.getOrElse("guest"))
 
   val login = Var("")
   val password = Var("")
   val email = Var("")
+  val message = Var("")
 
 
-  val isSigned = Var(false)
+  val isSigned = Var(registeredName()!="guest")
   val inRegistration = Var(false)
-  val inLogin = Rx(!inRegistration())
+  val inLogin = Rx(!inRegistration() && !isSigned())
 
-  val canLogin: Rx[Boolean] = Rx { login().length>4 && password().length>4 &&  password()!=login() }
+  val canLogin: Rx[Boolean] = Rx { login().length>4 && password().length>4 &&  password()!=login() && login()!="guest"}
 
   val loginClick: Var[MouseEvent] = Var(this.createMouseEvent())
-
+  val logoutClick: Var[MouseEvent] = Var{this.createMouseEvent()}
   val signupClick: Var[MouseEvent] = Var(this.createMouseEvent())
+
+  /**
+   * Reports some info
+   * @param str
+   * @return
+   */
+  def report(str:String) = {
+    this.message()=str
+    str
+  }
+
+  def reportError(str:String) = dom.console.error(this.report(str))
+
 }
 
 

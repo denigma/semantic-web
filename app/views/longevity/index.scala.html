@@ -39,6 +39,10 @@
 
 
     <script>
+    session = {}
+    @if(request.username.isDefined) {
+        session.user = "@Html(s"${request.username.get.stringValue}")"
+    }
     ScalaJavaScript().main();
     $(document).ready(function () {
         //$('.ui.menu').sidebar({ exclusive: false });

@@ -1,0 +1,36 @@
+@(implicit request: UserRequestHeader)
+<div class="right menu" data-view="login">
+
+
+    <span id="message" class="ui item" data-bind="message"></span>
+    <div class="ui input item" data-hideif="isSigned">
+        <input id="login" type="text" placeholder="login" data-bind="login">
+    </div>
+
+
+    <div class="ui input item" data-class-valid-if="emailValid"  data-showif="inRegistration" data-hideif="isSigned">
+        <input id="email" type="text" data-bind="email" placeholder="email">
+    </div>
+
+
+    <div class="ui input item" data-hideif="isSigned">
+        <input type="text" data-bind="password" placeholder="password">
+    </div>
+
+    <div class="ui input item" data-class-invalid-unless="samePassword" data-showif="inRegistration" data-hideif="isSigned">
+        <input type="text" data-bind="repeat" placeholder="repeat password">
+    </div>
+
+    <div class="ui item toggle buttons" data-hideif="isSigned">
+        <div id="loginBtn" class="ui button"  data-class-teal-if="inLogin" data-event-click="loginClick" data-event-click="registerClick">Login</div>
+        <div class="or"></div>
+        <div id="registerBtn" class="ui button" data-class-positive-if="canRegister" data-class-teal-if="inRegistration" data-event-click="signupClick">Sign up</div>
+    </div>
+
+    <div class="item"  data-showif="isSigned">
+        Logged in as <span data-bind="registeredName"></span>
+    </div>
+    <div class="item"  data-showif="isSigned">
+        <div class="ui teal button" data-event-click="logoutClick">Log out</div>
+    </div>
+</div>

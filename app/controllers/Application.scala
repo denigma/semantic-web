@@ -62,7 +62,7 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with Semanti
         Ok(Json.obj("status"->"OK","message"->"loggedOut")).withNewSession
       else
       {
-        this.lg.error("some user decided to log out")
+        this.lg.error("some user managed to log out being not logged in")
         BadRequest(Json.obj("status" ->"KO","message"->"you are not logged in!")).as("application/json")
       }
 
