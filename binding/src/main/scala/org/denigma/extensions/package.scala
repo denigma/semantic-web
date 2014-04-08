@@ -9,11 +9,5 @@ import scala.scalajs.js.Dynamic.{global => g}
 package object extensions extends AttributesOps with AnyJs with RxOps with CommonOps{
 
 
-  implicit class StringOps(str:String) {
-
-    def localName: String = if(str.contains("/")) str.substring(str.lastIndexOf("/")) else str
-
-
-  }
 
 }

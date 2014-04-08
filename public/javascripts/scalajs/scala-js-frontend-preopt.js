@@ -1232,6 +1232,13 @@ ScalaJS.impls.org_denigma_extensions_RxOps$class__AnyRx__Lorg_denigma_extensions
 ScalaJS.impls.org_denigma_extensions_RxOps$class__$init$__Lorg_denigma_extensions_RxOps__V = (function($$this) {
   /*<skip>*/
 });
+ScalaJS.impls.org_denigma_frontend_views_BasicLogin$class__report__Lorg_denigma_frontend_views_BasicLogin__Lorg_scalajs_dom_XMLHttpRequest__T = (function($$this, req) {
+  var x1 = ScalaJS.modules.org_denigma_extensions_package().AnyJs__Lscala_scalajs_js_Any__Lorg_denigma_extensions_AnyJs$AnyJs(req["response"]).dyn__Lscala_scalajs_js_Dynamic()["message"];
+  if (ScalaJS.modules.org_denigma_extensions_package().AnyJs__Lscala_scalajs_js_Any__Lorg_denigma_extensions_AnyJs$AnyJs(x1).isNullOrUndef__Z()) {
+    return $$this.report__T__T(req["responseText"])
+  };
+  return $$this.report__T__T(ScalaJS.objectToString(x1))
+});
 ScalaJS.impls.org_denigma_frontend_views_BasicLogin$class__report__Lorg_denigma_frontend_views_BasicLogin__T__T = (function($$this, str) {
   $$this.message__Lrx_core_Var().update__Lscala_Function0__Lrx_core_Propagator__O(new ScalaJS.c.scala_scalajs_runtime_AnonFunction0().init___Lscala_scalajs_js_Function0((function(str$1) {
     return (function() {
@@ -9826,6 +9833,21 @@ ScalaJS.c.org_denigma_frontend_views_SessionCache$.prototype.constructor = Scala
 ScalaJS.c.org_denigma_frontend_views_SessionCache$.prototype.session__Lscala_Option = (function() {
   return ScalaJS.modules.org_denigma_extensions_package().AnyJs__Lscala_scalajs_js_Any__Lorg_denigma_extensions_AnyJs$AnyJs(ScalaJS.g).$$bslash__T__Lscala_Option("session")
 });
+ScalaJS.c.org_denigma_frontend_views_SessionCache$.prototype.localName__T__T = (function(str) {
+  var _$this = this;
+  tailCallLoop: while (true) {
+    if (ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__endsWith__Lscala_scalajs_runtime_RuntimeString__T__Z(str, "/")) {
+      str = ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__substring__Lscala_scalajs_runtime_RuntimeString__I__I__T(str, 0, (ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__length__Lscala_scalajs_runtime_RuntimeString__I(str) - 2));
+      continue tailCallLoop
+    } else {
+      if (ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__contains__Lscala_scalajs_runtime_RuntimeString__Ljava_lang_CharSequence__Z(str, "/")) {
+        return ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__substring__Lscala_scalajs_runtime_RuntimeString__I__T(str, (ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__lastIndexOf__Lscala_scalajs_runtime_RuntimeString__T__I(str, "/") + 1))
+      } else {
+        return str
+      }
+    }
+  }
+});
 ScalaJS.c.org_denigma_frontend_views_SessionCache$.prototype.getUser__Lscala_Option = (function() {
   return ScalaJS.modules.org_denigma_extensions_package().OptionPath__Lscala_Option__Lorg_denigma_extensions_AnyJs$OptionPath(this.session__Lscala_Option()).$$bslash__T__Lscala_Option("user").map__Lscala_Function1__Lscala_Option(new ScalaJS.c.scala_scalajs_runtime_AnonFunction1().init___Lscala_scalajs_js_Function1((function() {
     return (function(x$1) {
@@ -9836,7 +9858,7 @@ ScalaJS.c.org_denigma_frontend_views_SessionCache$.prototype.getUser__Lscala_Opt
 ScalaJS.c.org_denigma_frontend_views_SessionCache$.prototype.init___ = (function() {
   ScalaJS.c.java_lang_Object.prototype.init___.call(this);
   ScalaJS.moduleInstances.org_denigma_frontend_views_SessionCache = this;
-  if ((!ScalaJS.modules.org_denigma_extensions_package().AnyJs__Lscala_scalajs_js_Any__Lorg_denigma_extensions_AnyJs$AnyJs(ScalaJS.g["session"]).isNullOrUndef__Z())) {
+  if (ScalaJS.modules.org_denigma_extensions_package().AnyJs__Lscala_scalajs_js_Any__Lorg_denigma_extensions_AnyJs$AnyJs(ScalaJS.g["session"]).isNullOrUndef__Z()) {
     ScalaJS.g["session"] = {}
   };
   return this
@@ -32692,11 +32714,7 @@ ScalaJS.c.org_denigma_frontend_views_BasicLogin$$anonfun$20$$anonfun$apply$6 = (
 ScalaJS.c.org_denigma_frontend_views_BasicLogin$$anonfun$20$$anonfun$apply$6.prototype = new ScalaJS.inheritable.scala_runtime_AbstractFunction1();
 ScalaJS.c.org_denigma_frontend_views_BasicLogin$$anonfun$20$$anonfun$apply$6.prototype.constructor = ScalaJS.c.org_denigma_frontend_views_BasicLogin$$anonfun$20$$anonfun$apply$6;
 ScalaJS.c.org_denigma_frontend_views_BasicLogin$$anonfun$20$$anonfun$apply$6.prototype.apply__T__T = (function(str) {
-  if (ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__contains__Lscala_scalajs_runtime_RuntimeString__Ljava_lang_CharSequence__Z(str, "/")) {
-    return ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__substring__Lscala_scalajs_runtime_RuntimeString__I__T(str, ScalaJS.impls.scala_scalajs_runtime_RuntimeString$class__lastIndexOf__Lscala_scalajs_runtime_RuntimeString__T__I(str, "/"))
-  } else {
-    return str
-  }
+  return ScalaJS.modules.org_denigma_frontend_views_SessionCache().localName__T__T(str)
 });
 ScalaJS.c.org_denigma_frontend_views_BasicLogin$$anonfun$20$$anonfun$apply$6.prototype.apply__O__O = (function(v1) {
   return this.apply__T__T(ScalaJS.as.java_lang_String(v1))
@@ -32819,7 +32837,7 @@ ScalaJS.c.org_denigma_frontend_views_Login$$anonfun$6$$anonfun$apply$mcV$sp$6.pr
     var ex = x3.exception__Ljava_lang_Throwable();
     if (ScalaJS.is.org_scalajs_dom_extensions_AjaxException(ex)) {
       var x4 = ScalaJS.as.org_scalajs_dom_extensions_AjaxException(ex);
-      return this.$$outer$2.org$denigma$frontend$views$Login$$anonfun$$$outer__Lorg_denigma_frontend_views_Login().report__T__T(new ScalaJS.c.scala_StringContext().init___Lscala_collection_Seq(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_String.getArrayOf(), ["Authentication failed: ", ""]), 1))).s__Lscala_collection_Seq__T(ScalaJS.modules.scala_Predef().genericWrapArray__O__Lscala_collection_mutable_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_Object.getArrayOf(), [x4.xhr__Lorg_scalajs_dom_XMLHttpRequest()["responseText"]]))))
+      return this.$$outer$2.org$denigma$frontend$views$Login$$anonfun$$$outer__Lorg_denigma_frontend_views_Login().report__Lorg_scalajs_dom_XMLHttpRequest__T(x4.xhr__Lorg_scalajs_dom_XMLHttpRequest())
     }
   };
   this.$$outer$2.org$denigma$frontend$views$Login$$anonfun$$$outer__Lorg_denigma_frontend_views_Login().reportError__T__V("unknown failure");
@@ -33006,7 +33024,7 @@ ScalaJS.c.org_denigma_frontend_views_Registration$$anonfun$11$$anonfun$apply$mcV
     var ex = x3.exception__Ljava_lang_Throwable();
     if (ScalaJS.is.org_scalajs_dom_extensions_AjaxException(ex)) {
       var x4 = ScalaJS.as.org_scalajs_dom_extensions_AjaxException(ex);
-      return this.$$outer$2.org$denigma$frontend$views$Registration$$anonfun$$$outer__Lorg_denigma_frontend_views_Registration().report__T__T(new ScalaJS.c.scala_StringContext().init___Lscala_collection_Seq(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_String.getArrayOf(), ["Registration failed: ", ""]), 1))).s__Lscala_collection_Seq__T(ScalaJS.modules.scala_Predef().genericWrapArray__O__Lscala_collection_mutable_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_Object.getArrayOf(), [x4.xhr__Lorg_scalajs_dom_XMLHttpRequest()["responseText"]]))))
+      return this.$$outer$2.org$denigma$frontend$views$Registration$$anonfun$$$outer__Lorg_denigma_frontend_views_Registration().report__Lorg_scalajs_dom_XMLHttpRequest__T(x4.xhr__Lorg_scalajs_dom_XMLHttpRequest())
     }
   };
   this.$$outer$2.org$denigma$frontend$views$Registration$$anonfun$$$outer__Lorg_denigma_frontend_views_Registration().reportError__T__V("unknown failure");
@@ -41574,7 +41592,7 @@ ScalaJS.c.org_denigma_frontend_views_Signed$$anonfun$4.prototype.apply$mcV$sp__V
         var ex = x3.exception__Ljava_lang_Throwable();
         if (ScalaJS.is.org_scalajs_dom_extensions_AjaxException(ex)) {
           var x4 = ScalaJS.as.org_scalajs_dom_extensions_AjaxException(ex);
-          return arg$outer.org$denigma$frontend$views$Signed$$anonfun$$$outer__Lorg_denigma_frontend_views_Signed().report__T__T(new ScalaJS.c.scala_StringContext().init___Lscala_collection_Seq(ScalaJS.modules.scala_Predef().wrapRefArray__AO__Lscala_collection_mutable_WrappedArray(ScalaJS.asArrayOf.java_lang_Object(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_String.getArrayOf(), ["logout failed: ", ""]), 1))).s__Lscala_collection_Seq__T(ScalaJS.modules.scala_Predef().genericWrapArray__O__Lscala_collection_mutable_WrappedArray(ScalaJS.makeNativeArrayWrapper(ScalaJS.data.java_lang_Object.getArrayOf(), [x4.xhr__Lorg_scalajs_dom_XMLHttpRequest()["responseText"]]))))
+          return arg$outer.org$denigma$frontend$views$Signed$$anonfun$$$outer__Lorg_denigma_frontend_views_Signed().report__Lorg_scalajs_dom_XMLHttpRequest__T(x4.xhr__Lorg_scalajs_dom_XMLHttpRequest())
         }
       };
       arg$outer.org$denigma$frontend$views$Signed$$anonfun$$$outer__Lorg_denigma_frontend_views_Signed().reportError__T__V("unknown failure");
@@ -45328,6 +45346,9 @@ ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$vi
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.org$denigma$frontend$views$BasicLogin$$undsetter$und$signupClick$und$eq__Lrx_core_Var__V = (function(x$1) {
   this.signupClick$4 = x$1
+});
+ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.report__Lorg_scalajs_dom_XMLHttpRequest__T = (function(req) {
+  return ScalaJS.impls.org_denigma_frontend_views_BasicLogin$class__report__Lorg_denigma_frontend_views_BasicLogin__Lorg_scalajs_dom_XMLHttpRequest__T(this, req)
 });
 ScalaJS.c.org_denigma_frontend_views_LoginView.prototype.report__T__T = (function(str) {
   return ScalaJS.impls.org_denigma_frontend_views_BasicLogin$class__report__Lorg_denigma_frontend_views_BasicLogin__T__T(this, str)

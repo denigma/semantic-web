@@ -81,7 +81,10 @@ trait Signed extends Registration {
         this.clearAll()
 
 
-      case Failure(ex:AjaxException)=>  this.report(s"logout failed: ${ex.xhr.responseText}")
+      case Failure(ex:AjaxException)=>
+        //this.report(s"logout failed: ${ex.xhr.responseText}")
+        this.report(ex.xhr)
+
 
       case _=> this.reportError("unknown failure")
 
@@ -144,7 +147,10 @@ trait Login extends BasicLogin{
         //SessionCache.setUser(user)
 
 
-      case Failure(ex:AjaxException)=>  this.report(s"Authentication failed: ${ex.xhr.responseText}")
+      case Failure(ex:AjaxException)=>
+        //this.report(s"Authentication failed: ${ex.xhr.responseText}")
+        this.report(ex.xhr)
+
 
       case _=> this.reportError("unknown failure")
     }
@@ -202,7 +208,9 @@ trait Registration extends BasicLogin{
         //TODO: get full username
         //SessionCache.setUser(user)
 
-      case Failure(ex:AjaxException)=>  this.report(s"Registration failed: ${ex.xhr.responseText}")
+      case Failure(ex:AjaxException)=>
+        //this.report(s"Registration failed: ${ex.xhr.responseText}")
+        this.report(ex.xhr)
 
       case _=> this.reportError("unknown failure")
 
@@ -220,7 +228,7 @@ trait BasicLogin extends OrdinaryView
   /**
    * Extracts name from global
    */
-  val registeredName: Var[String] = Var(SessionCache.getUser.map(str=>if(str.contains("/")) str.substring(str.lastIndexOf("/")) else str).getOrElse("guest"))
+  val registeredName: Var[String] = Var(SessionCache.getUser.map(SessionCache.localName).getOrElse("guest"))
 
   val login = Var("")
   val password = Var("")
@@ -238,12 +246,17 @@ trait BasicLogin extends OrdinaryView
   val logoutClick: Var[MouseEvent] = Var{this.createMouseEvent()}
   val signupClick: Var[MouseEvent] = Var(this.createMouseEvent())
 
+  def report(req:org.scalajs.dom.XMLHttpRequest): String = req.response.dyn.message match {
+      case m if m.isNullOrUndef=> this.report(req.responseText)
+      case other=>this.report(other.toString)
+    }
+
   /**
    * Reports some info
    * @param str
    * @return
    */
-  def report(str:String) = {
+  def report(str:String): String = {
     this.message()=str
     str
   }
@@ -256,7 +269,8 @@ trait BasicLogin extends OrdinaryView
 //TODO: improve in future
 object SessionCache {
 
-  if(!g.session.isNullOrUndef) g.updateDynamic("session")(new js.Object())
+
+  if(g.session.isNullOrUndef) g.updateDynamic("session")(new js.Object())
 
   /**
    * Updates
@@ -270,6 +284,12 @@ object SessionCache {
 
   def session = g \ "session"
 
+  def localName(str:String): String = if(str.endsWith("/"))
+    localName(str.substring(0,str.length-2))
+  else
+    if(str.contains("/"))
+      str.substring(str.lastIndexOf("/")+1)
+  else str
 
   def getUser: Option[String] = session \ "user" map(_.toString)
   // An attempt to make FSM

@@ -99,11 +99,15 @@ trait PropertyBinding  extends JustBinding{
    * @param disp
    */
   def showIf(element:HTMLElement,show: String,disp:String) =  for ( b<-bools.getOrError(show) ) this.bindRx("showIf",element,b){
-      case (el,sh)=>   el.style.display = if(sh) disp else "none"
+      case (el,sh)=>
+        el.style.display = if(sh) disp else "none"
+        //el.style.visibility = if(sh) "visible" else "hidden"
   }
 
   def hideIf(element:HTMLElement,hide: String,disp:String) = for ( b<-bools.getOrError(hide) ) this.bindRx("showIf",element,b){
-    case (el,h)=>   el.style.display = if(h) "none" else disp
+    case (el,h)=>
+      el.style.display = if(h) "none" else disp
+      //el.style.visibility = if(h) "hidden" else "visible"
   }
 
   /**

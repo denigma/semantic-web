@@ -2,24 +2,26 @@
 <div class="right menu" data-view="login">
 
 
-    <div id="message" class="ui label" data-bind="message">
+    <div id="message" class="ui item" data-bind="message">
     </div>
+
     <div class="ui icon input item" data-hideif="isSigned">
-        <input id="login" type="text" placeholder="login" data-bind="login">  <i data-show-if="canLogin" class="checkmark sign"></i>
+        <input id="login" type="text" placeholder="login" data-bind="login">
+         <i data-class-icon-if="canLogin" class="checkmark green sign"></i>
     </div>
 
 
     <div class="ui icon input item" data-showif="inRegistration" data-hideif="isSigned" data-class-error-unless="emailValid">
-        <input id="email" type="text" data-bind="email" placeholder="email"><i data-show-if="emailValid" class="checkmark sign"></i>
+        <input id="email" type="text" data-bind="email" placeholder="email"><i data-class-icon-if="emailValid" class="checkmark green sign"></i>
     </div>
 
 
     <div class="ui input icon item" data-hideif="isSigned">
-        <input type="password" data-bind="password" placeholder="password"><i data-show-if="canLogin" class="checkmark sign"></i>
+        <input type="password" data-bind="password" placeholder="password"><i data-class-icon-if="canLogin" class="checkmark green sign"></i>
     </div>
 
     <div class="ui input icon item" data-class-error-unless="samePassword" data-showif="inRegistration" data-hideif="isSigned">
-        <input type="password" data-bind="repeat" placeholder="repeat password"><i data-show-if="samePassword" class="checkmark sign"></i>
+        <input type="password" data-bind="repeat" placeholder="repeat password"><i data-class-icon-if="samePassword" class="checkmark green sign"></i>
     </div>
 
     <div class="ui item toggle buttons" data-hideif="isSigned">
