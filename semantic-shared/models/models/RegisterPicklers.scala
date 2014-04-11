@@ -1,6 +1,7 @@
 package models
 
 import org.scalajs.spickling._
+import org.denigma.rdf.WebIRI
 
 object RegisterPicklers {
   import PicklerRegistry.register
@@ -32,6 +33,13 @@ object RegisterPicklers {
   register[UserJoined]
   register[UserLeft]
   register[ReceiveMessage]
+
+
+  //Semantic
+  register[WebIRI]
+  register[MenuItem]
+  register[Menu]
+
 
   def registerPicklers(): Unit = ()
 

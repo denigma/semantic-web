@@ -7,9 +7,8 @@ At the moment the project includes:
 * web-interface to query bigdata
 * sparql helpers that analyze AST and add binding/limits
 * scalajs based micro-binding framework
+* scalajs views
 * small part of front-end (logging/signing up)
-
-Most of the code that deals with bigdata is inside SemanticData subproject as well as ScalaJS binding microframework.
 
 Setting Up
 ==========
@@ -18,19 +17,19 @@ To set up the project you need to (most of instructions are for Deiban/Ubuntu ba
 * Have scala 2.10.x, play 2.2.x and sbt 0.13 installed:
     - Make sure you use JDK 1.7+ and have JAVA_HOME variable setup
     - Install Scala ( http://scala-lang.org/ ) and sbt ( http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html )
-    - Download play2 Framework and add PLAY_HOME to your Path (  http://www.playframework.com/download )
+    - Download TypeSafe Activator and add it to your Path (  http://www.playframework.com/download )
 * Install Coffeescript:
     - install nodejs ( https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager )
     - install coffeescript with
         $  sudo npm install -g coffee-script
 * run tests:
-    $ play test
+    $ activator test
 * run the app:
-    $ play run
+    $ activator run
 * Check if app runs without errors in styles. I added index.png pic to show how the styles may look like
 * generate project files of your favourite IDE
-    $ play gen-idea #for Intellij IDEA, OR
-    $ play eclipse #for Eclipse
+    $ activator gen-idea #for Intellij IDEA, OR
+    $ activator eclipse #for Eclipse
 
 Notes
 -----

@@ -6,9 +6,7 @@ GET         /                          controllers.Application.index()
 GET         /users/login               controllers.Application.login(username:String,password:String)
 GET         /users/register            controllers.Application.register(username:String,email,password:String)
 GET         /users/logout              controllers.Application.logout()
-
-
-#GET         /                          controllers.Application.index(controller="query",action="main")
+GET         /menu/:name                controllers.Application.menu(name)
 
 GET         /query                     controllers.Queries.main()
 GET         /query/main                controllers.Queries.main()
@@ -24,7 +22,6 @@ GET         /models/sparql             controllers.Queries.sendQuery(query:Strin
 
 
 #GET         /results              controllers.Queries.results()
-GET         /models/menus/*name        controllers.Application.menu(name)
 GET         /pages/*page               controllers.Application.page(page)
 
 #GET        /sparql                      controllers.Graphs.vertices(id:String ="")
@@ -36,48 +33,16 @@ POST        /upload                    controllers.Application.upload
 GET         /webjars/*file             controllers.WebJarAssets.at(file)
 
 
-GET         /test/editor               controllers.Tests.editor
+
+GET         /test/message              controllers.Tests.test
 GET         /test/sigma                controllers.Tests.sigma
-GET         /test/scala                controllers.Tests.scalaJS()
 
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file              controllers.Assets.at(path="/public", file)
-GET         /public/*file                 controllers.Assets.at(path="/public", file)
+GET         /public/*file              controllers.Assets.at(path="/public", file)
 
 #GET         /*file                        controllers.Assets.at(path="/public", file)
-
-
-
-
-
-# Graphs
-
-#GET        /                              controllers.Graphs.index(id:String="")
-#GET        /:id                           controllers.Graphs.index(id:String)
-#GET        /graph/content.html            controllers.Graphs.content
-#GET        /graph                         controllers.Graphs.index(id:String="")
-#GET        /graph/*id                     controllers.Graphs.node(id)
-
-
-#GET        /vertices                      controllers.Graphs.vertices(id:String ="")
-#GET        /vertices/:id                  controllers.Graphs.vertices(id:String)
-#GET        /incoming/                     controllers.Graphs.incoming(id:String ="")
-#GET        /incoming/:id                  controllers.Graphs.incoming(id:String)
-#GET        /outgoing/                     controllers.Graphs.outgoing(id:String ="")
-#GET        /outgoing/:id                  controllers.Graphs.outgoing(id:String)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

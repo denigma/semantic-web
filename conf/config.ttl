@@ -26,21 +26,36 @@
 # main denigma prefix
 @prefix de: <http://denigma.org/resource/> .
 
+
+
 # specific webintelligence prefixes
 @prefix wi: <http://webintelligence.eu/resource/> .
-@prefix conf: <http://webintelligence.eu/config/> .
+@prefix pl: <http://webintelligence.eu/platform/> .
+
 
 # all website pages
 @prefix pg: <http://webintelligence.eu/page/> .
 
-# all users and organizations
-@prefix actor: <http://webintelligence.eu/ontology/actor/> .
+# users
+@prefix us: <http://webintelligence.eu/users/> .
 
-# all projects, quests and tasks
-@prefix task: <http://webintelligence.eu/ontology/task/> .
 
 # all other resources
 @prefix : <http://webintelligence.eu/resource/> .
+
+
+#longevity.org.ua prefixes
+@prefix long: <http://longevity.org.ua/resource/> .
+@prefix usl: <http://longevity.org.ua/users/> .
+@prefix pgl:  <http://longevity.org.ua/pages/> .
+
+#transhuman.org.ua prefixes
+@prefix trans: <http://transhuman.org.ua/resource/> .
+@prefix ust: <http://transhuman.org.ua/users/> .
+@prefix pgt:  <http://transhuman.org.ua/pages/> .
+
+#longevity.org.ua prefixes
+
 
 #########Dataset and config ontology metadata########
 
@@ -118,29 +133,58 @@ task:Task a owl:Class, rdfs:Class .
 
 #########Website configuration######################
 
-wi:Web_Intelligence a sioc:Site;
-	conf:index pg:About_Web_Intelligence ;
-	conf:root_menu pg:Web_Intelligence_Menu ;
-	conf:user_menu pg:Default_User_Menu .
+wi:Web_Intelligence a pl:Site; #eqv sioc:Site
+	pl:index pg:About_Web_Intelligence ;
+	pl:root_menu pg:Web_Intelligence_Menu ;
+	pl:user_menu pg:Default_User_Menu .
 
-conf:root_menu a owl:ObjectProperty;
+pl:root_menu a owl:ObjectProperty;
+	rdfs:domain  pl:Site;
+    rdfs:range pg:Menu .
+
+pl:user_menu a owl:ObjectProperty;
 	rdfs:domain  sioc:Site;
     rdfs:range pg:Menu .
 
-conf:user_menu a owl:ObjectProperty;
-	rdfs:domain  sioc:Site;
-    rdfs:range pg:Menu .
-
-conf:root a owl:ObjectProperty;
+pl:root a owl:ObjectProperty;
 	rdfs:domain  wi:Platform;
     rdfs:range sioc:Site .
 
-conf:index a owl:ObjectProperty;
+pl:index a owl:ObjectProperty;
 	rdfs:domain  sioc:Site;
     rdfs:range pg:Page .
 
 
-conf:Current_Platform a wi:Platform;
-	conf:root wi:Web_Intelligence .
+pl:Current_Platform a wi:Platform;
+	pl:root wi:Web_Intelligence .
 
-####################################################
+##############Longevity.org.ua configurations##########
+
+wi:longevity.org.ua sioc:Site;
+	pl:index pgl:Longevity_Ukraine;
+	pl:root_menu pgl:Longevity_Ukraine_Menu;
+
+pgl:Longevity_Ukraine_Menu a pl:Menu;
+    pl:items (
+                  pgl:About;
+                  pgl:Projects;
+                  pgl:Manifesto;
+                 ).
+                 
+pgl:About a pl:Page;
+    pl:title "About"
+
+pgl:
+    
+    
+
+
+
+
+
+      val testMenu: Menu = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
+      MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
+      MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Project"),
+      MenuItem(WebIRI("http://webintelligence.eu/another"),"Another")))
+
+

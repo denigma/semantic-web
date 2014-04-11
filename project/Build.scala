@@ -27,14 +27,12 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
 
 
   val appDependencies: Seq[ModuleID] =
-    Dependencies.authDepth++Dependencies.webjars++
+    Dependencies.authDepth++Dependencies.webjars++Dependencies.diDeps++Dependencies.playModules++
       Seq(
         filters,
         "org.scalajs" %% "scalajs-pickling" % "0.2",
         "org.scalajs" %% "scalajs-pickling-play-json" % "0.2"
       )
-
-  lazy val sharedFromJS = unmanagedSourceDirectories in Compile += baseDirectory.value /  "scala"
 
 
 
@@ -49,9 +47,11 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
 
       scalacOptions ++= Seq("-feature", "-language:_"),
 
-      sharedScalaSetting,
-
       resolvers +=   Dependencies.scalajsResolver,
+
+      sharedScalaRDF,
+
+      sharedScalaModels,
 
       parallelExecution in Test := false,
 
@@ -62,8 +62,6 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
       organization := "org.denigma",
 
       coffeescriptOptions := Seq("native", "/usr/local/bin/coffee -p"),
-
-      sharedFromJS,
 
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
 
@@ -89,7 +87,7 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
 }
 
 
-trait ScalaJS extends Binding{
+trait ScalaJS extends Binding with RDFClasses{
 
   //lazy val sharedScalaSetting = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala"
   val scalajsOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
@@ -100,7 +98,8 @@ trait ScalaJS extends Binding{
       scalaVersion:=Dependencies.scalaVer,
       scalacOptions ++= Seq( "-feature", "-language:_" ),
       version := "0.0.2",
-      sharedScalaSetting,
+      sharedScalaRDF,
+      sharedScalaModels,
       libraryDependencies ++= Dependencies.jsDeps,
       resolvers +=  Dependencies.scalajsResolver
   )
@@ -109,7 +108,8 @@ trait ScalaJS extends Binding{
     base = file("scalajs")
   ) settings (scalajsSettings: _*) dependsOn this.binding
 
- lazy val sharedScalaSetting = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala"
+  lazy val sharedScalaModels = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "semantic-shared" / "models"
+
 }
 
 trait Binding {
@@ -124,6 +124,7 @@ trait Binding {
       scalacOptions ++= Seq( "-feature", "-language:_" ),
       version := "0.0.2",
       libraryDependencies ++= Dependencies.jsDeps,
+      libraryDependencies ++= Dependencies.diDeps,
       resolvers +=  Dependencies.scalajsResolver
     )
   lazy val binding = Project(

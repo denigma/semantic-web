@@ -4,7 +4,7 @@ import play.api.mvc._
 import scala.concurrent.Future
 import org.denigma.semantic.model.IRI
 import org.denigma.semantic.vocabulary.USERS
-
+import org.denigma.semantic.platform.AppConfig
 
 
 trait UserRequestHeader extends RequestHeader{
@@ -13,11 +13,15 @@ trait UserRequestHeader extends RequestHeader{
 }
 
 
-object UserAction extends ActionBuilder[AuthRequest] {
+
+object UserAction extends ActionBuilder[AuthRequest] with AppConfig
+{
+  lazy val defaultDomain: Option[String] = this.currentAppConfig.getString("domain")
+
   override protected def invokeBlock[A](request: Request[A], block: (AuthRequest[A]) => Future[SimpleResult]): Future[SimpleResult] =
   {
     val user: Option[IRI] = request.session.get("user").map(name=>if(name.contains(":")) IRI(name) else IRI(USERS.user / name))
-    val req = AuthRequest(user,request)
+    val req = AuthRequest(user,request,if(request.domain=="localhost") defaultDomain.getOrElse(request.domain) else "")
     block(req)
   }
 }
@@ -46,8 +50,10 @@ case class WithUser[A](action: Action[A]) extends Action[A] {
  * @param request initial request
  * @tparam A
  */
-case class AuthRequest[A](username: Option[IRI], request: Request[A]) extends WrappedRequest[A](request) with UserRequestHeader
+case class AuthRequest[A](username: Option[IRI], request: Request[A], dom:String="") extends WrappedRequest[A](request) with UserRequestHeader
 {
   def isGuest = username.isEmpty
   def isSigned = username.isDefined
+
+  override lazy val domain =  if(dom=="") request.domain else dom
 }

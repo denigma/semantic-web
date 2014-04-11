@@ -3,7 +3,7 @@
 <html>
     <head>
         <title>Denigma Knowledge Management System</title>
-        @libs()
+        @libs.libs()
 
 
         <link rel="stylesheet" href="@routes.Assets.at("denigma.css")" type="text/css">
@@ -20,7 +20,12 @@
         @longevity.header(request)
         @longevity.sidebar(request)
 
-        <section class="ui segment main" data-view="random">
+        <article contenteditable="true">
+           <p>Here is article to be edit!</p>
+            <p>It contains some test elements</p>
+        </article>
+
+       <section class="ui segment main" data-view="random">
             <section data-html="segment"></section>
             <h1 data-bind="shortText"></h1>
             <input data-bind="shortText">
@@ -30,12 +35,15 @@
             <h1 data-bind="longText"></h1>
         </section>
 
-          <section data-view="lists">
+        <section data-view="lists">
             <h1 data-item-bind="prop">Prop</h1>
         </section>
+
+
+        <div id="content"><p>Getting started with Aloha Editor!</p></div>
+
+
         @longevity.pdf(request)
-
-
     </body>
 
 
@@ -48,6 +56,10 @@
     $(document).ready(function () {
         //$('.ui.menu').sidebar({ exclusive: false });
         $('.ui.sidebar').sidebar({ exclusive: false } ).show();
+        //Mercury.configuration.interface.floating = true
+        //Mercury.configuration.interface.shadowed = true
+        //Mercury.configuration.interface.silent = true
+        //Mercury.init();
     });
     </script>
 

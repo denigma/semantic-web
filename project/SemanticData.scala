@@ -1,7 +1,7 @@
 import sbt._
 import sbt.Keys._
 
-trait SemanticData extends Macroses {
+trait SemanticData extends Macroses with RDFClasses {
 
   //lazy val banana =  RootProject(uri("git://github.com/antonkulaga/banana-rdf.git#master"))
 
@@ -46,3 +46,7 @@ trait SemanticData extends Macroses {
 
 
 
+trait RDFClasses {
+
+  lazy val sharedScalaRDF = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "semantic-shared" / "rdf"
+}

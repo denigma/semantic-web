@@ -7,6 +7,15 @@ object Dependencies {
 
 
     "com.github.t3hnar" % "scala-bcrypt_2.10" % "2.3"
+
+  )
+
+  val playModules = Seq(
+    "org.scaldi" %% "scaldi-play" % "0.3.1",
+
+    "org.scaldi" %% "scaldi-akka" % "0.3.1",
+
+    "com.typesafe" %% "play-plugins-mailer" % "2.2.0" //mailer for email confirmations
   )
 
 
@@ -18,6 +27,10 @@ object Dependencies {
     "com.scalatags" % "scalatags_2.10" % "0.2.4-JS",
     "com.scalarx" % "scalarx_2.10" % "0.2.3-JS"
   )
+
+  val diDeps = Seq{
+     "org.scaldi" %% "scaldi" % "0.3"
+  }
 
 
 
@@ -45,13 +58,17 @@ object Dependencies {
 
     "org.webjars" % "Semantic-UI" % "0.15.1", //less/css framework
 
-    "org.webjars" % "jquery-file-upload" % "9.5.4",
+    //"org.webjars" % "jquery-file-upload" % "9.5.4",
 
-    "org.webjars" % "select2" % "3.4.5", //autocompletion
+    //"org.webjars" % "select2" % "3.4.5", //autocompletion
 
     "org.webjars" % "pdf-js" % "0.8.1170", //PDFS
 
-    "org.webjars" % "famfamfam-flags" % "0.0"
+    //"org.webjars" % "famfamfam-flags" % "0.0"
+
+    "org.webjars" % "requirejs" % "2.1.11-1",
+
+    "org.webjars" % "ckeditor" % "4.1.2"
   )
 
 

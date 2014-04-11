@@ -1,4 +1,8 @@
-package models
+package org.denigma.rdf
+
+abstract class WebResource extends RDFValue{
+
+}
 
 case class WebIRI(url:String) extends WebResource
 {
@@ -10,9 +14,7 @@ case class WebBlankNode(id:String) extends WebResource
   def stringValue: String = id
 }
 
-abstract class WebResource extends RDFValue{
 
-}
 
 case class BooleanLiteral(value:Boolean)
 {

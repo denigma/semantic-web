@@ -11,4 +11,3 @@ case class User(nick:String,avatar:String="")
 case class Message(user: User, text: String, timestamp: Long = System.currentTimeMillis())
 
 case class Room(name: String)
-

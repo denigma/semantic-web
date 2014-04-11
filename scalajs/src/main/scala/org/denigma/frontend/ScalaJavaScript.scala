@@ -1,8 +1,6 @@
 package org.denigma.frontend
 
 import org.scalajs.dom
-import org.scalajs.spickling.{PicklerRegistry=>pr}
-import scala.scalajs.js
 import scalatags.all._
 import scalatags.HtmlTag
 import rx._
@@ -10,23 +8,30 @@ import scala.scalajs.js.annotation.JSExport
 
 import models.{RegisterPicklers=>rp}
 
-import org.scalajs.dom.{TextEvent, MouseEvent, console}
+import org.scalajs.dom.{MouseEvent, console}
 
 import models._
 
-import org.scalajs.spickling.jsany._
-import scala.collection.immutable._
 
-import js.Dynamic.{ global => g }
+import scalajs.js.Dynamic.{ global => g }
 import org.scalajs.jquery.{jQuery => jq, JQueryXHR}
 import org.denigma.frontend.views._
 import org.denigma.views._
 import org.denigma.frontend.tests.{LongListView, RandomView}
-import scala.util.{Failure, Success, Try}
+import scala.util.{Success, Failure, Try}
 import scala.collection.immutable._
+import org.scalajs.spickling.{PicklerRegistry => pr}
+import org.scalajs.spickling.jsany._
+import scala.scalajs.js
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import org.scalajs.jquery.jQuery
+import org.scalajs.dom.extensions.{AjaxException, Ajax}
+import scala.concurrent.Promise
+import org.denigma.extensions.sq
+
 
 @JSExport
-object ScalaJavaScript extends OrdinaryView("main",dom.document.body) {
+object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scalajs.js.JSApp{
 
 
   org.denigma.views
@@ -43,7 +48,6 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body) {
 
   lazy val bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
 
-
   @JSExport
   def main(): Unit = {
 
@@ -51,8 +55,17 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body) {
 
     this.bind(this.element)
 
+    val m = Message(User("some"),"message")
+
+    rp.registerPicklers()
   }
 
+  def mess(v:js.Any){
+
+    rp.registerPicklers()
+    pr.unpickle(v)
+  }
 
   override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
 }
+

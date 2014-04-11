@@ -26,7 +26,7 @@ import play.api.libs.concurrent.Akka
 /*
 class that is responsible for the main logic
  */
-abstract class SemanticPlatform extends JsQueryController with UpdateController{
+abstract class SemanticPlatform extends JsQueryController with UpdateController with AppConfig{
   self=>
 
   var dbConfig:DBConfig
@@ -45,12 +45,6 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController{
 
   var databaseActorsFactory:DatabaseActorsFactory = null
 
-  implicit val lg = new AppLogger(play.api.Logger.logger)
-
-  def inTest = Play.isTest
-  def inDev = Play.isDev
-  def inProd = Play.isProd
-
 
   def inTest(action: =>Unit):Unit = if(this.inTest) { action}
 
@@ -62,7 +56,7 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController{
     val playConf:Configuration = app.configuration
 
     Try {
-      conf=  if(Play.isTest(app))  playConf.getConfig("test").get else if(Play.isDev(app)) playConf.getConfig("dev").get   else playConf.getConfig("prod").get
+      conf= this.currentConfig(playConf)(app)// if(Play.isTest(app))  playConf.getConfig("test").get else if(Play.isDev(app)) playConf.getConfig("dev").get   else playConf.getConfig("prod").get
       dbConfig = new DBConfig(conf.getConfig("repo").get)
       platformConfig = new PlatformConfig(conf)
     }.recover{case e=>

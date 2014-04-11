@@ -1,34 +1,74 @@
 package org.denigma.frontend.views
 
 import rx._
-import models.Menu
-import models.WebIRI
+import org.denigma.rdf._
 import scalatags.HtmlTag
-import models.MenuItem
+import models._
 import org.scalajs.dom
 import org.scalajs.dom.{TextEvent, MouseEvent, Attr, HTMLElement}
 import scala.collection.immutable._
 import scala.collection.mutable
 import org.denigma.views._
 import dom.extensions._
+import scala.concurrent.{Promise, Future}
+import scala.util.{Failure, Success}
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import org.scalajs.spickling._
+import org.denigma.extensions._
+import org.scalajs.spickling.PicklerRegistry
+import org.scalajs.spickling.jsany._
+import org.scalajs.spickling.Unpickler
+import scala.scalajs.js
+
+object MenuView extends Remote{
+  val menus = Map.empty[String,Menu]
+
+  type RemoteData = Menu
+  val testMenu: Menu = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
+    MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
+    MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Project"),
+    MenuItem(WebIRI("http://webintelligence.eu/another"),"Another")))
+
+  implicit val fromFuture:FromFuture = (str)=>
+    sq.get[Menu]("menu/"+str)
+
+}
 
 /**
  * Menu view, this view is devoted to displaying menus
  * @param el html element
  * @param params view params (if any)
  */
-class MenuView(el:HTMLElement, params:Map[String,Any] = Map.empty) extends ListView("menu",el,params)
+class MenuView(el:HTMLElement, params:Map[String,Any] = Map.empty) extends ListView("menu",el,params) with RemoteView
 {
+  import MenuView._
 
-  val testMenu: Var[Menu] = Var { Menu(WebIRI("http://webintelligence.eu"),"Home",
-    MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
-    MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Project"),
-    MenuItem(WebIRI("http://webintelligence.eu/another"),"Another")
-  ) }
+  type RemoteData = Menu
+
+  val path = params.getOrError("domain").map(_.toString).get
+
+  val menu: Var[Menu] = Var {
+    //MenuView.testMenu
+    Menu(WebIRI(s"http://${dom.window.location.host}"),dom.window.location.host,List.empty)
+  }
 
   val items: Rx[List[Map[String, Any]]] = Rx {
-    val menu = testMenu()
-    menu.children.map(ch=>Map[String,Any]("label"->ch.label,"uri"->ch.uri.stringValue))
+    menu().children.map(ch=>Map[String,Any]("label"->ch.label,"uri"->ch.uri.stringValue))
+  }
+
+
+  /**
+   * Fires when view was binded by default does the same as bind
+   * @param el
+   */
+  override def bindView(el:HTMLElement) = {
+    val futureMenu = this.futureData
+    futureMenu.onComplete{
+      case Success(data)=>
+        this.menu()=data
+        super.bindView(el)
+      case Failure(m)=>dom.console.error(s"Future data failuer for view ${this.id} with exception: \n ${m.toString}")
+    }
   }
 
   override lazy val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)

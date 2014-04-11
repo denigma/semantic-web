@@ -1,26 +1,26 @@
 package controllers
 
+import org.scalajs.spickling.PicklerRegistry
+import org.scalajs.spickling.PicklerMaterializersImpl._
+import org.scalajs.spickling.playjson._
+import models.RegisterPicklers._
 import play.api.mvc._
 import java.io.File
-import play.api.libs.json.JsError
 import play.api.Play
 import play.api.Play.current
-import org.denigma.semantic.writing.DataWriter
 import org.denigma.semantic.controllers.sync.WithSyncWriter
 import org.denigma.semantic.files.SemanticFileParser
-import com.bigdata.counters.AbstractCounterSet
 import org.denigma.semantic.users.Accounts
 import scala.util._
-import play.api.libs.json.{JsValue, Json}
-import org.denigma.semantic._
+import play.api.libs.json.{JsValue, Json, JsObject}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import scala.concurrent.duration._
-import org.denigma.semantic.reading.QueryResultLike
-import play.api.libs.json.JsObject
 import scala.util.Success
 import scala.util.Failure
-import play.api.libs.json.JsObject
 import scala.concurrent.Future
+import play.api.templates.Html
+import org.scalajs.spickling.PicklerRegistry
+import models.{RegisterPicklers, MenuItem, Menu}
+import org.denigma.rdf.WebIRI
 
 /*
 main application controller, responsible for index and some other core templates and requests
@@ -104,27 +104,25 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with Semanti
   }
 
 
-//oldindex page
-//  def index(controller:String,action:String) = UserAction {
-//    implicit request=>
-//      Ok(views.html.webintelligence.index(controller,action,views.html.webintelligence.main()))
-//
-//  }
-
   def menu(root:String) =  UserAction {
     implicit request=>
-      import Json._
-      val mns = (1 to 5).map{case i=>
-        Json.obj("uri"->s"http://webintelligence.eu/pages/menu$i", "label"->s"menu $i","page"->s"http://webintelligence.eu/pages/$i")
-      }.toList
-      val menu = Json.obj("menus"->Json.toJson(mns))
-      Ok(menu).as("application/json")
+      val testMenu: Menu = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
+      MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
+      MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Project"),
+      MenuItem(WebIRI("http://webintelligence.eu/another"),"Another")))
+
+      RegisterPicklers.registerPicklers()
+
+      val pickle: JsValue = PicklerRegistry.pickle[JsValue](testMenu)
+      Ok(pickle)
   }
 
   def page(uri:String) =  UserAction {
     implicit request=>
 
-      Ok(views.html.pages.page("!!!!!!!!!!!!!!!!!!!!!"))
+
+      val res: Html = views.html.longevity.index(request)
+      Ok(res)
   }
 
 
