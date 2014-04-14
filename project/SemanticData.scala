@@ -1,7 +1,7 @@
 import sbt._
 import sbt.Keys._
 
-trait SemanticData extends Macroses with RDFClasses {
+trait SemanticData extends ScalaSemantic with Publish {
 
   //lazy val banana =  RootProject(uri("git://github.com/antonkulaga/banana-rdf.git#master"))
 
@@ -15,6 +15,7 @@ trait SemanticData extends Macroses with RDFClasses {
   val src = "src"
 
 
+
   lazy val semanticData = play.Project(semanticDataAppName, semanticDataAppVersion, semanticDataAppDependencies, path = file(this.semanticDataAppPath)).settings(
     // Add your own project settings here
 
@@ -26,6 +27,8 @@ trait SemanticData extends Macroses with RDFClasses {
     resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
     //compiler options
     scalacOptions ++= Seq( "-feature", "-language:_" ),
+
+    unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala-semantic" / "src" / "main" / "scala",
 
     sourceDirectory in Compile <<= baseDirectory / (src+"/main/scala"),
     sourceDirectory in Test <<= baseDirectory / (src+"/test/scala"),
@@ -41,12 +44,5 @@ trait SemanticData extends Macroses with RDFClasses {
 
     organization := "org.denigma"
 
-  ).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*).dependsOn(macroses)
-}
-
-
-
-trait RDFClasses {
-
-  lazy val sharedScalaRDF = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "semantic-shared" / "rdf"
+  ).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
 }

@@ -13,13 +13,13 @@ import scala.collection.immutable._
  */
 trait EventBinding  extends JustBinding
 {
-  implicit def extractEvents[T: EventMap](t: T): Map[String, Var[Event]] =  implicitly[EventMap[T]].asEventMap(t)
-  implicit def extractMouseEvens[T: MouseEventMap](t: T): Map[String, Var[MouseEvent]] =  implicitly[MouseEventMap[T]].asMouseEventMap(t)
-  implicit def extractTextEvents[T: TextEventMap](t: T): Map[String, Var[TextEvent]] =  implicitly[TextEventMap[T]].asTextEventMap(t)
-  implicit def extractKeyEvents[T: KeyEventMap](t: T): Map[String, Var[KeyboardEvent]] =  implicitly[KeyEventMap[T]].asKeyEventMap(t)
-  implicit def extractUIEvents[T: UIEventMap](t: T): Map[String, Var[UIEvent]] =  implicitly[UIEventMap[T]].asUIEventMap(t)
-  implicit def extractWheelEvents[T: WheelEventMap](t: T): Map[String, Var[WheelEvent]] =  implicitly[WheelEventMap[T]].asWheelEventMap(t)
-  implicit def extractFocusEvents[T: FocusEventMap](t: T): Map[String, Var[FocusEvent]] =  implicitly[FocusEventMap[T]].asFocusEventMap(t)
+  def extractEvents[T: EventMap](t: T): Map[String, Var[Event]] =  implicitly[EventMap[T]].asEventMap(t)
+  def extractMouseEvens[T: MouseEventMap](t: T): Map[String, Var[MouseEvent]] =  implicitly[MouseEventMap[T]].asMouseEventMap(t)
+  def extractTextEvents[T: TextEventMap](t: T): Map[String, Var[TextEvent]] =  implicitly[TextEventMap[T]].asTextEventMap(t)
+  def extractKeyEvents[T: KeyEventMap](t: T): Map[String, Var[KeyboardEvent]] =  implicitly[KeyEventMap[T]].asKeyEventMap(t)
+  def extractUIEvents[T: UIEventMap](t: T): Map[String, Var[UIEvent]] =  implicitly[UIEventMap[T]].asUIEventMap(t)
+  def extractWheelEvents[T: WheelEventMap](t: T): Map[String, Var[WheelEvent]] =  implicitly[WheelEventMap[T]].asWheelEventMap(t)
+  def extractFocusEvents[T: FocusEventMap](t: T): Map[String, Var[FocusEvent]] =  implicitly[FocusEventMap[T]].asFocusEventMap(t)
 
   def mouseEvents: Map[String, Var[MouseEvent]]
 

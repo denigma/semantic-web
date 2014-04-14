@@ -1,9 +1,18 @@
 import sbt._
+
 import sbt.Keys._
+
 import play.Keys._
+
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
+
 import ScalaJSKeys._
+
 import com.typesafe.sbt.packager.universal.UniversalKeys
+
+import bintray.Keys._
+
+
 /**
  * this files is intended to build the main project
  * it contains links to all dependencies that are needed
@@ -12,11 +21,10 @@ object ApplicationBuild extends Build with SemanticWeb
 
 
 
-trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with UniversalKeys{
-
-  override  def appCollaborationPath = "./collaboration"
+trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
   override def semanticDataAppPath = "./semantic-data"
+
 
 
   //  val testOptions = "-Dconfig.file=conf/" + Option(System.getProperty("test.config")).getOrElse("application") + ".conf"
@@ -34,6 +42,7 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
         "org.scalajs" %% "scalajs-pickling-play-json" % "0.2"
       )
 
+  lazy val sharedModels = unmanagedSourceDirectories in Compile += baseDirectory.value / "models" / "src" / "main" / "scala"
 
 
   lazy val semanticWebSettings =
@@ -43,15 +52,15 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
 
       version              := "0.05",
 
+      organization := "org.denigma",
+
       scalaVersion:=Dependencies.scalaVer,
 
       scalacOptions ++= Seq("-feature", "-language:_"),
 
       resolvers +=   Dependencies.scalajsResolver,
 
-      sharedScalaRDF,
-
-      sharedScalaModels,
+      sharedModels,
 
       parallelExecution in Test := false,
 
@@ -65,21 +74,26 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
 
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
 
+      //for test only
+      //compile in Compile <<= (compile in Compile) dependsOn (packageJS in (scalajs, Compile)),
+
+
+
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
 
       watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get}
 
-    ) ++ (
-      // ask scalajs project to put its outputs in scalajsOutputDir
-      Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map {
+    ) ++ (     // ask scalajs project to put its outputs in scalajsOutputDir
+       Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map {
         packageJSKey => crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value
-      }
-      ) ++ net.virtualvoid.sbt.graph.Plugin.graphSettings
+      } )  ++ net.virtualvoid.sbt.graph.Plugin.graphSettings ++  publishSettings
+
+
 
 
   //play.Project.playScalaSettings ++ SassPlugin.sassSettings
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(semanticWebSettings: _*).dependsOn(semanticData).dependsOn(scalajs)
+  val main = play.Project(appName, appVersion, appDependencies).settings(semanticWebSettings: _*).dependsOn(semanticData).aggregate(scalajs)
 
   //SassPlugin.sassSettings ++
   //Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass")):_* )
@@ -87,65 +101,6 @@ trait SemanticWeb extends Collaboration with SemanticData with ScalaJS with Univ
 }
 
 
-trait ScalaJS extends Binding with RDFClasses{
 
-  //lazy val sharedScalaSetting = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala"
-  val scalajsOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
-
-  lazy val scalajsSettings =
-    scalaJSSettings ++ Seq(
-      name := "scala-js-frontend",
-      scalaVersion:=Dependencies.scalaVer,
-      scalacOptions ++= Seq( "-feature", "-language:_" ),
-      version := "0.0.2",
-      sharedScalaRDF,
-      sharedScalaModels,
-      libraryDependencies ++= Dependencies.jsDeps,
-      resolvers +=  Dependencies.scalajsResolver
-  )
-  lazy val scalajs = Project(
-    id   = "scalajs",
-    base = file("scalajs")
-  ) settings (scalajsSettings: _*) dependsOn this.binding
-
-  lazy val sharedScalaModels = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "semantic-shared" / "models"
-
-}
-
-trait Binding {
-
-  //lazy val sharedScalaSetting = unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala"
-  //val bindingOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
-
-  lazy val bindingSettings =
-    scalaJSSettings ++ Seq(
-      name := "scala-js-binding",
-      scalaVersion:=Dependencies.scalaVer,
-      scalacOptions ++= Seq( "-feature", "-language:_" ),
-      version := "0.0.2",
-      libraryDependencies ++= Dependencies.jsDeps,
-      libraryDependencies ++= Dependencies.diDeps,
-      resolvers +=  Dependencies.scalajsResolver
-    )
-  lazy val binding = Project(
-    id   = "binding",
-    base = file("binding")
-  ) settings (bindingSettings: _*) dependsOn this.jsmacro
-
-  lazy val jsMacroSettings =
-    scalaJSSettings ++ Seq(
-      name := "scala-js-macro",
-      scalacOptions ++= Seq( "-feature", "-language:_" ),
-      version := "0.0.1",
-      libraryDependencies ++= Dependencies.jsDeps
-    )
-
-  lazy val jsmacro = Project(
-    id   = "jsmacro",
-    base = file("jsmacro")
-  ) settings (jsMacroSettings: _*)
-
-
-}
 
 

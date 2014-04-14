@@ -73,7 +73,6 @@ object Dependencies {
 
 
 
-
   val reflectDep =     scalaVersion("org.scala-lang" % "scala-reflect" % _)
 
   val compilerDep =   scalaVersion("org.scala-lang" % "scala-compiler" % _)
@@ -84,17 +83,6 @@ object Dependencies {
     "com.bigdata" % "bigdata" % "1.3.0",
 
     "org.openrdf.sesame" % "sesame-model" % "2.7.10"
-
-    //    "org.openrdf.sesame" % "sesame" % sesameVersion,
-    //    "org.openrdf.sesame" % "sesame-query" % sesameVersion,
-    //    "org.openrdf.sesame" % "sesame-rio-api" % sesameVersion,
-    //    "org.openrdf.sesame" % "sesame-rio-turtle" % sesameVersion,
-    //    "org.openrdf.sesame" % "sesame-repository-api" % sesameVersion,
-    //    "org.openrdf.sesame" % "sesame-repository" % sesameVersion,
-    //    "org.openrdf.sesame" % "sesame-queryalgebra-model" % sesameVersion,
-    //    "org.openrdf.sesame" % "sesame-queryalgebra-evaluation" % sesameVersion,
-
-    //  "org.topbraid" % "spin" % "1.3.1"
 
   )
 
@@ -121,49 +109,3 @@ object Dependencies {
       Resolver.ivyStylePatterns)
 
 }
-
-//object LibVersions {
-//
-//
-//  def src = "src"
-//
-//
-//
-//
-//  val apacheCommonsVersion = "1.3.2"
-//
-//
-//
-//
-//  val jenaVersion = "2.11.1"
-//
-//  val nScalaTimeVersion = "0.8.0"
-//
-//  val parboiledVersion = "2.0-M2"
-//
-//
-//  val scalaVer = "2.10.3"
-//
-//  val scalaCheckVersion = "1.11.0"
-//
-//  //val bigDataVersion = "1.3.0" //BIGDATA doesnot support latest Sesame version
-//
-//
-//  val scalaGraphVersion =
-//
-//  val scalaGraphJsonVersion = "1.7.3"
-//
-//  val scalaTestVersion ="2.1.0-RC2"
-//
-//  val scalaTimeVersion = "0.6.0"
-//
-//  val scalaUriVersion = "0.4.0"
-//  //val sesameVersion = "2.6.10" //BIGDATA doesnot support latest Sesame version
-//
-//  //val scalaZVersion ="7.0.5"
-//
-//  //val bananaVersion ="0.5-SNAPSHOT"
-//
-//}
-//
-//

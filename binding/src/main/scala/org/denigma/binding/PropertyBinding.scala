@@ -42,6 +42,14 @@ trait PropertyBinding  extends JustBinding{
     }
   }
 
+  /**
+   * Creates a handler that changes rx value according to element property
+   * @param el
+   * @param par
+   * @param pname property name
+   * @tparam T
+   * @return
+   */
   def makePropHandler[T<:Event](el:HTMLElement,par:Rx[String],pname:String):(T)=>Unit = this.makeEventHandler[T,String](el,par){ (ev,v,elem)=>
     elem \ pname  match {
       case Some(pvalue)=>
@@ -88,6 +96,7 @@ trait PropertyBinding  extends JustBinding{
 
       case bname if bname.startsWith("bind-")=>this.bindAttribute(el,key.replace("bind-",""),value.value,this.strings)
       case "bind" => this.bindProperty(el,key,value)
+      case "html" => this.bindInnerHTML(el,key,value)
       case _ => //some other thing to do
     }
   }
@@ -108,6 +117,10 @@ trait PropertyBinding  extends JustBinding{
     case (el,h)=>
       el.style.display = if(h) "none" else disp
       //el.style.visibility = if(h) "hidden" else "visible"
+  }
+
+  def bindCheckBox(el:HTMLElement,key:String,rx:Rx[Boolean]) = this.bindRx(key,el:HTMLElement,rx){ (el,value)=>
+    el.attributes.setNamedItem( ("checked" -> value.toString ).toAtt )
   }
 
   /**
@@ -134,8 +147,6 @@ trait PropertyBinding  extends JustBinding{
       el.classList.add(newVal)
     case _ => dom.console.error(s"error in bindclass for ${prop}")
   }
-
-
 
   //TODO: split into subfunctions
   /**
@@ -211,13 +222,21 @@ trait PropertyBinding  extends JustBinding{
   }
 
 
-
-  def bindCheckBox(el:HTMLElement,key:String,rx:Rx[Boolean]) = this.bindRx(key,el:HTMLElement,rx){ (el,value)=>
-    el.attributes.setNamedItem( ("checked" -> value.toString ).toAtt )
+  /**
+   * Binds html property
+   * @param el
+   * @param key
+   * @param att
+   */
+  def bindInnerHTML(el:HTMLElement,key:String,att:dom.Attr): Unit=    this.strings.get(att.value.toString).foreach{str=>
+    el.onchange = this.makePropHandler(el,str,"innerHTML")
+    this.bindInner(el,key,str)
   }
 
 
-
+  def bindInner(el:HTMLElement,key:String,str:Rx[String]) = this.bindRx(key,el:HTMLElement,str){ (el,value)=>
+    el.innerHTML = value
+  }
 
 
 

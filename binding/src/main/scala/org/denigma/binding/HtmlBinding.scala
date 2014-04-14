@@ -15,6 +15,8 @@ import org.denigma.binding.macroses.TagRxMap
  */
 trait HtmlBinding extends JustBinding{
 
+  //TODO: rewrite
+
 
   def tags:Map[String,Rx[HtmlTag]]
 

@@ -71,11 +71,11 @@
 
 ########Users and Organizations###########
 
-actor:User rdfs:subClassOf foaf:Person;
+pl:User rdfs:subClassOf foaf:Person;
 		  rdfs:subClassOf dcterms:Agent;
 		  dcterms:description "User account" .
 
-actor:Organization rdfs:subClassOf foaf:Organization;
+pl:Organization rdfs:subClassOf foaf:Organization;
 		  rdfs:subClassOf dcterms:Agent .
 
 ########Pages, menus and UI elements###########
@@ -125,12 +125,6 @@ pg:My_Queries a pg:Menu .
 pg:About_Web_Intelligence a pg:Page;
 	rdfs:label "About web intelligence" .
 
-############Projects################################
-
-
-task:Task a owl:Class, rdfs:Class .
-
-
 #########Website configuration######################
 
 wi:Web_Intelligence a pl:Site; #eqv sioc:Site
@@ -170,21 +164,3 @@ pgl:Longevity_Ukraine_Menu a pl:Menu;
                   pgl:Projects;
                   pgl:Manifesto;
                  ).
-                 
-pgl:About a pl:Page;
-    pl:title "About"
-
-pgl:
-    
-    
-
-
-
-
-
-      val testMenu: Menu = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
-      MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
-      MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Project"),
-      MenuItem(WebIRI("http://webintelligence.eu/another"),"Another")))
-
-

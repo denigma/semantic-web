@@ -100,6 +100,7 @@ object sq{
 
   def pickleRequest[T](req:Future[XMLHttpRequest]): Future[T] = req.map{case r=>
     val v = js.JSON.parse(r.responseText).asInstanceOf[js.Any]
+
     PicklerRegistry.unpickle(v) match {
       case value:T=>value
       case _=>

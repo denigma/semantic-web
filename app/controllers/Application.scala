@@ -108,13 +108,12 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with Semanti
     implicit request=>
       val testMenu: Menu = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
       MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
-      MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Project"),
-      MenuItem(WebIRI("http://webintelligence.eu/another"),"Another")))
+      MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Our projects")))
 
       RegisterPicklers.registerPicklers()
 
-      val pickle: JsValue = PicklerRegistry.pickle[JsValue](testMenu)
-      Ok(pickle)
+      val pickle: JsValue = PicklerRegistry.pickle(testMenu)
+      Ok(pickle).as("application/json")
   }
 
   def page(uri:String) =  UserAction {

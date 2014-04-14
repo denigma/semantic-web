@@ -5,7 +5,7 @@ import org.denigma.rdf._
 import scalatags.HtmlTag
 import models._
 import org.scalajs.dom
-import org.scalajs.dom.{TextEvent, MouseEvent, Attr, HTMLElement}
+import org.scalajs.dom._
 import scala.collection.immutable._
 import scala.collection.mutable
 import org.denigma.views._
@@ -19,18 +19,28 @@ import org.scalajs.spickling.PicklerRegistry
 import org.scalajs.spickling.jsany._
 import org.scalajs.spickling.Unpickler
 import scala.scalajs.js
+import models.Menu
+import scala.util.Success
+import org.denigma.rdf.WebIRI
+import scala.util.Failure
+import scalatags.HtmlTag
+import models.MenuItem
+import scalajs.concurrent.JSExecutionContext.Implicits.queue
 
 object MenuView extends Remote{
   val menus = Map.empty[String,Menu]
 
   type RemoteData = Menu
+
   val testMenu: Menu = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
     MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
     MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Project"),
     MenuItem(WebIRI("http://webintelligence.eu/another"),"Another")))
 
-  implicit val fromFuture:FromFuture = (str)=>
+  implicit val fromFuture:FromFuture = (str)=> {
+    RegisterPicklers.registerPicklers()
     sq.get[Menu]("menu/"+str)
+  }
 
 }
 
