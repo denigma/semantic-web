@@ -17,6 +17,11 @@ trait RxOps {
 
   def takeIf(b:Rx[Boolean]) = source.filter(el=>b.now)
 
+  def takeIfAll(bools:Rx[Boolean]*) = source.filter(el=>bools.forall(b=>b.now))
+
+  def takeIfAny(bools:Rx[Boolean]*) = source.filter(el=>bools.exists(b=>b.now))
+
+
   def observeIf(b:Rx[Boolean])(callback: => Unit) = Obs(takeIf(b),skipInitial = true)(callback)
 
   def handler(callback: => Unit) = Obs(source, skipInitial = true)(callback)

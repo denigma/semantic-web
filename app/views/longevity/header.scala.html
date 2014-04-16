@@ -1,18 +1,9 @@
 @(implicit request: UserRequestHeader)
 
+<nav class="ui large top sidebar blue  main menu" data-view="menu" data-param-domain="@{request.domain}">
 
-<header>
-    <nav class="ui pointing main menu" data-view="menu" data-param-domain="@{request.domain}">
+    <a data-template="true" class="blue active item header" data-item-bind-href="uri" data-item-bind="label"><i class="ui-icon-home"></i>
 
-        <div data-template="true" class="blue item">
-            <a  data-item-bind-href="uri"><i class="ui-icon-home"></i>
-                <span data-item-bind="label" class ="ui teal header">
-
-                </span>
-            </a>
-
-        </div>
-
-        @longevity.login(request)
-    </nav>
-</header>
+    </a>
+    @longevity.login(request)
+</nav>

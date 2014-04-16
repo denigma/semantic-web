@@ -18,10 +18,6 @@ To set up the project you need to (most of instructions are for Deiban/Ubuntu ba
     - Make sure you use JDK 1.7+ and have JAVA_HOME variable setup
     - Install Scala ( http://scala-lang.org/ ) and sbt ( http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html )
     - Download TypeSafe Activator and add it to your Path (  http://www.playframework.com/download )
-* Install Coffeescript:
-    - install nodejs ( https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager )
-    - install coffeescript with
-        $  sudo npm install -g coffee-script
 * run tests:
     $ activator test
 * run the app:

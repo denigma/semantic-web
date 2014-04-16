@@ -21,11 +21,12 @@ import play.api.templates.Html
 import org.scalajs.spickling.PicklerRegistry
 import models.{RegisterPicklers, MenuItem, Menu}
 import org.denigma.rdf.WebIRI
+import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController, QueryController}
 
 /*
 main application controller, responsible for index and some other core templates and requests
  */
-object Application extends PJaxPlatformWith("") with WithSyncWriter with SemanticFileParser
+object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQueryController with UpdateController
 {
   def lifespan= UserAction {
     implicit request=>
@@ -53,6 +54,7 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with Semanti
        }
      }
   }
+
 
   def tellBad(message:String) = BadRequest(Json.obj("status" ->"KO","message"->message)).as("application/json")
 
@@ -106,9 +108,15 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with Semanti
 
   def menu(root:String) =  UserAction {
     implicit request=>
-      val testMenu: Menu = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
-      MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
-      MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Our projects")))
+      val testMenu: Menu = Menu(WebIRI("http://longevity.org.ua/menu"),"Longevity.org.ua", List(
+        MenuItem(WebIRI("http://longevity.org.ua/pages/manifesto"),"Долголетие Украины"),
+        MenuItem(WebIRI("http://longevity.org.ua/pages/research"),"Исследования"),
+        MenuItem(WebIRI("http://longevity.org.ua/pages/events"),"Активизм"),
+        MenuItem(WebIRI("http://longevity.org.ua/pages/members"),"Участники"),
+        MenuItem(WebIRI("http://longevity.org.ua/pages/projects"),"Проекты"),
+        MenuItem(WebIRI("http://longevity.org.ua/pages/projects"),"Участвовать"),
+        MenuItem(WebIRI("http://longevity.org.ua/pages/projects"),"Контакты")
+      ))
 
       RegisterPicklers.registerPicklers()
 
@@ -125,34 +133,4 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with Semanti
   }
 
 
-  /*
-   TODO: test upload code
-   WARNING: NOT TESTED
-    */
-  def upload = UserAction(parse.multipartFormData) { implicit request =>
-    import Json._
-    val uploads = Play.getFile("public/uploads/")
-    val p = uploads.getAbsolutePath
-    val files: scala.List[JsObject] = request.body.files.map{ f=>
-      val fname = f.filename
-
-      val name = p+"/"+fname
-      val file = new File(name)
-
-      f.ref.moveTo(file,replace = true)
-
-      val obj: JsObject = Json.obj(
-        "name"->f.filename,
-        "size"->file.length(),
-        "url"-> (request.domain+"/uploads/"+f.filename)
-      )
-      val uplCon = "http://webintelligence.eu/uploaded/"
-      val pr = this.parseFile(file,uplCon)
-
-      if(pr.isFailure) obj + ("error"->toJson("WRONG SEMANTIC WEB FILE"))  else obj
-
-    }.toList
-    val res = Json.obj("files" -> Json.toJson(files))
-    Ok(res)
-  }
 }

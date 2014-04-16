@@ -103,14 +103,14 @@ trait Signed extends Registration {
   }
   val signupClass: Rx[String] =  Rx{
     if(this.inRegistration())
-      if(this.canRegister()) "positive" else "teal"
+      if(this.canRegister()) "positive" else "blue"
     else
       "basic"
   }
 
   val loginClass: Rx[String] = Rx{
     if(this.inLogin())
-      if(this.canLogin()) "positive" else "teal"
+      if(this.canLogin()) "positive" else "blue"
     else
       "basic"
   }
@@ -135,7 +135,7 @@ trait Login extends BasicLogin{
   }
 
   def auth() = Ajax.get(sq.h(s"users/login?username=${this.login.now}&password=${this.password.now}"))
-  val authClick = loginClick.takeIf(canLogin)
+  val authClick = loginClick.takeIfAll(canLogin,inLogin)
   val authHandler = authClick.handler{
     this.auth().onComplete{
 
@@ -197,7 +197,7 @@ trait Registration extends BasicLogin{
   protected def register() =  Ajax.get(sq.h(s"users/register?username=${this.login.now}&password=${this.password.now}&email=${this.email.now}"))
 
 
-  val registerClick = this.signupClick.takeIf(this.canRegister)
+  val registerClick = this.signupClick.takeIfAll(this.canRegister,this.inRegistration)
   val registerHandler = this.registerClick.handler{
     this.register().onComplete{
 

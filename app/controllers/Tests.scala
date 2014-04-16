@@ -31,51 +31,18 @@ object Tests  extends Controller{
     Ok(pickle).as("application/json")
   }
 
-  def iri = Action {
-    import RegisterPicklers._
-    RegisterPicklers.registerPicklers()
-    val m = WebIRI("http://webintelligence.eu")
-    val pickle = PicklerRegistry.pickle(m)
-    Ok(pickle).as("application/json")
+  def mailMe = Action {
+    import play.api.Play.current
+    import com.typesafe.plugin._
+    val mail = use[MailerPlugin].email
+    mail.setSubject("Testing how email works")
+    mail.setRecipient("Antonkulaga <antonkulaga@gmail.com>","antonkulaga@gmail.com")
+    mail.setFrom("Anton Kulaga <antonkulaga@gmail.com>")
+    mail.send( "Some long text that is testing if everything is ok" )
+    //sends both text and html
+    Ok("Mail send")
   }
 
-  def item = Action {
-    import RegisterPicklers._
-    RegisterPicklers.registerPicklers()
-    val m =  MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About")
-    val pickle = PicklerRegistry.pickle(m)
-    Ok(pickle).as("application/json")
-  }
-
-  def list = Action {
-    import RegisterPicklers._
-    RegisterPicklers.registerPicklers()
-    val m =  List(WebIRI("http://webintelligence.eu/pages/about"),WebIRI("http://webintelligence.eu/pages/project"))
-    val pickle = PicklerRegistry.pickle(m)
-    Ok(pickle).as("application/json")
-  }
-
-
-  def strs = Action {
-    import RegisterPicklers._
-    RegisterPicklers.registerPicklers()
-    val m =  List("one","two","three")
-    val pickle = PicklerRegistry.pickle(m)
-    Ok(pickle).as("application/json")
-  }
-
-
-
-  def menu = Action {
-
-
-    RegisterPicklers.registerPicklers()
-    val m = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
-      MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
-      MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Our projects")))
-    val pickle = PicklerRegistry.pickle(m)
-    Ok(pickle).as("application/json")
-  }
 
 //  def test = Action {
 //    implicit request=>

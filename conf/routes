@@ -14,38 +14,26 @@ GET         /schema                   controllers.Schema.sankey()
 GET         /schema/sankey            controllers.Schema.sankey()
 GET         /schema/distortion        controllers.Schema.distortion()
 
-#quries
-GET         /models/sparql            controllers.Queries.sendQuery(query:String)
-#POST       /models/sparql/bind         controllers.Queries.bindQuery()
-#POST       /models/sparql/search       controllers.Queries.searchForQuery()
+GET         /images                   controllers.Uploader.images
+POST        /upload                   controllers.Uploader.upload
+POST        /image/upload             controllers.Uploader.imageUpload
 
 
 
 #GET         /results              controllers.Queries.results()
 GET         /pages/*page              controllers.Application.page(page)
 
-#GET        /sparql                      controllers.Graphs.vertices(id:String ="")
-#GET        /sparql/:id                  controllers.Graphs.vertices(id:String)
-
-#GET        /upload             controllers.Application.testUpload
-POST        /upload                   controllers.Application.upload
-
 GET         /webjars/*file            controllers.WebJarAssets.at(file)
 
-
-GET         /test/iri                 controllers.Tests.iri
-GET         /test/item                controllers.Tests.item
-GET         /test/list                controllers.Tests.list
-GET         /test/strs              controllers.Tests.strs
-
 GET         /test/message             controllers.Tests.message
-GET         /test/menu                controllers.Tests.menu
 GET         /test/sigma               controllers.Tests.sigma
+GET         /test/mail                controllers.Tests.mailMe
 
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file             controllers.Assets.at(path="/public", file)
 GET         /public/*file             controllers.Assets.at(path="/public", file)
+#GET         /ckeditor/*file           controllers.Assets.at(path="/ckeditor", file)
 
 #GET         /*file                        controllers.Assets.at(path="/public", file)
 

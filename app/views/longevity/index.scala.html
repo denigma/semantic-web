@@ -1,6 +1,6 @@
 @(implicit request: UserRequestHeader)
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
     <head>
         <title>Denigma Knowledge Management System</title>
         @libs.libs()
@@ -19,24 +19,61 @@
     <body>
 
         @longevity.header(request)
-        @longevity.sidebar(request)
-        <main id="main">
-            <article data-view="ArticleView" class="ui piled segment">
-                <h1 data-bind="title" class="ui large header">
+
+<section class="ui divier"></section>
+
+        <section class="ui page grid">
+            <section class="ui five wide column">
+                <div class="ui blue segment">
+                    <section class="ui vertical menut">
+
+                        <div class="item">
+                            <img  class="ui large image" src="@routes.Assets.at("images/longevity.org.ua/Longevity_UA.svg")">
+                        </div>
+                        <a class="item">
+                            <i class="home icon"></i>
+                            Home
+                        </a>
+                        <a class="active item">
+                            <i class="heart icon"></i>
+                            Current Section
+                        </a>
+                        <a class="item">
+                            <i class="facebook icon"></i>
+                            Like us on Facebook
+                        </a>
+                        <div class="item">
+                            <b>More</b>
+                            <div class="menu">
+                                <a class="item">About</a>
+                                <a class="item">Contact Us</a>
+                            </div>
+                        </div>
+                    </section>
+                <div>
+            </section>
+            <main class="eleven wide column" id="main">
+            <article id="main" data-view="ArticleView" class="ui teal piled segment">
+                <h1 id="title" data-bind="title" class="ui large header">
 
                 </h1>
 
-                <h2 data-bind="authors" class="ui header">
+                <h2 id="authors" data-bind="authors" class="ui blue label">
 
                 </h2>
 
 
-                <div style="ui horizontal segment" data-html = "text"></div>
+                <div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text"></div>
             </article>
 
 
             @*<button data-event-click="toggle" class="ui black huge launch right attached button"><i class="icon list layout"></i>Push sidebar</button>*@
         </main>
+
+        </section>
+
+
+
 
     </body>
 

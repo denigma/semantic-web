@@ -70,18 +70,20 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
       organization := "org.denigma",
 
-      coffeescriptOptions := Seq("native", "/usr/local/bin/coffee -p"),
+      //coffeescriptOptions := Seq("native", "/usr/local/bin/coffee -p"),
 
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
 
       //for test only
       //compile in Compile <<= (compile in Compile) dependsOn (packageJS in (scalajs, Compile)),
 
-
-
       dist <<= dist dependsOn (optimizeJS in (scalajs, Compile)),
 
-      watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get}
+      watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get},
+
+      playAssetsDirectories <+= baseDirectory / "files",
+
+      incOptions := incOptions.value.withNameHashing(true)
 
     ) ++ (     // ask scalajs project to put its outputs in scalajsOutputDir
        Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map {
