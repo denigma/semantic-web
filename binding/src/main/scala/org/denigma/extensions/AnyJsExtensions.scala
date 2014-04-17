@@ -7,7 +7,7 @@ import org.scalajs.dom
 /**
  * Is mixed in to be used in extensions
  */
-trait AnyJs {
+trait AnyJsExtensions {
 
   /**
    * Implicit class that adds some useful methods for any ScalaJS object
@@ -17,7 +17,7 @@ trait AnyJs {
 
     //def ===(other:Any): Boolean = if(other==null) obj==null || obj.isInstanceOf[Undefined] || obj=="" else obj==other
 
-    def isNullOrUndef = obj == null || obj.isInstanceOf[js.Undefined] || obj == ""
+    def isNullOrUndef: Boolean = obj == null || obj.isInstanceOf[js.Undefined] || obj == ""
 
     /**
      * Just a shorter conversion to dynamic object

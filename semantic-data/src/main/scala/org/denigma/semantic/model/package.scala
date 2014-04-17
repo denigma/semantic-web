@@ -2,12 +2,16 @@ package org.denigma.semantic
 
 import org.openrdf.model._
 import org.openrdf.model.vocabulary.{XMLSchema=>xe}
-
+import org.openrdf.model.impl.{StatementImpl, LiteralImpl, URIImpl}
+import org.denigma.semantic.model._
+import org.openrdf.model.vocabulary.{XMLSchema=>xe}
 
 /**
  * implicits for models
  */
-package object model {
+package object model extends Scala2SesameModelImplicits with Sesame2ScalaModelImplicits{
+
+
 
 
   implicit class LiteralExtended(l:Literal) extends TypedLit{
@@ -48,4 +52,18 @@ package object model {
     
 
   }
+}
+
+trait Scala2SesameModelImplicits{
+  implicit def IRI2URI(iri:IRI) = new URIImpl(iri.stringValue)
+  implicit def LitStr2Literal(lit:LitStr) = new LiteralImpl(lit.value,xe.STRING)
+  implicit def LitDouble2Literal(lit:LitDouble) = new LiteralImpl(lit.stringValue,xe.DOUBLE)
+  implicit def LitLong2Literal(lit:LitLong) = new LiteralImpl(lit.stringValue,xe.LONG)
+
+
+}
+
+
+trait Sesame2ScalaModelImplicits{
+  implicit def URI2IRI(uri:IRI) = IRI(uri.stringValue)
 }

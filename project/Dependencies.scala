@@ -21,10 +21,15 @@ object Dependencies {
 
   val jsDeps: Seq[ModuleID] = Seq(
     "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion,
+
     "org.scala-lang.modules.scalajs" %% "scalajs-jquery" % "0.3",
+
     "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.3",
+
     "org.scalajs" %% "scalajs-pickling" % "0.2",
+
     "com.scalatags" % "scalatags_2.10" % "0.2.4-JS",
+
     "com.scalarx" % "scalarx_2.10" % "0.2.3-JS"
   )
 
@@ -73,9 +78,9 @@ object Dependencies {
 
 
 
-  val reflectDep =     scalaVersion("org.scala-lang" % "scala-reflect" % _)
-
-  val compilerDep =   scalaVersion("org.scala-lang" % "scala-compiler" % _)
+//  val reflectDep =     scalaVersion("org.scala-lang" % "scala-reflect" % _)
+//
+//  val compilerDep =   scalaVersion("org.scala-lang" % "scala-compiler" % _)
 
 
 
@@ -102,7 +107,7 @@ object Dependencies {
 
   )
 
-  val scalaVer = "2.10.3"
+  val scalaVer = "2.10.4"
 
   val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",
     url("http://dl.bintray.com/content/scala-js/scala-js-releases"))(

@@ -11,7 +11,7 @@ CKEDITOR.editorConfig = function( config ) {
 	config.skin = 'moonocolor';
 
     config.extraPlugins = "imagebrowser";
-    config.imageBrowser_listUrl = "/path/to/images_list.json";
+    config.imageBrowser_listUrl = "/images";
 
     config.filebrowserBrowseUrl  = "/files";
     config.filebrowserImageBrowseUrl  = "/images";

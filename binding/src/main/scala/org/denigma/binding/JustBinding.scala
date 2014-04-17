@@ -3,11 +3,7 @@ package org.denigma.binding
 import org.scalajs.dom.{Event, HTMLElement}
 import org.denigma.extensions._
 import rx._
-import scalatags.HtmlTag
 import org.scalajs.dom
-import scalatags.all._
-import scala.scalajs.js
-import org.denigma.binding.macroses._
 
 /**
  * Just a basic subclass for all bindings

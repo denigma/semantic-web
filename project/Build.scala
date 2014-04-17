@@ -62,6 +62,8 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
       sharedModels,
 
+      ScalaJSKeys.relativeSourceMaps := true, //just in case as sourcemaps do not seem to work=(
+
       parallelExecution in Test := false,
 
       //scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
@@ -81,9 +83,9 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
       watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get},
 
-      playAssetsDirectories <+= baseDirectory / "files",
+      playAssetsDirectories <+= baseDirectory / "files"
 
-      incOptions := incOptions.value.withNameHashing(true)
+      //incOptions := incOptions.value.withNameHashing(true)
 
     ) ++ (     // ask scalajs project to put its outputs in scalajsOutputDir
        Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, preoptimizeJS, optimizeJS) map {

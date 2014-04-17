@@ -56,9 +56,12 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scal
 
   @JSExport
   def main(): Unit = {
+
     jQuery(".top.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
 
     val str = s"http://${dom.window.location.host}/test"
+
+    //js.debugger()
 
     this.bind(this.element)
 //    jQuery(".left.sidebar").dyn.sidebar(sidebarParams).sidebar("show")

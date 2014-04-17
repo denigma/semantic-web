@@ -13,6 +13,7 @@ trait ScalaJS extends Binding {
       scalaVersion:=Dependencies.scalaVer,
       scalacOptions ++= Seq( "-feature", "-language:_" ),
       version := "0.0.2",
+      ScalaJSKeys.relativeSourceMaps := true,
      //unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "models" / "src" / "main" / "scala",
       libraryDependencies ++= Dependencies.jsDeps,
       resolvers +=  Dependencies.scalajsResolver
@@ -30,6 +31,8 @@ trait ScalaJS extends Binding {
     scalaVersion:=Dependencies.scalaVer,
     scalacOptions ++= Seq( "-feature", "-language:_" ),
     version := "0.0.1",
+
+    ScalaJSKeys.relativeSourceMaps := true,
     //sharedScalaModels,
     libraryDependencies ++= Dependencies.jsDeps,
     resolvers +=  Dependencies.scalajsResolver
@@ -48,6 +51,8 @@ trait ScalaJS extends Binding {
 
 trait Binding extends ScalaSemantic{
 
+  ScalaJSKeys.relativeSourceMaps := true
+
   //val bindingOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
 
   lazy val bindingSettings =
@@ -56,6 +61,7 @@ trait Binding extends ScalaSemantic{
       scalaVersion:=Dependencies.scalaVer,
       scalacOptions ++= Seq( "-feature", "-language:_" ),
       version := "0.0.2",
+      ScalaJSKeys.relativeSourceMaps := true,
       libraryDependencies ++= Dependencies.jsDeps,
       libraryDependencies ++= Dependencies.diDeps,
       resolvers +=  Dependencies.scalajsResolver
@@ -76,6 +82,7 @@ trait Binding extends ScalaSemantic{
     scalaJSSettings ++ Seq(
       name := "scala-js-macro",
       scalacOptions ++= Seq( "-feature", "-language:_" ),
+      ScalaJSKeys.relativeSourceMaps := true,
       version := "0.0.1",
       libraryDependencies ++= Dependencies.jsDeps
     )
