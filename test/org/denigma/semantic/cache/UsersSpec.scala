@@ -1,24 +1,27 @@
 package org.denigma.semantic.cache
 
 
-import play.api.test.FakeRequest
 
 import org.denigma.semantic.controllers.{WithLogger, SimpleQueryController, UpdateController}
 import org.specs2.mutable.Specification
 import org.specs2.execute
 
-import org.denigma.semantic.vocabulary.USERS
-import org.denigma.semantic.users.{Account, Accounts}
-import scala.util.{Failure, Success, Try}
-import play.api.mvc.SimpleResult
+import org.denigma.semantic.users.Accounts
+import scala.util.{Failure, Try}
 import play.api.test.Helpers._
 import play.api.test.FakeApplication
 import play.api.test._
-import org.denigma.semantic.sesame._
-import org.denigma.rdf.{StringLiteral, AnyLit, IRI}
-import org.denigma.sparql._
-import org.openrdf.query.TupleQueryResult
+import org.denigma.rdf.AnyLit
 import org.denigma.semantic.reading.selections._
+
+import org.denigma.semantic.users.Account
+import org.denigma.rdf.IRI
+import scala.util.Failure
+import scala.Some
+import org.denigma.semantic.users.Account
+import scala.util.Success
+import org.denigma.sparql.Pat
+import org.denigma.rdf.vocabulary.USERS
 
 class UsersSpec extends Specification {
 
@@ -67,27 +70,9 @@ class UsersSpec extends Specification {
 
       Thread.sleep(100)
 
-      val nick = SELECT ( ?("u") ) WHERE Pat(?("u"), USERS.props.hasEmail, StringLiteral("nick@gmail.com"))
-
-      val n: Try[TupleQueryResult] = this.awaitRead(this.select(nick))
-      n.isSuccess should beTrue
-
-      lg.debug(
-        s"""
-          | v = ${n.get.toList.headOption}
-          | hashes = ${Accounts.hashes.toString}
-          | and mails = ${Accounts.mails.toString()}
-
-        """.stripMargin
-      )
-      n.get.toList.headOption.isDefined should beTrue
-
-
-
-
       val uso: Option[Account] = Accounts.userByEmail("nick@gmail.com")
       uso.isDefined should beTrue
-      uso.get.name.stringValue().contains("nick") should beTrue
+      uso.get.name.stringValue.contains("nick") should beTrue
       uso.get.email shouldEqual "nick@gmail.com"
       uso.get.hash shouldNotEqual "admin"
 
@@ -117,7 +102,7 @@ class UsersSpec extends Specification {
 
       val uso2: Option[Account] = Accounts.userByName("anton")
       uso2.isDefined should beTrue
-      uso2.get.name.stringValue().contains("anton") should beTrue
+      uso2.get.name.stringValue.contains("anton") should beTrue
       uso2.get.email shouldEqual "antonkulaga@gmail.com"
       uso2.get.hash shouldNotEqual "password"
 

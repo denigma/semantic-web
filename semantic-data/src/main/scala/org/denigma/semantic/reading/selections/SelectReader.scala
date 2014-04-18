@@ -4,7 +4,8 @@ import com.bigdata.rdf.sail.{BigdataSailTupleQuery, BigdataSailRepositoryConnect
 import org.openrdf.query.QueryLanguage
 import scala.util.Try
 import org.denigma.semantic.reading.CanRead
-import org.denigma.semantic.vocabulary.WI
+import org.denigma.rdf.vocabulary.WI
+
 
 /*
 sends closures that deal with read requests

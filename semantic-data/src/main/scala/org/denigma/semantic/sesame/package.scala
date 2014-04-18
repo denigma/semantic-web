@@ -86,9 +86,9 @@ trait Sesame2ScalaModelImplicits{
 
   implicit def Value2RDFValue(value:Value):RDFValue = value match {
     case null=>null
-    case res:Resource=>Resource2Res(res)
     case uri:URI=>URI2IRI(uri)
     case b:BNode=>Resource2Res(b)
+    case res:Resource=>Resource2Res(res)
     case l:Literal=>literal2LitStr(l)
   }
 
@@ -116,7 +116,7 @@ trait Sesame2ScalaModelImplicits{
 
 
 
-  implicit def Statement2Quad(st:Statement) = new Quad(Resource2Res(st.getSubject),st.getPredicate,st.getObject,st.getContext)
+  implicit def Statement2Quad(st:Statement) = new Quad(Resource2Res(st.getSubject),URI2IRI(st.getPredicate),Value2RDFValue(st.getObject),Resource2Res(st.getContext))
 
 
   implicit def URI2PatEl(uri:URI):IRIPatEl = IRI(uri.stringValue)

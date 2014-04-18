@@ -14,11 +14,12 @@ import scala.collection.JavaConversions._
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 import org.denigma.semantic.controllers.sync.SyncSimpleController
-import org.denigma.semantic.vocabulary._
+
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.users.Accounts
 import org.denigma.rdf._
 import org.denigma.sparql._
+import org.denigma.rdf.vocabulary._
 
 
 class CacheSpec extends Specification {

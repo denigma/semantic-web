@@ -1,11 +1,9 @@
 package org.denigma.semantic.users
 
 import scala.collection.mutable.MultiMap
-import org.openrdf.model._
 import org.denigma.semantic.controllers.{UpdateController, WithLogger}
-import org.denigma.semantic.vocabulary._
+import org.denigma.rdf.vocabulary._
 import scala.util.{Failure, Success, Try}
-import org.openrdf.model.vocabulary.RDF
 import scala.concurrent.Future
 import org.denigma.semantic.actors.cache.PatternCache
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
@@ -102,7 +100,7 @@ object Accounts extends PatternCache with WithLogger with UpdateController
    * @return Some(user) or None
    */
   def userByEmail(email:String): Option[Account] = mails.find(kv=>kv._2==email).flatMap{
-    case (key: Resource,em)=>
+    case (key,em)=>
       hashes.get(key).map(h=>Account(key,h,em))
   }
 
@@ -167,23 +165,27 @@ object Accounts extends PatternCache with WithLogger with UpdateController
        INSERT{
         DATA(
           GRAPH(IRI(USERS.namespace),
-            Trip(user,RDF.TYPE iri, USERS.classes.User),
+            Trip(user,RDF.TYPE, USERS.classes.User),
             Trip(user, USERS.props.hasEmail, StringLiteral(email)),
-            Trip(user,USERS.props.hasPasswordHash,StringLiteral(hash))
+            Trip(user,USERS.props.hasPasswordHash, StringLiteral(hash))
           )
         )
       }
 
       val cond = ASK (
         Br(
-          Pat(user,RDF.TYPE iri, USERS.classes.User)
+          Pat(user,RDF.TYPE, USERS.classes.User)
         ) UNION Br(
           Pat(?("anyuser"),USERS.props.hasEmail,StringLiteral(email)),
-          Pat(?("anyuser"),RDF.TYPE iri, USERS.classes.User)
+          Pat(?("anyuser"),RDF.TYPE, USERS.classes.User)
         )
       )
 
-      this.insertUnless(InsertUnless(ins,cond))
+      val insUnless = InsertUnless(ins,cond)
+      //lg.debug("INSERT ="+insUnless.insert.stringValue)
+     // lg.debug("UNLESS ="+ insUnless.question.stringValue)
+
+      this.insertUnless(insUnless)
   }
 
 
@@ -205,6 +207,6 @@ object Accounts extends PatternCache with WithLogger with UpdateController
 }
 
 
-case class Account(name:Resource,hash:String, email:String)
+case class Account(name:Res,hash:String, email:String)
 
 object Guest extends Account(IRI(USERS.user / "guest"),"","guest@anonimous.com")

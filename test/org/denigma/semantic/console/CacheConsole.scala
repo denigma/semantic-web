@@ -18,9 +18,24 @@ object CacheConsole {
   import akka.util.Timeout
   import org.openrdf.model.impl._
   import org.openrdf.query._
+  import org.denigma.sparql._
+  import org.denigma.semantic.users._
 
   import com.bigdata.rdf.sparql.ast._
   import com.bigdata.rdf.sail._
+
+  """
+  INSERT  DATA
+  {   GRAPH <http://webintelligence.eu/users>
+  {
+    <http://webintelligence.eu/users/user/nick> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://webintelligence.eu/classes/User> .
+
+    <http://webintelligence.eu/users/user/nick> <http://xmlns.com/foaf/0.1/mbox> "nick@gmail.com"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+    <http://webintelligence.eu/users/user/nick> <http://webintelligence.eu/properties/hasPasswordHash> "$2a$10$LwDUZhas50QSuldlneQGzeZMVgyXewtCMdfFEE8Ud7teFHEw1omSq"^^<http://www.w3.org/2001/XMLSchema#string> .
+  }  }
+  """
+
 
   //
   import org.denigma.semantic.test.LoveHater

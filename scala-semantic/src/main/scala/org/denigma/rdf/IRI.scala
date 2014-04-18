@@ -1,5 +1,6 @@
 package org.denigma.rdf
 
+import org.denigma.rdf.vocabulary._
 
 /*
 implementation of openrdf URI class
@@ -13,6 +14,9 @@ case class IRI(uri:String) extends IRILike
     case _=>false
 
   }
+  def /(child:String): IRI = IRI( stringValue / child )
+  def /(child:IRI): IRI = this / child.stringValue
+
 }
 
 trait IRILike extends IRIPatEl with Res{

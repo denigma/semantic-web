@@ -2,7 +2,8 @@ package org.denigma.semantic.reading.constructs
 
 import org.openrdf.query.GraphQueryResult
 import org.denigma.semantic.reading.QueryResultLike
-import org.denigma.semantic.vocabulary.WI
+import org.denigma.rdf.vocabulary.WI
+
 
 /*
 interface that deals with construct quiries

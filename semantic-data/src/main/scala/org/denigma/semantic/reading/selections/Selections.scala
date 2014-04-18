@@ -3,7 +3,8 @@ package org.denigma.semantic.reading.selections
 import scala.util.Try
 import org.denigma.semantic.reading.QueryResultLike
 import org.openrdf.query.TupleQueryResult
-import org.denigma.semantic.vocabulary.WI
+import org.denigma.rdf.vocabulary.WI
+
 
 /*
 can make selects

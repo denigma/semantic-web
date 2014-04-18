@@ -17,10 +17,10 @@ object SP extends SemanticPlatform //most of the code is inside SemanticPlatform
   var dbConfig: DBConfig = null
 
 
-  /** Returns the current instance of the plugin. */
-  def current(implicit app:  play.api.Application): SemanticPlugin = app.plugin[SemanticPlugin] match {
-    case Some(plugin) => plugin
-    case _            => throw new PlayException("Bigdata plugin Error", "BigdataPlugin has not been initialized! Please edit your conf/play.plugins file and add the following line: '10000:org.denigma.semantic.BigDataPlugin' (1000 is an arbitrary priority and may be changed to match your needs).")
-  }
+//  /** Returns the current instance of the plugin. */
+//  def current(implicit app:  play.api.Application): SemanticPlugin = app.plugin[SemanticPlugin] match {
+//    case Some(plugin) => plugin
+//    case _            => throw new PlayException("Bigdata plugin Error", "BigdataPlugin has not been initialized! Please edit your conf/play.plugins file and add the following line: '10000:org.denigma.semantic.BigDataPlugin' (1000 is an arbitrary priority and may be changed to match your needs).")
+//  }
 
 }

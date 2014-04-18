@@ -5,7 +5,6 @@ import akka.actor.ActorRef
 import scala.util.{Success, Failure}
 import com.bigdata.rdf.store.AbstractTripleStore
 import org.denigma.semantic.actors.cache.Cache.UpdateInfo
-import akka.event.EventBus
 
 
 class ActorChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,sender:ActorRef) extends ChangeListener(db,transaction,lg)
@@ -16,7 +15,9 @@ class ActorChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:Lo
   }
 
   override def transactionCommited(commitTime: Long): Unit = {
-    sender ! Success[Cache.UpdateInfo](this.prepareUpdate())
+    val upd = this.prepareUpdate()
+    lg.debug("transaction commited "+transaction+" : "+upd.toString)
+    sender ! Success[Cache.UpdateInfo](upd)
     this.refresh()
   }
 }

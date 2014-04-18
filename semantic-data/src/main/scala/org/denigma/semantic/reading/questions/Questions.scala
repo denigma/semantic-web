@@ -1,8 +1,8 @@
 package org.denigma.semantic.reading.questions
 
 import org.denigma.semantic.reading.QueryResultLike
-import org.denigma.semantic.vocabulary.WI
 import scala.util.Try
+import org.denigma.rdf.vocabulary.WI
 
 
 trait IAsk[T] extends AskReader {

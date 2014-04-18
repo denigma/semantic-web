@@ -1,17 +1,16 @@
 package org.denigma.semantic.console
 
-import org.denigma.semantic.sesame._
-import org.denigma.sparql.{Pat, Br, SELECT}
 
 /*
 just a code to copy-paste to play console
 */
 object SparqlConsole {
+  import org.denigma.semantic.sesame._
+  import org.denigma.sparql.{Pat, Br, SELECT}
 
   import org.openrdf.model._
   import org.openrdf.model.impl._
 
-  import org.denigma.semantic.vocabulary._
   import play.api.test.WithApplication
   import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController}
   import scala.concurrent.Future

@@ -5,19 +5,17 @@ import org.openrdf.repository.RepositoryResult
 import scala.util.Try
 import org.denigma.semantic.actors.DatabaseActorsFactory
 import org.denigma.semantic.storage.{DBConfig, SemanticStore}
-import org.denigma.semantic.commons.AppLogger
-import org.denigma.semantic.reading.queries.{SimpleQueryManager, SemanticQueryManager}
+import org.denigma.semantic.reading.queries.SimpleQueryManager
 import org.denigma.semantic.controllers.{LoggerProvider, UpdateController, JsQueryController}
 import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
-import org.denigma.semantic.vocabulary.WI
 import org.denigma.semantic.users.Accounts
 import org.denigma.semantic.schema.Schema
 import org.denigma.semantic.actors.cache.CacheWatcher
+import org.denigma.rdf.vocabulary.WI
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils
-import play.api.{Configuration, Play}
-import play.api.Play.current
+import play.api.Configuration
 import org.openrdf.model._
 import scala.collection.immutable._
 import scala.collection.JavaConversions._
@@ -28,6 +26,8 @@ class that is responsible for the main logic
  */
 abstract class SemanticPlatform extends JsQueryController with UpdateController with AppConfig{
   self=>
+
+ // lg.debug("PLATFORM WAS CREATED FIRES!")
 
   var dbConfig:DBConfig
   var platformConfig:PlatformConfig
@@ -90,6 +90,8 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
   starts SemanticData plugin
    */
   def start(app: play.api.Application) = {
+
+    //lg.debug("START PLUGIN EVENT!")
     this.db = new Store(dbConfig,lg)
     LoggerProvider.lg = this.lg
     SyncReader.reader = this.db

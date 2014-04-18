@@ -2,6 +2,8 @@ package org.denigma.semantic.console
 
 import com.bigdata.rdf.internal.IV
 import org.denigma.semantic.sesame._
+import org.denigma.rdf.vocabulary.WI
+import com.bigdata.rdf.internal.constraints.StrBOp
 
 
 /*
@@ -27,8 +29,7 @@ object QueryConsole {
   import org.denigma.sparql._
   import org.denigma.rdf._
   import scala.collection.JavaConversions._
-  import com.bigdata.rdf.internal.constraints._
-  import org.denigma.semantic.vocabulary._
+
   import com.bigdata.bop._
 
   implicit val writeTimeout:Timeout = Timeout(5 seconds)

@@ -1,4 +1,4 @@
-package org.denigma.semantic.vocabulary
+package org.denigma.rdf.vocabulary
 
 /*
 Helper that contains some widely used prefixes
@@ -50,8 +50,7 @@ TODO: FIX,DOES NOT WORK NOW
 //
 //}
 //
-import org.openrdf.model._
-import org.denigma.rdf.IRI
+
 
 object UI {
   def sp(str:String) = s"http://spinrdf.org/sp#$str"

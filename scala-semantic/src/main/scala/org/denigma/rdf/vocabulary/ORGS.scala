@@ -1,4 +1,4 @@
-package org.denigma.semantic.vocabulary
+package org.denigma.rdf.vocabulary
 
 /**
  * Prefixes for organizations

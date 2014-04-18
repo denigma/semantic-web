@@ -28,7 +28,7 @@ abstract class ChangeListener(db:AbstractTripleStore,transaction:String, lg:LogL
   }
 
   override def transactionCommited(commitTime: Long): Unit = {
-    this.lg.info(s"COMMITED transaction: \n $transaction")
+    this.lg.info(s"COMMITTED transaction: \n $transaction")
   }
 
   override def transactionPrepare(): Unit = {
@@ -57,18 +57,26 @@ abstract class ChangeListener(db:AbstractTripleStore,transaction:String, lg:LogL
   }
 
 
-  def refresh() = {
+  /**
+   * Cleans ses for accumulation
+   */
+  def refresh(): Unit = {
     removed = Set.empty[ISPO]
     inserted = Set.empty[ISPO]
     inferred = Set.empty[ISPO]
   }
 
 
+  /**
+   * Batch extracts statements from the database
+   * @param coll
+   * @return
+   */
   def resolve(coll:Set[ISPO]): Set[Quad] = {
     if(coll.size==0) return Set.empty[Quad]
     val arr = coll.toArray
     val src = new ChunkedArrayIterator[ISPO](arr)
-    db.asStatementIterator(src).filter(_!=null).map(st=>sesame.Statement2Quad(st)).toSet[Quad]
+    db.asStatementIterator(src).collect{case st if st!=null=>sesame.Statement2Quad(st)}.toSet[Quad]
     //if(db==null) this.lg.error("NULL DB")
     //coll.map(Quad(_)).toSet
   }

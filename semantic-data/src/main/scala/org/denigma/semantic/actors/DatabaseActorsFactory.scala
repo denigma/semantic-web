@@ -21,6 +21,8 @@ import akka.event.EventStream
 */
 class DatabaseActorsFactory(db:AbstractTripleStore,canRead:CanRead,canWrite:CanWrite, val sys:ActorSystem,readers:(Int,Int,Int)) {
 
+  canRead.lg.debug("ACTOR FACTORY STARTS!")
+
   /**
   router for reader actor, for details see http://doc.akka.io/docs/akka/snapshot/scala/routing.html#SmallestMailboxPool
   @see [[http://doc.akka.io/docs/akka/snapshot/scala/routing.html#SmallestMailboxPool]]

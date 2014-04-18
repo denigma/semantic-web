@@ -12,7 +12,7 @@ import org.denigma.semantic.controllers.sync.{SyncSimpleController, SyncJsContro
 import scala.util.Try
 import org.openrdf.query.TupleQueryResult
 import org.denigma.semantic.reading.selections._
-import org.denigma.semantic.vocabulary.WI
+
 
 /**
 tests BigDataWrapper

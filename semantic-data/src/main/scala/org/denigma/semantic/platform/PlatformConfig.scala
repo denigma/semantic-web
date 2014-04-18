@@ -4,7 +4,7 @@ package org.denigma.semantic.platform
 import play.api.Configuration
 import scala.collection.immutable._
 import scala.collection.JavaConversions._
-import org.denigma.semantic.vocabulary.WI
+import org.denigma.rdf.vocabulary.WI
 
 
 /*
