@@ -1,7 +1,7 @@
 package models
 
 import org.scalajs.spickling._
-import org.denigma.rdf.WebIRI
+import org.denigma.rdf.IRI
 
 object RegisterPicklers {
   import PicklerRegistry.register
@@ -37,7 +37,7 @@ object RegisterPicklers {
 
 
   //Semantic
-  register[WebIRI]
+  register[IRI]
   register[MenuItem]
   register[Menu]
 
@@ -69,9 +69,9 @@ object RegisterPicklers {
   register[::[String]]
 
 
-  implicit object IriItemPickler extends  GenericConsPickler[WebIRI]
-  implicit object IriItemUnpickler extends GenericConsUnpickler[WebIRI]
-  register[::[WebIRI]]
+  implicit object IriItemPickler extends  GenericConsPickler[IRI]
+  implicit object IriItemUnpickler extends GenericConsUnpickler[IRI]
+  register[::[IRI]]
 
   implicit object MenuItemPickler extends  GenericConsPickler[MenuItem]
   implicit object MenuItemUnpickler extends GenericConsUnpickler[MenuItem]

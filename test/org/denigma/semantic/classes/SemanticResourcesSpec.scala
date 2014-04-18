@@ -6,7 +6,8 @@ import play.api.test.WithApplication
 import org.openrdf.model.vocabulary._
 import org.denigma.semantic.platform.SP
 import org.denigma.semantic.controllers.sync.SyncJsController
-import org.denigma.semantic.model.IRI
+import org.denigma.semantic.sesame._
+import org.denigma.rdf.IRI
 
 
 class SemanticResourcesSpec extends Specification {

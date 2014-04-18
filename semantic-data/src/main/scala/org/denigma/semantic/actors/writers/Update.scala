@@ -1,10 +1,7 @@
 package org.denigma.semantic.actors.writers
 
 import org.denigma.semantic.commons.QueryLike
-import org.openrdf.model.URI
 import java.io.File
-import org.openrdf.rio.RDFFormat
-import play.api.libs.json.Json._
 
 
 /*

@@ -1,13 +1,12 @@
 package org.denigma.semantic.cache
 
 
-import play.api.test.{FakeApplication, FakeRequest, WithApplication}
+import play.api.test.FakeRequest
 
 import org.denigma.semantic.controllers.{WithLogger, SimpleQueryController, UpdateController}
 import org.specs2.mutable.Specification
 import org.specs2.execute
 
-import org.denigma.semantic.model.IRI
 import org.denigma.semantic.vocabulary.USERS
 import org.denigma.semantic.users.{Account, Accounts}
 import scala.util.{Failure, Success, Try}
@@ -15,9 +14,11 @@ import play.api.mvc.SimpleResult
 import play.api.test.Helpers._
 import play.api.test.FakeApplication
 import play.api.test._
-import play.api._
-import play.api.mvc._
-import play.api.libs.json._
+import org.denigma.semantic.sesame._
+import org.denigma.rdf.{StringLiteral, AnyLit, IRI}
+import org.denigma.sparql._
+import org.openrdf.query.TupleQueryResult
+import org.denigma.semantic.reading.selections._
 
 class UsersSpec extends Specification {
 
@@ -65,6 +66,24 @@ class UsersSpec extends Specification {
       reg1.get should beTrue
 
       Thread.sleep(100)
+
+      val nick = SELECT ( ?("u") ) WHERE Pat(?("u"), USERS.props.hasEmail, StringLiteral("nick@gmail.com"))
+
+      val n: Try[TupleQueryResult] = this.awaitRead(this.select(nick))
+      n.isSuccess should beTrue
+
+      lg.debug(
+        s"""
+          | v = ${n.get.toList.headOption}
+          | hashes = ${Accounts.hashes.toString}
+          | and mails = ${Accounts.mails.toString()}
+
+        """.stripMargin
+      )
+      n.get.toList.headOption.isDefined should beTrue
+
+
+
 
       val uso: Option[Account] = Accounts.userByEmail("nick@gmail.com")
       uso.isDefined should beTrue

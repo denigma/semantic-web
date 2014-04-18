@@ -5,20 +5,10 @@ import org.denigma.semantic.actors.NamedActor
 import org.denigma.semantic.writing._
 import org.denigma.semantic.commons.{ChangeWatcher, LogLike}
 import java.io.File
-import org.denigma.semantic.actors.AkkaLog
-import org.denigma.semantic.sparql._
+import org.denigma.sparql._
 import scala.util.Try
-import com.bigdata.rdf.changesets.IChangeLog
-import org.denigma.semantic.sparql.InsertDeleteOnlyIf
-import org.denigma.semantic.sparql.DeleteInsertOnlyIf
-import org.denigma.semantic.sparql.InsertQuery
-import org.denigma.semantic.sparql.InsertDeleteQuery
-import org.denigma.semantic.sparql.DeleteInsertQuery
-import org.denigma.semantic.sparql.DeleteQuery
-import org.denigma.semantic.sparql.DeleteOnlyIf
 import org.denigma.semantic.actors.AkkaLog
-import org.denigma.semantic.sparql.InsertOnlyIf
-import org.denigma.semantic.sparql.InsertUnless
+
 
 /**
 class that is responsible for writes into database. It does NOT process read queries

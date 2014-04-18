@@ -3,14 +3,7 @@ package org.denigma.semantic.actors.writers
 import org.denigma.semantic.actors.NamedActor
 import scala.util.Try
 import akka.actor.Actor
-import org.denigma.semantic.sparql._
-import org.denigma.semantic.sparql.InsertDeleteOnlyIf
-import org.denigma.semantic.sparql.InsertDeleteUnless
-import org.denigma.semantic.sparql.DeleteOnlyIf
-import org.denigma.semantic.sparql.DeleteInsertOnlyIf
-import org.denigma.semantic.sparql.InsertOnlyIf
-import org.denigma.semantic.sparql.DeleteUnless
-import org.denigma.semantic.sparql.InsertUnless
+import org.denigma.sparql._
 
 /**
  * Conditional updater

@@ -8,9 +8,8 @@ import org.denigma.semantic.actors.readers.DatabaseReader
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.writing.CanWrite
 import org.denigma.semantic.actors.cache.{CacheWatcher, CacheActor}
-import org.denigma.semantic.commons.{LogLike, ChangeWatcher}
+import org.denigma.semantic.commons.LogLike
 import com.bigdata.rdf.store.AbstractTripleStore
-import com.bigdata.rdf.changesets.IChangeLog
 import akka.event.EventStream
 
 /**

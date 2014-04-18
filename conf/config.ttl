@@ -154,13 +154,14 @@ pl:Current_Platform a wi:Platform;
 
 ##############Longevity.org.ua configurations##########
 
-wi:longevity.org.ua sioc:Site;
-	pl:index pgl:Longevity_Ukraine;
-	pl:root_menu pgl:Longevity_Ukraine_Menu;
+#wi:longevity.org.ua a pl:Site;
+#    pl:index pgl:Longevity_Ukraine;
+#    pl:root_menu pgl:Longevity_Ukraine_Menu .
 
-pgl:Longevity_Ukraine_Menu a pl:Menu;
-    pl:items (
-                  pgl:About;
-                  pgl:Projects;
-                  pgl:Manifesto;
-                 ).
+
+#pgl:Longevity_Ukraine_Menu a pl:Menu;
+#    pl:items (
+#                  pgl:About;
+#                  pgl:Projects;
+#                  pgl:Manifesto;
+#                 ) .

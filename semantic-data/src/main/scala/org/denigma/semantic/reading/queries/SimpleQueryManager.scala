@@ -5,7 +5,6 @@ import org.denigma.semantic.reading.questions.SimpleAsk
 import org.denigma.semantic.reading.constructs.SimpleConstruct
 import org.denigma.semantic.reading.modifiers.{Paginator, Binder, Slicer}
 import org.openrdf.query.TupleQueryResult
-import org.openrdf.model.Value
 import org.denigma.semantic.reading._
 
 /*

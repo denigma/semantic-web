@@ -4,9 +4,6 @@ import scala.util.Try
 import com.bigdata.rdf.sail.{BigdataSailQuery, BigdataSailRepositoryConnection}
 import org.openrdf.query.QueryLanguage
 import org.denigma.semantic.reading._
-import org.denigma.semantic.reading.selections._
-import org.denigma.semantic.reading.constructs._
-import org.denigma.semantic.reading.questions._
 import org.denigma.semantic.vocabulary.WI
 
 

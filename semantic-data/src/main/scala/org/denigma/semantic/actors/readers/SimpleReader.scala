@@ -2,11 +2,10 @@ package org.denigma.semantic.actors.readers
 
 import org.denigma.semantic.actors.NamedActor
 import akka.actor.Actor
-import org.openrdf.model.Value
 import org.denigma.semantic.reading.queries.SimpleQueryManager
 import org.denigma.semantic.reading.CanRead
-import org.denigma.semantic.sparql
 import org.denigma.semantic.actors.readers.protocols.SimpleRead
+import org.denigma.sparql.SelectQuery
 
 /**
  * Handles simple quries (with native results)
@@ -17,7 +16,7 @@ trait SimpleReader {
 
   def simpleQuery: Actor.Receive = {
 
-    case sel:sparql.SelectQuery => sender ! qsm.select(sel.stringValue)
+    case sel:SelectQuery => sender ! qsm.select(sel.stringValue)
 
     case sel @ SimpleRead.Select(query,offset,limit,rewrite) =>
       if(sel.isPaginated) sender ! qsm.select(query,offset,limit,rewrite) else sender ! qsm.select(query)

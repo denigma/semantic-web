@@ -1,10 +1,8 @@
 package org.denigma.semantic.controllers
 
 import scala.concurrent.Future
-import org.openrdf.model.Value
 
 import scala.util._
-import akka.pattern.ask
 import org.denigma.semantic.reading._
 import org.denigma.semantic.actors.readers.protocols.Read
 

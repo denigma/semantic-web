@@ -1,27 +1,15 @@
 package org.denigma.frontend.views
 
 import rx._
-import org.denigma.rdf._
-import scalatags.HtmlTag
 import models._
 import org.scalajs.dom
 import org.scalajs.dom._
 import scala.collection.immutable._
-import scala.collection.mutable
 import org.denigma.views._
-import dom.extensions._
-import scala.concurrent.{Promise, Future}
-import scala.util.{Failure, Success}
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import org.scalajs.spickling._
 import org.denigma.extensions._
-import org.scalajs.spickling.PicklerRegistry
-import org.scalajs.spickling.jsany._
-import org.scalajs.spickling.Unpickler
-import scala.scalajs.js
 import models.Menu
 import scala.util.Success
-import org.denigma.rdf.WebIRI
+import org.denigma.rdf.IRI
 import scala.util.Failure
 import scalatags.HtmlTag
 import models.MenuItem
@@ -32,10 +20,10 @@ object MenuView extends Remote{
 
   type RemoteData = Menu
 
-  val testMenu: Menu = Menu(WebIRI("http://webintelligence.eu"),"Home", List(
-    MenuItem(WebIRI("http://webintelligence.eu/pages/about"),"About"),
-    MenuItem(WebIRI("http://webintelligence.eu/pages/project"),"Project"),
-    MenuItem(WebIRI("http://webintelligence.eu/another"),"Another")))
+  val testMenu: Menu = Menu(IRI("http://webintelligence.eu"),"Home", List(
+    MenuItem(IRI("http://webintelligence.eu/pages/about"),"About"),
+    MenuItem(IRI("http://webintelligence.eu/pages/project"),"Project"),
+    MenuItem(IRI("http://webintelligence.eu/another"),"Another")))
 
   implicit val fromFuture:FromFuture = (str)=> {
     RegisterPicklers.registerPicklers()
@@ -59,7 +47,7 @@ class MenuView(el:HTMLElement, params:Map[String,Any] = Map.empty) extends ListV
 
   val menu: Var[Menu] = Var {
     //MenuView.testMenu
-    Menu(WebIRI(s"http://${dom.window.location.host}"),dom.window.location.host,List.empty)
+    Menu(IRI(s"http://${dom.window.location.host}"),dom.window.location.host,List.empty)
   }
 
   val items: Rx[List[Map[String, Any]]] = Rx {

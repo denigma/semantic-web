@@ -1,6 +1,6 @@
-package org.denigma.semantic.sparql
+package org.denigma.sparql
 
-import org.denigma.semantic.model.{IRI, QueryElement}
+import org.denigma.rdf.{QueryElement, IRI}
 
 
 object ASK

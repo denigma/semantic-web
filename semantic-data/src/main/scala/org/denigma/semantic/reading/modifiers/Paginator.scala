@@ -1,6 +1,5 @@
 package org.denigma.semantic.reading.modifiers
 
-import org.openrdf.model.Value
 import org.denigma.semantic.reading.selections._
 import scala.util.Try
 

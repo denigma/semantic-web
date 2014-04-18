@@ -1,8 +1,6 @@
 package org.denigma.semantic.controllers.sync
 
 import org.denigma.semantic.writing._
-import org.denigma.semantic.commons.LogLike
-import com.bigdata.rdf.store.AbstractTripleStore
 
 /**
 object that stores database of any other thing that can provide new writeconnection

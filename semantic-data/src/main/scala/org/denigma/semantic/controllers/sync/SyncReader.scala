@@ -1,8 +1,6 @@
 package org.denigma.semantic.controllers.sync
 
 import org.denigma.semantic.reading._
-import org.denigma.semantic.commons.LogLike
-import org.denigma.semantic.writing._
 
 /**
 object that stores database of any other thing that can provide new readconnection

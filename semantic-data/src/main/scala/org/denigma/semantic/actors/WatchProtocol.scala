@@ -1,7 +1,7 @@
 package org.denigma.semantic.actors
 
-import org.denigma.semantic.sparql.Pat
-import org.openrdf.model.Statement
+import org.denigma.sparql.Pat
+import org.denigma.rdf.Quad
 
 /**
  * Protocol for watchers
@@ -12,7 +12,7 @@ object WatchProtocol{
 
   case class PatternRequest(name:String,patterns:Set[Pat])
 
-  case class PatternResult(name:String,results:Map[Pat,Set[Statement]])
+  case class PatternResult(name:String,results:Map[Pat,Set[Quad]])
 
 }
 

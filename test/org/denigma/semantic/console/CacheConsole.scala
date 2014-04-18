@@ -7,7 +7,10 @@ package org.denigma.semantic.console
 object CacheConsole {
 
   import org.denigma.semantic.controllers.sync.SyncUpdateController
-  import org.denigma.semantic.sparql._
+  import org.denigma.sparql._
+
+  import org.denigma.semantic.sesame._
+  import org.denigma.rdf._
 
   import scala.collection.JavaConversions._
   import scala.concurrent.duration._
@@ -23,7 +26,7 @@ object CacheConsole {
   import org.denigma.semantic.test.LoveHater
   import org.denigma.semantic.platform.SP
   import org.denigma.semantic.controllers._
-  import org.denigma.semantic.model._
+
 
   import org.denigma.semantic.commons._
   import org.denigma.semantic.reading.selections._

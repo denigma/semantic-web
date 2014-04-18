@@ -2,9 +2,9 @@ package controllers
 
 import play.api.mvc._
 import scala.concurrent.Future
-import org.denigma.semantic.model.IRI
 import org.denigma.semantic.vocabulary.USERS
 import org.denigma.semantic.platform.AppConfig
+import org.denigma.rdf.IRI
 
 
 trait UserRequestHeader extends RequestHeader{

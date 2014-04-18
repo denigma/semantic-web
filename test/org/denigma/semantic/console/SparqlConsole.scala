@@ -1,5 +1,8 @@
 package org.denigma.semantic.console
 
+import org.denigma.semantic.sesame._
+import org.denigma.sparql.{Pat, Br, SELECT}
+
 /*
 just a code to copy-paste to play console
 */
@@ -14,8 +17,7 @@ object SparqlConsole {
   import scala.concurrent.Future
   import scala.util.Try
   import play.api.libs.concurrent.Akka
-  import org.denigma.semantic.model.IRI
-  import org.denigma.semantic.sparql._
+  import org.denigma.sparql._
 
   import scala.collection.JavaConversions._
   import scala.concurrent.duration._
@@ -26,12 +28,13 @@ object SparqlConsole {
 
   import com.bigdata.rdf.sparql.ast._
   import com.bigdata.rdf.sail._
+  import org.denigma.rdf.IRI
 
   //
   import org.denigma.semantic.test.LoveHater
   import org.denigma.semantic.platform.SP
   import org.denigma.semantic.controllers._
-  import org.denigma.semantic.model._
+
 
   import org.denigma.semantic.commons._
   import org.denigma.semantic.reading.selections._

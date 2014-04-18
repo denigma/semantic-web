@@ -1,12 +1,13 @@
 package org.denigma.semantic.test
 
-import org.openrdf.model.impl.{StatementImpl}
+import org.openrdf.model.impl.StatementImpl
 import org.openrdf.model.{Statement, URI}
 import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
 import scala.collection.JavaConversions._
 import org.denigma.semantic.controllers.sync._
-import org.denigma.semantic.model.IRI
+import org.denigma.semantic.sesame._
+import org.denigma.rdf.IRI
 
 /**
 Traits for tests only

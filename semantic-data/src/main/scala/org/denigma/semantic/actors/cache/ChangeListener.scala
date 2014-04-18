@@ -3,9 +3,12 @@ package org.denigma.semantic.actors.cache
 import com.bigdata.rdf.spo.ISPO
 import org.denigma.semantic.commons.{Logged, LogLike}
 import com.bigdata.rdf.changesets.{ChangeAction, IChangeRecord, IChangeLog}
-import org.denigma.semantic.model.Quad
 import com.bigdata.rdf.store.AbstractTripleStore
 import com.bigdata.striterator.ChunkedArrayIterator
+import org.denigma.rdf._
+import org.denigma.semantic.sesame
+import org.denigma.semantic.sesame._
+
 
 
 /*
@@ -21,11 +24,11 @@ abstract class ChangeListener(db:AbstractTripleStore,transaction:String, lg:LogL
 
 
   override def transactionAborted(): Unit = {
-    this.lg.error(s"ABORTED transaction: \n ${transaction}")
+    this.lg.error(s"ABORTED transaction: \n $transaction")
   }
 
   override def transactionCommited(commitTime: Long): Unit = {
-    this.lg.info(s"COMMITED transaction: \n ${transaction}")
+    this.lg.info(s"COMMITED transaction: \n $transaction")
   }
 
   override def transactionPrepare(): Unit = {
@@ -65,7 +68,7 @@ abstract class ChangeListener(db:AbstractTripleStore,transaction:String, lg:LogL
     if(coll.size==0) return Set.empty[Quad]
     val arr = coll.toArray
     val src = new ChunkedArrayIterator[ISPO](arr)
-    db.asStatementIterator(src).filter(_!=null).map(Quad(_)).toSet[Quad]
+    db.asStatementIterator(src).filter(_!=null).map(st=>sesame.Statement2Quad(st)).toSet[Quad]
     //if(db==null) this.lg.error("NULL DB")
     //coll.map(Quad(_)).toSet
   }

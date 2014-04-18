@@ -1,5 +1,6 @@
-language scala:
-   - 2.10.4
+language: scala
+scala:
+  - 2.10.4
 env:
   - PLAY_VERSION=2.2.2 # Latest 2.2.x
 before_script: 

@@ -6,9 +6,11 @@ import akka.actor.Actor
 import org.denigma.semantic.actors.readers.protocols.SimpleRead
 import org.denigma.semantic.reading._
 import scala.util.Try
-import org.denigma.semantic.sparql.Pat
 import org.openrdf.model.Statement
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
+import org.denigma.semantic.sesame._
+import org.denigma.sparql.Pat
+import org.denigma.rdf.Quad
 
 trait PatternReader {
   me:NamedActor with CanRead =>
@@ -21,8 +23,8 @@ trait PatternReader {
   def patternRead:Actor.Receive = {
     case WatchProtocol.PatternRequest(name,pats) =>
       val result: Try[PatternResult] =  reader.read{con=>
-      val map: Map[Pat, Set[Statement]] = pats.map(  pat=>
-        pat->con.getStatements(pat.s.resourceOrNull, pat.p.IRIorNull, pat.o.valueOrNull, true,pat.contextOrNull).toSet
+      val map: Map[Pat, Set[Quad]] = pats.map(  pat=>
+        pat->con.getStatements(pat.subjectResourceOrNull, pat.predicateIRIOrNull, pat.objectValueOrNull, true,pat.contextResOrNull).map[Quad](st=>st).toSet
       ).toMap
         WatchProtocol.PatternResult(name,map)
       }

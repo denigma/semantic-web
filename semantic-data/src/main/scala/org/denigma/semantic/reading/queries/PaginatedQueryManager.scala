@@ -1,13 +1,11 @@
 package org.denigma.semantic.reading.queries
 
-import com.bigdata.rdf.sparql.ast.SliceNode
 import org.denigma.semantic.reading._
 import org.denigma.semantic.reading.questions._
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading.constructs._
 import scala.util.Try
-import org.denigma.semantic.reading.modifiers.{Paginator, Slicer}
-import org.openrdf.model.Value
+import org.denigma.semantic.reading.modifiers.Paginator
 
 
 /**

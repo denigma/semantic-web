@@ -1,7 +1,6 @@
 package org.denigma.semantic.users
 
-import org.denigma.semantic.model.{Quad, IRI, Res}
-import org.denigma.semantic.sparql.SelectQuery
+import org.denigma.rdf.IRI
 
 case class ContextPermission(account:IRI) {
 

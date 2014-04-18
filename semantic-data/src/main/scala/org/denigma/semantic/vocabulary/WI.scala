@@ -1,8 +1,7 @@
 package org.denigma.semantic.vocabulary
 
-import org.openrdf.model.URI
-import org.denigma.semantic.model.IRI
-import org.denigma.semantic.sparql.Prefix
+import org.denigma.rdf.IRI
+import org.denigma.sparql.Prefix
 
 /*
 refactor
@@ -32,15 +31,15 @@ object WI extends PrefixConfig("http://webintelligence.eu/"){
 
   def po(str:String): IRI = IRI(POLICY /str)
 
-  def set(res:URI): URI = { uris=uris+res; res}
+  def set(res:IRI): IRI = { IRIs=IRIs+res; res}
 
-  def set(name:String): URI= this set IRI(SETTINGS / name)
+  def set(name:String): IRI= this set IRI(SETTINGS / name)
 
-  var uris: Set[URI] = Set.empty[URI]
+  var IRIs: Set[IRI] = Set.empty[IRI]
 
-  val root: URI= this set "root"
+  val root: IRI= this set "root"
 
-  val context: URI = this set "context"
+  val context: IRI = this set "context"
 }
 
 

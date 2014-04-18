@@ -4,9 +4,7 @@ import akka.util.Timeout
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 import scala.util.Try
-import org.denigma.semantic.reading.QueryResultLike
 import akka.pattern.ask
-import org.denigma.semantic.actors.readers.protocols.Read
 
 /*
 controller that can do various readonly quries via reader actor to the database
@@ -21,7 +19,7 @@ trait QueryController[T] extends WithSemanticReader {
   /*
   for test purposes only
    */
-  def awaitRead[T](fut:Future[T]):T = Await.result(fut,readTimeout.duration)
+  def awaitRead[TR](fut:Future[TR]):TR = Await.result(fut,readTimeout.duration)
 
 
   def rd(message:Any):Future[Try[T]] =

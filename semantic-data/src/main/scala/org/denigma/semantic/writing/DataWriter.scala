@@ -2,10 +2,6 @@ package org.denigma.semantic.writing
 
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
 import scala.util.Try
-import org.openrdf.query.QueryLanguage
-import scala.util.Failure
-import scala.util.Success
-import org.denigma.semantic.commons.Logged
 
 
 /*

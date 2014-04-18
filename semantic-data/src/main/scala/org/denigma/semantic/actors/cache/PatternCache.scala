@@ -1,17 +1,18 @@
 package org.denigma.semantic.actors.cache
 
-import org.denigma.semantic.sparql.Pat
 import org.denigma.semantic.controllers.QueryController
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.actors.WatchProtocol
 import scala.collection.mutable
-import org.openrdf.model._
 import scala.concurrent.Future
 import scala.util.Try
 import org.denigma.semantic.commons.Logged
 import play.api.libs.concurrent.Execution.Implicits._
-import org.denigma.semantic.model.Quad
+
 import akka.pattern.ask
+import org.denigma.sparql._
+import org.denigma.rdf._
+
 /**
  * Makes decision based on union of patterns that it has
  */
@@ -98,15 +99,15 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
     quads
   }
 
-  def groupBySubject(sts:Set[Quad]):  mutable.MultiMap[Resource, (Pat, Quad)] = {
+  def groupBySubject(sts:Set[Quad]):  mutable.MultiMap[Res, (Pat, Quad)] = {
 
-    val quads= new mutable.HashMap[Resource, mutable.Set[(Pat,Quad)]] with mutable.MultiMap[Resource,(Pat,Quad)]
+    val quads= new mutable.HashMap[Res, mutable.Set[(Pat,Quad)]] with mutable.MultiMap[Res,(Pat,Quad)]
 
     for {
       p <-patterns
       st <- sts
       if p.canBind(st)
-    } quads.addBinding(st.getSubject,(p,st))
+    } quads.addBinding(st.s,(p,st))
     quads
   }
 

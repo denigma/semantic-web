@@ -10,18 +10,15 @@ import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.controllers.{WithLogger, SimpleQueryController, UpdateController}
 import scala.concurrent.Future
 import play.api.libs.concurrent.Akka
-import org.denigma.semantic.sparql._
-import org.denigma.semantic.sparql
 import scala.collection.JavaConversions._
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 import org.denigma.semantic.controllers.sync.SyncSimpleController
 import org.denigma.semantic.vocabulary._
-import org.denigma.semantic.model.IRI
-import org.denigma.semantic.sparql.InsertQuery
-import org.denigma.semantic.model._
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.users.Accounts
+import org.denigma.rdf._
+import org.denigma.sparql._
 
 
 class CacheSpec extends Specification {
@@ -54,22 +51,22 @@ class CacheSpec extends Specification {
           Trip(
             anton iri,
             pr hasPasswordHash,
-            LitStr(pasw1)
+            StringLiteral(pasw1)
           ),
           Trip(
             anton iri,
             pr hasEmail,
-            LitStr("anton@gmail.com")
+            StringLiteral("anton@gmail.com")
           ),
           Trip(
             daniel iri,
             pr hasPasswordHash,
-            LitStr(pasw2)
+            StringLiteral(pasw2)
           ),
           Trip(
             daniel iri,
             pr hasEmail,
-            LitStr("daniel@gmail.com")
+            StringLiteral("daniel@gmail.com")
           )
 
         )
@@ -84,22 +81,22 @@ class CacheSpec extends Specification {
           Trip(
             USERS.user / liz iri,
             USERS.props hasPasswordHash,
-            LitStr(pasw3)
+            StringLiteral(pasw3)
           ),
           Trip(
             USERS.user / liz iri,
             USERS.props hasEmail,
-            LitStr("liz@gmail.com")
+            StringLiteral("liz@gmail.com")
           ),
           Trip(
             USERS.user / ilia iri,
             USERS.props hasPasswordHash,
-            LitStr(pasw4)
+            StringLiteral(pasw4)
           ),
           Trip(
             USERS.user / ilia iri,
             USERS.props hasEmail,
-            LitStr("ilia@gmail.com")
+            StringLiteral("ilia@gmail.com")
           )
         )
       )
@@ -136,7 +133,7 @@ class CacheSpec extends Specification {
       val rl = r.get.toList
       rl.size shouldEqual 1
       val h: BindingSet = rl.head
-      h.getBinding("p").getValue.stringValue() shouldEqual "anton@gmail.com"
+      h.getBinding("p").getValue.stringValue().contains("anton@gmail.com") should beTrue
 
       //Users.mails.size shouldEqual 2
 
@@ -147,8 +144,9 @@ class CacheSpec extends Specification {
 
       utr.name shouldEqual Accounts.cacheName
       utr.results.size shouldEqual 2
-      utr.results(Accounts.hasEmail).exists(p=>p.getObject.stringValue()=="anton@gmail.com") should beTrue
-      utr.results(Accounts.hasEmail).exists(p=>p.getObject.stringValue()=="daniel@gmail.com") should beTrue
+      //lg.debug(utr.results.toString())
+      utr.results(Accounts.hasEmail).exists(p=>p.o.stringValue.contains("anton@gmail.com")) should beTrue
+      utr.results(Accounts.hasEmail).exists(p=>p.o.stringValue.contains("daniel@gmail.com")) should beTrue
 
 
     }

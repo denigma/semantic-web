@@ -1,10 +1,8 @@
 package org.denigma.semantic.vocabulary
 
-import org.denigma.semantic.model.IRI
-import org.openrdf.model.URI
-import org.denigma.semantic.vocabulary._
-import org.openrdf.model.{vocabulary=>voc}
 import com.bigdata.rdf.vocab.decls.FOAFVocabularyDecl
+import org.denigma.semantic.sesame._
+import org.denigma.rdf.IRI
 
 object USERS extends PrefixConfig(WI.namespace / "users")
 {
@@ -16,7 +14,7 @@ object USERS extends PrefixConfig(WI.namespace / "users")
   object props {
 
     val hasPasswordHash = (WI.PROPERTIES / "hasPasswordHash").iri
-    val hasEmail = IRI(FOAFVocabularyDecl.mbox)
+    val hasEmail:IRI = FOAFVocabularyDecl.mbox
 
   }
 

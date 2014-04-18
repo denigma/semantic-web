@@ -1,11 +1,24 @@
-package org.denigma.semantic.sparql
+package org.denigma.sparql
 
-import org.denigma.semantic.model.QueryElement
+import org.denigma.rdf.{IRIPatEl, QueryElement}
 
-case class Variable(name:String) {
+
+trait SelectElement extends QueryElement
+{
+  def isVar:Boolean = false
+  def isAgg:Boolean = false
+}
+
+
+case class Variable(name:String) extends IRIPatEl with SelectElement  {
   override def toString = stringValue
 
   def stringValue = s"?$name"
+
+
+
+  override def isVar = true
+
 }
 case class EqualsFilter(left:Variable,right:Any) extends Filter {
   override def toString = left.toString+" = "+right.toString

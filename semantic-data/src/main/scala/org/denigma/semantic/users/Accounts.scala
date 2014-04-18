@@ -1,7 +1,5 @@
 package org.denigma.semantic.users
 
-import org.denigma.semantic.sparql._
-import org.denigma.semantic.model.{Trip, IRI, Quad}
 import scala.collection.mutable.MultiMap
 import org.openrdf.model._
 import org.denigma.semantic.controllers.{UpdateController, WithLogger}
@@ -11,11 +9,10 @@ import org.openrdf.model.vocabulary.RDF
 import scala.concurrent.Future
 import org.denigma.semantic.actors.cache.PatternCache
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
-import org.denigma.semantic.sparql.Br
-import org.denigma.semantic.model.LitStr
 import org.denigma.semantic.actors.cache.Cache.UpdateInfo
-import org.denigma.semantic.sparql.Pat
-import org.denigma.semantic.sparql.InsertUnless
+import org.denigma.semantic.sesame._
+import org.denigma.rdf._
+import org.denigma.sparql._
 
 /**
 * user watcher that keeps all users inmemory
@@ -23,8 +20,8 @@ import org.denigma.semantic.sparql.InsertUnless
 object Accounts extends PatternCache with WithLogger with UpdateController
 {
 
-  var mails= Map.empty[Resource,String]
-  var hashes = Map.empty[Resource,String]
+  var mails= Map.empty[Res,String]
+  var hashes = Map.empty[Res,String]
 
 
   override var patterns = Set.empty[Pat]
@@ -37,10 +34,10 @@ object Accounts extends PatternCache with WithLogger with UpdateController
   def removeFacts(upd:UpdateInfo) = {
     val removed = this.groupByPattern(upd.removed)
     removed.get(hasEmail).foreach{ems=>
-      this.mails = this.mails -- ems.map((em) =>em.getSubject)
+      this.mails = this.mails -- ems.map((em) =>em.s)
     }
     removed.get(hasPassword).foreach{pw=>
-      this.hashes = this.hashes -- pw.map(p=>p.getSubject)
+      this.hashes = this.hashes -- pw.map(p=>p.s)
     }
   }
 
@@ -52,10 +49,10 @@ object Accounts extends PatternCache with WithLogger with UpdateController
     val inserted: MultiMap[Pat, Quad] = this.groupByPattern(upd.inserted)
     inserted.get(hasEmail).foreach{
       ms=>
-      this.mails = this.mails ++ ms.map(m=>(m.getSubject,m.getObject.stringValue()))
+      this.mails = this.mails ++ ms.map(m=>(m.s,m.o.label))
     }
     inserted.get(hasPassword).foreach{ms=>
-      this.hashes= this.hashes ++ ms.map(m=>(m.getSubject,m.getObject.stringValue()))
+      this.hashes= this.hashes ++ ms.map(m=>(m.s,m.o.label))
     }
   }
 
@@ -67,13 +64,13 @@ object Accounts extends PatternCache with WithLogger with UpdateController
 
 
   override def onResult(p: PatternResult): Unit = {
-    val res: Map[Pat, Set[Statement]] = p.results
+    val res: Map[Pat, Set[Quad]] = p.results
 
     res.get(hasEmail).foreach{ms=>
-      this.mails = this.mails ++ ms.map(m=>(m.getSubject,m.getObject.stringValue()))
+      this.mails = this.mails ++ ms.map(m=>(m.s,m.o.label))
     }
     res.get(hasPassword).foreach{ms=>
-      this.hashes= this.hashes ++ ms.map(m=>(m.getSubject,m.getObject.stringValue()))
+      this.hashes= this.hashes ++ ms.map(m=>(m.s,m.o.label))
     }
 
 
@@ -171,8 +168,8 @@ object Accounts extends PatternCache with WithLogger with UpdateController
         DATA(
           GRAPH(IRI(USERS.namespace),
             Trip(user,RDF.TYPE iri, USERS.classes.User),
-            Trip(user, USERS.props.hasEmail, LitStr(email)),
-            Trip(user,USERS.props.hasPasswordHash,LitStr(hash))
+            Trip(user, USERS.props.hasEmail, StringLiteral(email)),
+            Trip(user,USERS.props.hasPasswordHash,StringLiteral(hash))
           )
         )
       }
@@ -181,7 +178,7 @@ object Accounts extends PatternCache with WithLogger with UpdateController
         Br(
           Pat(user,RDF.TYPE iri, USERS.classes.User)
         ) UNION Br(
-          Pat(?("anyuser"),USERS.props.hasEmail,LitStr(email)),
+          Pat(?("anyuser"),USERS.props.hasEmail,StringLiteral(email)),
           Pat(?("anyuser"),RDF.TYPE iri, USERS.classes.User)
         )
       )

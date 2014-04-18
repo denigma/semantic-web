@@ -1,3 +1,4 @@
+import org.denigma.rdf.IRI
 import org.denigma.semantic.platform.AppConfig
 import play.api._
 import play.api.mvc.{RequestHeader, WithFilters}
@@ -6,7 +7,6 @@ import play.api._
 import play.api.mvc._
 import play.api.Logger
 import play.api.Play.current
-import org.denigma.semantic.model.IRI
 import play.api.mvc.{WrappedRequest, Request}
 import scaldi.Injector
 import scaldi.play.ScaldiSupport

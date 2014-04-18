@@ -1,6 +1,7 @@
 package org.denigma.semantic.console
 
 import com.bigdata.rdf.internal.IV
+import org.denigma.semantic.sesame._
 
 
 /*
@@ -23,8 +24,8 @@ object QueryConsole {
   import org.denigma.semantic.controllers.sync._
   import org.denigma.semantic.commons._
   import org.denigma.semantic.reading.selections._
-  import org.denigma.semantic.sparql._
-  import org.denigma.semantic.model._
+  import org.denigma.sparql._
+  import org.denigma.rdf._
   import scala.collection.JavaConversions._
   import com.bigdata.rdf.internal.constraints._
   import org.denigma.semantic.vocabulary._

@@ -1,7 +1,6 @@
-package org.denigma.semantic.sparql
-import org.denigma.semantic.sparql._
+package org.denigma.sparql
 
-import org.denigma.semantic.model.{Trip, QueryElement, IRI}
+import org.denigma.rdf._
 
 
 case class InsertQuery(insert:Insert)

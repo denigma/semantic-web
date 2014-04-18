@@ -51,7 +51,7 @@ TODO: FIX,DOES NOT WORK NOW
 //}
 //
 import org.openrdf.model._
-import org.denigma.semantic.model.IRI
+import org.denigma.rdf.IRI
 
 object UI {
   def sp(str:String) = s"http://spinrdf.org/sp#$str"

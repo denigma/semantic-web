@@ -1,6 +1,6 @@
-package org.denigma.semantic.sparql
+package org.denigma.sparql
 
-import org.denigma.semantic.model.{Trip, QueryElement}
+import org.denigma.rdf._
 
 /**
  * grph that may contains only triplets (used by INSERT/DELETE DATA)
@@ -30,8 +30,8 @@ trait SPARQLGraph extends GP{
   val triplets:List[Triplet]
 
   override def stringValue: String = id match {
-    case v:VarExtended=> s" GRAPH <${v.variable.name}> \n{ ${this.foldChildren} } "
-    case other=> s" GRAPH ${other.stringValue} \n{ ${this.foldChildren} } "
+    case v:Variable=> s" GRAPH <${v.name}> \n{ ${this.foldChildren} } "
+    case other=> s" GRAPH <${other.stringValue}> \n{ ${this.foldChildren} } "
   }
 
   override def children: List[QueryElement] = triplets.toList

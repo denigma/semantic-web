@@ -1,22 +1,22 @@
 package models
 
-import org.denigma.rdf.WebIRI
+import org.denigma.rdf.IRI
 
 
 //object Menu {
-//  def apply(uri:WebIRI, label:String, child:MenuItem*): Menu = {
+//  def apply(uri:IRI, label:String, child:MenuItem*): Menu = {
 //    new Menu(uri,label,child:_*)
 //  }
 //
 //}
 
-case class TestMenu(uri:WebIRI,label:String) //extends MenuItemLike
+case class TestMenu(uri:IRI,label:String) //extends MenuItemLike
 
-case class Menu(uri:WebIRI,label:String, children: List[MenuItem]) extends MenuItemLike
+case class Menu(uri:IRI,label:String, children: List[MenuItem]) extends MenuItemLike
 
-case class MenuItem(uri:WebIRI,label:String) extends MenuItemLike
+case class MenuItem(uri:IRI,label:String) extends MenuItemLike
 
 trait MenuItemLike{
-  val uri:WebIRI
+  val uri:IRI
   val label:String
 }

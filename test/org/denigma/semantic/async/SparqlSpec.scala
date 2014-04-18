@@ -5,20 +5,16 @@ import play.api.test.WithApplication
 
 import org.denigma.semantic.test.LoveHater
 import scala.util.Try
-import org.openrdf.query.{QueryLanguage, TupleQueryResult}
-import org.denigma.semantic.reading.selections._
+import org.openrdf.query.TupleQueryResult
 import org.denigma.semantic.controllers._
 import scala.concurrent.Future
 import play.api.libs.concurrent.Akka
-import org.denigma.semantic.model.{Trip, IRI}
-import org.denigma.semantic.sparql._
-import org.denigma.semantic.sparql
-import scala.collection.JavaConversions._
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 
-import org.denigma.semantic.model._
-import org.denigma.semantic.vocabulary.WI
+import org.denigma.semantic.sesame._
+import org.denigma.rdf._
+import org.denigma.sparql._
 
 class SparqlSpec extends Specification with LoveHater {
 
@@ -93,7 +89,7 @@ class SparqlSpec extends Specification with LoveHater {
       resLimited.isSuccess shouldEqual(true)
       resLimited.get.toList.size shouldEqual(2)
 
-      val ql:sparql.SelectQuery  = q2 OFFSET 0 LIMIT 2
+      val ql  = q2 OFFSET 0 LIMIT 2
 
       val resLimited2 = aw { this.select(ql) }
       resLimited2.isSuccess shouldEqual(true)
@@ -104,7 +100,7 @@ class SparqlSpec extends Specification with LoveHater {
       resOffset.isSuccess shouldEqual(true)
       resOffset.get.toList.size shouldEqual(4)
 
-      val qo:sparql.SelectQuery  = q2 OFFSET 2 LIMIT 0
+      val qo  = q2 OFFSET 2 LIMIT 0
 
       val resOffset2= aw { select(qo) }
       resOffset2.isSuccess shouldEqual(true)

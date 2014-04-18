@@ -1,14 +1,10 @@
 package controllers
 
 import play.api.mvc._
-import org.openrdf.query.BindingSet
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 import org.scalajs.spickling.PicklerRegistry
 import org.scalajs.spickling.playjson._
-import models.RegisterPicklers
 import models._
-import play.api.Logger
-import org.denigma.rdf.WebIRI
 
 
 /*
@@ -24,7 +20,6 @@ object Tests  extends Controller{
   }
 
   def message = Action {
-    import RegisterPicklers._
     RegisterPicklers.registerPicklers()
     val m = Message(User("Some User"),"message")
     val pickle = PicklerRegistry.pickle(m)

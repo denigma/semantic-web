@@ -20,8 +20,8 @@ import scala.concurrent.Future
 import play.api.templates.Html
 import org.scalajs.spickling.PicklerRegistry
 import models.{RegisterPicklers, MenuItem, Menu}
-import org.denigma.rdf.WebIRI
 import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController, QueryController}
+import org.denigma.rdf.IRI
 
 /*
 main application controller, responsible for index and some other core templates and requests
@@ -108,14 +108,14 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
 
   def menu(root:String) =  UserAction {
     implicit request=>
-      val testMenu: Menu = Menu(WebIRI("http://longevity.org.ua/menu"),"Longevity.org.ua", List(
-        MenuItem(WebIRI("http://longevity.org.ua/pages/manifesto"),"Долголетие Украины"),
-        MenuItem(WebIRI("http://longevity.org.ua/pages/research"),"Исследования"),
-        MenuItem(WebIRI("http://longevity.org.ua/pages/events"),"Активизм"),
-        MenuItem(WebIRI("http://longevity.org.ua/pages/members"),"Участники"),
-        MenuItem(WebIRI("http://longevity.org.ua/pages/projects"),"Проекты"),
-        MenuItem(WebIRI("http://longevity.org.ua/pages/projects"),"Участвовать"),
-        MenuItem(WebIRI("http://longevity.org.ua/pages/projects"),"Контакты")
+      val testMenu: Menu = Menu(IRI("http://longevity.org.ua/menu"),"Longevity.org.ua", List(
+        MenuItem(IRI("http://longevity.org.ua/pages/manifesto"),"Долголетие Украины"),
+        MenuItem(IRI("http://longevity.org.ua/pages/research"),"Исследования"),
+        MenuItem(IRI("http://longevity.org.ua/pages/events"),"Активизм"),
+        MenuItem(IRI("http://longevity.org.ua/pages/members"),"Участники"),
+        MenuItem(IRI("http://longevity.org.ua/pages/projects"),"Проекты"),
+        MenuItem(IRI("http://longevity.org.ua/pages/projects"),"Участвовать"),
+        MenuItem(IRI("http://longevity.org.ua/pages/projects"),"Контакты")
       ))
 
       RegisterPicklers.registerPicklers()
