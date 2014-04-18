@@ -6,7 +6,10 @@ import org.denigma.rdf._
  * Cache object
  */
 object Cache {
-  case class UpdateInfo(transaction:String,inserted:Set[Quad],removed:Set[Quad] = Set.empty,inferred:Set[Quad] = Set.empty)
+
+  def failed(transaction:String) = UpdateInfo(transaction,Set.empty[Quad],Set.empty[Quad],Set.empty[Quad],failed = true)
+
+  case class UpdateInfo(transaction:String,inserted:Set[Quad],removed:Set[Quad] = Set.empty,inferred:Set[Quad] = Set.empty, failed:Boolean = false)
 
   case class Subscribe(consumer:Consumer)
 

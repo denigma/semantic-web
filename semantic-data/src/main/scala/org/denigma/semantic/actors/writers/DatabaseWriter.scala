@@ -61,6 +61,4 @@ trait WatchedWriter extends NamedActor with Updater{
 
   def watchedUpdate(queryString:String): Try[Unit]
 
-
-
 }

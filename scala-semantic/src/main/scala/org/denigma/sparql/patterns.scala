@@ -35,7 +35,7 @@ trait QuadPattern extends TripletPattern{
     case _=>false
   }
 
-  def canBind(q:Quad) = super.canBindTriplet(q) && (!this.hasContext && this.canBindContextRes(q.c))
+  def canBind(q:Quad) = super.canBindTriplet(q) && (!this.hasContext || this.canBindContextRes(q.c))
 
 
 

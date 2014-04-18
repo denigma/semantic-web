@@ -5,22 +5,44 @@ import akka.actor.ActorRef
 import scala.util.{Success, Failure}
 import com.bigdata.rdf.store.AbstractTripleStore
 import org.denigma.semantic.actors.cache.Cache.UpdateInfo
+import akka.event.EventStream
 
 
 class ActorChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,sender:ActorRef) extends ChangeListener(db,transaction,lg)
 {
   override def transactionAborted(): Unit = {
-    val f: Failure[UpdateInfo] = Failure[Cache.UpdateInfo](new Exception("transaction aborted"))
-    sender ! f
+    //val f: Failure[UpdateInfo] = Failure[Cache.UpdateInfo](new Exception("transaction aborted"))
+    sender ! Cache.failed(transaction)
+    this.refresh()
   }
 
   override def transactionCommited(commitTime: Long): Unit = {
     val upd = this.prepareUpdate()
     lg.debug("transaction commited "+transaction+" : "+upd.toString)
-    sender ! Success[Cache.UpdateInfo](upd)
+    sender ! upd
     this.refresh()
   }
 }
+
+class EventStreamChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,bus:EventStream) extends ChangeListener(db,transaction,lg)
+{
+  override def transactionAborted(): Unit = {
+    //val f: Failure[UpdateInfo] = Failure[Cache.UpdateInfo](new Exception("transaction aborted"))
+    bus.publish(Cache.failed(transaction))
+    //sender ! Cache.failed(transaction)
+    this.refresh()
+  }
+
+  override def transactionCommited(commitTime: Long): Unit = {
+    val upd = this.prepareUpdate()
+    lg.debug("transaction commited "+transaction+" : "+upd.toString)
+    //sender ! upd
+    bus.publish(upd)
+    this.refresh()
+  }
+}
+
+
 
 //class ChangeEventObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,bus:EventBus) extends ChangeListener(db,transaction,lg)
 //{

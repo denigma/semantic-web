@@ -70,7 +70,7 @@ abstract class DatatypeLiteral(val label : String, val dataType : IRI) extends L
   }
 
   override def stringValue : String = if(dataType!=null) "\"" + label + "\"^^" + "<"+dataType.stringValue+">" else
-    "\"" + label + "\"^^"
+    "\"" + label + "\""
 
 
 }

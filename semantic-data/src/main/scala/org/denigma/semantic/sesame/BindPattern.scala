@@ -1,12 +1,9 @@
 package org.denigma.semantic.sesame
 
 import org.openrdf.model._
-import org.denigma.rdf.{RDFValue, IRI, Res, PatternElement}
+import org.denigma.rdf.PatternElement
 import org.denigma.sparql.{TripletPattern, QuadPattern, Variable}
 
-/**
- * Created by antonkulaga on 18.04.14.
- */
 object BindPattern {
 
   def canBind(p:QuadPattern,st:Statement) = (!p.hasContext || canBindValue(p.cont,st.getContext)) && canBindTriplet(p,st)

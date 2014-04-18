@@ -89,7 +89,7 @@ trait Sesame2ScalaModelImplicits{
     case uri:URI=>URI2IRI(uri)
     case b:BNode=>Resource2Res(b)
     case res:Resource=>Resource2Res(res)
-    case l:Literal=>literal2LitStr(l)
+    case l:Literal=>literal2Lit(l)
   }
 
 
@@ -103,8 +103,8 @@ trait Sesame2ScalaModelImplicits{
       l.getDatatype == xe.DAYTIMEDURATION ||
       l.getDatatype == xe.GYEARMONTH
 
-  implicit def literal2LitStr(l:Literal):Lit = l.getDatatype match {
-    case null=>null
+  implicit def literal2Lit(l:Literal):Lit = l.getDatatype match {
+    case null=>if(l==null) null else AnyLit(l.getLabel)
     case xe.BOOLEAN => BooleanLiteral(l.booleanValue())
     case xe.DECIMAL => DecimalLiteral(l.decimalValue())
     case xe.DOUBLE => DoubleLiteral(l.doubleValue())
@@ -116,7 +116,12 @@ trait Sesame2ScalaModelImplicits{
 
 
 
-  implicit def Statement2Quad(st:Statement) = new Quad(Resource2Res(st.getSubject),URI2IRI(st.getPredicate),Value2RDFValue(st.getObject),Resource2Res(st.getContext))
+  implicit def Statement2Quad(st:Statement) =
+    new Quad(
+      Resource2Res(st.getSubject),
+      URI2IRI(st.getPredicate),
+      Value2RDFValue(st.getObject),
+      Resource2Res(st.getContext))
 
 
   implicit def URI2PatEl(uri:URI):IRIPatEl = IRI(uri.stringValue)
@@ -128,7 +133,7 @@ trait Sesame2ScalaModelImplicits{
 
   implicit def Value2PatEl(value:Value):ValuePatEl = value match {
     case null=>null
-    case lit:Literal=>literal2LitStr(lit)
+    case lit:Literal=>literal2Lit(lit)
     case b:BNode=>this.BNode2PatEl(b)
     case iri:URI => URI2IRI(iri)
     case _ =>null

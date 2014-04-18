@@ -44,6 +44,9 @@ object Accounts extends PatternCache with WithLogger with UpdateController
    * @param upd
    */
   def insertFacts(upd:UpdateInfo) = {
+
+    //lg.error(upd.inserted.toString())
+
     val inserted: MultiMap[Pat, Quad] = this.groupByPattern(upd.inserted)
     inserted.get(hasEmail).foreach{
       ms=>
@@ -152,6 +155,13 @@ object Accounts extends PatternCache with WithLogger with UpdateController
     true
   }
 
+  /**
+   * Registers a user in the database
+   * @param username username
+   * @param email user email
+   * @param password user password
+   * @return Future[Try[Boolean]]
+   */
   def register(username:String,email:String,password:String): Future[Try[Boolean]] =  this.canRegister(username,email,password) match
   {
     case f@ Failure(tw)=>Future.successful(f)

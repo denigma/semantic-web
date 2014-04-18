@@ -7,7 +7,7 @@ import org.denigma.semantic.actors.writers.DatabaseWriter
 import org.denigma.semantic.actors.readers.DatabaseReader
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.writing.CanWrite
-import org.denigma.semantic.actors.cache.{CacheWatcher, CacheActor}
+import org.denigma.semantic.actors.cache.{BusChangeWatcher, CacheWatcher, CacheActor}
 import org.denigma.semantic.commons.LogLike
 import com.bigdata.rdf.store.AbstractTripleStore
 import akka.event.EventStream
@@ -21,7 +21,7 @@ import akka.event.EventStream
 */
 class DatabaseActorsFactory(db:AbstractTripleStore,canRead:CanRead,canWrite:CanWrite, val sys:ActorSystem,readers:(Int,Int,Int)) {
 
-  canRead.lg.debug("ACTOR FACTORY STARTS!")
+  //canRead.lg.debug("ACTOR FACTORY STARTS!")
 
   /**
   router for reader actor, for details see http://doc.akka.io/docs/akka/snapshot/scala/routing.html#SmallestMailboxPool
@@ -38,9 +38,11 @@ class DatabaseActorsFactory(db:AbstractTripleStore,canRead:CanRead,canWrite:CanW
 
   var cache: ActorRef = sys.actorOf(Props(classOf[CacheActor]),"cache")
 
-  val cacheWatcher = new CacheWatcher(db,cache)
+  //val cacheWatcher = new CacheWatcher(db,cache)
 
-  protected val writerProps = Props(classOf[DatabaseWriter],canWrite,  cacheWatcher).withDispatcher("akka.actor.writer-dispatcher")
+  val busWatcher = new BusChangeWatcher(db,bus)
+
+  protected val writerProps = Props(classOf[DatabaseWriter],canWrite,  busWatcher).withDispatcher("akka.actor.writer-dispatcher")
   val writer = sys.actorOf(writerProps)
 
   /*
