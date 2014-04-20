@@ -8,7 +8,7 @@ import com.bigdata.striterator.ChunkedArrayIterator
 import org.denigma.rdf._
 import org.denigma.semantic.sesame
 import org.denigma.semantic.sesame._
-
+import org.denigma.rdf.model.Quad
 
 
 /*

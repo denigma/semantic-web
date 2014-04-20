@@ -2,15 +2,19 @@ package org.denigma.semantic.users
 
 import scala.collection.mutable.MultiMap
 import org.denigma.semantic.controllers.{UpdateController, WithLogger}
-import org.denigma.rdf.vocabulary._
-import scala.util.{Failure, Success, Try}
+
+import scala.util.Try
 import scala.concurrent.Future
 import org.denigma.semantic.actors.cache.PatternCache
+import org.denigma.rdf.sparql._
+import org.denigma.rdf.model._
+import scala.util.Failure
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
+import org.denigma.rdf.model.Quad
 import org.denigma.semantic.actors.cache.Cache.UpdateInfo
+import org.denigma.rdf.model.Trip
+import org.denigma.rdf.model.vocabulary._
 import org.denigma.semantic.sesame._
-import org.denigma.rdf._
-import org.denigma.sparql._
 
 /**
 * user watcher that keeps all users inmemory

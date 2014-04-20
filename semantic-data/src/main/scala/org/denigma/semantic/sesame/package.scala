@@ -5,10 +5,11 @@ import org.openrdf.model.impl._
 import org.openrdf.model.impl.{BNodeImpl, LiteralImpl, URIImpl}
 import org.openrdf.model.vocabulary.{XMLSchema=>xe}
 import org.denigma.rdf._
-import org.denigma.rdf.IRI
 import org.denigma.rdf._
 import org.openrdf.model.Literal
-import org.denigma.sparql
+import org.denigma.rdf.sparql
+import org.denigma.rdf.model._
+import org.denigma.rdf.model.IRI
 
 /**
  * Sesame extensions

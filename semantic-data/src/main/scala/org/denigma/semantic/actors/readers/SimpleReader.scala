@@ -5,7 +5,7 @@ import akka.actor.Actor
 import org.denigma.semantic.reading.queries.SimpleQueryManager
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.actors.readers.protocols.SimpleRead
-import org.denigma.sparql.SelectQuery
+import org.denigma.rdf.sparql.SelectQuery
 
 /**
  * Handles simple quries (with native results)

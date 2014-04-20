@@ -3,7 +3,7 @@ package org.denigma.semantic.reading.questions
 import scala.util.Try
 import org.openrdf.query.QueryLanguage
 import org.denigma.semantic.reading.CanRead
-import org.denigma.rdf.vocabulary.WI
+import org.denigma.rdf.model.vocabulary.WI
 
 
 trait AskReader extends CanRead

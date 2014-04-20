@@ -1,5 +1,7 @@
 package org.denigma.semantic.console
 
+import org.denigma.rdf.model.{Trip, IRI}
+
 
 /**
  * Provides cache console
@@ -7,7 +9,7 @@ package org.denigma.semantic.console
 object CacheConsole {
 
   import org.denigma.semantic.controllers.sync.SyncUpdateController
-  import org.denigma.sparql._
+  import org.denigma.rdf.sparql._
 
   import org.denigma.semantic.sesame._
   import org.denigma.rdf._
@@ -18,7 +20,7 @@ object CacheConsole {
   import akka.util.Timeout
   import org.openrdf.model.impl._
   import org.openrdf.query._
-  import org.denigma.sparql._
+  import org.denigma.rdf.sparql._
   import org.denigma.semantic.users._
 
   import com.bigdata.rdf.sparql.ast._

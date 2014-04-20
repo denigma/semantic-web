@@ -21,7 +21,7 @@ import play.api.templates.Html
 import org.scalajs.spickling.PicklerRegistry
 import models.{RegisterPicklers, MenuItem, Menu}
 import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController, QueryController}
-import org.denigma.rdf.IRI
+import org.denigma.rdf.model.IRI
 
 /*
 main application controller, responsible for index and some other core templates and requests

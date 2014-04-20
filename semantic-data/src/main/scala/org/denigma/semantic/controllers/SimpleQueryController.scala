@@ -10,7 +10,7 @@ import org.denigma.semantic.reading.QueryResultLike
 import akka.pattern.ask
 import org.openrdf.query.TupleQueryResult
 import org.denigma.semantic.actors.readers.protocols.SimpleRead
-import org.denigma.sparql.SelectQuery
+import org.denigma.rdf.sparql.SelectQuery
 
 /**
  * Simple query controller

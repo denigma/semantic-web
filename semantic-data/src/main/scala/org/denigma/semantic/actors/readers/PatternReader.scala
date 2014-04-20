@@ -9,8 +9,8 @@ import scala.util.Try
 import org.openrdf.model.Statement
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.sesame._
-import org.denigma.sparql.Pat
-import org.denigma.rdf.Quad
+import org.denigma.rdf.sparql.Pat
+import org.denigma.rdf.model.Quad
 
 trait PatternReader {
   me:NamedActor with CanRead =>

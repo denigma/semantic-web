@@ -1,9 +1,6 @@
 package org.denigma.semantic.console
 
-import com.bigdata.rdf.internal.IV
-import org.denigma.semantic.sesame._
-import org.denigma.rdf.vocabulary.WI
-import com.bigdata.rdf.internal.constraints.StrBOp
+import org.denigma.rdf.model.vocabulary.WI
 
 
 /*
@@ -16,7 +13,10 @@ object QueryConsole {
   import akka.util.Timeout
   import org.openrdf.model.impl._
   import org.openrdf.query._
+  import com.bigdata.rdf.internal.IV
+  import org.denigma.semantic.sesame._
 
+  import com.bigdata.rdf.internal.constraints.StrBOp
   import com.bigdata.rdf.sparql.ast._
   import com.bigdata.rdf.sail._
 
@@ -26,7 +26,7 @@ object QueryConsole {
   import org.denigma.semantic.controllers.sync._
   import org.denigma.semantic.commons._
   import org.denigma.semantic.reading.selections._
-  import org.denigma.sparql._
+  import org.denigma.rdf.sparql._
   import org.denigma.rdf._
   import scala.collection.JavaConversions._
 

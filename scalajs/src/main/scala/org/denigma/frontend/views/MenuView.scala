@@ -9,11 +9,11 @@ import org.denigma.views._
 import org.denigma.extensions._
 import models.Menu
 import scala.util.Success
-import org.denigma.rdf.IRI
 import scala.util.Failure
 import scalatags.HtmlTag
 import models.MenuItem
 import scalajs.concurrent.JSExecutionContext.Implicits.queue
+import org.denigma.rdf.model.IRI
 
 object MenuView extends Remote{
   val menus = Map.empty[String,Menu]

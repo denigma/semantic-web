@@ -1,6 +1,6 @@
 package models
 
-import org.denigma.rdf.IRI
+import org.denigma.rdf.model.IRI
 
 
 //object Menu {

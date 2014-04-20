@@ -1,7 +1,7 @@
 package models
 
 import org.scalajs.spickling._
-import org.denigma.rdf.IRI
+import org.denigma.rdf.model.IRI
 
 object RegisterPicklers {
   import PicklerRegistry.register

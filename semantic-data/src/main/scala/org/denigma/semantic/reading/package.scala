@@ -3,8 +3,6 @@ package org.denigma.semantic
 import com.bigdata.rdf.sail._
 import org.openrdf.repository.RepositoryResult
 import org.openrdf.model.Statement
-import org.openrdf.query.GraphQueryResult
-import scala.collection.immutable.List
 
 /*
 package object that stores useful type aliases, implicits, vals and defs for reading package

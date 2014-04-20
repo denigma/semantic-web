@@ -5,21 +5,18 @@ import org.specs2.mutable._
 import play.api.test.WithApplication
 
 import scala.util.Try
-import org.openrdf.query.{BindingSet, TupleQueryResult}
-import org.denigma.semantic.reading.selections._
+import org.openrdf.query.BindingSet
 import org.denigma.semantic.controllers.{WithLogger, SimpleQueryController, UpdateController}
 import scala.concurrent.Future
-import play.api.libs.concurrent.Akka
-import scala.collection.JavaConversions._
 import org.denigma.semantic.reading.selections._
-import org.denigma.semantic.reading._
-import org.denigma.semantic.controllers.sync.SyncSimpleController
 
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.users.Accounts
-import org.denigma.rdf._
-import org.denigma.sparql._
-import org.denigma.rdf.vocabulary._
+import org.denigma.rdf.model.vocabulary._
+import org.denigma.rdf.sparql._
+
+import org.denigma.rdf.model.{StringLiteral, Trip, IRI}
+import org.denigma.rdf.model.vocabulary.USERS
 
 
 class CacheSpec extends Specification {

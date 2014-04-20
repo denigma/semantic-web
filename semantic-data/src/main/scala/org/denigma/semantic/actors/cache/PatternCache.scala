@@ -10,8 +10,9 @@ import org.denigma.semantic.commons.Logged
 import play.api.libs.concurrent.Execution.Implicits._
 
 import akka.pattern.ask
-import org.denigma.sparql._
+import org.denigma.rdf.sparql._
 import org.denigma.rdf._
+import org.denigma.rdf.model.{Quad, Res}
 
 /**
  * Makes decision based on union of patterns that it has

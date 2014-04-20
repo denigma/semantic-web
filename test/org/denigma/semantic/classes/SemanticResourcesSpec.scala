@@ -7,7 +7,7 @@ import org.openrdf.model.vocabulary._
 import org.denigma.semantic.platform.SP
 import org.denigma.semantic.controllers.sync.SyncJsController
 import org.denigma.semantic.sesame._
-import org.denigma.rdf.IRI
+import org.denigma.rdf.model.IRI
 
 
 class SemanticResourcesSpec extends Specification {

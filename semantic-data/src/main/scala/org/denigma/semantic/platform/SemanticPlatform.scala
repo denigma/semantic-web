@@ -5,13 +5,12 @@ import org.openrdf.repository.RepositoryResult
 import scala.util.Try
 import org.denigma.semantic.actors.DatabaseActorsFactory
 import org.denigma.semantic.storage.{DBConfig, SemanticStore}
-import org.denigma.semantic.reading.queries.SimpleQueryManager
 import org.denigma.semantic.controllers.{LoggerProvider, UpdateController, JsQueryController}
 import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
 import org.denigma.semantic.users.Accounts
 import org.denigma.semantic.schema.Schema
-import org.denigma.semantic.actors.cache.CacheWatcher
-import org.denigma.rdf.vocabulary.WI
+import org.denigma.rdf.model.vocabulary.WI
+
 
 //import org.apache.log4j.Logger
 import org.apache.commons.io.FileUtils

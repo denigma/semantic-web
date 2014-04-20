@@ -2,7 +2,6 @@ package org.denigma.semantic.reading
 
 import scala.util.Try
 import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.openrdf.model.vocabulary.FOAF
 
 /*
 trait that does read operations

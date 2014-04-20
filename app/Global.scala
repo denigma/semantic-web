@@ -1,4 +1,4 @@
-import org.denigma.rdf.IRI
+import org.denigma.rdf.model.IRI
 import org.denigma.semantic.platform.AppConfig
 import play.api._
 import play.api.mvc.{RequestHeader, WithFilters}

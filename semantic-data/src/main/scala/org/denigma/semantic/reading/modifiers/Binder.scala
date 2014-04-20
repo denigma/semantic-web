@@ -5,12 +5,10 @@ import scala.util.Try
 import com.bigdata.rdf.sparql.ast._
 import com.bigdata.rdf.model._
 import org.denigma.semantic.reading.selections._
-import org.openrdf.model.{URI, Value}
-import org.openrdf.model.impl._
+import org.openrdf.model.Value
 import com.bigdata.rdf.internal._
 import org.denigma.semantic.reading.ReadConnection
 import com.bigdata.rdf.internal.impl._
-import com.bigdata.rdf.internal.constraints.{StrBOp, RegexBOp}
 import com.bigdata.bop.Constant
 
 trait ASTHelper {

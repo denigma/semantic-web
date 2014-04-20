@@ -7,7 +7,7 @@ import scala.collection.immutable.List
 import scala.collection.JavaConversions._
 import org.denigma.semantic.controllers.sync._
 import org.denigma.semantic.sesame._
-import org.denigma.rdf.IRI
+import org.denigma.rdf.model.IRI
 
 /**
 Traits for tests only
