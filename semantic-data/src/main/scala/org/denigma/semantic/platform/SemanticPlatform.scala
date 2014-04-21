@@ -9,7 +9,7 @@ import org.denigma.semantic.controllers.{LoggerProvider, UpdateController, JsQue
 import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
 import org.denigma.semantic.users.Accounts
 import org.denigma.semantic.schema.Schema
-import org.denigma.rdf.model.vocabulary.WI
+import org.scalax.semweb.rdf.vocabulary.WI
 
 
 //import org.apache.log4j.Logger

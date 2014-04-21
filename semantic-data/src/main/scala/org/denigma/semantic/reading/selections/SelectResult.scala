@@ -3,10 +3,8 @@ package org.denigma.semantic.reading.selections
 import play.api.libs.json.{JsValue, Json, JsObject}
 import scala.collection.JavaConversions._
 import scala.collection.immutable._
-import org.openrdf.query.{GraphQueryResult, TupleQueryResult, BindingSet}
+import org.openrdf.query.{TupleQueryResult, BindingSet}
 import com.bigdata.rdf.model._
-import org.denigma.semantic.reading.constructs.ConstructResult
-import org.denigma.semantic.reading.QueryResultLike
 import org.denigma.semantic.reading._
 
 

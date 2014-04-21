@@ -12,11 +12,9 @@ import org.denigma.semantic.reading.selections._
 
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.users.Accounts
-import org.denigma.rdf.model.vocabulary._
-import org.denigma.rdf.sparql._
-
-import org.denigma.rdf.model.{StringLiteral, Trip, IRI}
-import org.denigma.rdf.model.vocabulary.USERS
+import org.scalax.semweb.rdf.{StringLiteral, Trip, IRI}
+import org.scalax.semweb.rdf.vocabulary._
+import org.scalax.semweb.sparql._
 
 
 class CacheSpec extends Specification {

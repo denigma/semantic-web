@@ -2,9 +2,8 @@ package org.denigma.semantic.actors.cache
 
 import org.denigma.semantic.commons.LogLike
 import akka.actor.ActorRef
-import scala.util.{Success, Failure}
+import scala.util.Failure
 import com.bigdata.rdf.store.AbstractTripleStore
-import org.denigma.semantic.actors.cache.Cache.UpdateInfo
 import akka.event.EventStream
 
 

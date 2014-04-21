@@ -11,7 +11,8 @@ import org.denigma.semantic.actors.writers.Update
 import akka.actor.ActorRef
 import akka.pattern.ask
 import akka.pattern.ask
-import org.denigma.rdf.sparql._
+import org.scalax.semweb.sparql._
+
 
 /*
 does updates

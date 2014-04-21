@@ -1,7 +1,6 @@
 package org.denigma.semantic.actors.cache
 
-import org.denigma.rdf._
-import org.denigma.rdf.model.Quad
+import org.scalax.semweb.rdf.Quad
 
 /**
  * Cache object

@@ -7,8 +7,7 @@ import org.denigma.semantic.actors.writers.DatabaseWriter
 import org.denigma.semantic.actors.readers.DatabaseReader
 import org.denigma.semantic.reading.CanRead
 import org.denigma.semantic.writing.CanWrite
-import org.denigma.semantic.actors.cache.{BusChangeWatcher, CacheWatcher, CacheActor}
-import org.denigma.semantic.commons.LogLike
+import org.denigma.semantic.actors.cache.{BusChangeWatcher, CacheActor}
 import com.bigdata.rdf.store.AbstractTripleStore
 import akka.event.EventStream
 

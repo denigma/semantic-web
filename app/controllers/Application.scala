@@ -1,27 +1,30 @@
 package controllers
-
-import org.scalajs.spickling.PicklerRegistry
-import org.scalajs.spickling.PicklerMaterializersImpl._
-import org.scalajs.spickling.playjson._
 import models.RegisterPicklers._
 import play.api.mvc._
-import java.io.File
-import play.api.Play
-import play.api.Play.current
 import org.denigma.semantic.controllers.sync.WithSyncWriter
-import org.denigma.semantic.files.SemanticFileParser
 import org.denigma.semantic.users.Accounts
-import scala.util._
 import play.api.libs.json.{JsValue, Json, JsObject}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import scala.util.Success
-import scala.util.Failure
-import scala.concurrent.Future
 import play.api.templates.Html
+import models.{RegisterPicklers, Menu, MenuItem}
+import org.denigma.semantic.controllers.UpdateController
+
+import org.scalax.semweb.rdf.vocabulary._
+import play.api.mvc._
 import org.scalajs.spickling.PicklerRegistry
-import models.{RegisterPicklers, MenuItem, Menu}
-import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController, QueryController}
-import org.denigma.rdf.model.IRI
+import org.scalax.semweb.rdf.IRI
+import org.scalax.semweb.rdf.vocabulary.WI
+import org.scalax.semweb.sparql._
+import org.scalax.semweb.sparql.Pat
+import org.denigma.semantic.controllers.SimpleQueryController
+import org.denigma.semantic.reading.selections._
+import org.openrdf.model.{Literal, URI}
+import scala.concurrent.Future
+import org.denigma.semantic.sesame
+import scala.util._
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import org.scalajs.spickling.PicklerRegistry._
+import org.scalajs.spickling.playjson._
+
 
 /*
 main application controller, responsible for index and some other core templates and requests
@@ -106,22 +109,42 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
   }
 
 
-  def menu(root:String) =  UserAction {
+  def menu(domainName:String = "") =  UserAction.async{
     implicit request=>
-      val testMenu: Menu = Menu(IRI("http://longevity.org.ua/menu"),"Longevity.org.ua", List(
-        MenuItem(IRI("http://longevity.org.ua/pages/manifesto"),"Долголетие Украины"),
-        MenuItem(IRI("http://longevity.org.ua/pages/research"),"Исследования"),
-        MenuItem(IRI("http://longevity.org.ua/pages/events"),"Активизм"),
-        MenuItem(IRI("http://longevity.org.ua/pages/members"),"Участники"),
-        MenuItem(IRI("http://longevity.org.ua/pages/projects"),"Проекты"),
-        MenuItem(IRI("http://longevity.org.ua/pages/projects"),"Участвовать"),
-        MenuItem(IRI("http://longevity.org.ua/pages/projects"),"Контакты")
-      ))
+      val domain = if(domainName=="") request.domain else domainName
+      val dom =  IRI(s"http://$domain")
+      val hasMenu = WI.PLATFORM / "has_menu" iri
+      val hasItem = WI.PLATFORM / "has_item" iri
+      val hasTitle = WI.PLATFORM / "has_title" iri
 
-      RegisterPicklers.registerPicklers()
+      val m = ?("menu")
+      val item = ?("item")
+      val tlt= ?("title")
 
-      val pickle: JsValue = PicklerRegistry.pickle(testMenu)
-      Ok(pickle).as("application/json")
+      val selMenu = SELECT (item,tlt) WHERE {
+        Pat( dom, hasMenu, m )
+        Pat( m, hasItem, item)
+        Pat( item, hasTitle, tlt)
+      }
+
+      val menuResult= this.select(selMenu).map(v=>v.map{case r=>
+        Menu(dom / "menu",domain,r.toListMap.map{case list=>
+          for{
+            name<-list.get(item.name).collect{ case n:URI=>sesame.URI2IRI(n)}
+            title<-list.get(tlt.name).collect{ case l:Literal=>sesame.literal2Lit(l)}
+
+          } yield MenuItem(name,title.label)
+        }.flatten)
+      })
+
+      menuResult.map[SimpleResult]{
+        case Success(res:Menu) =>
+          RegisterPicklers.registerPicklers()
+          val pickle: JsValue = PicklerRegistry.pickle(res)
+          Ok(pickle).as("application/json")
+        case Failure(th)=>BadRequest(th.toString)
+      }
+
   }
 
   def page(uri:String) =  UserAction {

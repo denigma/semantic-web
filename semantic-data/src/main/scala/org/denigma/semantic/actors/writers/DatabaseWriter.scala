@@ -5,9 +5,9 @@ import org.denigma.semantic.actors.NamedActor
 import org.denigma.semantic.writing._
 import org.denigma.semantic.commons.{ChangeWatcher, LogLike}
 import java.io.File
-import org.denigma.rdf.sparql._
 import scala.util.Try
 import org.denigma.semantic.actors.AkkaLog
+import org.scalax.semweb.sparql._
 
 
 /**

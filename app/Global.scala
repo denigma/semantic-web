@@ -1,5 +1,5 @@
-import org.denigma.rdf.model.IRI
 import org.denigma.semantic.platform.AppConfig
+import org.scalax.semweb.rdf.IRI
 import play.api._
 import play.api.mvc.{RequestHeader, WithFilters}
 import play.filters.gzip.GzipFilter

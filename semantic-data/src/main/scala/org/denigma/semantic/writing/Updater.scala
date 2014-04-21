@@ -5,7 +5,7 @@ import org.openrdf.query.QueryLanguage
 import scala.util.Try
 import org.denigma.semantic.files.SemanticFileParser
 import com.bigdata.rdf.changesets.IChangeLog
-import org.denigma.rdf.model.vocabulary.WI
+import org.scalax.semweb.rdf.vocabulary.WI
 
 
 /**

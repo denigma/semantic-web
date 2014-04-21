@@ -13,9 +13,9 @@ import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 
 import org.denigma.semantic.sesame._
-import org.denigma.rdf._
-import org.denigma.rdf.sparql._
-import org.denigma.rdf.model.{Trip, IRI}
+
+import org.scalax.semweb.rdf.{Trip, IRI}
+import org.scalax.semweb.sparql._
 
 class SparqlSpec extends Specification with LoveHater {
 

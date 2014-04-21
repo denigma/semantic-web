@@ -30,6 +30,7 @@ GET         /pages/*page              controllers.Application.page(page)
 
 GET         /webjars/*file            controllers.WebJarAssets.at(file)
 
+GET         /test/menu                controllers.Tests.menu
 GET         /test/message             controllers.Tests.message
 GET         /test/sigma               controllers.Tests.sigma
 GET         /test/mail                controllers.Tests.mailMe

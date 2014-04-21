@@ -1,6 +1,6 @@
 package models
 
-import org.denigma.rdf.model.IRI
+import org.scalax.semweb.rdf.IRI
 
 
 //object Menu {
@@ -10,13 +10,13 @@ import org.denigma.rdf.model.IRI
 //
 //}
 
-case class TestMenu(uri:IRI,label:String) //extends MenuItemLike
+case class TestMenu(uri:IRI,title:String) //extends MenuItemLike
 
-case class Menu(uri:IRI,label:String, children: List[MenuItem]) extends MenuItemLike
+case class Menu(uri:IRI,title:String, children: List[MenuItem]) extends MenuItemLike
 
-case class MenuItem(uri:IRI,label:String) extends MenuItemLike
+case class MenuItem(uri:IRI,title:String) extends MenuItemLike
 
 trait MenuItemLike{
   val uri:IRI
-  val label:String
+  val title:String
 }

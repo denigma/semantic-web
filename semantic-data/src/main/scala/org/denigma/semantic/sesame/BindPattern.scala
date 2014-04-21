@@ -1,8 +1,8 @@
 package org.denigma.semantic.sesame
 
 import org.openrdf.model._
-import org.denigma.rdf.sparql.{TripletPattern, QuadPattern, Variable}
-import org.denigma.rdf.model.PatternElement
+import org.scalax.semweb.rdf.PatternElement
+import org.scalax.semweb.sparql._
 
 object BindPattern {
 

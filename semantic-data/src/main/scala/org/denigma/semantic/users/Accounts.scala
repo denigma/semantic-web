@@ -6,16 +6,15 @@ import org.denigma.semantic.controllers.{UpdateController, WithLogger}
 import scala.util.Try
 import scala.concurrent.Future
 import org.denigma.semantic.actors.cache.PatternCache
-import org.denigma.rdf.sparql._
-import org.denigma.rdf.model._
+import org.scalax.semweb.rdf._
+import org.scalax.semweb.rdf.IRI
 import scala.util.Failure
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
-import org.denigma.rdf.model.Quad
+import org.scalax.semweb.rdf.Quad
 import org.denigma.semantic.actors.cache.Cache.UpdateInfo
-import org.denigma.rdf.model.Trip
-import org.denigma.rdf.model.vocabulary._
-import org.denigma.semantic.sesame._
-
+import org.scalax.semweb.rdf.Trip
+import org.scalax.semweb.sparql._
+import org.scalax.semweb.rdf.vocabulary._
 /**
 * user watcher that keeps all users inmemory
 */

@@ -1,12 +1,13 @@
 package org.denigma.semantic.console
 
+import org.scalax.semweb.sparql._
+
 
 /*
 just a code to copy-paste to play console
 */
 object SparqlConsole {
   import org.denigma.semantic.sesame._
-  import org.denigma.rdf.sparql.{Pat, Br, SELECT}
 
   import org.openrdf.model._
   import org.openrdf.model.impl._
@@ -16,7 +17,6 @@ object SparqlConsole {
   import scala.concurrent.Future
   import scala.util.Try
   import play.api.libs.concurrent.Akka
-  import org.denigma.rdf.sparql._
 
   import scala.collection.JavaConversions._
   import scala.concurrent.duration._
@@ -27,7 +27,7 @@ object SparqlConsole {
 
   import com.bigdata.rdf.sparql.ast._
   import com.bigdata.rdf.sail._
-  import org.denigma.rdf.model.IRI
+  import org.scalax.semweb.rdf.IRI
 
   //
   import org.denigma.semantic.test.LoveHater

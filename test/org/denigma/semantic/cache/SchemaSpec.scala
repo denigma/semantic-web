@@ -6,7 +6,7 @@ import org.denigma.semantic.classes.{SemanticProperty, SemanticClass}
 import org.openrdf.model.vocabulary.RDFS
 import org.specs2.mutable.Specification
 import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController}
-import org.denigma.rdf.model.IRI
+import org.scalax.semweb.rdf.IRI
 
 /**
  * Specification to test inmemory graph cache

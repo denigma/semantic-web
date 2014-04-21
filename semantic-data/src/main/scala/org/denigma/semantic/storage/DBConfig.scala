@@ -3,9 +3,6 @@ package org.denigma.semantic.storage
 import play.api.Configuration
 import java.util.Properties
 
-/**
- * Created by antonkulaga on 2/24/14.
- */
 /*
 configuration of the database
  */

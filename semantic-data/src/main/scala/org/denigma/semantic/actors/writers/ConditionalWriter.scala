@@ -3,7 +3,8 @@ package org.denigma.semantic.actors.writers
 import org.denigma.semantic.actors.NamedActor
 import scala.util.Try
 import akka.actor.Actor
-import org.denigma.rdf.sparql._
+import org.scalax.semweb.sparql._
+
 
 /**
  * Conditional updater

@@ -1,17 +1,34 @@
 package controllers
 
+import org.scalax.semweb.rdf.vocabulary._
 import play.api.mvc._
-import play.api.libs.json.Json
 import org.scalajs.spickling.PicklerRegistry
 import org.scalajs.spickling.playjson._
 import models._
+import org.scalax.semweb.rdf.{Lit, IRI}
+import org.scalax.semweb.rdf.vocabulary.WI
+import org.scalax.semweb.sparql._
+import models.Menu
+import models.Menu
+import models.User
+import models.Message
+import org.scalax.semweb.sparql.Pat
+import models.MenuItem
+import org.denigma.semantic.controllers.SimpleQueryController
+import org.denigma.semantic.reading.selections._
+import org.openrdf.model.{Literal, URI}
+import scala.concurrent.Future
+import org.denigma.semantic.sesame
+import scala.util._
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import scala.collection.immutable._
 
 
 /*
 test controller
 not working yet
  */
-object Tests  extends Controller{
+object Tests  extends Controller with SimpleQueryController{
 
 
   def sigma = Action {
@@ -24,6 +41,41 @@ object Tests  extends Controller{
     val m = Message(User("Some User"),"message")
     val pickle = PicklerRegistry.pickle(m)
     Ok(pickle).as("application/json")
+  }
+
+
+  def menu =  UserAction.async{
+    implicit request=>
+      val dom = IRI(s"http://${request.domain}")
+      val hasMenu = WI.PLATFORM / "has_menu" iri
+      val hasItem = WI.PLATFORM / "has_item" iri
+      val hasTitle = WI.PLATFORM / "has_title" iri
+
+      val m = ?("menu")
+      val item = ?("item")
+      val tlt= ?("title")
+
+      val selMenu = SELECT (item,tlt) WHERE {
+        Pat( dom, hasMenu, m )
+        Pat( m, hasItem, item)
+        Pat( item, hasTitle, tlt)
+      }
+
+      val menuResult= this.select(selMenu).map(v=>v.map{case r=>
+        Menu(dom / "menu",request.domain,r.toListMap.map{case list=>
+         for{
+            name<-list.get(item.name).collect{ case n:URI=>sesame.URI2IRI(n)}
+            title<-list.get(tlt.name).collect{ case l:Literal=>sesame.literal2Lit(l)}
+
+          } yield MenuItem(name,title.label)
+        }.flatten)
+      })
+
+    menuResult.map[SimpleResult]{
+      case Success(menu) => Ok(menu.children.toString())
+      case Failure(th)=>BadRequest(th.toString)
+    }
+
   }
 
   def mailMe = Action {
@@ -53,17 +105,6 @@ object Tests  extends Controller{
 //  }
 
 
-
-
-  def menu(root:String) =  UserAction {
-    implicit request=>
-      import Json._
-      val mns = (1 to 5).map{case i=>
-        Json.obj("uri"->s"http://webintelligence.eu/pages/menu$i", "label"->s"menu $i","page"->s"http://webintelligence.eu/pages/$i")
-      }.toList
-      val menu = Json.obj("menus"->Json.toJson(mns))
-      Ok(menu).as("application/json")
-  }
 
 
 }

@@ -18,10 +18,9 @@ import scala.util.Failure
 import scala.Some
 import org.denigma.semantic.users.Account
 import scala.util.Success
-import org.denigma.rdf.sparql.Pat
 
-import org.denigma.rdf.model.{AnyLit, IRI}
-import org.denigma.rdf.model.vocabulary._
+import org.scalax.semweb.rdf.IRI
+import org.scalax.semweb.rdf.vocabulary._
 
 class UsersSpec extends Specification {
 

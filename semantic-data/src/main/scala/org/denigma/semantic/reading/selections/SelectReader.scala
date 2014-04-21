@@ -4,7 +4,7 @@ import com.bigdata.rdf.sail.{BigdataSailTupleQuery, BigdataSailRepositoryConnect
 import org.openrdf.query.QueryLanguage
 import scala.util.Try
 import org.denigma.semantic.reading.CanRead
-import org.denigma.rdf.model.vocabulary.WI
+import org.scalax.semweb.rdf.vocabulary.WI
 
 
 /*

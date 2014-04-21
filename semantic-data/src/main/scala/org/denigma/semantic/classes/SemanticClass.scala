@@ -1,8 +1,6 @@
 package org.denigma.semantic.classes
 
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.openrdf.model.{Value, URI, Resource, Statement}
-import org.openrdf.model.vocabulary._
+import org.openrdf.model.{Value, URI, Resource}
 
 
 /*

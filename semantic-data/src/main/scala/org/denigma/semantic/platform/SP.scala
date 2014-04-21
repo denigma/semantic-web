@@ -1,8 +1,7 @@
 package org.denigma.semantic.platform
 
-import play.api.{PlayException, Configuration}
+import play.api.Configuration
 import org.denigma.semantic.storage.DBConfig
-import org.denigma.semantic.SemanticPlugin
 
 /*
 Semantic Platform (SP) - Object that contains db, actors and so on

@@ -1,7 +1,7 @@
 package org.denigma.semantic.actors
 
-import org.denigma.rdf.sparql.Pat
-import org.denigma.rdf.model.Quad
+import org.scalax.semweb.rdf.Quad
+import org.scalax.semweb.sparql.Pat
 
 /**
  * Protocol for watchers

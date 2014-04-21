@@ -13,7 +13,7 @@ import scala.util.Failure
 import scalatags.HtmlTag
 import models.MenuItem
 import scalajs.concurrent.JSExecutionContext.Implicits.queue
-import org.denigma.rdf.model.IRI
+import org.scalax.semweb.rdf.IRI
 
 object MenuView extends Remote{
   val menus = Map.empty[String,Menu]
@@ -51,7 +51,7 @@ class MenuView(el:HTMLElement, params:Map[String,Any] = Map.empty) extends ListV
   }
 
   val items: Rx[List[Map[String, Any]]] = Rx {
-    menu().children.map(ch=>Map[String,Any]("label"->ch.label,"uri"->ch.uri.stringValue))
+    menu().children.map(ch=>Map[String,Any]("label"->ch.title,"uri"->ch.uri.stringValue))
   }
 
 

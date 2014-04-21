@@ -4,7 +4,7 @@ import scala.util.Try
 import com.bigdata.rdf.sail.BigdataSailGraphQuery
 import org.openrdf.query.QueryLanguage
 import org.denigma.semantic.reading.CanRead
-import org.denigma.rdf.model.vocabulary.WI
+import org.scalax.semweb.rdf.vocabulary.WI
 
 
 /*

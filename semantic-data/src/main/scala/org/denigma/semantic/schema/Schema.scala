@@ -6,7 +6,7 @@ import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.actors.cache.PatternCache
 import org.denigma.semantic.actors.cache.Cache.UpdateInfo
 import org.denigma.semantic.sesame._
-import org.denigma.rdf.sparql._
+import org.scalax.semweb.sparql._
 
 
 /**

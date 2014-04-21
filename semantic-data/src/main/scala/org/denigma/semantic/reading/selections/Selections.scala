@@ -3,7 +3,7 @@ package org.denigma.semantic.reading.selections
 import scala.util.Try
 import org.denigma.semantic.reading.QueryResultLike
 import org.openrdf.query.TupleQueryResult
-import org.denigma.rdf.model.vocabulary.WI
+import org.scalax.semweb.rdf.vocabulary.WI
 
 
 /*

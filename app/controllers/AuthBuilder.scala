@@ -4,8 +4,8 @@ import play.api.mvc._
 import scala.concurrent.Future
 import org.denigma.semantic.platform.AppConfig
 
-import org.denigma.rdf.model.IRI
-import org.denigma.rdf.model.vocabulary.USERS
+import org.scalax.semweb.rdf.IRI
+import org.scalax.semweb.rdf.vocabulary.USERS
 
 
 trait UserRequestHeader extends RequestHeader{
