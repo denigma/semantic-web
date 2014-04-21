@@ -1,3 +1,4 @@
+import bintray.Plugin._
 import sbt._
 import sbt.Keys._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
@@ -26,7 +27,7 @@ trait ScalaJS extends Binding {
 
 
 
-  lazy val modelsSettings =     scalaJSSettings ++ Seq(
+  lazy val modelsSettings =     scalaJSSettings ++ bintraySettings ++Seq(
     name := "models",
     scalaVersion:=Dependencies.scalaVer,
     scalacOptions ++= Seq( "-feature", "-language:_" ),
@@ -35,28 +36,27 @@ trait ScalaJS extends Binding {
     ScalaJSKeys.relativeSourceMaps := true,
     //sharedScalaModels,
     libraryDependencies ++= Dependencies.jsDeps,
-    resolvers +=  Dependencies.scalajsResolver
+    resolvers +=  Dependencies.scalajsResolver,
+    resolvers += Dependencies.scalaxResolver
   )
 
 
   lazy val models = Project(
     id   = "models",
     base = file("models")
-  ) settings ( modelsSettings : _*) dependsOn scalaSemantic
-
-
+  ) settings ( modelsSettings : _*) //dependsOn scalaSemantic
 
 }
 
 
-trait Binding extends ScalaSemantic{
+trait Binding {
 
   ScalaJSKeys.relativeSourceMaps := true
 
   //val bindingOutputDir = Def.settingKey[File]("directory for javascript files output by scalajs")
 
   lazy val bindingSettings =
-    scalaJSSettings ++ Seq(
+    scalaJSSettings ++ bintraySettings ++ Seq(
       name := "scala-js-binding",
       scalaVersion:=Dependencies.scalaVer,
       scalacOptions ++= Seq( "-feature", "-language:_" ),
@@ -64,12 +64,13 @@ trait Binding extends ScalaSemantic{
       ScalaJSKeys.relativeSourceMaps := true,
       libraryDependencies ++= Dependencies.jsDeps,
       libraryDependencies ++= Dependencies.diDeps,
-      resolvers +=  Dependencies.scalajsResolver
+      resolvers +=  Dependencies.scalajsResolver,
+      resolvers += Dependencies.scalaxResolver
     )
   lazy val binding = Project(
     id   = "binding",
     base = file("binding")
-  ) settings (bindingSettings: _*) dependsOn this.jsmacro dependsOn scalaSemantic
+  ) settings (bindingSettings: _*) dependsOn this.jsmacro //dependsOn scalaSemantic
 
 
   lazy val jsmacro = Project(
@@ -84,27 +85,7 @@ trait Binding extends ScalaSemantic{
       scalacOptions ++= Seq( "-feature", "-language:_" ),
       ScalaJSKeys.relativeSourceMaps := true,
       version := "0.0.1",
+      resolvers += bintray.Opts.resolver.repo("scalax", "scalax-releases"),
       libraryDependencies ++= Dependencies.jsDeps
     )
-}
-
-trait ScalaSemantic {
-
-  lazy val scalaSemanticSettings = scalaJSSettings ++ Seq(
-    name := "scala-semantic",
-    organization := "org.denigma",
-    scalaVersion:=Dependencies.scalaVer,
-    scalacOptions ++= Seq( "-feature", "-language:_" ),
-    resolvers +=  Dependencies.scalajsResolver,
-    version := "0.0.1"
-  )
-
-
-  /**
-   * Project that deals with semanticweb stuff
-   */
-  lazy val scalaSemantic = Project(
-    id   = "scala-semantic",
-    base = file("scala-semantic")
-  ) settings (this.scalaSemanticSettings: _*)
 }

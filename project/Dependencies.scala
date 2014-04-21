@@ -1,7 +1,11 @@
 import sbt._
 import sbt.Keys._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
-object Dependencies {
+
+object Dependencies{
+
+
+  val semWebVersion =  "0.1"
 
   val authDepth = Seq(
 
@@ -30,7 +34,9 @@ object Dependencies {
 
     "com.scalatags" % "scalatags_2.10" % "0.2.4-JS",
 
-    "com.scalarx" % "scalarx_2.10" % "0.2.3-JS"
+    "com.scalarx" % "scalarx_2.10" % "0.2.3-JS",
+
+    "org.scalax" % "semweb_2.10" % (semWebVersion + "-JS")
   )
 
   val diDeps = Seq{
@@ -87,7 +93,9 @@ object Dependencies {
   val rdfDeps = Seq(
     "com.bigdata" % "bigdata" % "1.3.0",
 
-    "org.openrdf.sesame" % "sesame-model" % "2.7.10"
+    "org.openrdf.sesame" % "sesame-model" % "2.7.10",
+
+    "org.scalax" % "semweb-sesame_2.10" % "0.1"
 
   )
 
@@ -109,8 +117,7 @@ object Dependencies {
 
   val scalaVer = "2.10.4"
 
-  val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",
-    url("http://dl.bintray.com/content/scala-js/scala-js-releases"))(
-      Resolver.ivyStylePatterns)
+  val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",  url("http://dl.bintray.com/content/scala-js/scala-js-releases"))( Resolver.ivyStylePatterns)
+  val scalaxResolver = bintray.Opts.resolver.repo("scalax", "scalax-releases")
 
 }

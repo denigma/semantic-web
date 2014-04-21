@@ -1,7 +1,8 @@
 import sbt._
 import sbt.Keys._
+import bintray.Plugin.bintraySettings
 
-trait SemanticData extends ScalaSemantic with Publish {
+trait SemanticData extends Publish {
 
   //lazy val banana =  RootProject(uri("git://github.com/antonkulaga/banana-rdf.git#master"))
 
@@ -16,7 +17,7 @@ trait SemanticData extends ScalaSemantic with Publish {
 
 
 
-  lazy val semanticData = play.Project(semanticDataAppName, semanticDataAppVersion, semanticDataAppDependencies, path = file(this.semanticDataAppPath)).settings(
+  lazy val semanticData = play.Project(semanticDataAppName, semanticDataAppVersion, semanticDataAppDependencies, path = file(this.semanticDataAppPath)).settings(bintraySettings:_*).settings(
     // Add your own project settings here
 
     scalaVersion := Dependencies.scalaVer,
@@ -25,10 +26,11 @@ trait SemanticData extends ScalaSemantic with Publish {
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
     resolvers += "apache-repo-releases" at "http://repository.apache.org/content/repositories/releases/",
     resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
+    resolvers += bintray.Opts.resolver.repo("scalax", "scalax-releases"),
     //compiler options
     scalacOptions ++= Seq( "-feature", "-language:_" ),
 
-    unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala-semantic" / "src" / "main" / "scala",
+    //unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala-semantic" / "src" / "main" / "scala",
 
     sourceDirectory in Compile <<= baseDirectory / (src+"/main/scala"),
     sourceDirectory in Test <<= baseDirectory / (src+"/test/scala"),
