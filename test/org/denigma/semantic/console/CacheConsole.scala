@@ -11,7 +11,8 @@ object CacheConsole {
 
   import org.denigma.semantic.controllers.sync.SyncUpdateController
 
-  import org.denigma.semantic.sesame._
+  import org.scalax.semweb.sesame._
+
 
   import scala.collection.JavaConversions._
   import scala.concurrent.duration._

@@ -14,7 +14,8 @@ object QueryConsole {
   import org.openrdf.model.impl._
   import org.openrdf.query._
   import com.bigdata.rdf.internal.IV
-  import org.denigma.semantic.sesame._
+  import org.scalax.semweb.sesame._
+
 
   import com.bigdata.rdf.internal.constraints.StrBOp
   import com.bigdata.rdf.sparql.ast._

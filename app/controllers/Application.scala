@@ -19,11 +19,13 @@ import org.denigma.semantic.controllers.SimpleQueryController
 import org.denigma.semantic.reading.selections._
 import org.openrdf.model.{Literal, URI}
 import scala.concurrent.Future
-import org.denigma.semantic.sesame
 import scala.util._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import org.scalajs.spickling.PicklerRegistry._
 import org.scalajs.spickling.playjson._
+import org.scalax.semweb.sesame
+
+import org.scalax.semweb.sesame._
 
 
 /*
@@ -109,6 +111,11 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
   }
 
 
+  /**
+   * Renders menu for the website
+   * @param domainName
+   * @return
+   */
   def menu(domainName:String = "") =  UserAction.async{
     implicit request=>
       val domain = if(domainName=="") request.domain else domainName

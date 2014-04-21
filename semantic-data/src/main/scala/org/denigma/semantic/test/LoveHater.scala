@@ -6,7 +6,7 @@ import org.openrdf.repository.RepositoryResult
 import scala.collection.immutable.List
 import scala.collection.JavaConversions._
 import org.denigma.semantic.controllers.sync._
-import org.denigma.semantic.sesame._
+import org.scalax.semweb.sesame._
 import org.scalax.semweb.rdf.IRI
 
 /**

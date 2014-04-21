@@ -1,4 +1,4 @@
-package org.denigma.semantic.sesame
+package org.scalax.semweb.sesame
 
 import org.openrdf.model._
 import org.scalax.semweb.rdf.PatternElement

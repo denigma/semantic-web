@@ -1,6 +1,7 @@
 package org.denigma.semantic.platform
 
 import java.io._
+import org.scalax.semweb.rdf.vocabulary._
 import org.openrdf.repository.RepositoryResult
 import scala.util.Try
 import org.denigma.semantic.actors.DatabaseActorsFactory
@@ -10,6 +11,7 @@ import org.denigma.semantic.controllers.sync.{SyncWriter, SyncReader}
 import org.denigma.semantic.users.Accounts
 import org.denigma.semantic.schema.Schema
 import org.scalax.semweb.rdf.vocabulary.WI
+import org.scalax.semweb.rdf.Quad
 
 
 //import org.apache.log4j.Logger
@@ -19,6 +21,7 @@ import org.openrdf.model._
 import scala.collection.immutable._
 import scala.collection.JavaConversions._
 import play.api.libs.concurrent.Akka
+import org.scalax.semweb.sesame._
 
 /*
 class that is responsible for the main logic
@@ -40,7 +43,7 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
    */
   var conf:Configuration
 
-  var platformParams: List[Statement] = List.empty[Statement]
+  var platformParams: List[Quad] = List.empty[Quad]
 
   var databaseActorsFactory:DatabaseActorsFactory = null
 
@@ -105,20 +108,20 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
   }
 
 
-
-  /*
-  loads configs of the platform
+  /**
+   * Loads platform settings
+   * @return
    */
-  def loadPlatform(): List[Statement] = {
+  def loadPlatform() = {
     this.platformParams = db.read{
     implicit r=>
       val f = r.getValueFactory
-      val pl = f.createURI(platformConfig.CONFIG_CONTEXT+"Current_Platform")
+      //val pl = f.createURI(platformConfig.CONFIG_CONTEXT+"Current_Platform")
       val cont = f.createURI(platformConfig.CONFIG_CONTEXT)
-      val iter: RepositoryResult[Statement] = r.getStatements(pl,null,null,true,cont)
-
-      iter.asList().toList
-  }.getOrElse(List.empty[Statement])
+      val pl = WI.PLATFORM / "Current_Platform" iri
+      val iter: RepositoryResult[Statement] = r.getStatements( pl, null,null,true,cont)
+      iter.toQuadList
+  }.getOrElse(List.empty[Quad])
     this.platformParams
   }
 

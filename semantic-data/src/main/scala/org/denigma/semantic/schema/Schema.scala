@@ -5,7 +5,7 @@ import org.openrdf.model.vocabulary.{OWL, RDF, RDFS}
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.actors.cache.PatternCache
 import org.denigma.semantic.actors.cache.Cache.UpdateInfo
-import org.denigma.semantic.sesame._
+import org.scalax.semweb.sesame._
 import org.scalax.semweb.sparql._
 
 

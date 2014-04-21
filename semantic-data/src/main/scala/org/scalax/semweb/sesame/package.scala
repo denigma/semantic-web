@@ -1,4 +1,4 @@
-package org.denigma.semantic
+package org.scalax.semweb
 
 import org.openrdf.model._
 import org.openrdf.model.impl._
@@ -8,29 +8,51 @@ import org.openrdf.model.Literal
 
 import org.scalax.semweb.rdf._
 import org.scalax.semweb.rdf.IRI
+import org.openrdf.query.{BindingSet, TupleQueryResult}
+import scala.collection.immutable._
+import scala.collection.JavaConversions._
+import org.openrdf.repository.RepositoryResult
+
 
 /**
  * Sesame extensions
  */
-package object sesame extends Scala2SesameModelImplicits with Sesame2ScalaModelImplicits {
+package object sesame extends ResultsImplicits {
+
+}
+
+trait ResultsImplicits extends Scala2SesameModelImplicits with Sesame2ScalaModelImplicits {
+  /**
+   * Implicit class that turns  query result into iterator (so methods toList, map and so on can be applied to it)
+   * @param results results in sesame format
+   */
+  implicit class TupleResult(results: TupleQueryResult)  extends Iterator[BindingSet]
+  {
+
+    lazy val vars: List[String] = results.getBindingNames.toList
+
+    def binding2Map(b:BindingSet): Map[String, Value] = b.iterator().map(v=>v.getName->v.getValue).toMap
+
+    lazy val toListMap: List[Map[String, Value]] = this.map(v=>binding2Map(v)).toList
+
+
+    override def next(): BindingSet = results.next()
+
+    override def hasNext: Boolean = results.hasNext
+  }
 
   /*
-  object Quad {
-  def apply(statement:Statement): Quad = statement match {
-    case q:Quad=> q
-    case st =>
-      val cont = st.getContext
-      Quad(st.getSubject,st.getPredicate,st.getObject , if(cont!=null) cont else null)
-  }
-}
-object Trip {
-  def apply(statement:Statement): Trip = statement match {
-    case q:Trip=> q
-    case st =>Trip(st.getSubject,st.getPredicate,st.getObject)
-  }
-}
+implicit class for Repository results that adds some nice features there and turnes it into Scala Iterator
+*/
+  implicit class StatementsResult(results:RepositoryResult[Statement]) extends Iterator[Statement]{
 
-   */
+    override def next(): Statement = results.next()
+
+    override def hasNext: Boolean = results.hasNext
+
+    def toQuadList = results.map(Statement2Quad).toList
+  }
+
 
 
 }

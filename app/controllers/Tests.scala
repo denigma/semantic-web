@@ -18,7 +18,7 @@ import org.denigma.semantic.controllers.SimpleQueryController
 import org.denigma.semantic.reading.selections._
 import org.openrdf.model.{Literal, URI}
 import scala.concurrent.Future
-import org.denigma.semantic.sesame
+import org.scalax.semweb.sesame._
 import scala.util._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.collection.immutable._
@@ -64,8 +64,8 @@ object Tests  extends Controller with SimpleQueryController{
       val menuResult= this.select(selMenu).map(v=>v.map{case r=>
         Menu(dom / "menu",request.domain,r.toListMap.map{case list=>
          for{
-            name<-list.get(item.name).collect{ case n:URI=>sesame.URI2IRI(n)}
-            title<-list.get(tlt.name).collect{ case l:Literal=>sesame.literal2Lit(l)}
+            name<-list.get(item.name).collect{ case n:URI=>URI2IRI(n)}
+            title<-list.get(tlt.name).collect{ case l:Literal=>literal2Lit(l)}
 
           } yield MenuItem(name,title.label)
         }.flatten)

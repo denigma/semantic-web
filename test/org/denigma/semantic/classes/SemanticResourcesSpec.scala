@@ -6,7 +6,8 @@ import play.api.test.WithApplication
 import org.openrdf.model.vocabulary._
 import org.denigma.semantic.platform.SP
 import org.denigma.semantic.controllers.sync.SyncJsController
-import org.denigma.semantic.sesame._
+import org.scalax.semweb.sesame._
+
 import org.scalax.semweb.rdf.IRI
 
 

@@ -7,7 +7,8 @@ import org.scalax.semweb.sparql._
 just a code to copy-paste to play console
 */
 object SparqlConsole {
-  import org.denigma.semantic.sesame._
+  import org.scalax.semweb.sesame._
+
 
   import org.openrdf.model._
   import org.openrdf.model.impl._

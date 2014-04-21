@@ -12,7 +12,8 @@ import play.api.libs.concurrent.Akka
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 
-import org.denigma.semantic.sesame._
+import org.scalax.semweb.sesame._
+
 
 import org.scalax.semweb.rdf.{Trip, IRI}
 import org.scalax.semweb.sparql._

@@ -5,8 +5,8 @@ import org.denigma.semantic.commons.{Logged, LogLike}
 import com.bigdata.rdf.changesets.{ChangeAction, IChangeRecord, IChangeLog}
 import com.bigdata.rdf.store.AbstractTripleStore
 import com.bigdata.striterator.ChunkedArrayIterator
-import org.denigma.semantic.sesame
 import org.scalax.semweb.rdf.Quad
+import org.scalax.semweb.sesame
 
 
 /*

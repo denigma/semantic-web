@@ -11,7 +11,7 @@ import org.openrdf.model.impl.URIImpl
 import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 import org.denigma.semantic.controllers.{UpdateController, JsQueryController}
-import org.denigma.semantic.sesame._
+import org.scalax.semweb.sesame._
 
 class DBActorSpec extends Specification with LoveHater {
 

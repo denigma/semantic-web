@@ -15,6 +15,8 @@ import org.denigma.semantic.users.Accounts
 import org.scalax.semweb.rdf.{StringLiteral, Trip, IRI}
 import org.scalax.semweb.rdf.vocabulary._
 import org.scalax.semweb.sparql._
+import org.scalax.semweb.sesame._
+
 
 
 class CacheSpec extends Specification {

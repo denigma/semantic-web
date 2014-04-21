@@ -10,8 +10,6 @@ object WI extends PrefixConfig("http://webintelligence.eu/"){
 
   val RESOURCE: String = this / "resource"
 
-  val CONFIG = this /+ "conf"
-
   val PAGES = this /+ "pages"
 
   val PLATFORM = this /+ "platform"
@@ -27,6 +25,8 @@ object WI extends PrefixConfig("http://webintelligence.eu/"){
   def re(str:String): IRI = IRI(RESOURCE / str)
 
   def pg(page:String): IRI = IRI(PAGES / page)
+
+  val CONFIG = this /+ "conf"
 
   def conf(name:String): IRI = IRI(CONFIG / name)
 

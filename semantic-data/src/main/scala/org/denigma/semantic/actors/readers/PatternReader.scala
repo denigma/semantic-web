@@ -6,9 +6,8 @@ import akka.actor.Actor
 import org.denigma.semantic.actors.readers.protocols.SimpleRead
 import org.denigma.semantic.reading._
 import scala.util.Try
-import org.openrdf.model.Statement
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
-import org.denigma.semantic.sesame._
+import org.scalax.semweb.sesame._
 
 import org.scalax.semweb.rdf.Quad
 import org.scalax.semweb.sparql.Pat
