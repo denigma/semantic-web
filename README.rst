@@ -1,7 +1,28 @@
 Denigma SemanticWeb project
 ###########################
+General idea
+============
 
-This is Denigma SemanticWeb app where for all data bigdata triple store is used.
+The main motivation of this project is creation of knowledge-base that utilizes crowdsourcing together with semantic-web technologies
+
+Setting Up
+==========
+
+To set up the project you need to (most of instructions are for Deiban/Ubuntu based Linux, but for Windows it will be somehow similar):
+* Install TypeSafe stack:
+    - Make sure you use JDK 1.7+ and have JAVA_HOME variable in your PATH
+    - Download TypeSafe Activator (  http://typesafe.com/platform/getstarted ) and add it to your PATH
+* run tests:
+    $ activator test
+* run the app:
+    $ activator run
+* generate project files of your favourite IDE
+    $ activator gen-idea #for Intellij IDEA, OR
+    $ activator eclipse #for Eclipse
+
+Current Features
+================
+
 At the moment the project includes:
 * aktor-based non-blocking BigData driver
 * web-interface to query bigdata
@@ -10,35 +31,18 @@ At the moment the project includes:
 * scalajs views
 * small part of front-end (logging/signing up)
 
-Setting Up
-==========
-
-To set up the project you need to (most of instructions are for Deiban/Ubuntu based Linux, but for Windows it will be somehow similar):
-* Have scala 2.10.x, play 2.2.x and sbt 0.13 installed:
-    - Make sure you use JDK 1.7+ and have JAVA_HOME variable setup
-    - Install Scala ( http://scala-lang.org/ ) and sbt ( http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html )
-    - Download TypeSafe Activator and add it to your Path (  http://www.playframework.com/download )
-* run tests:
-    $ activator test
-* run the app:
-    $ activator run
-* Check if app runs without errors in styles. I added index.png pic to show how the styles may look like
-* generate project files of your favourite IDE
-    $ activator gen-idea #for Intellij IDEA, OR
-    $ activator eclipse #for Eclipse
-
 Notes
 -----
 
-As the code is young there are many rough edges. Only very small set of features are working, some features (like login/logout)
-are not implemented (or partially implemented)
+As the code is young there are many rough edges.There is multiwebsite support as well as login and dynamic menus but editing and administration
+are not yet working.
+
 
 Architecture
 ============
 At the moment it consists of a bunch of projects:
  * semantic-web (main project) that is web-application
  * semantic-data ( subproject ) that contains the code that deales with BigData rdf QuadStore and quries to it
- * macro ( subproject ) that contains macroses implementations
  * collaboration ( not included in build yet) that contains code of websocket chats and live updates that will be partially ported in
  order to provide nice collaboration experience
 
@@ -47,7 +51,9 @@ There is also a bunch of ScalaJS projects:
 * binding project with scalajs binding microframework that allows binding of different reactive variables to HTML properties
 * scala shared source folder - for classes that are shared between backend and frontend
 
- Build definitions are situated in build.sbt and inside project folder.
+ Build definitions are situated inside project folder.
+
+ Project uses cross scala/scalajs classes from org.scalax.semweb lib (that may also of use if you want to understand how it works)
 
  WARNING: there is also a lot of code that is either experimental or deprecated (will be removed soon), mostly - coffeescript code
  as well as some packages like org.denigma.semantic.classes
@@ -194,10 +200,6 @@ Inmemory cache
 
 Writer actors received a change watcher that sends update to cache actor that on its turn updates all cache consumers
 
-Macro subproject
-================
-
-Is used for compile-time source code generation and other useful macros things. At the moment only one macro is there.
 
 Collaboration subproject
 ========================

@@ -1,1 +1,0 @@
-There are JUST HELPERS (case classes for conveniences for query generation) here, not a whole SPARQL Algebra/AST

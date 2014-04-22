@@ -15,7 +15,7 @@ class PlatformConfig(conf:Configuration)
 
 
 
-  val filesConf: scala.List[Configuration] = conf.getConfigList("files").map(_.toList).getOrElse(Nil)
+  val filesConf: List[Configuration] = conf.getConfigList("files").map(_.toList).getOrElse(Nil)
   //lazy val semanticConf = conf.getConfig("semantic")
 
   val CONFIG_CONTEXT: String = conf.getString("config_context").getOrElse(WI.CONFIG.stringValue)

@@ -56,28 +56,14 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scal
 
   @JSExport
   def main(): Unit = {
-
-    jQuery(".top.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
-
-    val str = s"http://${dom.window.location.host}/test"
-
-    //js.debugger()
-
-    this.bind(this.element)
-//    jQuery(".left.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
-
-
     rp.registerPicklers()
+    this.bind(this.element)
+    jQuery(".top.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
+    jQuery(".left.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
+
   }
 
   val toggle: Var[MouseEvent] = Var(this.createMouseEvent())
-
-//  toggle.handler {
-//    //jQuery(".top.sidebar").dyn.sidebar(sidebarParams).sidebar("toggle")
-//
-//    jQuery(".left.sidebar").dyn.sidebar(sidebarParams).sidebar("toggle")
-//  }
-
 
   override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
 }

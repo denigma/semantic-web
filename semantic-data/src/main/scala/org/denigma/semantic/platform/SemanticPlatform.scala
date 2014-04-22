@@ -142,8 +142,7 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
   /*
   load files form the config
    */
-  def loadFiles(files: scala.List[Configuration]) = {
-
+  def loadFiles(files:List[Configuration]) = {
 
     files.foreach{f=>
       (f.getString("folder") , f.getString("name")) match {

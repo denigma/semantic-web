@@ -5,12 +5,12 @@ import scala.scalajs.sbtplugin.ScalaJSPlugin._
 object Dependencies{
 
 
-  val semWebVersion =  "0.1"
+  val semWebVersion =  "0.2"
 
   val authDepth = Seq(
 
 
-    "com.github.t3hnar" % "scala-bcrypt_2.10" % "2.3"
+    "com.github.t3hnar" %% "scala-bcrypt" % "2.3"
 
   )
 
@@ -32,11 +32,11 @@ object Dependencies{
 
     "org.scalajs" %% "scalajs-pickling" % "0.2",
 
-    "com.scalatags" % "scalatags_2.10" % "0.2.4-JS",
+    "com.scalatags" %% "scalatags" % "0.2.4-JS",
 
-    "com.scalarx" % "scalarx_2.10" % "0.2.3-JS",
+    "com.scalarx" %% "scalarx" % "0.2.3-JS",
 
-    "org.scalax" % "semweb_2.10" % (semWebVersion + "-JS")
+    "org.scalax" %% "semweb" % (semWebVersion + "-JS")
   )
 
   val diDeps = Seq{
@@ -47,7 +47,7 @@ object Dependencies{
 
   val testDeps = Seq(
     ///ScalaTest for testing
-    "org.scalatest" % "scalatest_2.10" % "2.1.0",
+    "org.scalatest" %% "scalatest" % "2.1.3",
 
     "com.typesafe.akka" %% "akka-testkit" %  "2.2.0"
   )
@@ -95,16 +95,16 @@ object Dependencies{
 
     "org.openrdf.sesame" % "sesame-model" % "2.7.10",
 
-    "org.scalax" % "semweb-sesame_2.10" % "0.1"
+    "org.scalax" %% "semweb-sesame" % semWebVersion
 
   )
 
   val graphDeps = Seq(
 
 
-    "com.assembla.scala-incubator" % "graph-core_2.10" % "1.8.0",
+    "com.assembla.scala-incubator" %% "graph-core" % "1.8.0",
 
-    "com.assembla.scala-incubator" % "graph-json_2.10" % "1.8.0"
+    "com.assembla.scala-incubator" %% "graph-json" % "1.8.0"
 
 
   )
@@ -118,6 +118,8 @@ object Dependencies{
   val scalaVer = "2.10.4"
 
   val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",  url("http://dl.bintray.com/content/scala-js/scala-js-releases"))( Resolver.ivyStylePatterns)
-  val scalaxResolver = bintray.Opts.resolver.repo("scalax", "scalax-releases")
+  //val scalaxResolver = bintray.Opts.resolver.repo("scalax", "scalax-releases")
+  val scalaxResolver = bintray.Opts.resolver.repo("scalax", "scalax-snapshots")
+
 
 }

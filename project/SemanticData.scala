@@ -21,25 +21,28 @@ trait SemanticData extends Publish {
     // Add your own project settings here
 
     scalaVersion := Dependencies.scalaVer,
+
+    //resolvers
     resolvers += "Bigdata releases" at "http://systap.com/maven/releases/",
     resolvers += "nxparser-repo" at "http://nxparser.googlecode.com/svn/repository/",
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
     resolvers += "apache-repo-releases" at "http://repository.apache.org/content/repositories/releases/",
     resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
-    resolvers += bintray.Opts.resolver.repo("scalax", "scalax-releases"),
+    resolvers += Dependencies.scalaxResolver,
+
     //compiler options
     scalacOptions ++= Seq( "-feature", "-language:_" ),
 
     //unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "scala-semantic" / "src" / "main" / "scala",
 
-    sourceDirectory in Compile <<= baseDirectory / (src+"/main/scala"),
-    sourceDirectory in Test <<= baseDirectory / (src+"/test/scala"),
+    sourceDirectory in Compile := baseDirectory.value / (src+"/main/scala"),
+    sourceDirectory in Test := baseDirectory.value / (src+"/test/scala"),
 
-    scalaSource in Compile <<= baseDirectory / (src+"/main/scala"),
-    scalaSource in Test <<= baseDirectory / (src+"/test/scala"),
+    scalaSource in Compile := baseDirectory.value/ (src+"/main/scala"),
+    scalaSource in Test := baseDirectory.value / (src+"/test/scala"),
 
-    javaSource in Compile <<= baseDirectory / (src+"/main/java"),
-    javaSource in Test <<= baseDirectory / (src+"/test/java"),
+    javaSource in Compile := baseDirectory.value / (src+"/main/java"),
+    javaSource in Test:= baseDirectory.value / (src+"/test/java"),
 
 
     parallelExecution in Test := false,

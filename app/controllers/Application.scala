@@ -107,7 +107,7 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
 
   def index(): Action[AnyContent] =  UserAction {
     implicit request=>
-      Ok(views.html.longevity.index(request))
+      Ok(views.html.index(request))
   }
 
 
@@ -158,7 +158,7 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
     implicit request=>
 
 
-      val res: Html = views.html.longevity.index(request)
+      val res: Html = views.html.index(request)
       Ok(res)
   }
 
