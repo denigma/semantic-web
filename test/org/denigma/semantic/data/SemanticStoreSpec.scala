@@ -54,6 +54,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
     }
 
     "read files" in new TestApp(){
+      SP.platformConfig.loadInitial should beFalse
       val q1 =
         """
           |PREFIX  de:   <http://denigma.org/resource/>
@@ -71,10 +72,12 @@ class SemanticStoreSpec  extends Specification with LoveHater {
     }
 
     "read initial data" in new TestApp(){
+      SP.platformConfig.loadInitial should beFalse
+      SP.platformParams.isEmpty should beTrue
       SP.loadInitialData()
       val q1 =
         """
-          |PREFIX  de:   <http://denigma.org/resource/>
+          |PREFIX  de: <http://denigma.org/resource/>
           |
           |SELECT  ?property ?object
           |WHERE

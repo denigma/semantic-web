@@ -107,7 +107,7 @@ abstract class PatternCache extends Consumer with QueryController[PatternResult]
       p <-patterns
       st <- sts
       if p.canBind(st)
-    } quads.addBinding(st.s,(p,st))
+    } quads.addBinding(st.sub,(p,st))
     quads
   }
 

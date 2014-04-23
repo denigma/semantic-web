@@ -143,8 +143,8 @@ class CacheSpec extends Specification {
       utr.name shouldEqual Accounts.cacheName
       utr.results.size shouldEqual 2
       //lg.debug(utr.results.toString())
-      utr.results(Accounts.hasEmail).exists(p=>p.o.stringValue.contains("anton@gmail.com")) should beTrue
-      utr.results(Accounts.hasEmail).exists(p=>p.o.stringValue.contains("daniel@gmail.com")) should beTrue
+      utr.results(Accounts.hasEmail).exists(p=>p.obj.stringValue.contains("anton@gmail.com")) should beTrue
+      utr.results(Accounts.hasEmail).exists(p=>p.obj.stringValue.contains("daniel@gmail.com")) should beTrue
 
 
     }

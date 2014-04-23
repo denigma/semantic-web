@@ -5,7 +5,7 @@ import scala.scalajs.sbtplugin.ScalaJSPlugin._
 object Dependencies{
 
 
-  val semWebVersion =  "0.2"
+  val semWebVersion =  "0.2.1"
 
   val authDepth = Seq(
 

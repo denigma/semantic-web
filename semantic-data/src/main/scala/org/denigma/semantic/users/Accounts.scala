@@ -35,10 +35,10 @@ object Accounts extends PatternCache with WithLogger with UpdateController
   def removeFacts(upd:UpdateInfo) = {
     val removed = this.groupByPattern(upd.removed)
     removed.get(hasEmail).foreach{ems=>
-      this.mails = this.mails -- ems.map((em) =>em.s)
+      this.mails = this.mails -- ems.map((em) =>em.sub)
     }
     removed.get(hasPassword).foreach{pw=>
-      this.hashes = this.hashes -- pw.map(p=>p.s)
+      this.hashes = this.hashes -- pw.map(p=>p.sub)
     }
   }
 
@@ -53,10 +53,10 @@ object Accounts extends PatternCache with WithLogger with UpdateController
     val inserted: MultiMap[Pat, Quad] = this.groupByPattern(upd.inserted)
     inserted.get(hasEmail).foreach{
       ms=>
-      this.mails = this.mails ++ ms.map(m=>(m.s,m.o.label))
+      this.mails = this.mails ++ ms.map(m=>(m.sub,m.obj.label))
     }
     inserted.get(hasPassword).foreach{ms=>
-      this.hashes= this.hashes ++ ms.map(m=>(m.s,m.o.label))
+      this.hashes= this.hashes ++ ms.map(m=>(m.sub,m.obj.label))
     }
   }
 
@@ -71,10 +71,10 @@ object Accounts extends PatternCache with WithLogger with UpdateController
     val res: Map[Pat, Set[Quad]] = p.results
 
     res.get(hasEmail).foreach{ms=>
-      this.mails = this.mails ++ ms.map(m=>(m.s,m.o.label))
+      this.mails = this.mails ++ ms.map(m=>(m.sub,m.obj.label))
     }
     res.get(hasPassword).foreach{ms=>
-      this.hashes= this.hashes ++ ms.map(m=>(m.s,m.o.label))
+      this.hashes= this.hashes ++ ms.map(m=>(m.sub,m.obj.label))
     }
 
 
@@ -163,7 +163,7 @@ object Accounts extends PatternCache with WithLogger with UpdateController
    * @param username username
    * @param email user email
    * @param password user password
-   * @return Future[Try[Boolean]]
+   * @return Future (Try:boolean)
    */
   def register(username:String,email:String,password:String): Future[Try[Boolean]] =  this.canRegister(username,email,password) match
   {

@@ -60,6 +60,8 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
       resolvers +=   Dependencies.scalajsResolver,
 
+      resolvers += Resolver.file("Local repo", file("~/.ivy2/local"))(Resolver.ivyStylePatterns) ,
+
       sharedModels,
 
       ScalaJSKeys.relativeSourceMaps := true, //just in case as sourcemaps do not seem to work=(
@@ -75,6 +77,8 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
       //coffeescriptOptions := Seq("native", "/usr/local/bin/coffee -p"),
 
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
+
+      test in Test <<= (test in Test) dependsOn (test in (semanticData, Test)),
 
       //for test only
       //compile in Compile <<= (compile in Compile) dependsOn (packageJS in (scalajs, Compile)),

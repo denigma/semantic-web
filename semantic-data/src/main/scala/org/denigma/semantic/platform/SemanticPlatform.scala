@@ -101,10 +101,12 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
 
     val sys = Akka.system(app)
     //TODO: refactor constructore of actor factory
-    this.databaseActorsFactory = new DatabaseActorsFactory(db.db,db,db,sys,(platformConfig.minReaders,platformConfig.defReaders,platformConfig.maxReaders))
+    this.databaseActorsFactory = new DatabaseActorsFactory(db.db,db,db,sys,
+      (platformConfig.minReaders,platformConfig.defReaders,platformConfig.maxReaders)
+    )
     if(platformConfig.loadInitial)  this.loadInitialData()
     Accounts.activate()
-    Schema.activate()
+    //Schema.activate()
   }
 
 
