@@ -4,7 +4,7 @@ import org.scalajs.dom
 
 import scala.collection.mutable
 import org.scalajs.dom.{Attr, HTMLElement}
-import org.denigma.binding.{EventBinding, HtmlBinding, PropertyBinding}
+import org.denigma.binding.{EventBinding, ScalaTagsBinder, GeneralBinding}
 
 
 /**
@@ -13,8 +13,8 @@ import org.denigma.binding.{EventBinding, HtmlBinding, PropertyBinding}
  * @param elem
  */
 abstract class OrdinaryView(name:String,elem:dom.HTMLElement) extends BindingView(name,elem)
-  with PropertyBinding
-  with HtmlBinding
+  with GeneralBinding
+  with ScalaTagsBinder
   with EventBinding
 {
 

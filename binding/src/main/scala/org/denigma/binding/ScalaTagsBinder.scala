@@ -13,7 +13,7 @@ import org.denigma.binding.macroses.TagRxMap
 /**
  * HTML binding to scalatagnode
  */
-trait HtmlBinding extends JustBinding{
+trait ScalaTagsBinder extends JustBinding{
 
   //TODO: rewrite
 
