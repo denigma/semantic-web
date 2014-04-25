@@ -30,10 +30,13 @@ import scala.concurrent.Promise
 import org.denigma.extensions.sq
 import org.scalajs.jquery.jQuery
 import org.denigma.extensions._
+import org.scalax.semweb.rdf.IRI
 
 @JSExport
 object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scalajs.js.JSApp
 {
+
+
   rp.registerPicklers()
 
   val sidebarParams =  js.Dynamic.literal(exclusive = false)

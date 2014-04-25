@@ -1,0 +1,61 @@
+##############Transhuman.org.ua configuration################
+
+
+########Prefixes ###################
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# prefixes from social ontologies
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+# specific webintelligence prefixes
+@prefix wi: <http://webintelligence.eu/resource/> .
+@prefix pl: <http://webintelligence.eu/platform/> .
+
+# all website pages
+@prefix pg: <http://webintelligence.eu/page/> .
+
+# users
+@prefix us: <http://webintelligence.eu/users/> .
+
+# all other resources
+@prefix : <http://webintelligence.eu/resource/> .
+
+
+#transhuman.org.ua prefixes
+@prefix tr: <http://transhuman.org.ua/resource/> .
+@prefix ust: <http://transhuman.org.ua/users/> .
+@prefix pgt:  <http://transhuman.org.ua/pages/> .
+
+###############Website########################
+
+<http://transhuman.org.ua> a pl:Site;
+    pl:index pgt:Ukranian_Transhumanism;
+    pl:has_menu pgt:menu;
+    pl:has_logo "ukranian_transhumanism.jpg" .
+
+pgt:menu a pl:Menu;
+    pl:has_item pgt:About, pgt:Research, pgt:Activism, pgt:Members, pgt:Projects, pgt:Join.
+
+pgt:About pl:has_title "Украинский трансгуманизм"@ru .
+pgt:Transhumanism pl:has_title "Трансгуманизм"@ru .
+pgt:Research pl:has_title "Исследования"@ru .
+pgt:Activism pl:has_title "Активизм"@ru .
+pgt:Projects pl:has_title "Проекты"@ru .
+pgt:Join pl:has_title "Сотрудничество"@ru .
+pgt:Members pl:has_title "Участники"@ru .
+
+pgt:About pl:has_text "Текст про долголетие Украины"@ru .
+pgt:Research pl:has_text "Текст про наши исследования"@ru .
+pgt:Transhumanism pl:has_title "Трансгуманизм"@ru .
+
+pgt:Activism pl:has_text "Текст про социальную деятельность"@ru .
+pgt:Transhumanism pl:has_text "Текст про трансгуманизм"@ru .
+
+pgt:Members pl:has_text "Текст про наших участников"@ru .
+pgt:Projects pl:has_text "Тект про наши проекты"@ru .
+pgt:Join pl:has_text "Текст про то как присоединиться"@ru .

@@ -10,6 +10,11 @@ import play.api.Play.current
 import play.api.mvc.{WrappedRequest, Request}
 import scaldi.Injector
 import scaldi.play.ScaldiSupport
+import scala.concurrent.Future
+import akka.actor.ActorSystem
+import spray.caching.{LruCache, Cache}
+import spray.util._
+
 
 /*
 Global object that

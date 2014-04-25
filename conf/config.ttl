@@ -26,8 +26,6 @@
 # main denigma prefix
 @prefix de: <http://denigma.org/resource/> .
 
-
-
 # specific webintelligence prefixes
 @prefix wi: <http://webintelligence.eu/resource/> .
 @prefix pl: <http://webintelligence.eu/platform/> .
@@ -53,8 +51,6 @@
 @prefix trans: <http://transhuman.org.ua/resource/> .
 @prefix ust: <http://transhuman.org.ua/users/> .
 @prefix pgt:  <http://transhuman.org.ua/pages/> .
-
-#longevity.org.ua prefixes
 
 
 #########Dataset and config ontology metadata########
@@ -151,26 +147,3 @@ pl:index a owl:ObjectProperty;
 
 pl:Current_Platform a wi:Platform;
 	pl:root wi:Web_Intelligence .
-
-##############Longevity.org.ua configuration################
-
-<http://longevity.org.ua> a pl:Site;
-    pl:index pgl:Longevity_Ukraine;
-    pl:has_menu pgl:menu .
-
-pgl:menu a pl:Menu;
-    pl:has_item pgl:About, pgl:Research, pgl:Activism, pgl:Members, pgl:Projects, pgl:Join.
-
-pgl:About pl:has_title "Долголетие Украины"@ru .
-pgl:Research pl:has_title "Исследования"@ru .
-pgl:Activism pl:has_title "Активизм"@ru .
-pgl:Projects pl:has_title "Проекты"@ru .
-pgl:Join pl:has_title "Сотрудничество"@ru .
-pgl:Members pl:has_title "Участники"@ru .
-
-pgl:About pl:has_text "Текст про долголетие Украины"@ru .
-pgl:Research pl:has_text "Текст про наши исследования"@ru .
-pgl:Activism pl:has_text "Текст про социальную деятельность"@ru .
-pgl:Members pl:has_text "Текст про наших участников"@ru .
-pgl:Projects pl:has_text "Тект про наши проекты"@ru .
-pgl:Join pl:has_text "Текст про то как присоединиться"@ru .

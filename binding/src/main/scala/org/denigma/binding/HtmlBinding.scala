@@ -6,8 +6,8 @@ import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 import scala.collection.mutable
 import scala.collection.immutable._
-import org.denigma.extensions
-import extensions._
+import org.denigma.extensions._
+import org.scalajs.dom.extensions._
 import org.denigma.binding.macroses.TagRxMap
 
 /**

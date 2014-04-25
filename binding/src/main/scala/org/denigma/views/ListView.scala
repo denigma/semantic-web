@@ -2,16 +2,13 @@ package org.denigma.views
 
 import org.scalajs.dom._
 import org.scalajs.dom
-import org.denigma.views.OrdinaryView
 import rx.{Var, Rx}
 import scalatags.HtmlTag
-import dom.extensions._
-import org.denigma.binding.{EventBinding, HtmlBinding, PropertyBinding, CollectionBinding}
+import org.denigma.binding.CollectionBinding
 import scala.collection.immutable._
-import scala.collection.mutable
 import scala.Some
+import org.scalajs.dom.extensions._
 import org.denigma.extensions._
-import scala.scalajs.js
 
 object ListView {
 

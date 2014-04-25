@@ -1,0 +1,55 @@
+##############Rybka.org.ua configuration################
+
+
+########Prefixes ###################
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# prefixes from social ontologies
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+# specific webintelligence prefixes
+@prefix wi: <http://webintelligence.eu/resource/> .
+@prefix pl: <http://webintelligence.eu/platform/> .
+
+# all website pages
+@prefix pg: <http://webintelligence.eu/page/> .
+
+# users
+@prefix us: <http://webintelligence.eu/users/> .
+
+# all other resources
+@prefix : <http://webintelligence.eu/resource/> .
+
+
+#rybka.org.ua prefixes
+@prefix ryb: <http://rybka.org.ua/resource/> .
+@prefix usr: <http://rybka.org.ua/users/> .
+@prefix pgr:  <http://rybka.org.ua/pages/> .
+
+###############Website########################
+
+<http://rybka.org.ua> a pl:Site;
+    pl:index pgr:Rybka_Project;
+    pl:has_menu pgr:menu;
+    pl:has_logo "rybka.jpg" .
+
+
+pgr:menu a pl:Menu;
+    pl:has_item pgr:About, pgr:Research, pgr:Importance, pgr:Collaboration .
+
+pgr:About pl:has_title "Rybka Project"@en .
+pgr:Research pl:has_title "Reasearch_Plan"@en .
+pgr:Importance pl:has_title "Why it matters"@en .
+
+pgr:Collaboration pl:has_title "Collaboration"@en .
+
+pgr:About pl:has_text "Text about Rybka Project"@en .
+pgr:Research pl:has_text "Text about Reasearch_Plan"@en .
+pgr:Collaboration pl:has_text "Text about Collaboration"@en .
+pgr:Importance pl:has_text "Why it matters so much"@en .
+

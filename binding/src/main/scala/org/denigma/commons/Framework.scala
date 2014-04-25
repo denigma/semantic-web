@@ -1,11 +1,10 @@
 package org.denigma.commons
 
-import scalatags.{Attr, Modifier}
+import scalatags.{Mod, Attr, Modifier, HtmlTag}
 import scala.util.Random
 import scalatags.all._
 import org.scalajs.dom
 import scala.scalajs.js
-import scalatags.HtmlTag
 
 /**
  * A minimal binding between Scala.Rx and Scalatags and Scala-Js-Dom
@@ -23,6 +22,9 @@ object Framework {
     def transform(tag: HtmlTag): HtmlTag = {
       tag(r)
     }
+
+    def transforms = ??? //do something for trasnformation
+
   }
 
   implicit def derefDomRef[T](d: DomRef[T]) = {
@@ -50,6 +52,8 @@ object Framework {
         }, 10)
         tag(id:=elemId, a:=s"this.$funcName(); return false;")
       }
+
+      def transforms = ??? //do something for trasnformation
     }
     def <~ (func: => Unit) = new CallbackModifier(a, () => func)
   }

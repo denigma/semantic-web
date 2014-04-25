@@ -1,0 +1,55 @@
+##############Longevity.org.ua configuration################
+
+
+########Prefixes ###################
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# prefixes from social ontologies
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+# specific webintelligence prefixes
+@prefix wi: <http://webintelligence.eu/resource/> .
+@prefix pl: <http://webintelligence.eu/platform/> .
+
+# all website pages
+@prefix pg: <http://webintelligence.eu/page/> .
+
+# users
+@prefix us: <http://webintelligence.eu/users/> .
+
+# all other resources
+@prefix : <http://webintelligence.eu/resource/> .
+
+
+#longevity.org.ua prefixes
+@prefix long: <http://longevityalliance.org/> .
+@prefix usla: <http://longevityalliance.org/users> .
+@prefix pglaa:  <http://longevityalliance.org/pages/> .
+
+
+<http://longevity.org.ua> a pl:Site;
+    pl:index pgla:Longevity_Ukraine;
+    pl:has_logo "ILA.svg";
+    pl:has_menu pgla:menu .
+
+pgla:menu a pl:Menu;
+    pl:has_item pgla:About, pgla:Research, pgla:Activism, pgla:Members, pgla:Projects, pgla:Join.
+
+pgla:About pl:has_title "International Longevity Alliance"@en .
+pgla:Research pl:has_title "Research"@en .
+pgla:Activism pl:has_title "Activism"@en .
+pgla:Projects pl:has_title "Projects"@en .
+pgla:Join pl:has_title "Collaboration"@en .
+pgla:Members pl:has_title "Участники"@en .
+
+pgla:About pl:has_text "Text about international longevity alliance"@en .
+pgla:Research pl:has_text "Text about research"@en .
+pgla:Activism pl:has_text "Text about activism"@en .
+pgla:Members pl:has_text "Text about members"@en .
+pgla:Projects pl:has_text "Text about our projects"@en .
+pgla:Join pl:has_text "Text about joining us"@en .

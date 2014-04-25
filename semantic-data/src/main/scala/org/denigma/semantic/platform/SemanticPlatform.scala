@@ -12,6 +12,7 @@ import org.denigma.semantic.users.Accounts
 import org.denigma.semantic.schema.Schema
 import org.scalax.semweb.rdf.vocabulary.WI
 import org.scalax.semweb.rdf.Quad
+import scala.util._
 
 
 //import org.apache.log4j.Logger
@@ -147,9 +148,20 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
   def loadFiles(files:List[Configuration]) = {
 
     files.foreach{f=>
-      (f.getString("folder") , f.getString("name")) match {
-        case (Some(folder),Some(fileName))=> db.parseFileByName(folder+fileName,f.getString("context").getOrElse(WI.RESOURCE))
-        case tuple => this.db.lg.error(s"invalid file params in config: ${tuple.toString()}")
+
+      f.getString("folder") match {
+        case Some(folder) =>
+          Try(f.getStringList("name")) match {
+            case Success(opt)=> for {
+              names<-opt
+              fileName<-names
+            } db.parseFileByName(folder+fileName,f.getString("context").getOrElse(WI.RESOURCE))
+
+            case Failure(th)=> f.getString("name").foreach(fileName=>db.parseFileByName(folder+fileName,f.getString("context").getOrElse(WI.RESOURCE)))
+          }
+
+      case other =>
+          this.db.lg.error(s"invalid file params in config: ${other.toString()}")
       }
 
     }

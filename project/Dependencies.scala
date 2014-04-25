@@ -5,7 +5,7 @@ import scala.scalajs.sbtplugin.ScalaJSPlugin._
 object Dependencies{
 
 
-  val semWebVersion =  "0.2.1"
+  val semWebVersion =  "0.2.21"
 
   val authDepth = Seq(
 
@@ -24,24 +24,27 @@ object Dependencies{
 
 
   val jsDeps: Seq[ModuleID] = Seq(
-    "org.scala-lang.modules.scalajs" %% "scalajs-jasmine-test-framework" % scalaJSVersion,
 
     "org.scala-lang.modules.scalajs" %% "scalajs-jquery" % "0.3",
 
-    "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.3",
+    "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.4",
 
     "org.scalajs" %% "scalajs-pickling" % "0.2",
 
-    "com.scalatags" %% "scalatags" % "0.2.4-JS",
+    "com.scalatags" %% "scalatags" % "0.2.5-JS",
 
-    "com.scalarx" %% "scalarx" % "0.2.3-JS",
+    "com.scalarx" %% "scalarx" % "0.2.4-JS",
 
     "org.scalax" %% "semweb" % (semWebVersion + "-JS")
   )
 
   val diDeps = Seq{
-     "org.scaldi" %% "scaldi" % "0.3"
+     "org.scaldi" %% "scaldi" % "0.3.1"
   }
+
+  val cachingDeps = Seq(
+    "io.spray" % "spray-caching" % "1.3.1"
+  )
 
 
 
@@ -53,19 +56,19 @@ object Dependencies{
   )
 
   val webjars = Seq(
-    "org.webjars" %% "webjars-play" % "2.2.2-1",  //webjars support for play2
+    "org.webjars" %% "webjars-play" % "2.2.2",  //webjars support for play2
 
-    "org.webjars" % "codemirror" % "3.22", //codemirror
+    "org.webjars" % "codemirror" % "4.0", //codemirror
 
-    "org.webjars" % "d3js" % "3.4.3", //visualization lib
+    "org.webjars" % "d3js" % "3.4.4-1", //visualization lib
 
     "org.webjars" % "d3-plugins" % "da342b6",
 
     "org.webjars" % "jquery" % "2.1.0-2",
 
-    "org.webjars" % "jquery-ui" % "1.10.3",
+    "org.webjars" % "jquery-ui" % "1.10.4",
 
-    "org.webjars" % "jquery-ui-themes" % "1.10.3",
+    //"org.webjars" % "jquery-ui-themes" % "1.10.3",
 
     "org.webjars" % "Semantic-UI" % "0.15.1", //less/css framework
 
@@ -79,7 +82,7 @@ object Dependencies{
 
     "org.webjars" % "requirejs" % "2.1.11-1",
 
-    "org.webjars" % "ckeditor" % "4.1.2"
+    "org.webjars" % "ckeditor" % "4.3.4"
   )
 
 
@@ -93,7 +96,7 @@ object Dependencies{
   val rdfDeps = Seq(
     "com.bigdata" % "bigdata" % "1.3.0",
 
-    "org.openrdf.sesame" % "sesame-model" % "2.7.10",
+    "org.openrdf.sesame" % "sesame-model" % "2.7.11",
 
     "org.scalax" %% "semweb-sesame" % semWebVersion
 
@@ -118,8 +121,9 @@ object Dependencies{
   val scalaVer = "2.10.4"
 
   val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",  url("http://dl.bintray.com/content/scala-js/scala-js-releases"))( Resolver.ivyStylePatterns)
-  //val scalaxResolver = bintray.Opts.resolver.repo("scalax", "scalax-releases")
-  val scalaxResolver = bintray.Opts.resolver.repo("scalax", "scalax-snapshots")
+
+  val scalaxResolver = bintray.Opts.resolver.repo("scalax", "scalax-releases")
+
 
 
 }

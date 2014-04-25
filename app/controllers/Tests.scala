@@ -90,6 +90,18 @@ object Tests  extends Controller with SimpleQueryController{
     Ok("Mail send")
   }
 
+  def changeDomain(name:String) = UserAction {
+    implicit request=>
+
+    if(play.Play.isDev)
+      if(name==request.domain)
+        Ok(s"domain remains the same ${request.domain}")
+      else
+        Ok(s"domain change from ${request.domain} to $name").withSession("domain"->name)
+    else
+      BadRequest("App is not in dev mode!")
+  }
+
 
 //  def test = Action {
 //    implicit request=>

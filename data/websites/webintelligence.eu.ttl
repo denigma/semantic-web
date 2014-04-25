@@ -1,0 +1,43 @@
+##############webintelligence.eu configuration################
+
+
+########Prefixes ###################
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# prefixes from social ontologies
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+# specific webintelligence prefixes
+@prefix wi: <http://webintelligence.eu/resource/> .
+@prefix pl: <http://webintelligence.eu/platform/> .
+
+# all website pages
+@prefix pg: <http://webintelligence.eu/page/> .
+
+# users
+@prefix us: <http://webintelligence.eu/users/> .
+
+# all other resources
+@prefix : <http://webintelligence.eu/resource/> .
+
+
+
+
+<http://webintelligence.eu> a pl:Site;
+    pl:index pg:Webintelligence;
+    pl:has_menu pg:menu .
+
+pg:menu a pl:Menu;
+    pl:has_item pg:About, pg:Projects .
+
+pg:About pl:has_title "Web Intelligence"@en .
+pg:Projects pl:has_title "Projects"@en .
+
+
+pg:About pl:has_text "Text about Web Intelligence"@en .
+pg:Projects pl:has_text "Web intelligence Projects"@en .

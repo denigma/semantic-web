@@ -11,7 +11,13 @@ trait SemanticData extends Publish {
 
   def semanticDataAppPath = "."
 
-  val semanticDataAppDependencies: Seq[ModuleID] = Dependencies.graphDeps++Dependencies.rdfDeps++Dependencies.miscDeps++Dependencies.authDepth++Dependencies.testDeps
+  val semanticDataAppDependencies: Seq[ModuleID] =
+    Dependencies.graphDeps++
+      Dependencies.rdfDeps++
+      Dependencies.miscDeps++
+      Dependencies.authDepth++
+      Dependencies.testDeps++
+      Dependencies.cachingDeps
 
   val src = "src"
 
@@ -28,6 +34,7 @@ trait SemanticData extends Publish {
     resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
     resolvers += "apache-repo-releases" at "http://repository.apache.org/content/repositories/releases/",
     resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
+    resolvers += "spray repo" at "http://repo.spray.io",
     resolvers += Dependencies.scalaxResolver,
 
     //compiler options

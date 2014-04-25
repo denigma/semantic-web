@@ -3,13 +3,13 @@
 # ~~~~
 
 GET         /                         controllers.Application.index()
-GET         /users/login              controllers.Application.login(username:String,password:String)
-GET         /users/register           controllers.Application.register(username:String,email,password:String)
-GET         /users/logout             controllers.Application.logout()
 GET         /menu/:name               controllers.Application.menu(name)
 GET         /pages/:page              controllers.Pages.page(page)
 GET         /views/:view              controllers.Pages.view(view)
 
+GET         /users/login              controllers.Login.login(username:String,password:String)
+GET         /users/register           controllers.Login.register(username:String,email,password:String)
+GET         /users/logout             controllers.Login.logout()
 
 
 
@@ -30,6 +30,7 @@ GET         /pages/*page              controllers.Application.page(page)
 
 GET         /webjars/*file            controllers.WebJarAssets.at(file)
 
+GET         /test/newdomain/:name     controllers.Tests.changeDomain(name)
 GET         /test/menu                controllers.Tests.menu
 GET         /test/message             controllers.Tests.message
 GET         /test/sigma               controllers.Tests.sigma

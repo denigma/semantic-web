@@ -5,12 +5,10 @@ import org.scalajs.dom._
 import scala.collection.mutable
 import scala.collection.immutable._
 import org.scalajs.dom
-import org.denigma.binding.macroses.{TypeClass, BooleanRxMap, ClassToMap, StringRxMap}
+import org.denigma.binding.macroses.{BooleanRxMap, ClassToMap, StringRxMap}
 import org.denigma.extensions._
 
 import dom.extensions._
-import scalatags.all._
-import scala.Some
 import scala.Some
 
 

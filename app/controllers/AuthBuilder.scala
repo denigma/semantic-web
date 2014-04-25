@@ -22,7 +22,11 @@ object UserAction extends ActionBuilder[AuthRequest] with AppConfig
   override protected def invokeBlock[A](request: Request[A], block: (AuthRequest[A]) => Future[SimpleResult]): Future[SimpleResult] =
   {
     val user: Option[IRI] = request.session.get("user").map(name=>if(name.contains(":")) IRI(name) else IRI(USERS.user / name))
-    val req = AuthRequest(user,request,if(request.domain=="localhost") defaultDomain.getOrElse(request.domain) else "")
+    val req = AuthRequest(user,request,
+      if(request.domain=="localhost")
+        request.session.get("domain").getOrElse(defaultDomain.getOrElse(request.domain))
+      else ""
+    )
     block(req)
   }
 }

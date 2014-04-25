@@ -26,6 +26,8 @@ import org.scalajs.spickling.playjson._
 import org.scalax.semweb.sesame
 
 import org.scalax.semweb.sesame._
+import spray.caching.{LruCache, Cache}
+import spray.caching
 
 
 /*
@@ -33,84 +35,17 @@ main application controller, responsible for index and some other core templates
  */
 object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQueryController with UpdateController
 {
-  def lifespan= UserAction {
-    implicit request=>
-      Ok(views.html.lifespan.lifespan())
-  }
-
-  /**
-   * Provides login for the user
-   * @param username username or email
-   * @param password password
-   * @return Failure or Success
-   */
-  def login(username:String,password:String) = UserAction{
-    implicit request=>
-      if(request.isSigned)
-      {
-       BadRequest(Json.obj("status" ->"KO","message"->"you are already logged in")).as("application/json")
-      }
-      else
-     {
-       val au: Try[Unit] = if(username.contains("@")) Accounts.authByEmail(username,password) else Accounts.auth(username,password)
-       au  match {
-         case Success(_)=> Ok(Json.obj("status" ->"OK","message"->s"logged in as $username")).as("application/json").withSession("user" -> username)
-         case Failure(th) =>  Unauthorized(Json.obj("status" ->"KO", "message"->th.getMessage))
-       }
-     }
-  }
-
-
-  def tellBad(message:String) = BadRequest(Json.obj("status" ->"KO","message"->message)).as("application/json")
-
-  def logout() = UserAction {
-    implicit request=>
-      if(request.isSigned)
-        Ok(Json.obj("status"->"OK","message"->"loggedOut")).withNewSession
-      else
-      {
-        this.lg.error("some user managed to log out being not logged in")
-        BadRequest(Json.obj("status" ->"KO","message"->"you are not logged in!")).as("application/json")
-      }
-
-  }
-
-
-  /**
-   * Registers a user
-   * @param username Username
-   * @param email email
-   * @param password password
-   * @return Success[Boolean] or Failure
-   */
-  def register(username:String,email:String,password:String) = UserAction.async{
-    implicit request=>
-      if(request.isSigned)
-      {
-        this.lg.error(s"$username decided to register when logged in")
-        Future.successful(BadRequest(Json.obj("status" ->"KO","message"->"You cannot register when you are already logged in!")).as("application/json"))
-      }
-      else
-        {
-        Accounts.register(username,email,password).map{
-          case Success(true) =>
-            Ok(Json.obj("status" ->"OK","message"->s"$username was successfuly registered")).withSession("user" -> username).as("application/json")
-          case Success(false) =>
-            lg.info(s"$username with $email was not cached")
-            BadRequest(Json.obj("status" ->"KO","message"->"there is a user with same name/email")).as("application/json")
-          case Failure(th) => BadRequest(Json.obj("status" ->"KO","message"->th.getMessage))
-
-        }
-      }
-  }
-
 
   def index(): Action[AnyContent] =  UserAction {
     implicit request=>
+
       Ok(views.html.index(request))
   }
 
 
+
+  // and a Cache for its result type
+  val menuCache: Cache[Try[Menu]] = LruCache()
   /**
    * Renders menu for the website
    * @param domainName
@@ -119,30 +54,35 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
   def menu(domainName:String = "") =  UserAction.async{
     implicit request=>
       val domain = if(domainName=="") request.domain else domainName
-      val dom =  IRI(s"http://$domain")
-      val hasMenu = WI.PLATFORM / "has_menu" iri
-      val hasItem = WI.PLATFORM / "has_item" iri
-      val hasTitle = WI.PLATFORM / "has_title" iri
+      val menuResult = menuCache(domain) {
 
-      val m = ?("menu")
-      val item = ?("item")
-      val tlt= ?("title")
+        val dom =  IRI(s"http://$domain")
+        val hasMenu = WI.PLATFORM / "has_menu" iri
+        val hasItem = WI.PLATFORM / "has_item" iri
+        val hasTitle = WI.PLATFORM / "has_title" iri
 
-      val selMenu = SELECT (item,tlt) WHERE {
-        Pat( dom, hasMenu, m )
-        Pat( m, hasItem, item)
-        Pat( item, hasTitle, tlt)
+        val m = ?("menu")
+        val item = ?("item")
+        val tlt= ?("title")
+
+        val selMenu = SELECT (item,tlt) WHERE (
+          Pat( dom, hasMenu, m ),
+          Pat( m, hasItem, item),
+          Pat( item, hasTitle, tlt)
+          )
+
+        //lg.info(selMenu.stringValue)
+
+        this.select(selMenu).map(v=>v.map{case r=>
+          Menu(dom / "menu",domain,r.toListMap.map{case list=>
+            for{
+              name<-list.get(item.name).collect{ case n:URI=>sesame.URI2IRI(n)}
+              title<-list.get(tlt.name).collect{ case l:Literal=>sesame.literal2Lit(l)}
+
+            } yield MenuItem(name,title.label)
+          }.flatten)
+        })
       }
-
-      val menuResult= this.select(selMenu).map(v=>v.map{case r=>
-        Menu(dom / "menu",domain,r.toListMap.map{case list=>
-          for{
-            name<-list.get(item.name).collect{ case n:URI=>sesame.URI2IRI(n)}
-            title<-list.get(tlt.name).collect{ case l:Literal=>sesame.literal2Lit(l)}
-
-          } yield MenuItem(name,title.label)
-        }.flatten)
-      })
 
       menuResult.map[SimpleResult]{
         case Success(res:Menu) =>
@@ -156,8 +96,6 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
 
   def page(uri:String) =  UserAction {
     implicit request=>
-
-
       val res: Html = views.html.index(request)
       Ok(res)
   }

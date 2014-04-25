@@ -10,6 +10,7 @@ import org.denigma.semantic.test.LoveHater
 import org.denigma.semantic.reading.selections.SelectResult
 import org.denigma.semantic.platform.SP
 import org.denigma.semantic.controllers.sync.{SyncUpdateController, SyncJsController}
+import play.api.Configuration
 
 
 /**
@@ -53,7 +54,7 @@ class SemanticStoreSpec  extends Specification with LoveHater {
 
     }
 
-    "read files" in new TestApp(){
+    "load files" in new TestApp(){
       SP.platformConfig.loadInitial should beFalse
       val q1 =
         """
@@ -71,9 +72,12 @@ class SemanticStoreSpec  extends Specification with LoveHater {
       res.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.size shouldEqual(4)
     }
 
-    "read initial data" in new TestApp(){
+    "loaf files for initial data" in new TestApp(){
       SP.platformConfig.loadInitial should beFalse
       SP.platformParams.isEmpty should beTrue
+      val files: List[Configuration] = SP.platformConfig.filesConf
+      files.isEmpty should beFalse
+     
       SP.loadInitialData()
       val q1 =
         """
@@ -84,10 +88,14 @@ class SemanticStoreSpec  extends Specification with LoveHater {
           |  { de:Genomic_Instability ?property ?object }
         """.stripMargin
 
-       val res = query(q1)
+      val res = query(q1)
       res.isSuccess should beTrue
       res.map(qr=>qr.asInstanceOf[SelectResult]).get.bindings.size shouldEqual(4)
     }
+
+
+
+
 
 
 
