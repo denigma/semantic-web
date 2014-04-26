@@ -1,0 +1,20 @@
+@(implicit request: UserRequestHeader)
+
+<main id="main">
+
+    <article id="main_article" data-view="ArticleView" class="ui teal piled segment">
+        <h1 id="title" data-bind="title" class="ui large header">
+
+            </h1>
+
+        <h2 id="authors" data-bind="authors" class="ui blue">
+
+            </h2>
+
+
+        <div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text"></div>
+    </article>
+
+
+    @*<button data-event-click="toggle" class="ui black huge launch right attached button"><i class="icon list layout"></i>Push sidebar</button>*@
+</main>

@@ -20,11 +20,6 @@ object MenuView extends Remote{
 
   type RemoteData = Menu
 
-  val testMenu: Menu = Menu(IRI("http://webintelligence.eu"),"Home", List(
-    MenuItem(IRI("http://webintelligence.eu/pages/about"),"About"),
-    MenuItem(IRI("http://webintelligence.eu/pages/project"),"Project"),
-    MenuItem(IRI("http://webintelligence.eu/another"),"Another")))
-
   implicit val fromFuture:FromFuture = (str)=> {
     RegisterPicklers.registerPicklers()
     sq.get[Menu]("menu/"+str)

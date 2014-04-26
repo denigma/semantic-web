@@ -7,6 +7,7 @@ import org.scalajs.dom.{Event, KeyboardEvent, HTMLElement}
 import org.scalajs.dom
 import org.denigma.extensions._
 import org.scalajs.dom.extensions._
+import scalajs.concurrent.QueueExecutionContext
 
 /**
  * Does binding for classes
@@ -15,6 +16,14 @@ trait PropertyBinder {
   self:JustBinding=>
   def strings:Map[String,Rx[String]]
   def bools:Map[String,Rx[Boolean]]
+
+
+
+  protected def propertyPartial(el:HTMLElement,key:String,value:dom.Attr):PartialFunction[String,Unit] = {
+    case bname if bname.startsWith("bind-")=>this.bindAttribute(el,key.replace("bind-",""),value.value,this.strings)
+    case "bind" => this.bindProperty(el,key,value)
+    case "html" => this.bindInnerHTML(el,key,value)
+  }
 
   //TODO: split into subfunctions
   /**
@@ -104,6 +113,8 @@ trait PropertyBinder {
     }
   }
 
+
+
   /**
    * Binds html property
    * @param el
@@ -119,4 +130,26 @@ trait PropertyBinder {
   def bindInner(el:HTMLElement,key:String,str:Rx[String]) = this.bindRx(key,el:HTMLElement,str){ (el,value)=>
     el.innerHTML = value
   }
+
+
+  /**
+   * @param el element
+   * @param key key
+   * @param value value
+   * @param mp map
+   */
+  def bindAttribute(el:HTMLElement,key:String,value:String,mp:Map[String,Rx[String]]): Unit =  mp.get(value) match
+  {
+    case Some(str)=>
+      this.bindRx(key, el: HTMLElement, str) {
+        (el, value) =>
+          //dom.console.info((key -> value.toString).toAtt.toString)
+          el.attributes.setNamedItem((key -> str.now).toAtt)
+          el.dyn.updateDynamic(key)(str.now) //TODO: check if redundant
+      }
+
+    case _=>  dom.console.error(s"unknown binding for $key with attribute $value")
+
+  }
+
 }

@@ -9,6 +9,10 @@ import org.denigma.binding.macroses.{BooleanRxMap, ClassToMap, StringRxMap}
 import org.denigma.extensions._
 
 import dom.extensions._
+import scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.scalajs.js
+import scala.util.Success
+import scala.util.Failure
 import scala.Some
 
 
@@ -46,60 +50,28 @@ trait GeneralBinding  extends JustBinding with VisibilityBinder with ClassBinder
   def bindProperties(el:HTMLElement,ats:mutable.Map[String, dom.Attr]): Unit = for {
     (key, value) <- ats
   }{
-    key.toString match {
-
-      case "showif" => this.showIf(el,value.value,el.style.display)
-      case "hideif" => this.hideIf(el,value.value,el.style.display)
-      case "class" => this.bindClass(el,value.value)
-      case str if str.startsWith("class-")=> str.replace("class-","") match {
-        case cl if cl.endsWith("-if")=>
-           this.classIf(el,cl.replace("-if",""),value.value)
-        case cl if cl.endsWith("-unless")=>
-          this.classUnless(el,cl.replace("-unless",""),value.value)
-        case _ =>
-          dom.console.error(s"other class bindings are not implemented yet for $str")
-
-        }
-
-      case bname if bname.startsWith("bind-")=>this.bindAttribute(el,key.replace("bind-",""),value.value,this.strings)
-      case "bind" => this.bindProperty(el,key,value)
-      case "html" => this.bindInnerHTML(el,key,value)
-      case _ => //some other thing to do
-    }
+    this.visibilityPartial(el,value)
+      .orElse(this.classPartial(el,value))
+      .orElse(this.propertyPartial(el,key.toString,value))
+      .orElse(this.loadIntoPartial(el,value))
+      .orElse(this.otherPartial)(key.toString)
   }
 
 
 
+  protected def loadIntoPartial(el:HTMLElement,value:dom.Attr):PartialFunction[String,Unit] = {
+    case "load-into" => bindLoadInto(el,value.value)
+  }
 
-//  protected def bindTextArea(el:HTMLElement,key:String,att:Attr,mp:Map[String,Rx[String]]):PartialFunction[(String,String),Unit] = {
-//    case ("bind", "textarea") =>
-//      mp.get(att.value.toString).foreach {
-//        str =>
-//          el.onkeyup = this.makePropHandler(el, str, "value")
-//          this.bindText(el, key, str)
-//      }
-//  }
+  protected def otherPartial:PartialFunction[String,Unit] = {case _=>}
+
 
   /**
-   * @param el element
-   * @param key key
-   * @param value value
-   * @param mp map
+   * Loads links into some view
+   * @param element
+   * @param into
    */
-  def bindAttribute(el:HTMLElement,key:String,value:String,mp:Map[String,Rx[String]]): Unit =  mp.get(value) match
-  {
-    case Some(str)=>
-      this.bindRx(key, el: HTMLElement, str) {
-        (el, value) =>
-          //dom.console.info((key -> value.toString).toAtt.toString)
-          el.attributes.setNamedItem((key -> str.now).toAtt)
-          el.dyn.updateDynamic(key)(str.now) //TODO: check if redundant
-      }
-
-    case _=>  dom.console.error(s"unknown binding for $key with attribute $value")
-
-  }
-
+  def bindLoadInto(element:HTMLElement,into: String) =   element.onclick = this.makeGoToHandler(element,into,push = true)
 
 
 

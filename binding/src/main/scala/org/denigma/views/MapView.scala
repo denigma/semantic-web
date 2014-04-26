@@ -26,27 +26,18 @@ abstract class MapView(name:String,element:HTMLElement,props:Map[String,Any]) ex
   override def bindProperties(el: HTMLElement, ats: mutable.Map[String, dom.Attr]) = for {
     (key, value) <- ats
   } {
-    key.toString match {
-
-      case "showif" => this.showIf(el, value.value, el.style.display)
-      case "hideif" => this.hideIf(el, value.value, el.style.display)
-      case str if str.startsWith("class-") => str.replace("class-", "") match {
-        case cl if cl.endsWith("-if") =>
-          this.classIf(el, cl.replace("-if", ""), value.value)
-        case cl if cl.endsWith("-unless") =>
-          this.classUnless(el, cl.replace("-unless", ""), value.value)
-        case _ =>
-          dom.console.error(s"other class bindings are not implemented yet for $str")
-
-      }
-      case bname if bname.startsWith("bind-") => this.bindAttribute(el, key.replace("bind-", ""), value.value, this.strings)
-      case "bind" => this.bindProperty(el, key, value)
-      case "item-bind" => this.bindItemProperty(el, key, value)
-      case bname if bname.startsWith("item-bind-") => this.bindAttribute(el, key.replace("item-bind-", ""), value.value, this.reactiveMap)
-      case _ => //some other thing to do
-    }
+    this.visibilityPartial(el, value)
+      .orElse(this.classPartial(el, value))
+      .orElse(this.itemPartial(el, key.toString, value))
+      .orElse(this.propertyPartial(el, key.toString, value))
+      .orElse(this.loadIntoPartial(el, value))
+      .orElse(this.otherPartial)(key.toString)
   }
 
+  protected def itemPartial(el:HTMLElement,key:String,value:dom.Attr):PartialFunction[String,Unit] = {
+    case "item-bind" => this.bindItemProperty(el, key, value)
+    case bname if bname.startsWith("item-bind-") => this.bindAttribute(el, key.replace("item-bind-", ""), value.value, this.reactiveMap)
+  }
 
 
   override def bindAttributes(el:HTMLElement,ats:mutable.Map[String,Attr]) ={
@@ -80,9 +71,6 @@ abstract class MapView(name:String,element:HTMLElement,props:Map[String,Any]) ex
       el.onkeyup = this.makePropHandler(el,str,"value")
       this.bindText(el,key,str)
     }
-
-
-
 
     case _=> dom.console.error(s"unknown binding")
 

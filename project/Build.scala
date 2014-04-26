@@ -60,7 +60,7 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
       resolvers +=   Dependencies.scalajsResolver,
 
-      resolvers += Resolver.file("Local repo", file("~/.ivy2/local"))(Resolver.ivyStylePatterns) ,
+      //resolvers += Resolver.file("Local repo", file("~/.ivy2/local"))(Resolver.ivyStylePatterns) ,
 
       sharedModels,
 

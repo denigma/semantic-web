@@ -5,6 +5,7 @@ import scala.collection.immutable.Map
 import rx._
 import org.scalajs.dom.HTMLElement
 import org.denigma.extensions._
+import org.scalajs.dom
 
 /**
  * Provides useful functions for visibility bindings (like showif/hideif)
@@ -13,6 +14,13 @@ trait VisibilityBinder {
   self:JustBinding=>
 
   def bools:Map[String,Rx[Boolean]]
+
+  def visibilityPartial(el:HTMLElement,value:dom.Attr):PartialFunction[String,Unit] = {
+    case "showif" => this.showIf(el, value.value, el.style.display)
+    case "hideif" => this.hideIf(el, value.value, el.style.display)
+  }
+
+
 
 
   /**
@@ -32,6 +40,7 @@ trait VisibilityBinder {
       el.style.display = if(h) "none" else disp
     //el.style.visibility = if(h) "hidden" else "visible"
   }
+
 
 
 

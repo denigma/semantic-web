@@ -23,7 +23,7 @@ object UserAction extends ActionBuilder[AuthRequest] with AppConfig
   {
     val user: Option[IRI] = request.session.get("user").map(name=>if(name.contains(":")) IRI(name) else IRI(USERS.user / name))
     val req = AuthRequest(user,request,
-      if(request.domain=="localhost")
+      if(request.domain=="localhost" || request.domain=="192.168.122.101")
         request.session.get("domain").getOrElse(defaultDomain.getOrElse(request.domain))
       else ""
     )

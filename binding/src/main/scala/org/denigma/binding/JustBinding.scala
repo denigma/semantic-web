@@ -1,9 +1,22 @@
 package org.denigma.binding
 
 import org.scalajs.dom.{Event, HTMLElement}
-import org.denigma.extensions._
+import org.scalajs.dom.extensions.Ajax
+import scala.util.Success
 import rx._
+import org.scalajs.dom._
+import scala.collection.mutable
 import org.scalajs.dom
+import org.denigma.binding.macroses.{ClassToMap, StringRxMap}
+import org.denigma.extensions._
+
+import dom.extensions._
+import scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.scalajs.js
+import scala.util.Success
+import scala.util.Failure
+import scala.Some
+import scala.scalajs.js.{Number, Dynamic}
 
 /**
  * Just a basic subclass for all bindings
@@ -11,13 +24,60 @@ import org.scalajs.dom
 class JustBinding {
 
 
+  /**
+   * Loads links into some view
+   * @param element
+   * @param into
+   */
+  def makeGoToHandler(element:HTMLElement,into: String, push:Boolean = true, relativeURI:Boolean = true):js.Function1[MouseEvent, _]  =  {event:MouseEvent=>{
 
+      event.preventDefault()
+      element.attributes.get("href") match {
+        case Some(url) =>
+
+          val uri = if(relativeURI && url.value.contains("://")) {
+            val st = url.value.indexOf("://")+3
+            url.value.substring(url.value.indexOf("/",st))
+          }
+          else url.value
+
+
+          Ajax.get(uri, headers = List()).onComplete {
+            case Success(req) => sq.byId(into) match {
+              case Some(el) =>
+                el.innerHTML = req.responseText
+                val params = js.Dynamic.literal( "html" -> req.responseText)
+
+                dom.window.history.pushState(params,dom.document.title,uri)
+
+              case None => dom.console.error(s"cannot find $into element")
+            }
+
+            case Failure(th) => dom.console.error(s"there is a problem with ${uri} ajax request")
+          }
+        case None=> dom.console.error(s"there is not url here to load anything into")
+      }
+    false
+    }
+  }
+
+
+
+
+
+  /**
+   * Makes id for the binding element
+   * @param el html element
+   * @param title title of id
+   * @return
+   */
   def makeId(el:HTMLElement,title:String) = {
     if (el.id.isNullOrUndef) {
       el.id = title + "_" + math.random
     }
     el.id
   }
+
 
   /*
   Binds value to rx

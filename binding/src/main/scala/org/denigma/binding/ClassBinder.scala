@@ -31,6 +31,26 @@ trait ClassBinder {
     case (el,cl) =>if(!cl) el.classList.add(className)
   }
 
+
+  /**
+   * Partial function for class
+   * @param el
+   * @param value
+   * @return
+   */
+  protected def classPartial(el:HTMLElement,value:dom.Attr):PartialFunction[String,Unit] = {
+    case "class" => this.bindClass(el,value.value)
+    case str if str.startsWith("class-")=> str.replace("class-","") match {
+      case cl if cl.endsWith("-if")=>
+        this.classIf(el,cl.replace("-if",""),value.value)
+      case cl if cl.endsWith("-unless")=>
+        this.classUnless(el,cl.replace("-unless",""),value.value)
+      case _ =>
+        dom.console.error(s"other class bindings are not implemented yet for $str")
+
+    }
+  }
+
   def bindClass(element:HTMLElement,prop: String) = for ( str<-strings.get(prop) ) this.bindRx(prop,element,str.zip){
     case (el,(oldVal,newVal)) =>
       if(el.classList.contains(oldVal))el.classList.remove(oldVal)
