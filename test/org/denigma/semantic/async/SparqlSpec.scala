@@ -27,21 +27,6 @@ class SparqlSpec extends Specification with LoveHater {
 
   class WithTestApp extends WithApplication with SimpleQueryController with UpdateController
 
-
-  //type writing = BigdataSailRepositoryConnection=>Unit
-  /*
-  ads some test relationships
-   */
-  override def  addTestRels() = {
-    this.addRel("Daniel","loves","RDF")
-    this.addRel("Anton","hates","RDF")
-    this.addRel("Daniel","loves","Immortality")
-    this.addRel("Liz","loves","Immortality")
-    this.addRel("Anton","loves","Immortality")
-    this.addRel("Ilia","loves","Immortality")
-    this.addRel("Edouard","loves","Immortality")
-  }
-
   val del: Delete = DELETE (
     DATA (
       Trip(

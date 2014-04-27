@@ -28,6 +28,8 @@
 
 #transhuman.org.ua prefixes
 @prefix tr: <http://transhuman.org.ua/resource/> .
+@prefix trf: <http://transhuman.org.ua/files/transhuman.org.ua/> .
+
 @prefix ust: <http://transhuman.org.ua/users/> .
 @prefix pgt:  <http://transhuman.org.ua/pages/> .
 
@@ -35,8 +37,8 @@
 
 <http://transhuman.org.ua> a pl:Site;
     pl:index pgt:Ukranian_Transhumanism;
-    pl:has_menu pgt:menu;
-    pl:has_logo "ukranian_transhumanism.jpg" .
+    pl:has_menu pgt:menu .
+    #pl:has_logo <http://transhuman.org.ua/files/transhuman.org.ua/ukranian_transhumanism.jpg> .
 
 pgt:menu a pl:Menu;
     pl:has_item pgt:About, pgt:Research, pgt:Activism, pgt:Members, pgt:Projects, pgt:Join.

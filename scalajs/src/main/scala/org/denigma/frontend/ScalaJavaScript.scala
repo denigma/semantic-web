@@ -47,6 +47,8 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scal
     .register("random",(el,params)=> Try {new RandomView(el,params)})
     .register("lists",(el,params)=>Try {new LongListView(el,params)})
     .register("ArticleView", (el, params) =>Try(new ArticleView(el,params)))
+    .register("righ-menu", (el, params) =>Try(new RightMenuView(el,params)))
+    .register("sidebar", (el, params) =>Try(new SidebarView(el,params)))
 
 
   val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)

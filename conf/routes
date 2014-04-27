@@ -5,6 +5,9 @@
 GET         /                            controllers.Application.index()
 GET         /menu/:name                  controllers.Application.menu(name)
 GET         /pages/:page                 controllers.Application.page(page)
+GET         /tools/sparql                controllers.Application.sparql
+GET         /logo/:variant               controllers.Application.logo(variant)
+
 
 GET         /users/login                 controllers.Login.login(username:String,password:String)
 GET         /users/register              controllers.Login.register(username:String,email,password:String)
@@ -39,9 +42,11 @@ GET         /test/mail                   controllers.Tests.mailMe
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                controllers.Assets.at(path="/public", file)
 GET         /public/*file                controllers.Assets.at(path="/public", file)
-#GET         /ckeditor/*file           controllers.Assets.at(path="/ckeditor", file)
+GET         /files/*file                controllers.Assets.at(path="/public", file)
 
-#GET         /*file                        controllers.Assets.at(path="/public", file)
+#GET         /files/*file                controllers.Assets.at(path="/files", file)
+
+#GET         /ckeditor/*file           controllers.Assets.at(path="/ckeditor", file)
 
 
 

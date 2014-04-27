@@ -1,7 +1,7 @@
 @(implicit request: UserRequestHeader)
 
 
-<section class="ui wide left sidebar">
+<section class="ui wide left sidebar" data-view="sidebar">
 
     <div class="ui breadcrumb">
         <i class="right arrow icon divider"></i>
@@ -9,7 +9,7 @@
         <i class="right arrow icon divider"></i>
     </div>
     <div class="item">
-        <img  class="ui large image" src="@routes.Assets.at("images/longevity.org.ua/Longevity_UA.svg")">
+        <img  class="ui large image" data-bind-src="logo">
     </div>
 
     @login(request)

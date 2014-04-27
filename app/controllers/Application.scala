@@ -1,9 +1,6 @@
 package controllers
-import models.RegisterPicklers._
-import play.api.mvc._
 import org.denigma.semantic.controllers.sync.WithSyncWriter
-import org.denigma.semantic.users.Accounts
-import play.api.libs.json.{JsValue, Json, JsObject}
+import play.api.libs.json.JsValue
 import play.api.templates.Html
 import models.{RegisterPicklers, Menu, MenuItem}
 import org.denigma.semantic.controllers.UpdateController
@@ -11,25 +8,19 @@ import org.denigma.semantic.controllers.UpdateController
 import org.scalax.semweb.rdf.vocabulary._
 import play.api.mvc._
 import org.scalajs.spickling.PicklerRegistry
-import org.scalax.semweb.rdf.IRI
+import org.scalax.semweb.rdf.{RDFValue, IRI}
 import org.scalax.semweb.rdf.vocabulary.WI
-import org.scalax.semweb.sparql._
-import org.scalax.semweb.sparql.Pat
 import org.denigma.semantic.controllers.SimpleQueryController
-import org.denigma.semantic.reading.selections._
 import org.openrdf.model.{Value, Literal, URI}
-import scala.concurrent.{impl, ExecutionContext, Future}
 import scala.util._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import org.scalajs.spickling.PicklerRegistry._
 import org.scalajs.spickling.playjson._
 import org.scalax.semweb.sesame
-
+import org.scalax.semweb.sparql._
+import scala.concurrent.duration._
 import org.scalax.semweb.sesame._
 import spray.caching.{LruCache, Cache}
-import spray.caching
-import scala.util.control.NonFatal
-import scala.xml.Elem
+import scala.concurrent.Future
 
 
 /*
@@ -43,6 +34,49 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
 
 
       Ok(views.html.index(request))
+  }
+
+  def sparql = UserAction {
+    implicit request=>
+          Ok(Html(
+            s"""
+                |<article id="main_article" data-view="ArticleView" class="ui teal piled segment">
+                |<p class="ui error message" id="title" class="ui large header">
+                | SPARQL quering interface is not avaliable yet but will apear rather soon
+                | </p>
+                |</article>
+                """.stripMargin))
+  }
+
+  // and a Cache for its result type
+  val queryCache: Cache[Try[List[Map[String, Value]]]] = LruCache(timeToLive = 5 minutes)
+
+
+  /**
+   * Displays logo
+   * @param variant
+   * @return
+   */
+  def logo(variant:String) = UserAction.async{
+    implicit request=>
+      val query = SELECT ( ?("logo") ) WHERE Pat(IRI("http://" + request.domain), IRI(WI.PLATFORM / "has_logo"), ?("logo"))
+
+//      this.queryCache(query.stringValue)(this.select(query).map {
+//        res => res.map(_.toListMap)
+//      }).map {
+//        case Success(res) if res.isEmpty || !res.head.contains("logo")=> this.tellBad(s"logo was not found\n query was: \n ${query.stringValue}")
+//        case Success(res) => Ok(res.head("logo").stringValue)
+//
+//        case Failure(th) => this.tellBad(s"logo loading failed ${th.toString}")
+//      }
+      val logo = request.domain match {
+      case "longevity.org.ua"=> "files/longevity.org.ua/longevity_ukraine.svg"
+      case "transhuman.org.ua"=> "files/transhuman.org.ua/ukranian_transhumanism.jpg"
+      case "webintelligence.eu"=> "files/webintelligence.eu/denigma.svg"
+      case "denigma.org" | "denigma.denigma.de"=> "files/webintelligence.eu/denigma.svg"
+      case _=> "files/longevity.org.ua/longevity_ukraine.svg"
+    }
+      Future.successful{     Ok(logo)    }
   }
 
 
@@ -84,10 +118,9 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
 //            |
 //            """.stripMargin))
 //          p.get
-//      }.getOrElse(BadRequest(Html(
-//        s"""
+//      }.getOrElse(BadRequest(s"""
 //           |cannot find ${page.stringValue} page with query: \n ${query}
-//         """.stripMargin)))
+//         """.stripMargin))
 //
 //      }
 
@@ -97,7 +130,8 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
 
 
   // and a Cache for its result type
-  val menuCache: Cache[Try[Menu]] = LruCache()
+  val menuCache: Cache[Try[Menu]] = LruCache(timeToLive = 5 minutes)
+
   /**
    * Renders menu for the website
    * @param domainName
@@ -105,7 +139,7 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
    */
   def menu(domainName:String = "") =  UserAction.async{
     implicit request=>
-      val domain = if(domainName=="") request.domain else domainName
+      val domain: String = if(domainName=="") request.domain else domainName
       val menuResult = menuCache(domain) {
 
         val dom =  IRI(s"http://$domain")

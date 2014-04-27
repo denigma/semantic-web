@@ -28,12 +28,14 @@
 
 #longevity.org.ua prefixes
 @prefix long: <http://longevity.org.ua/resource/> .
+@prefix longf: <http://longevity.org.ua/files/> .
 @prefix usl: <http://longevity.org.ua/users/> .
 @prefix pgl:  <http://longevity.org.ua/pages/> .
 
 
 <http://longevity.org.ua> a pl:Site;
     pl:index pgl:Longevity_Ukraine;
+    #pl:has_logo <http://longevity.org.ua/files/longevity_ukraine.jpg> ;
     pl:has_menu pgl:menu .
 
 pgl:menu a pl:Menu;

@@ -25,11 +25,14 @@
 # all other resources
 @prefix : <http://webintelligence.eu/resource/> .
 
+@prefix wif: <http://webintelligence.eu/files/webintelligence.eu/> .
+
 
 
 
 <http://webintelligence.eu> a pl:Site;
     pl:index pg:Webintelligence;
+    #pl:has_logo <http://webintelligence.eu/files/webintelligence.eu/denigma.svg>;
     pl:has_menu pg:menu .
 
 pg:menu a pl:Menu;

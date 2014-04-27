@@ -38,8 +38,7 @@ class JustBinding {
           val uri = if(relativeURI && url.value.contains("://")) {
             val st = url.value.indexOf("://")+3
             url.value.substring(url.value.indexOf("/",st))
-          }
-          else url.value
+          }   else url.value
 
 
           Ajax.get(uri, headers = List()).onComplete {
