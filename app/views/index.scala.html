@@ -1,4 +1,4 @@
-@(implicit request: UserRequestHeader)
+@(implicit request: UserRequestHeader, html:Option[Html] = None,into:String = "main")
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
     <head>
@@ -22,8 +22,13 @@
 
         @sidebar(request)
 
-    </body>
+        @if(html.isDefined) {
+            <div id="insertMe">
+                @{html.get}
+            </div>
+        }
 
+    </body>
 
     <script>
         session = {}
@@ -31,6 +36,9 @@
             session.user = "@Html(s"${request.username.get.stringValue}")"
         }
         ScalaJavaScript().main();
+        @if(html.isDefined) {
+            ScalaJavaScript().moveInto("insertMe","@{into}");
+        }
     </script>
 
 

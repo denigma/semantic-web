@@ -22,7 +22,7 @@ object MenuView extends Remote{
 
   implicit val fromFuture:FromFuture = (str)=> {
     RegisterPicklers.registerPicklers()
-    sq.get[Menu]("menu/"+str)
+    sq.get[Menu](sq.withHost("/menu/"+str))
   }
 
 }

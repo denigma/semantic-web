@@ -6,6 +6,8 @@ import rx._
 import scalatags._
 import org.scalajs.dom.extensions.Ajax
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import org.denigma.extensions.sq
+
 /**
  * View for the sitebar
  */
@@ -20,8 +22,8 @@ class SidebarView (element:HTMLElement,params:Map[String,Any] = Map.empty[String
 
   val logo = Var("")
 
-  Ajax.get("/logo/sidebar").foreach{res=>
-    logo()=res.responseText
+  Ajax.get(sq.withHost("/logo/sidebar")).foreach{res=>
+    logo()=sq.withHost(res.responseText)
   }
 
 

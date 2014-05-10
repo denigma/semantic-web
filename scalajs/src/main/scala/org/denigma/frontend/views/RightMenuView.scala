@@ -10,7 +10,9 @@ import scalatags._
  * @param element
  * @param params
  */
-class RightMenuView(element:HTMLElement,params:Map[String,Any] = Map.empty[String,Any]) extends OrdinaryView("righ-menu",element){
+class RightMenuView(element:HTMLElement,params:Map[String,Any] = Map.empty[String,Any]) extends OrdinaryView("righ-menu",element)
+{
+
   override def tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
 
   override def strings: Map[String, Rx[String]] = this.extractStringRx(this)
@@ -18,6 +20,5 @@ class RightMenuView(element:HTMLElement,params:Map[String,Any] = Map.empty[Strin
   override def bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
 
   override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
-
 
 }

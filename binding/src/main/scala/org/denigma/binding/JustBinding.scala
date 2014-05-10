@@ -18,10 +18,11 @@ import scala.util.Failure
 import scala.Some
 import scala.scalajs.js.{Number, Dynamic}
 
+
 /**
  * Just a basic subclass for all bindings
  */
-class JustBinding {
+abstract class JustBinding {
 
 
   /**
@@ -34,26 +35,20 @@ class JustBinding {
       event.preventDefault()
       element.attributes.get("href") match {
         case Some(url) =>
+          val uri = processUrl(url,relativeURI)
 
-          val uri = if(relativeURI && url.value.contains("://")) {
-            val st = url.value.indexOf("://")+3
-            url.value.substring(url.value.indexOf("/",st))
-          }   else url.value
+          val pjax = ("X-PJAX",into)
 
-
-          Ajax.get(uri, headers = List()).onComplete {
-            case Success(req) => sq.byId(into) match {
-              case Some(el) =>
-                el.innerHTML = req.responseText
-                val params = js.Dynamic.literal( "html" -> req.responseText)
-
-                dom.window.history.pushState(params,dom.document.title,uri)
-
+          Ajax.get(uri, headers = List(pjax)).onComplete {
+            case Success(req: XMLHttpRequest) => sq.byId(into) match {
+              case Some(el: HTMLElement) =>this.loadElementInto(el,uri,req.responseText)
               case None => dom.console.error(s"cannot find $into element")
             }
 
             case Failure(th) => dom.console.error(s"there is a problem with ${uri} ajax request")
           }
+
+
         case None=> dom.console.error(s"there is not url here to load anything into")
       }
     false
@@ -61,8 +56,50 @@ class JustBinding {
   }
 
 
+  /**
+   *
+   * Loads element into another one
+   * @param el element
+   * @param uri uri (for push state)
+   * @param newInnerHTML new content of the inner html
+   */
+  protected def loadElementInto(el:HTMLElement,uri:String, newInnerHTML:String) = {
+    val params = js.Dynamic.literal( "html" -> newInnerHTML)
+    dom.window.history.pushState(params,dom.document.title,uri)
+    el.innerHTML = newInnerHTML
+  }
+
+  protected def processUrl(url:Attr, relativeURI:Boolean = true):String =
+    if(url.value.contains("://")) {
+      val st = url.value.indexOf("://")+3
+      sq.withHost(url.value.substring(url.value.indexOf("/",st)))
+    }
+    else
+      sq.withHost(url.value)
 
 
+    /**
+   * Loads
+   * @param uri
+   * @param into
+   */
+  def loadInto(uri:String,into:String): Unit = {
+    val pjax = ("X-PJAX",into)
+
+    Ajax.get(uri, headers = List(pjax)).onComplete {
+      case Success(req) => sq.byId(into) match {
+        case Some(el) =>
+          el.innerHTML = req.responseText
+          val params = js.Dynamic.literal( "html" -> req.responseText)
+
+          dom.window.history.pushState(params,dom.document.title,uri)
+
+        case None => dom.console.error(s"cannot find $into element")
+      }
+
+      case Failure(th) => dom.console.error(s"there is a problem with ${uri} ajax request")
+    }
+  }
 
   /**
    * Makes id for the binding element

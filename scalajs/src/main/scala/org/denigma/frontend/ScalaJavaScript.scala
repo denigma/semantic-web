@@ -8,7 +8,7 @@ import scala.scalajs.js.annotation.JSExport
 import org.denigma.extensions._
 import models.{RegisterPicklers=>rp}
 
-import org.scalajs.dom.{MouseEvent, console}
+import org.scalajs.dom.{HTMLElement, MouseEvent, console}
 
 import models._
 
@@ -35,12 +35,13 @@ import org.scalax.semweb.rdf.IRI
 @JSExport
 object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scalajs.js.JSApp
 {
-
-
   rp.registerPicklers()
 
   val sidebarParams =  js.Dynamic.literal(exclusive = false)
 
+  /**
+   * Register views
+   */
   org.denigma.views
     .register("login", (el, params) =>Try(new LoginView(el,params)))
     .register("menu", (el, params) =>Try{ new MenuView(el,params) })
@@ -49,6 +50,8 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scal
     .register("ArticleView", (el, params) =>Try(new ArticleView(el,params)))
     .register("righ-menu", (el, params) =>Try(new RightMenuView(el,params)))
     .register("sidebar", (el, params) =>Try(new SidebarView(el,params)))
+    .register("query", (el, params) =>Try(new QueryView(el,params)))
+    .register("paper", (el, params) =>Try(new PaperView(el,params)))
 
 
   val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
@@ -62,10 +65,23 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scal
   @JSExport
   def main(): Unit = {
     rp.registerPicklers()
-    this.bind(this.element)
+    this.bind(this.viewElement)
     jQuery(".top.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
     jQuery(".left.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
 
+  }
+
+  @JSExport
+  def load(content:String,into:String): Unit = {
+    dom.document.getElementById(into).innerHTML = content
+  }
+
+  @JSExport
+  def moveInto(from:String,into:String): Unit = {
+    val ins: HTMLElement = dom.document.getElementById(from)
+    dom.document.getElementById(into).innerHTML =ins.innerHTML
+
+    ins.parentNode.removeChild(ins)
   }
 
   val toggle: Var[MouseEvent] = Var(this.createMouseEvent())

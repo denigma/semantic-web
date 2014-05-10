@@ -26,27 +26,8 @@ import scala.concurrent.Future
 /*
 main application controller, responsible for index and some other core templates and requests
  */
-object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQueryController with UpdateController
+object Application extends PJaxPlatformWith("index") with WithSyncWriter with SimpleQueryController with UpdateController
 {
-
-  def index(): Action[AnyContent] =  UserAction {
-    implicit request=>
-
-
-      Ok(views.html.index(request))
-  }
-
-  def sparql = UserAction {
-    implicit request=>
-          Ok(Html(
-            s"""
-                |<article id="main_article" data-view="ArticleView" class="ui teal piled segment">
-                |<p class="ui error message" id="title" class="ui large header">
-                | SPARQL quering interface is not avaliable yet but will apear rather soon
-                | </p>
-                |</article>
-                """.stripMargin))
-  }
 
   // and a Cache for its result type
   val queryCache: Cache[Try[List[Map[String, Value]]]] = LruCache(timeToLive = 5 minutes)
@@ -88,42 +69,15 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
       val text = ?("text")
       val title = ?("title")
       //val authors = ?("authors")
-      Ok(Html(
+      val pageHtml: Html = Html(
         s"""
             |<article id="main_article" data-view="ArticleView" class="ui teal piled segment">
             |<h1 id="title" data-bind="title" class="ui large header"> ${page.stringValue} </h1>
             |<div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text">$text</div>
             |</article>
-            """.stripMargin))
+            """.stripMargin)
 
-//      val query =
-//        s"""
-//          |SELECT ?title ?text WHERE {
-//          | <${page.stringValue}> <http://webintelligence.eu/platform/has_title> ?title .
-//          | <${page.stringValue}> <http://webintelligence.eu/platform/has_text> ?text .
-//          |}
-//        """.stripMargin
-//
-//      val fut = this.select {query}
-//      fut.map{case tr=>tr.map{
-//        case res=>
-//          val first = res.toListMap.head //TODO: rewrite
-//          val p: Option[SimpleResult] = for {
-//            text <-first.get("text")
-//            title <-first.get("title")
-//          }
-//          yield Ok(Html(s"""
-//            |<h1 id="title" data-bind="title" class="ui large header"> $title </h1>
-//            |        <div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text">$text</div>
-//            |
-//            """.stripMargin))
-//          p.get
-//      }.getOrElse(BadRequest(s"""
-//           |cannot find ${page.stringValue} page with query: \n ${query}
-//         """.stripMargin))
-//
-//      }
-
+      this.pj(pageHtml)(request)
 
   }
 
@@ -179,6 +133,8 @@ object Application extends PJaxPlatformWith("") with WithSyncWriter with SimpleQ
       }
 
   }
+
+
 
 
 }

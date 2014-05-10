@@ -5,7 +5,7 @@ import scala.scalajs.sbtplugin.ScalaJSPlugin._
 object Dependencies{
 
 
-  val semWebVersion =  "0.2.23"
+  val semWebVersion =  "0.2.26"
 
   val authDepth = Seq(
 
@@ -39,7 +39,7 @@ object Dependencies{
   )
 
   val diDeps = Seq{
-     "org.scaldi" %% "scaldi" % "0.3.1"
+     "org.scaldi" %% "scaldi" % "0.3.2"
   }
 
   val cachingDeps = Seq(
@@ -58,19 +58,19 @@ object Dependencies{
   val webjars = Seq(
     "org.webjars" %% "webjars-play" % "2.2.2",  //webjars support for play2
 
-    "org.webjars" % "codemirror" % "4.0", //codemirror
+    "org.webjars" % "codemirror" % "4.1", //codemirror
 
-    "org.webjars" % "d3js" % "3.4.4-1", //visualization lib
+    "org.webjars" % "d3js" % "3.4.6", //visualization lib
 
     "org.webjars" % "d3-plugins" % "da342b6",
 
-    "org.webjars" % "jquery" % "2.1.0-2",
+    "org.webjars" % "jquery" % "2.1.1",
 
     "org.webjars" % "jquery-ui" % "1.10.4",
 
     //"org.webjars" % "jquery-ui-themes" % "1.10.3",
 
-    "org.webjars" % "Semantic-UI" % "0.15.1", //less/css framework
+    "org.webjars" % "Semantic-UI" % "0.16.1", //less/css framework
 
     //"org.webjars" % "jquery-file-upload" % "9.5.4",
 
@@ -105,7 +105,7 @@ object Dependencies{
   val graphDeps = Seq(
 
 
-    "com.assembla.scala-incubator" %% "graph-core" % "1.8.0",
+    "com.assembla.scala-incubator" %% "graph-core" % "1.8.1",
 
     "com.assembla.scala-incubator" %% "graph-json" % "1.8.0"
 

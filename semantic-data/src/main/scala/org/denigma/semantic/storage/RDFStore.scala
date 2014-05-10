@@ -5,6 +5,7 @@ import com.bigdata.rdf.sail._
 import org.denigma.semantic.files.SemanticFileParser
 import org.denigma.semantic.reading.queries.UniReader
 import org.denigma.semantic.writing.DataWriter
+import com.bigdata.rdf.sail.remote.BigdataSailRemoteRepository
 
 /**
 * abstract class that deals with storing and retrieving RDF
@@ -28,5 +29,4 @@ with DataWriter with SemanticFileParser //some traits with useful methods
   def close()=repo.shutDown()
 
 }
-
 

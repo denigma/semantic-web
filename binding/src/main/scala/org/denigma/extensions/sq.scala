@@ -97,6 +97,9 @@ object sq{
     this.pickleRequest[T](Ajax.apply("GET", url, "", timeout, headers, withCredentials))
 
 
+  def withHost(str:String): String = {
+    "http://"+dom.location.host+(if(str.startsWith("/") || str.startsWith("#")) str else "/"+str)
+  }
 
   def pickleRequest[T](req:Future[XMLHttpRequest]): Future[T] = req.map{case r=>
     val v = js.JSON.parse(r.responseText).asInstanceOf[js.Any]

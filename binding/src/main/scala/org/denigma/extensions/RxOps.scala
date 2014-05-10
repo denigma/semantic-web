@@ -2,8 +2,6 @@ package org.denigma.extensions
 
 import rx.core.Obs
 import rx.core.Rx
-import org.denigma.extensions.Swap
-import scala.collection.immutable._
 
 import scala.collection.immutable._
 import rx.ops._
@@ -15,11 +13,11 @@ trait RxOps {
 
   implicit class AnyRx[T](source:Rx[T]) {
 
-  def takeIf(b:Rx[Boolean]) = source.filter(el=>b.now)
+  def takeIf(b:Rx[Boolean]) = RxOps(source).filter(el=>b.now)
 
-  def takeIfAll(bools:Rx[Boolean]*) = source.filter(el=>bools.forall(b=>b.now))
+  def takeIfAll(bools:Rx[Boolean]*) = RxOps(source).filter(el=>bools.forall(b=>b.now))
 
-  def takeIfAny(bools:Rx[Boolean]*) = source.filter(el=>bools.exists(b=>b.now))
+  def takeIfAny(bools:Rx[Boolean]*) = RxOps(source).filter(el=>bools.exists(b=>b.now))
 
 
   def observeIf(b:Rx[Boolean])(callback: => Unit) = Obs(takeIf(b),skipInitial = true)(callback)
@@ -47,10 +45,10 @@ trait RxOps {
      */
     def zip(): Rx[(T, T)] = this.zip[(T,T)]((a,b)=>(a,b))
 
-    def is(value:T): rx.Rx[Boolean] = source.map(_==value)
-    def isnt(value:T): rx.Rx[Boolean] = source.map(_!=value)
-    def is[R<:T]: rx.Rx[Boolean] = source.map(_.isInstanceOf[R])
-    def isnt[R<:T]: rx.Rx[Boolean] = source.map(!_.isInstanceOf[R])
+    def is(value:T): rx.Rx[Boolean] = RxOps(source).map(_==value)
+    def isnt(value:T): rx.Rx[Boolean] = RxOps(source).map(_!=value)
+    def is[R<:T]: rx.Rx[Boolean] = RxOps(source).map(_.isInstanceOf[R])
+    def isnt[R<:T]: rx.Rx[Boolean] =RxOps(source).map(!_.isInstanceOf[R])
 
   }
 
@@ -68,8 +66,8 @@ trait RxOps {
     def to(value:TN)(callback: => Unit) = Obs(source,skipInitial = true){    if(source.now._2==value) callback  }
     def transition(from:TO,to:TN)(callback: => Unit) =  Obs(source,skipInitial = true){    if(source.now == (from->to) ) callback  }
 
-    def isFrom(value:TO) = source.map(_._1==value)
-    def isTo(value:TN) = source.map(_._2==value)
+    def isFrom(value:TO) = RxOps(source).map(_._1==value)
+    def isTo(value:TN) = RxOps(source).map(_._2==value)
   }
 
 
@@ -88,12 +86,12 @@ trait RxOps {
     var previous: List[T] = col.now
     val red = Rx{
       val old = previous
-      previous = col.filter(_!=this.previous)() //TODO: maybe dangerous!
+      previous =RxOps(col).filter(_!=this.previous)() //TODO: maybe dangerous!
       (old,previous)
     }
 
 
-    val updates = red.map{case (prev,cur)=>
+    val updates = RxOps(red).map{case (prev,cur)=>
       val removed = prev.diff(cur)
       val inserted = cur.diff(prev)
       val unPre: List[T] = prev.filterNot(removed.contains)

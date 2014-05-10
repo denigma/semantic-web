@@ -26,9 +26,9 @@ object Schema  extends PJaxPlatformWith("schema") {
       Ok(views.html.schema.sankey())
   }
 
-  def distortion() = UserAction {
-    implicit request=>
-      Ok(pj("distortion",views.html.schema.distortion()))
-  }
+//  def distortion() = UserAction {
+//    implicit request=>
+//      Ok(pj("distortion",views.html.schema.distortion()))
+//  }
 
 }

@@ -58,9 +58,15 @@ trait GeneralBinding  extends JustBinding with VisibilityBinder with ClassBinder
   }
 
 
-
+  /**
+   * Loads element into another one
+   * @param el
+   * @param value
+   * @return
+   */
   protected def loadIntoPartial(el:HTMLElement,value:dom.Attr):PartialFunction[String,Unit] = {
-    case "load-into" => bindLoadInto(el,value.value)
+    case "load-into" => bindLoadInto(el,value.value, rel = true)
+    case "load-abs-into" => bindLoadInto(el,value.value, rel = false)
   }
 
   protected def otherPartial:PartialFunction[String,Unit] = {case _=>}
@@ -71,7 +77,7 @@ trait GeneralBinding  extends JustBinding with VisibilityBinder with ClassBinder
    * @param element
    * @param into
    */
-  def bindLoadInto(element:HTMLElement,into: String) =   element.onclick = this.makeGoToHandler(element,into,push = true)
+  def bindLoadInto(element:HTMLElement,into: String, rel:Boolean) =   element.onclick = this.makeGoToHandler(element,into,push = true, rel)
 
 
 

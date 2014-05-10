@@ -6,12 +6,16 @@ import org.denigma.semantic.platform.AppConfig
 
 import org.scalax.semweb.rdf.IRI
 import org.scalax.semweb.rdf.vocabulary.USERS
+import play.api.libs.concurrent.Execution.Implicits._
 
 
 trait UserRequestHeader extends RequestHeader{
 
   def username: Option[IRI]
+  def pjax: Option[String]
 }
+
+//
 
 
 
@@ -27,7 +31,13 @@ object UserAction extends ActionBuilder[AuthRequest] with AppConfig
         request.session.get("domain").getOrElse(defaultDomain.getOrElse(request.domain))
       else ""
     )
-    block(req)
+    //TODO: make more safe
+    block(req).map { result =>
+      request.headers.get("Origin") match {
+        case Some(o) => result.withHeaders("Access-Control-Allow-Origin" -> o)
+        case None => result
+      }
+    }
   }
 }
 
@@ -60,5 +70,9 @@ case class AuthRequest[A](username: Option[IRI], request: Request[A], dom:String
   def isGuest = username.isEmpty
   def isSigned = username.isDefined
 
+  def pjax: Option[String] = request.headers.get("X-PJAX")
+
   override lazy val domain =  if(dom=="") request.domain else dom
 }
+
+

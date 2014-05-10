@@ -1,33 +1,36 @@
 package controllers
 
-import play.api.mvc._
-import org.openrdf.repository.RepositoryResult
-import scala.collection.JavaConversions._
-import scala.collection.immutable._
-import org.openrdf.model._
-import play.api.libs.json.{JsValue, JsObject, Json}
-import org.denigma.semantic._
-import org.denigma.semantic.reading.selections.SelectResult
-import org.denigma.semantic.controllers.{JsQueryController, QueryController}
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import scala.concurrent.duration._
-import scala.util.{Try, Failure}
-import scala.concurrent.Future
-import org.denigma.semantic.reading.QueryResultLike
-import scala.util.Failure
-import play.api.libs.json.JsObject
-import scala.util.Failure
-import play.api.libs.json.JsObject
+import org.denigma.semantic.controllers.sync.WithSyncWriter
+import org.denigma.semantic.controllers._
+import play.api.libs.json.{JsValue, Json, JsObject}
+import scala.collection.immutable.Map
 import play.api.mvc.SimpleResult
+import org.denigma.semantic.reading.selections.SelectResult
+import scala.concurrent.Future
+import scala.util.{Failure, Try}
+import org.denigma.semantic.reading.QueryResultLike
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+/**
+ * Tools like sparql and paper viewer
+ */
+object Tools extends PJaxPlatformWith("tools") with UpdateController with JsQueryController {
 
-
-object  Queries extends PJaxPlatformWith("query") with JsQueryController {
-
-
-  def main() = UserAction {
+  def sparql = UserAction {
     implicit request=>
-       Ok(pj("main",views.html.queries.main()))
+      val pdf = views.html.query(request)
+      this.pj(pdf)(request)
   }
+
+  def paper = UserAction {
+    implicit request=>
+      val pdf = views.html.paper(request)
+      this.pj(pdf)(request)
+  }
+
+  //  def main() = UserAction {
+  //    implicit request=>
+  //       Ok(pj("main",views.html.queries.main()))
+  //  }
 
   def toProp(kv:(String,String)): JsObject = Json.obj("name"->kv._1,"value"->kv._2,"id"->kv.hashCode())
 
@@ -53,7 +56,5 @@ object  Queries extends PJaxPlatformWith("query") with JsQueryController {
       Ok(results.asJson).as("application/json")
     case Failure(e)=>this.badQuery(q)(e)
   }.recover(this.badQuery(q))
-
-
 
 }

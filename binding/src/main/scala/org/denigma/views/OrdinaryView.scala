@@ -25,6 +25,4 @@ abstract class OrdinaryView(name:String,elem:dom.HTMLElement) extends BindingVie
   }
 
 
-
-
 }

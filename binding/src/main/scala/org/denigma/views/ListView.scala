@@ -118,9 +118,9 @@ abstract class ListView(name:String,element:HTMLElement, params:Map[String,Any])
     items.foreach{i=>
       this.addView(i)
       //element.appendChild(i.element)
-      element.insertBefore(i.element,span)
+      element.insertBefore(i.viewElement,span)
       //element.insertAdjacentElement()
-      i.bindView(i.element)
+      i.bindView(i.viewElement)
     }
 
     element.children.collect{case el:HTMLElement=>el}.foreach(bind)

@@ -1,0 +1,30 @@
+@(implicit request: UserRequestHeader)
+<section data-view="QueryView">
+    <h1 class="ui header">Query page</h1>
+    @files.uploader()
+    <section id="query" data-view="EditorView">
+
+    </section>
+    <section class="" data-showif="hasErrors">
+        <div class="ui piled segment">
+            <p data-bind="errors"></p>
+        </div>
+    </section>
+    <button data-event-click="reset" class="ui green button">Reset</button>
+    <button data-event-click="submit" class="ui green button">Send Request</button>
+    <table class="ui table segment" border>
+        <tr>
+            <th data-foreach-title="Result.head" data-bind="title">
+                </th>
+        </tr>
+        <tr>
+            <th data-foreach-title="Result.head">
+                <input data-bind-placeholder="title" type="hidden" id="thisid" class="filter select2-container select2-container-multi populate" />
+            </th>
+        </tr>
+
+        <tr data-foreach-result="results">
+            <td data-foreach-key="result.bindings" data-bind="result.bindings[key].value"></td>
+        </tr>
+    </table>
+</section>
