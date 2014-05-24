@@ -2,7 +2,11 @@ import sbt._
 
 import sbt.Keys._
 
-import play.Keys._
+import play._
+
+import play.Play.autoImport._
+
+import PlayKeys._
 
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
 
@@ -45,20 +49,9 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
   lazy val sharedModels = unmanagedSourceDirectories in Compile += baseDirectory.value / "models" / "src" / "main" / "scala"
 
 
-  lazy val semanticWebSettings =
-    play.Project.playScalaSettings ++ Seq(
+  lazy val semanticWebSettings = Seq(
 
-      name                 := "semantic-web",
 
-      version              := "0.05",
-
-      organization := "org.denigma",
-
-      scalaVersion:=Dependencies.scalaVer,
-
-      scalacOptions ++= Seq("-feature", "-language:_"),
-
-      resolvers +=   Dependencies.scalajsResolver,
 
       //resolvers += Resolver.file("Local repo", file("~/.ivy2/local"))(Resolver.ivyStylePatterns) ,
 
@@ -66,15 +59,13 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
       ScalaJSKeys.relativeSourceMaps := true, //just in case as sourcemaps do not seem to work=(
 
-      parallelExecution in Test := false,
+      scalaVersion:=Dependencies.scalaVer,
+
+      resolvers +=   Dependencies.scalajsResolver,
 
       //scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
 
       scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
-
-      organization := "org.denigma",
-
-      //coffeescriptOptions := Seq("native", "/usr/local/bin/coffee -p"),
 
       compile in Compile <<= (compile in Compile) dependsOn (preoptimizeJS in (scalajs, Compile)),
 
@@ -87,8 +78,8 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
       watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get},
 
-      playAssetsDirectories <+= baseDirectory / "files"
 
+      libraryDependencies ++=appDependencies
       //incOptions := incOptions.value.withNameHashing(true)
 
     ) ++ (     // ask scalajs project to put its outputs in scalajsOutputDir
@@ -101,7 +92,12 @@ trait SemanticWeb extends SemanticData with ScalaJS with UniversalKeys{
 
   //play.Project.playScalaSettings ++ SassPlugin.sassSettings
 
-  val main = play.Project(appName, appVersion, appDependencies).settings(semanticWebSettings: _*).dependsOn(semanticData).aggregate(scalajs)
+  //val main = play.Project(appName, appVersion, appDependencies).settings(semanticWebSettings: _*).dependsOn(semanticData).aggregate(scalajs)
+
+
+  lazy val main = (project in file(".")).enablePlugins(PlayScala).settings(semanticWebSettings: _*).dependsOn(semanticData).aggregate(scalajs)
+
+
 
   //SassPlugin.sassSettings ++
   //Seq(SassPlugin.sassOptions := Seq("--compass", "-r", "compass","-r", "semantic-ui-sass")):_* )

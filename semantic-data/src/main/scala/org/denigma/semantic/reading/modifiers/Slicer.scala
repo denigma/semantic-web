@@ -1,10 +1,12 @@
 package org.denigma.semantic.reading.modifiers
 
-import org.denigma.semantic.reading.queries._
 import com.bigdata.rdf.sparql.ast.SliceNode
 
+
 trait Slicer{
-  def slice[TQ <:AnyQuery](q:TQ,offset:Long, limit:Long,rewrite:Boolean = false): TQ = {
+
+
+  def slice[TQ <:com.bigdata.rdf.sail.BigdataSailQuery] (q: TQ, offset: Long, limit: Long,rewrite:Boolean = false): TQ = {
     val cont =  q.getASTContainer
     val ast = cont.getOriginalAST
     if(rewrite || !ast.hasSlice)

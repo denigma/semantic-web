@@ -5,9 +5,9 @@ import org.denigma.semantic.writing._
 /**
 object that stores database of any other thing that can provide new writeconnection
   */
-object SyncWriter extends CanWrite{
+object SyncWriter extends CanWriteBigData{
 
-  var writer:CanWrite = null
+  var writer:CanWriteBigData = null
 
   def lg = this.writer.lg
 

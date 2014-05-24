@@ -1,9 +1,5 @@
 package org.denigma.semantic.reading.queries
 
-import org.denigma.semantic.reading._
-import org.denigma.semantic.reading.questions._
-import org.denigma.semantic.reading.selections._
-import org.denigma.semantic.reading.constructs._
 import scala.util.Try
 import org.denigma.semantic.reading.modifiers.Paginator
 

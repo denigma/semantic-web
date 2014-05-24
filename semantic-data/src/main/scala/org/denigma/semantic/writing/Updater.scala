@@ -11,7 +11,7 @@ import org.scalax.semweb.rdf.vocabulary.WI
 /**
 class that provides updates to the database
  */
-trait Updater extends CanWrite  with SemanticFileParser{
+trait Updater extends CanWriteBigData  with SemanticFileParser{
 
   /**
    * Writed update to the database

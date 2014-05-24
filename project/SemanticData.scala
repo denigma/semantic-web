@@ -2,6 +2,12 @@ import sbt._
 import sbt.Keys._
 import bintray.Plugin.bintraySettings
 
+import play._
+
+import play.Play.autoImport._
+
+import PlayKeys._
+
 trait SemanticData extends Publish {
 
   //lazy val banana =  RootProject(uri("git://github.com/antonkulaga/banana-rdf.git#master"))
@@ -21,13 +27,13 @@ trait SemanticData extends Publish {
 
   val src = "src"
 
+//  lazy val semanticData = play.Project(semanticDataAppName, semanticDataAppVersion, semanticDataAppDependencies, path = file(this.semanticDataAppPath))
 
-
-  lazy val semanticData = play.Project(semanticDataAppName, semanticDataAppVersion, semanticDataAppDependencies, path = file(this.semanticDataAppPath)).settings(bintraySettings:_*).settings(
+  lazy val semanticData  = (project in file(this.semanticDataAppPath)).enablePlugins(PlayScala).settings(bintraySettings:_*).settings(
     // Add your own project settings here
 
     scalaVersion := Dependencies.scalaVer,
-
+    parallelExecution in Test := false,
     //resolvers
     resolvers += "Bigdata releases" at "http://systap.com/maven/releases/",
     resolvers += "nxparser-repo" at "http://nxparser.googlecode.com/svn/repository/",
@@ -36,6 +42,7 @@ trait SemanticData extends Publish {
     resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
     resolvers += "spray repo" at "http://repo.spray.io",
     resolvers += Dependencies.scalaxResolver,
+    libraryDependencies ++=semanticDataAppDependencies,
 
     //compiler options
     scalacOptions ++= Seq( "-feature", "-language:_" ),

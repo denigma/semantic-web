@@ -3,7 +3,7 @@
 # ~~~~
 
 GET         /                            controllers.Application.index()
-GET         /menu/:name                  controllers.Application.menu(name)
+GET         /menu/:name                  controllers.Menus.menu(name)
 GET         /pages/:page                 controllers.Application.page(page)
 GET         /logo/:variant               controllers.Application.logo(variant)
 
@@ -16,8 +16,8 @@ GET         /users/login                 controllers.Login.login(username:String
 GET         /users/register              controllers.Login.register(username:String,email,password:String)
 GET         /users/logout                controllers.Login.logout()
 
-GET         /schema                      controllers.Schema.sankey()
-GET         /schema/sankey               controllers.Schema.sankey()
+#GET         /schema                      controllers.Schema.sankey()
+#GET         /schema/sankey               controllers.Schema.sankey()
 
 GET         /images                      controllers.Uploader.images
 POST        /upload                      controllers.Uploader.upload
@@ -35,8 +35,8 @@ GET         /test/mail                   controllers.Tests.mailMe
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file                controllers.Assets.at(path="/public", file)
-GET         /public/*file                controllers.Assets.at(path="/public", file)
-GET         /files/*file                 controllers.Assets.at(path="/public", file)
+#GET         /public/*file                controllers.Assets.at(path="/public", file)
+#GET         /files/*file                 controllers.Assets.at(path="/public", file)
 
 
 

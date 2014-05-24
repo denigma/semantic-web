@@ -1,6 +1,7 @@
 package org.denigma.semantic.actors
 
-import org.denigma.semantic.commons.LogLike
+import org.scalax.semweb.sesame.LogLike
+
 
 /**
  * A wrapper on top of akka logger for LogLike interface for database-related classes as Akka logger has different methods than play logger

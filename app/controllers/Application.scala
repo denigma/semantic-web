@@ -1,8 +1,8 @@
 package controllers
 import org.denigma.semantic.controllers.sync.WithSyncWriter
 import play.api.libs.json.JsValue
-import play.api.templates.Html
-import models.{RegisterPicklers, Menu, MenuItem}
+import play.twirl.api.Html
+import models.MenuItem
 import org.denigma.semantic.controllers.UpdateController
 
 import org.scalax.semweb.rdf.vocabulary._
@@ -13,14 +13,13 @@ import org.scalax.semweb.rdf.vocabulary.WI
 import org.denigma.semantic.controllers.SimpleQueryController
 import org.openrdf.model.{Value, Literal, URI}
 import scala.util._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import org.scalajs.spickling.playjson._
 import org.scalax.semweb.sesame
 import org.scalax.semweb.sparql._
 import scala.concurrent.duration._
-import org.scalax.semweb.sesame._
 import spray.caching.{LruCache, Cache}
 import scala.concurrent.Future
+import auth.UserAction
 
 
 /*
@@ -51,11 +50,11 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
 //        case Failure(th) => this.tellBad(s"logo loading failed ${th.toString}")
 //      }
       val logo = request.domain match {
-      case "longevity.org.ua"=> "files/longevity.org.ua/longevity_ukraine.svg"
-      case "transhuman.org.ua"=> "files/transhuman.org.ua/ukranian_transhumanism.jpg"
-      case "webintelligence.eu"=> "files/webintelligence.eu/denigma.svg"
-      case "denigma.org" | "denigma.denigma.de"=> "files/webintelligence.eu/denigma.svg"
-      case _=> "files/longevity.org.ua/longevity_ukraine.svg"
+      case "longevity.org.ua"=> "assets/longevity.org.ua/longevity_ukraine.svg"
+      case "transhuman.org.ua"=> "assets/transhuman.org.ua/ukranian_transhumanism.jpg"
+      case "webintelligence.eu"=> "assets/webintelligence.eu/denigma.svg"
+      case "denigma.org" | "denigma.denigma.de"=> "assets/webintelligence.eu/denigma.svg"
+      case _=> "assets/longevity.org.ua/longevity_ukraine.svg"
     }
       Future.successful{     Ok(logo)    }
   }
@@ -69,10 +68,11 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
       val text = ?("text")
       val title = ?("title")
       //val authors = ?("authors")
+      //data-bind="title"
       val pageHtml: Html = Html(
         s"""
             |<article id="main_article" data-view="ArticleView" class="ui teal piled segment">
-            |<h1 id="title" data-bind="title" class="ui large header"> ${page.stringValue} </h1>
+            |<h1 id="title"  class="ui large header"> ${/*page.stringValue*/uri} </h1>
             |<div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text">$text</div>
             |</article>
             """.stripMargin)
@@ -80,60 +80,6 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
       this.pj(pageHtml)(request)
 
   }
-
-
-
-  // and a Cache for its result type
-  val menuCache: Cache[Try[Menu]] = LruCache(timeToLive = 5 minutes)
-
-  /**
-   * Renders menu for the website
-   * @param domainName
-   * @return
-   */
-  def menu(domainName:String = "") =  UserAction.async{
-    implicit request=>
-      val domain: String = if(domainName=="") request.domain else domainName
-      val menuResult = menuCache(domain) {
-
-        val dom =  IRI(s"http://$domain")
-        val hasMenu = WI.PLATFORM / "has_menu" iri
-        val hasItem = WI.PLATFORM / "has_item" iri
-        val hasTitle = WI.PLATFORM / "has_title" iri
-
-        val m = ?("menu")
-        val item = ?("item")
-        val tlt= ?("title")
-
-        val selMenu = SELECT (item,tlt) WHERE (
-          Pat( dom, hasMenu, m ),
-          Pat( m, hasItem, item),
-          Pat( item, hasTitle, tlt)
-          )
-
-        //lg.info(selMenu.stringValue)
-
-        this.select(selMenu).map(v=>v.map{case r=>
-          Menu(dom / "menu",domain,r.toListMap.map{case list=>
-            for{
-              name<-list.get(item.name).collect{ case n:URI=>sesame.URI2IRI(n)}
-              title<-list.get(tlt.name).collect{ case l:Literal=>sesame.literal2Lit(l)}
-
-            } yield MenuItem(name,title.label)
-          }.flatten)
-        })
-      }
-
-      menuResult.map[SimpleResult]{
-        case Success(res:Menu) =>
-          RegisterPicklers.registerPicklers()
-          val pickle: JsValue = PicklerRegistry.pickle(res)
-          Ok(pickle).as("application/json")
-        case Failure(th)=>BadRequest(th.toString)
-      }
-
-  }
-
 
 
 

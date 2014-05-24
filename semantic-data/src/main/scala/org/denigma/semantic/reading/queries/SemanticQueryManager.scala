@@ -1,9 +1,7 @@
 package org.denigma.semantic.reading.queries
 
-import org.denigma.semantic.reading.{QueryResultLike, ReadConnection}
-import org.denigma.semantic.reading.selections._
-import org.denigma.semantic.reading.questions.JsonAsk
-import org.denigma.semantic.reading.constructs.JsonConstruct
+import org.denigma.semantic.reading._
+
 import org.denigma.semantic.reading.modifiers.Binder
 
 /*

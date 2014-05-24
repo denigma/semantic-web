@@ -1,7 +1,7 @@
 package org.denigma.semantic.actors.readers
 
 import org.denigma.semantic.actors.{WatchProtocol, NamedActor}
-import org.denigma.semantic.reading.CanRead
+import org.denigma.semantic.reading.CanReadBigData
 import akka.actor.Actor
 import org.denigma.semantic.actors.readers.protocols.SimpleRead
 import org.denigma.semantic.reading._
@@ -13,7 +13,7 @@ import org.scalax.semweb.rdf.Quad
 import org.scalax.semweb.sparql.Pat
 
 trait PatternReader {
-  me:NamedActor with CanRead =>
+  me:NamedActor with CanReadBigData =>
 
 
   /**

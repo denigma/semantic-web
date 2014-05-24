@@ -5,9 +5,9 @@ import org.denigma.semantic.reading._
 /**
 object that stores database of any other thing that can provide new readconnection
  */
-object SyncReader extends CanRead{
+object SyncReader extends CanReadBigData{
 
-  var reader:CanRead = null
+  var reader:CanReadBigData = null
 
   def lg = this.reader.lg
 

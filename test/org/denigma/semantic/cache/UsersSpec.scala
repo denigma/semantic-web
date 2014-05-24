@@ -11,7 +11,7 @@ import scala.util.{Failure, Try}
 import play.api.test.Helpers._
 import play.api.test.FakeApplication
 import play.api.test._
-import org.denigma.semantic.reading.selections._
+
 
 import org.denigma.semantic.users.Account
 import scala.util.Failure

@@ -54,6 +54,8 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scal
     .register("paper", (el, params) =>Try(new PaperView(el,params)))
 
 
+  override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
+
   val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
 
   //val doubles: Map[String, Rx[Double]] = this.extractDoubles[this.type]
@@ -86,5 +88,4 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scal
 
   val toggle: Var[MouseEvent] = Var(this.createMouseEvent())
 
-  override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
 }

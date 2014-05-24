@@ -3,7 +3,7 @@ package org.denigma.semantic.actors.readers
 import org.denigma.semantic.actors.NamedActor
 import akka.actor.Actor
 import org.denigma.semantic.reading.queries.SimpleQueryManager
-import org.denigma.semantic.reading.CanRead
+import org.denigma.semantic.reading.CanReadBigData
 import org.denigma.semantic.actors.readers.protocols.SimpleRead
 import org.scalax.semweb.sparql._
 
@@ -11,7 +11,7 @@ import org.scalax.semweb.sparql._
  * Handles simple quries (with native results)
  */
 trait SimpleReader {
-  reader:NamedActor with CanRead =>
+  reader:NamedActor with CanReadBigData =>
 
 
   def simpleQuery: Actor.Receive = {

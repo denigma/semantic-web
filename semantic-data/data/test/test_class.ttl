@@ -1,0 +1,46 @@
+#TEST FILE#
+
+########Prefixes ###################
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Dublin-Core terms
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+@prefix : <http://webintelligence.eu/test/> .
+
+:TestObject a :TestClass;
+	:prop1 :AnyObject1;
+	:prop2 :AnyObject2;
+	:prop3 :AnyObject3.
+
+:prop1 a owl:ObjectProperty;
+    rdfs:subPropertyOf :prop2;
+	rdfs:domain  :TestClass;
+    rdfs:range :Test2Class.
+
+:prop1 a owl:ObjectProperty;
+	rdfs:domain  :Test2Class .
+
+#property of Test2Class;
+:prop3 a owl:ObjectProperty;
+	rdfs:domain  :Test2Class;
+    rdfs:range rdfs:Resource .
+
+:TestClass a rdfs:Class;
+    rdfs:subClassOf :Test2Class ;
+            rdfs:subClassOf :Test21Class .
+
+:Test2Class rdfs:subClassOf :Test3Class .
+
+:TestChild1Class rdfs:subClassOf :TestClass .
+:TestChildObject a :TestChildClass .
+
+:AnyObject1 a rdfs:Resource .
+:AnyObject2 a rdfs:Resource .
+:AnyObject3 a rdfs:Resource .
+
+

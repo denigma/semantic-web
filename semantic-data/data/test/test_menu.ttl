@@ -1,0 +1,137 @@
+#TEST FILE#
+
+########Prefixes ###################
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Dublin-Core terms
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+@prefix void: <http://rdfs.org/ns/void#>.
+
+# prefixes from social ontologies
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+# prefixes from SPIN vocabulary that is useful for SPARQL based rules and templates
+@prefix sp:	 <http://spinrdf.org/sp#> .
+@prefix spr: <http://spinrdf.org/spr#> .
+@prefix ui:  <http://uispin.org/ui#> .
+
+# main denigma prefix
+@prefix de: <http://denigma.org/resource/> .
+
+# specific webintelligence prefixes
+@prefix wi: <http://webintelligence.eu/resource/> .
+@prefix conf: <http://webintelligence.eu/config/> .
+
+# all website pages
+@prefix pg: <http://webintelligence.eu/page/> .
+
+# all users
+@prefix user: <http://webintelligence.eu/resource/> .
+
+# all other resources
+@prefix : <http://webintelligence.eu/resource/> .
+
+#########Dataset and config ontology metadata########
+
+# description of the dataset
+:wi a void:Dataset;
+	dcterms:title "Web Intelligence";
+    dcterms:description "Web intelligence main vocabulary";
+	void:uriSpace "http://webintelligence.eu/resource/";
+	void:uriSpace "http://webintelligence.eu/page/";
+	void:uriSpace "http://webintelligence.eu/user/";
+    foaf:homepage <http://webintelligence.eu>.
+
+########Users and Organizations###########
+
+user:User rdfs:subClassOf foaf:Person;
+		  rdfs:subClassOf dcterms:Agent;
+		  dcterms:description "User account" .
+
+user:Organization rdfs:subClassOf foaf:Organization;
+		  rdfs:subClassOf dcterms:Agent .
+
+########Pages, menus and UI elements###########
+
+pg:Page rdfs:subClassOf foaf:Document;
+  rdfs:label "Semantic page";
+  dcterms:description "Web page" .
+
+pg:Query_Page rdfs:subClassOf pg:Semantic_Page;
+  rdfs:label "SPARQL query page";
+  rdfs:label "Page with query results" .
+
+pg:queryText a owl:DatatypeProperty;
+	rdfs:label "query text";
+	dcterms:description "Property describing query text, will be changed to SPIN in future";
+    rdfs:domain  pg:Query_Page;
+    rdfs:range xsd:string .
+
+pg:pageTemplate a owl:DatatypeProperty;
+	rdfs:label "query text";
+	dcterms:description "Page template";
+    rdfs:domain  pg:Query_Page;
+    rdfs:range xsd:string .
+
+pg:creator rdfs:subPropertyOf dc:creator;
+    rdfs:domain  foaf:Document;
+    rdfs:range xsd:string .	
+
+pg:Web_Intelligence_Menu a pg:Menu;
+	rdfs:label "Main menu";
+	ui:child pg:About_Web_Intelligence;
+	ui:child pg:Aging_Query .
+
+
+pg:Aging_Query a pg:Query_Page;
+	rdfs:label "Query";
+	dcterms:description "Property describing query text, will be changed to SPIN in future";
+	pg:queryText "PREFIX  bds:  <http://www.bigdata.com/rdf/search#> SELECT  ?subject ?property ?object WHERE { ?object bds:search \"aging\" . ?subject ?property ?object }" .
+	
+
+pg:Default_User_Menu a pg:Menu;
+	ui:child pg:My_Queries;
+	ui:child pg:My_Friends;
+	ui:child pg:My_Projects .
+
+pg:My_Queries a pg:Menu .
+
+pg:About_Web_Intelligence a pg:Page;
+	rdfs:label "About web intelligence" .
+
+
+
+#########Website configuration######################
+
+wi:Web_Intelligence a sioc:Site;
+	conf:index pg:About_Web_Intelligence ;
+	conf:root_menu pg:Web_Intelligence_Menu ;
+	conf:user_menu pg:Default_User_Menu .
+
+conf:root_menu a owl:ObjectProperty;
+	rdfs:domain  sioc:Site;
+    rdfs:range pg:Menu .
+
+conf:user_menu a owl:ObjectProperty;
+	rdfs:domain  sioc:Site;
+    rdfs:range pg:Menu .
+
+conf:root a owl:ObjectProperty;
+	rdfs:domain  wi:Platform;
+    rdfs:range sioc:Site .
+
+conf:index a owl:ObjectProperty;
+	rdfs:domain  sioc:Site;
+    rdfs:range pg:Page .
+
+
+conf:Current_Platform a wi:Platform;
+	conf:root wi:Web_Intelligence .
+
+####################################################

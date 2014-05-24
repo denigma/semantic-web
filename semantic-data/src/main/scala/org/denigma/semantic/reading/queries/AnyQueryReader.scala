@@ -10,7 +10,10 @@ import org.scalax.semweb.rdf.vocabulary.WI
 /**
 sends closures that deal with all requests
  */
-trait AnyQueryReader extends CanRead {
+trait AnyQueryReader extends CanReadBigData {
+
+  type AnyQuery = BigdataSailQuery
+  type AnyQueryHandler[T] = PartialFunction[(String,ReadConnection,AnyQuery),T]
 
 
   def anyQuery[T](str:String,select:AnyQueryHandler[T])(implicit base:String = WI.RESOURCE): Try[T] = {

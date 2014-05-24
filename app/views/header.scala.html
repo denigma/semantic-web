@@ -1,17 +1,20 @@
 @(implicit request: UserRequestHeader)
-
-<nav class="ui large blue right main menu" data-view="menu" data-param-domain="@{request.domain}">
+<nav class="ui large blue right main menu" data-view="menu" data-param-path="menu/top" data-param-domain="@{request.domain}">
     <a data-template="true" class="blue active item header" data-item-bind-href="uri" data-item-bind="label" data-load-into="main">
         <i class="ui-icon-home"></i>
     </a>
 
-    <div id="admin menu" class="right menu" data-view="righ-menu">
-        <a class="purple active item header" href="tools/paper" data-load-into="main">
-            <i class="ui book icon"></i>PDF
-        </a>
+    @if(request.isSigned) {
 
-        <a class="purple active item header" href="tools/sparql" data-load-into="main">
+
+        <div id="admin menu" class="right menu" data-view="righ-menu">
+            <a class="purple active item header" href="tools/paper" data-load-into="main">
+                <i class="ui book icon"></i>PDF
+            </a>
+
+            <a class="purple active item header" href="tools/sparql" data-load-into="main">
                 <i class="ui question icon"></i>SPARQL
             </a>
-    </div>
+        </div>
+    }
 </nav>

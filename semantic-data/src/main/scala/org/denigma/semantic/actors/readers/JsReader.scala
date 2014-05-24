@@ -2,10 +2,8 @@ package org.denigma.semantic.actors.readers
 
 import org.denigma.semantic.actors.{AkkaLog, NamedActor}
 import akka.actor.Actor
-import org.openrdf.model.Value
 import org.denigma.semantic.reading.queries.SemanticQueryManager
-import org.denigma.semantic.reading.CanRead
-import org.denigma.semantic.commons.LogLike
+import org.denigma.semantic.reading.CanReadBigData
 import org.denigma.semantic.actors.readers.protocols.Read
 
 /*
@@ -16,7 +14,7 @@ trait JsReader
   /*
   reader actor
    */
-  reader:NamedActor with CanRead=>
+  reader:NamedActor with CanReadBigData=>
   
   def jsonQuery: Actor.Receive = {
 
@@ -50,7 +48,7 @@ trait JsReader
   /**
   query manager
    */
-  object qjm extends SemanticQueryManager{
+  object qjm extends SemanticQueryManager with CanReadBigData{
     val lg = reader.lg
     def readConnection = reader.readConnection
   }

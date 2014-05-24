@@ -1,0 +1,74 @@
+###TEST USER#######
+
+########Prefixes ###################
+
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# Dublin-Core terms
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+
+@prefix void: <http://rdfs.org/ns/void#>.
+
+# prefixes from social ontologies
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix org: <http://www.w3.org/ns/org#> .
+@prefix sioc: <http://rdfs.org/sioc/ns#> .
+
+# prefixes from SPIN vocabulary that is useful for SPARQL based rules and templates
+@prefix sp:	 <http://spinrdf.org/sp#> .
+@prefix spr: <http://spinrdf.org/spl#> .
+@prefix spr: <http://spinrdf.org/spr#> .
+@prefix ui:  <http://uispin.org/ui#> .
+
+# main denigma prefix
+@prefix de: <http://denigma.org/resource/> .
+
+# specific webintelligence prefixes
+@prefix wi: <http://webintelligence.eu/resource/> .
+@prefix conf: <http://webintelligence.eu/config/> .
+
+# all website pages
+@prefix pg: <http://webintelligence.eu/page/> .
+
+# all users and organizations
+@prefix actor: <http://webintelligence.eu/ontology/actor/> .
+
+@prefix test: <http://webintelligence.eu/test/> .
+
+
+########Users and Organizations###########
+
+actor:User rdfs:subClassOf foaf:Person, dcterms:Agent;
+		  dcterms:description "User account" .
+
+
+actor:antonkulaga a actor:User;
+    foaf:gender "male";
+    foaf:givenName "Anton";
+    foaf:familyName "Kulaga";
+    foaf:skypeID "anton_y_k";
+    org:memberOf actor:ILA;
+    org:memberOf actor:Denigma .
+
+actor:hevok a actor:User;
+    foaf:gender "male";
+    foaf:givenName "Daniel";
+    foaf:familyName "Wuttke";
+    org:memberOf actor:ILA;
+    org:memberOf actor:Denigma .
+
+
+
+actor:ILA a foaf:Organization ;
+    org:hasMember actor:hevok;
+    org:hasMember actor:antonkulaga;
+    dcterms:description "International longevity alliance" .
+
+actor:Denigma a foaf:Organization;
+    org:subOrganizationOf actor:ILA;
+    dcterms:description "Digital dechiper machine";
+    org:hasMember actor:hevok;
+    org:hasMember actor:antonkulaga .

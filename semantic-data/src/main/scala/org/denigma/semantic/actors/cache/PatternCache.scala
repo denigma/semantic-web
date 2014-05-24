@@ -6,12 +6,12 @@ import org.denigma.semantic.actors.WatchProtocol
 import scala.collection.mutable
 import scala.concurrent.Future
 import scala.util.Try
-import org.denigma.semantic.commons.Logged
 import play.api.libs.concurrent.Execution.Implicits._
 
 import akka.pattern.ask
 import org.scalax.semweb.rdf.{Quad, Res}
 import org.scalax.semweb.sparql._
+import org.scalax.semweb.sesame.Logged
 
 /**
  * Makes decision based on union of patterns that it has

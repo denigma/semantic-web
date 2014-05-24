@@ -5,20 +5,20 @@ import akka.routing.{DefaultResizer, SmallestMailboxRouter}
 import org.denigma.semantic.controllers.{SemanticWriter, SemanticReader}
 import org.denigma.semantic.actors.writers.DatabaseWriter
 import org.denigma.semantic.actors.readers.DatabaseReader
-import org.denigma.semantic.reading.CanRead
-import org.denigma.semantic.writing.CanWrite
+import org.denigma.semantic.reading.CanReadBigData
+import org.denigma.semantic.writing.CanWriteBigData
 import org.denigma.semantic.actors.cache.{BusChangeWatcher, CacheActor}
 import com.bigdata.rdf.store.AbstractTripleStore
 import akka.event.EventStream
 
 /**
 * @constructor create a new person with a name and age.
-* @param canRead anybody who has a method that provides readonly connection to the database [[org.denigma.semantic.reading.CanRead]]
-* @param canWrite anybody who has a method that provides write connection to the database [[org.denigma.semantic.writing.CanWrite]]
+* @param canRead anybody who has a method that provides readonly connection to the database [[org.denigma.semantic.reading.CanReadBigData]]
+* @param canWrite anybody who has a method that provides write connection to the database [[org.denigma.semantic.writing.CanWriteBigData]]
 * @param sys Actor system that will be used
 * @param readers Configuration for reader resizer (min,def,max) number of reader actors that shoud be created by resizer
 */
-class DatabaseActorsFactory(db:AbstractTripleStore,canRead:CanRead,canWrite:CanWrite, val sys:ActorSystem,readers:(Int,Int,Int)) {
+class DatabaseActorsFactory(db:AbstractTripleStore,canRead:CanReadBigData,canWrite:CanWriteBigData, val sys:ActorSystem,readers:(Int,Int,Int)) {
 
   //canRead.lg.debug("ACTOR FACTORY STARTS!")
 

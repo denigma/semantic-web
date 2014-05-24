@@ -4,14 +4,17 @@ package org.denigma.semantic.reading.modifiers
 import scala.util.Try
 import com.bigdata.rdf.sparql.ast._
 import com.bigdata.rdf.model._
-import org.denigma.semantic.reading.selections._
 import org.openrdf.model.Value
 import com.bigdata.rdf.internal._
-import org.denigma.semantic.reading.ReadConnection
 import com.bigdata.rdf.internal.impl._
 import com.bigdata.bop.Constant
+import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
+import org.scalax.semweb.sparql.SelectQuery
+import org.denigma.semantic.reading.BigDataSelectReader
 
 trait ASTHelper {
+
+  type ReadConnection <: BigdataSailRepositoryConnection
 
   /*
   creates constant node from string
@@ -55,7 +58,7 @@ trait ASTHelper {
 /*
 class that can do binding
  */
-trait Binder[T] extends SelectReader with Slicer with ASTHelper
+trait Binder[T] extends BigDataSelectReader with Slicer with ASTHelper
 {
   def alice(q:SelectQuery,con:ReadConnection)
   // regex("Alice", "^ali", "i") -> true
@@ -120,10 +123,10 @@ trait Binder[T] extends SelectReader with Slicer with ASTHelper
   /*
   sends query with binding
    */
-  def bindedQuery(str:String,binds:Map[String,String],offset:Long,limit:Long): Try[T] =  this.selectQuery(str,bindedHandler(str,binds,offset,limit))
+  def bindedQuery(str:String,binds:Map[String,String],offset:Long,limit:Long): Try[T] =  this.selectQuery(str)(bindedHandler(str,binds,offset,limit))
 
 
-  def bindedQuery(str:String,binds:Map[String,String]): Try[T] = this.selectQuery(str,this.bindedHandler(str,binds))
+  def bindedQuery(str:String,binds:Map[String,String]): Try[T] = this.selectQuery(str)(this.bindedHandler(str,binds))
 
 }
 

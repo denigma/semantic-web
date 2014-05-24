@@ -8,7 +8,7 @@ import scala.util.Try
 import org.openrdf.query.BindingSet
 import org.denigma.semantic.controllers.{WithLogger, SimpleQueryController, UpdateController}
 import scala.concurrent.Future
-import org.denigma.semantic.reading.selections._
+
 
 import org.denigma.semantic.actors.WatchProtocol.PatternResult
 import org.denigma.semantic.users.Accounts

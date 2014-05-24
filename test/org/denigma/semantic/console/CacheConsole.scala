@@ -45,7 +45,6 @@ object CacheConsole {
 
 
   import org.denigma.semantic.commons._
-  import org.denigma.semantic.reading.selections._
   import com.bigdata.bop._
 
   implicit val writeTimeout:Timeout = Timeout(5 seconds)

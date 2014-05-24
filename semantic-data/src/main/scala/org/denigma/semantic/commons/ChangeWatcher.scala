@@ -1,8 +1,7 @@
 package org.denigma.semantic.commons
 
 import com.bigdata.rdf.changesets.IChangeLog
-import org.denigma.semantic.writing.WriteConnection
-import com.bigdata.rdf.store.AbstractTripleStore
+import org.scalax.semweb.sesame.LogLike
 
 trait ChangeWatcher {
 

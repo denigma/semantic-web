@@ -5,11 +5,12 @@ import org.denigma.semantic.controllers._
 import play.api.libs.json.{JsValue, Json, JsObject}
 import scala.collection.immutable.Map
 import play.api.mvc.SimpleResult
-import org.denigma.semantic.reading.selections.SelectResult
 import scala.concurrent.Future
 import scala.util.{Failure, Try}
-import org.denigma.semantic.reading.QueryResultLike
+import org.denigma.semantic.reading.{SelectResult, QueryResultLike}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import auth.UserAction
+
 /**
  * Tools like sparql and paper viewer
  */

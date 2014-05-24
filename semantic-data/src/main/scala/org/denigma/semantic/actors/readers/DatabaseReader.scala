@@ -1,15 +1,15 @@
 package org.denigma.semantic.actors.readers
 
 import akka.actor.Actor
-import org.denigma.semantic.reading.{ReadConnection, CanRead}
 import org.denigma.semantic.actors.{WatchProtocol, AkkaLog, NamedActor}
-import org.denigma.semantic.commons.LogLike
+import org.denigma.semantic.reading.CanReadBigData
+import org.scalax.semweb.sesame.LogLike
 
 /**
  * Database actor that works with readonly db connection
  * @param db anything that can provide read connection
  */
-class DatabaseReader(db:CanRead) extends  NamedActor with CanRead with JsReader with SimpleReader with PatternReader
+class DatabaseReader(db:CanReadBigData) extends  NamedActor with CanReadBigData with JsReader with SimpleReader with PatternReader
 {
 
 

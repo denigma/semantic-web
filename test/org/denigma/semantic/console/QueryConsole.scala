@@ -25,8 +25,6 @@ object QueryConsole {
   import org.denigma.semantic.test.LoveHater
   import org.denigma.semantic.platform.SP
   import org.denigma.semantic.controllers.sync._
-  import org.denigma.semantic.commons._
-  import org.denigma.semantic.reading.selections._
   import scala.collection.JavaConversions._
 
   import com.bigdata.bop._

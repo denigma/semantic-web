@@ -3,18 +3,19 @@ package org.denigma.semantic.actors.writers
 import akka.actor.Actor
 import org.denigma.semantic.actors.NamedActor
 import org.denigma.semantic.writing._
-import org.denigma.semantic.commons.{ChangeWatcher, LogLike}
+import org.denigma.semantic.commons.{ChangeWatcher}
 import java.io.File
 import scala.util.Try
 import org.denigma.semantic.actors.AkkaLog
 import org.scalax.semweb.sparql._
+import org.scalax.semweb.sesame.LogLike
 
 
 /**
 class that is responsible for writes into database. It does NOT process read queries
 @param writer just an object that can provide WriteConnection, can be db, can be anything else
  */
-class DatabaseWriter(writer:CanWrite, val watcher:ChangeWatcher) extends  WatchedWriter with ConditionalWriter{
+class DatabaseWriter(writer:CanWriteBigData, val watcher:ChangeWatcher) extends  WatchedWriter with ConditionalWriter{
 
 
   override def receive: Actor.Receive = this.simpleUpdates.orElse(this.updatesOnlyIf).orElse(this.updatesUnless).orElse {

@@ -1,19 +1,7 @@
-import org.denigma.semantic.platform.AppConfig
-import org.scalax.semweb.rdf.IRI
-import play.api._
-import play.api.mvc.{RequestHeader, WithFilters}
 import play.filters.gzip.GzipFilter
 import play.api._
 import play.api.mvc._
 import play.api.Logger
-import play.api.Play.current
-import play.api.mvc.{WrappedRequest, Request}
-import scaldi.Injector
-import scaldi.play.ScaldiSupport
-import scala.concurrent.Future
-import akka.actor.ActorSystem
-import spray.caching.{LruCache, Cache}
-import spray.util._
 
 
 /*

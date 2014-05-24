@@ -1,10 +1,9 @@
 package org.denigma.semantic.actors.cache
 
-import org.denigma.semantic.commons.LogLike
 import akka.actor.ActorRef
-import scala.util.Failure
 import com.bigdata.rdf.store.AbstractTripleStore
 import akka.event.EventStream
+import org.scalax.semweb.sesame.LogLike
 
 
 class ActorChangeObserver(db:AbstractTripleStore,transaction:String="",val lg:LogLike,sender:ActorRef) extends ChangeListener(db,transaction,lg)

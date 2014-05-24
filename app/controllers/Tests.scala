@@ -8,20 +8,15 @@ import models._
 import org.scalax.semweb.rdf.{Lit, IRI}
 import org.scalax.semweb.rdf.vocabulary.WI
 import org.scalax.semweb.sparql._
-import models.Menu
-import models.Menu
-import models.User
-import models.Message
 import org.scalax.semweb.sparql.Pat
-import models.MenuItem
 import org.denigma.semantic.controllers.SimpleQueryController
-import org.denigma.semantic.reading.selections._
 import org.openrdf.model.{Literal, URI}
 import scala.concurrent.Future
 import org.scalax.semweb.sesame._
 import scala.util._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.collection.immutable._
+import auth.UserAction
 
 
 /*

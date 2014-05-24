@@ -11,6 +11,7 @@ import play.api.libs.json.{Json, JsObject}
 import models.RegisterPicklers
 
 import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController}
+import auth.UserAction
 
 /**
  * Handler everything about uploading
@@ -30,7 +31,7 @@ object Uploader extends Controller with SemanticFileParser with WithSyncWriter  
     */
   def imageUpload = UserAction(parse.multipartFormData) { implicit request =>
     import Json._
-    val relativePath = "files/users/" +  request.username.getOrElse("guest")
+    val relativePath = "assets/users/" +  request.username.getOrElse("guest")
     val uploads = Play.getFile(relativePath)
     val p = uploads.getAbsolutePath
     val jsFiles: scala.List[JsObject] = request.body.files.map{ f=>
@@ -71,7 +72,7 @@ object Uploader extends Controller with SemanticFileParser with WithSyncWriter  
       val obj: JsObject = Json.obj(
         "name"->f.filename,
         "size"->file.length(),
-        "url"-> (request.domain+"/uploads/"+f.filename)
+        "url"-> (request.domain+"assets/uploads/"+f.filename)
       )
       val uplCon = "http://webintelligence.eu/uploaded/"
       val pr = this.parseFile(file,uplCon)

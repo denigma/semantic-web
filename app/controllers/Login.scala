@@ -8,6 +8,7 @@ import org.denigma.semantic.users.Accounts
 import scala.concurrent.Future
 
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import auth.UserAction
 
 /**
  * Controller responsible for everything with logins

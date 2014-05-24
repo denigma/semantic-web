@@ -3,9 +3,9 @@ package org.denigma.semantic.storage
 import com.bigdata.rdf.sail._
 
 import org.denigma.semantic.files.SemanticFileParser
-import org.denigma.semantic.reading.queries.UniReader
 import org.denigma.semantic.writing.DataWriter
 import com.bigdata.rdf.sail.remote.BigdataSailRemoteRepository
+import org.denigma.semantic.reading.UniReader
 
 /**
 * abstract class that deals with storing and retrieving RDF

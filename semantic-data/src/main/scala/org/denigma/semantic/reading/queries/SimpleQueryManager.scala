@@ -1,8 +1,5 @@
 package org.denigma.semantic.reading.queries
 
-import org.denigma.semantic.reading.selections._
-import org.denigma.semantic.reading.questions.SimpleAsk
-import org.denigma.semantic.reading.constructs.SimpleConstruct
 import org.denigma.semantic.reading.modifiers.{Paginator, Binder, Slicer}
 import org.openrdf.query.TupleQueryResult
 import org.denigma.semantic.reading._

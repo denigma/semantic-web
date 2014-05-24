@@ -37,7 +37,7 @@
 <http://rybka.org.ua> a pl:Site;
     pl:index pgr:Rybka_Project;
     pl:has_menu pgr:menu .
-    #pl:has_logo <http://rybka.org.ua/files/rybka.org.ua/rybka.jpg> .
+    #pl:has_logo <http://rybka.org.ua/assets/rybka.org.ua/rybka.jpg> .
 
 
 pgr:menu a pl:Menu;

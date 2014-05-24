@@ -5,7 +5,7 @@ import scala.scalajs.sbtplugin.ScalaJSPlugin._
 object Dependencies{
 
 
-  val semWebVersion =  "0.2.26"
+  val semWebVersion =  "0.3.1"
 
   val authDepth = Seq(
 
@@ -15,9 +15,7 @@ object Dependencies{
   )
 
   val playModules = Seq(
-    "org.scaldi" %% "scaldi-play" % "0.3.1",
 
-    "org.scaldi" %% "scaldi-akka" % "0.3.1",
 
     "com.typesafe" %% "play-plugins-mailer" % "2.2.0" //mailer for email confirmations
   )
@@ -56,7 +54,9 @@ object Dependencies{
   )
 
   val webjars = Seq(
-    "org.webjars" %% "webjars-play" % "2.2.2",  //webjars support for play2
+    //"org.webjars" %% "webjars-play" % "2.2.2",  //webjars support for play2
+
+    "org.webjars" %% "webjars-play" % "2.3.0-RC1-1",
 
     "org.webjars" % "codemirror" % "4.1", //codemirror
 
@@ -70,7 +70,8 @@ object Dependencies{
 
     //"org.webjars" % "jquery-ui-themes" % "1.10.3",
 
-    "org.webjars" % "Semantic-UI" % "0.16.1", //less/css framework
+    "org.webjars" % "Semantic-UI" % "0.17.0",
+
 
     //"org.webjars" % "jquery-file-upload" % "9.5.4",
 
@@ -124,6 +125,7 @@ object Dependencies{
 
   val scalaxResolver = bintray.Opts.resolver.repo("scalax", "scalax-releases")
 
+  val denigmaResolver = bintray.Opts.resolver.repo("denigma", "denigma-releases")
 
 
 }
