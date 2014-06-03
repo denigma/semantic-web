@@ -6,18 +6,16 @@ import scalatags.HtmlTag
 import rx._
 import scala.scalajs.js.annotation.JSExport
 import org.denigma.extensions._
-import models.{RegisterPicklers=>rp}
+import org.denigma.binding.models.{RegisterPicklers=>rp}
 
 import org.scalajs.dom.{HTMLElement, MouseEvent, console}
 
-import models._
 
 
 import scalajs.js.Dynamic.{ global => g }
 import org.scalajs.jquery.{jQuery => jq, JQueryXHR}
 import org.denigma.frontend.views._
 import org.denigma.views._
-import org.denigma.frontend.tests.{LongListView, RandomView}
 import scala.util.{Success, Failure, Try}
 import scala.collection.immutable._
 import org.scalajs.spickling.{PicklerRegistry => pr}
@@ -33,7 +31,7 @@ import org.denigma.extensions._
 import org.scalax.semweb.rdf.IRI
 
 @JSExport
-object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scalajs.js.JSApp
+object FrontEnd extends OrdinaryView("main",dom.document.body)  with scalajs.js.JSApp
 {
   rp.registerPicklers()
 
@@ -45,8 +43,6 @@ object ScalaJavaScript extends OrdinaryView("main",dom.document.body)  with scal
   org.denigma.views
     .register("login", (el, params) =>Try(new LoginView(el,params)))
     .register("menu", (el, params) =>Try{ new MenuView(el,params) })
-    .register("random",(el,params)=> Try {new RandomView(el,params)})
-    .register("lists",(el,params)=>Try {new LongListView(el,params)})
     .register("ArticleView", (el, params) =>Try(new ArticleView(el,params)))
     .register("righ-menu", (el, params) =>Try(new RightMenuView(el,params)))
     .register("sidebar", (el, params) =>Try(new SidebarView(el,params)))

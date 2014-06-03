@@ -19,24 +19,24 @@ addSbtPlugin("me.lessis" % "bintray-sbt" % "0.1.1")
 
 
 //scalajs plugin
-addSbtPlugin("org.scala-lang.modules.scalajs" % "scalajs-sbt-plugin" % "0.4.4")
+addSbtPlugin("org.scala-lang.modules.scalajs" % "scalajs-sbt-plugin" % "0.5.0-M3")
 
 //dependency graph generation
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.4")
 
 
-addSbtPlugin("com.lihaoyi" % "utest-js-plugin" % "0.1.4")
+addSbtPlugin("com.lihaoyi" % "utest-js-plugin" % "0.1.5")
 
 // The Play plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.0-RC2")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.0")
 
 // web plugins
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.0-RC3")
+addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.0")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.0.0-RC2")
+addSbtPlugin("com.typesafe.sbt" % "sbt-less" % "1.0.0")
 
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "1.0.0-RC2")
+addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "1.0.0")
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.0-RC2")
+addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.0")

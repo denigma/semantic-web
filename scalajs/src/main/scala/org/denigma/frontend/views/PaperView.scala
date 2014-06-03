@@ -1,25 +1,13 @@
 package org.denigma.frontend.views
 
 import rx._
-import models._
 import org.scalajs.dom
-import org.scalajs.dom._
 import scala.collection.immutable._
 import org.denigma.views._
-import org.denigma.extensions._
-import models.Menu
-import scala.util.Success
-import scala.util.Failure
+
 import scalatags.HtmlTag
-import models.MenuItem
-import scalajs.concurrent.JSExecutionContext.Implicits.queue
-import org.scalax.semweb.rdf.IRI
 import org.scalajs.dom._
-import org.scalajs.dom.extensions._
 import scala.scalajs.js
-import org.scalajs.jquery._
-import org.denigma.libs.pdf._
-import org.denigma.libs.pdf
 
 /**
  * View for paper viewer

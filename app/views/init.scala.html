@@ -1,0 +1,11 @@
+@(implicit request: UserRequestHeader, html:Option[Html] = None,into:String = "main")
+<script>
+    session = {};
+    @if(request.username.isDefined) {
+        session.user = "@Html(s"${request.username.get.stringValue}")";
+    }
+    FrontEnd().main();
+    @if(html.isDefined) {
+        FrontEnd().moveInto("insertMe","@into");
+    }
+</script>

@@ -8,7 +8,7 @@ GET         /pages/:page                 controllers.Application.page(page)
 GET         /logo/:variant               controllers.Application.logo(variant)
 
 GET         /tools/sparql                controllers.Tools.sparql
-GET         /tools/paper                  controllers.Tools.paper
+GET         /tools/paper        controllers.Tools.paper
 
 
 
@@ -28,7 +28,6 @@ GET         /webjars/*file               controllers.WebJarAssets.at(file)
 
 GET         /test/newdomain/:name        controllers.Tests.changeDomain(name)
 GET         /test/menu                   controllers.Tests.menu
-GET         /test/message                controllers.Tests.message
 GET         /test/sigma                  controllers.Tests.sigma
 GET         /test/mail                   controllers.Tests.mailMe
 
@@ -37,8 +36,3 @@ GET         /test/mail                   controllers.Tests.mailMe
 GET         /assets/*file                controllers.Assets.at(path="/public", file)
 #GET         /public/*file                controllers.Assets.at(path="/public", file)
 #GET         /files/*file                 controllers.Assets.at(path="/public", file)
-
-
-
-
-

@@ -17,13 +17,6 @@ trait SemanticData extends Publish {
 
   def semanticDataAppPath = "."
 
-  val semanticDataAppDependencies: Seq[ModuleID] =
-    Dependencies.graphDeps++
-      Dependencies.rdfDeps++
-      Dependencies.miscDeps++
-      Dependencies.authDepth++
-      Dependencies.testDeps++
-      Dependencies.cachingDeps
 
   val src = "src"
 
@@ -32,17 +25,7 @@ trait SemanticData extends Publish {
   lazy val semanticData  = (project in file(this.semanticDataAppPath)).enablePlugins(PlayScala).settings(bintraySettings:_*).settings(
     // Add your own project settings here
 
-    scalaVersion := Dependencies.scalaVer,
     parallelExecution in Test := false,
-    //resolvers
-    resolvers += "Bigdata releases" at "http://systap.com/maven/releases/",
-    resolvers += "nxparser-repo" at "http://nxparser.googlecode.com/svn/repository/",
-    resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases",
-    resolvers += "apache-repo-releases" at "http://repository.apache.org/content/repositories/releases/",
-    resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/",
-    resolvers += "spray repo" at "http://repo.spray.io",
-    resolvers += Dependencies.scalaxResolver,
-    libraryDependencies ++=semanticDataAppDependencies,
 
     //compiler options
     scalacOptions ++= Seq( "-feature", "-language:_" ),

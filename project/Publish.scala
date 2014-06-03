@@ -11,6 +11,7 @@ trait Publish {
   lazy val publishSettings = Seq(
     repository in bintray := "denigma-releases",
     bintrayOrganization in bintray := Some("denigma"),
+    licenses += ("MPL-2.0", url("http://opensource.org/licenses/MPL-2.0")),
     Def.derive(bintrayPublishIvyStyle := !publishMavenStyle.value)
   )
 

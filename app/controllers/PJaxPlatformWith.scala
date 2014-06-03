@@ -2,10 +2,10 @@ package controllers
 
 import play.api.mvc._
 
-import play.api.templates.Html
 import play.api.libs.json.Json
 import views.html.index
 import auth.UserAction
+import play.twirl.api.Html
 
 class PJaxPlatformWith(val name:String) extends Controller  {
 

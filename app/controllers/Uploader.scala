@@ -8,7 +8,7 @@ import play.api.Play.current
 import org.denigma.semantic.controllers.sync.WithSyncWriter
 import org.denigma.semantic.files.SemanticFileParser
 import play.api.libs.json.{Json, JsObject}
-import models.RegisterPicklers
+
 
 import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController}
 import auth.UserAction

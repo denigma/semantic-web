@@ -5,18 +5,17 @@ import rx.{Rx, Var}
 
 import rx.core.Obs
 import org.denigma.extensions._
-import models.{RegisterPicklers=>rp}
+import org.denigma.binding.models.{RegisterPicklers=>rp}
 import org.scalajs.spickling.{PicklerRegistry=>pr}
 import org.scalajs.dom
 import org.scalajs.spickling.{PicklerRegistry=>pr}
 import scalatags.HtmlTag
 import rx._
 
-import models.{RegisterPicklers=>rp}
+import org.denigma.binding.models.{RegisterPicklers=>rp}
 
 import org.scalajs.dom.{TextEvent, MouseEvent}
 
-import models._
 
 import org.scalajs.spickling.jsany._
 

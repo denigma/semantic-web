@@ -2,7 +2,6 @@ package controllers
 import org.denigma.semantic.controllers.sync.WithSyncWriter
 import play.api.libs.json.JsValue
 import play.twirl.api.Html
-import models.MenuItem
 import org.denigma.semantic.controllers.UpdateController
 
 import org.scalax.semweb.rdf.vocabulary._

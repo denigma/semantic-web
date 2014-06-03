@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.libs.json.JsValue
-import models.{RegisterPicklers, Menu, MenuItem}
 
 import org.scalax.semweb.rdf.vocabulary._
 import play.api.mvc._
@@ -19,14 +18,24 @@ import scala.concurrent.duration._
 import org.scalax.semweb.sesame._
 import spray.caching.{LruCache, Cache}
 import auth.UserAction
+import scala.concurrent.Future
+import org.denigma.binding.models._
 
 /**
  * Shows menus
  */
-object Menus extends Controller with SimpleQueryController
+object Menus extends Controller with SimpleQueryController with PickleController
 {
   // and a Cache for its result type
-  val menuCache: Cache[Try[Menu]] = LruCache(timeToLive = 5 minutes)
+  val menuCache: Cache[Try[List[MenuItem]]] = LruCache(timeToLive = 5 minutes)
+
+  implicit def register = RegisterPicklers.registerPicklers
+
+  type ModelType = MenuItem
+
+
+  val dom =  IRI(s"http://domain")
+
 
   /**
    * Renders menu for the website
@@ -58,24 +67,21 @@ object Menus extends Controller with SimpleQueryController
         //lg.info(selMenu.stringValue)
 
         this.select(selMenu).map(v=>v.map{case r=>
-          Menu(dom / "menu",domain,r.toListMap.map{case list=>
+          r.toListMap.map{case list=>
             for{
               name<-list.get(item.name).collect{ case n:URI=>sesame.URI2IRI(n)}
               title<-list.get(tlt.name).collect{ case l:Literal=>sesame.literal2Lit(l)}
 
-            } yield MenuItem(name,title.label)
-          }.flatten)
-        })
+            } yield MenuItem(name,title.label)   }.flatten  })
       }
 
       menuResult.map[Result]{
-        case Success(res:Menu) =>
+        case Success(res:List[MenuItem]) =>
           RegisterPicklers.registerPicklers()
           val pickle: JsValue = PicklerRegistry.pickle(res)
           Ok(pickle).as("application/json")
         case Failure(th)=>BadRequest(th.toString)
       }
   }
-
 
 }

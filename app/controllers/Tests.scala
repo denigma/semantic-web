@@ -17,6 +17,7 @@ import scala.util._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import scala.collection.immutable._
 import auth.UserAction
+import org.denigma.binding.models._
 
 
 /*
@@ -30,14 +31,6 @@ object Tests  extends Controller with SimpleQueryController{
     implicit request =>
       Ok(views.html.test.sigma()) //Ok(views.html.page("node","menu","0"))
   }
-
-  def message = Action {
-    RegisterPicklers.registerPicklers()
-    val m = Message(User("Some User"),"message")
-    val pickle = PicklerRegistry.pickle(m)
-    Ok(pickle).as("application/json")
-  }
-
 
   def menu =  UserAction.async{
     implicit request=>
@@ -66,7 +59,7 @@ object Tests  extends Controller with SimpleQueryController{
         }.flatten)
       })
 
-    menuResult.map[SimpleResult]{
+    menuResult.map[Result]{
       case Success(menu) => Ok(menu.children.toString())
       case Failure(th)=>BadRequest(th.toString)
     }
