@@ -10,9 +10,9 @@ ScalaJSKeys.relativeSourceMaps := true //just in case as sourcemaps do not seem 
 
 parallelExecution in Test := false
 
-includeFilter in (Assets, LessKeys.less) := "*.less"
+// includeFilter in (Assets, LessKeys.less) := "*.less"
 
-excludeFilter in (Assets, LessKeys.less) := "_*.less"
+// excludeFilter in (Assets, LessKeys.less) := "_*.less"
 
 libraryDependencies += "org.denigma" %% "binding-models" % Build.bindingVersion
 

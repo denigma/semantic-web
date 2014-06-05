@@ -13,7 +13,6 @@ trait SemanticData extends Publish {
   //lazy val banana =  RootProject(uri("git://github.com/antonkulaga/banana-rdf.git#master"))
 
   val semanticDataAppName         = "semantic-data"
-  val semanticDataAppVersion      = "0.02"
 
   def semanticDataAppPath = "."
 

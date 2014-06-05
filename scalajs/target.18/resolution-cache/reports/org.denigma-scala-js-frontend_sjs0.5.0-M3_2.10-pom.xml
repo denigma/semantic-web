@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ivy-report.xsl"?>
+<ivy-report version="1.0">
+	<info
+		organisation="org.denigma"
+		module="scala-js-frontend_sjs0.5.0-M3_2.10"
+		revision="0.2"
+		conf="pom"
+		confs="compile, runtime, test, provided, optional, compile-internal, runtime-internal, test-internal, plugin, sources, docs, pom, scala-tool"
+		date="20140604233626"/>
+	<dependencies>
+	</dependencies>
+</ivy-report>

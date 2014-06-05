@@ -24,8 +24,6 @@ import bintray.Opts
 
 import bintray.Keys._
 
-import SbtWeb._
-
 
 /**
  * this files is intended to build the main project
@@ -121,7 +119,7 @@ val sameSettings = Seq(
 
 
   lazy val main = (project in file("."))
-    .enablePlugins(PlayScala,SbtWeb)
+    .enablePlugins(PlayScala/*,SbtWeb*/)
     .settings(semanticWebSettings: _*)
     .dependsOn(semanticData).aggregate(scalajs)
 

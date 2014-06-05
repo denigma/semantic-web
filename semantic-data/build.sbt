@@ -1,5 +1,7 @@
 Build.sameSettings
 
+version := "0.3.3"
+
 resolvers += "Bigdata releases" at "http://systap.com/maven/releases/"
 
 resolvers += "nxparser-repo" at "http://nxparser.googlecode.com/svn/repository/"
