@@ -27,8 +27,18 @@ main application controller, responsible for index and some other core templates
 object Application extends PJaxPlatformWith("index") with WithSyncWriter with SimpleQueryController with UpdateController
 {
 
+  override def index(): Action[AnyContent] =  UserAction {
+    implicit request=>
+      if(request.domain.contains("rybka.org"))
+        Ok(views.html.rybka.index(request))
+      else
+        Ok(views.html.index(request))
+  }
+
+
   // and a Cache for its result type
   val queryCache: Cache[Try[List[Map[String, Value]]]] = LruCache(timeToLive = 5 minutes)
+
 
 
   /**
@@ -53,6 +63,8 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
       case "transhuman.org.ua"=> "assets/transhuman.org.ua/ukranian_transhumanism.jpg"
       case "webintelligence.eu"=> "assets/webintelligence.eu/denigma.svg"
       case "denigma.org" | "denigma.denigma.de"=> "assets/webintelligence.eu/denigma.svg"
+      case "rybka.org.ua" => "assets/rybka.org.ua/rybka.jpg"
+
       case _=> "assets/longevity.org.ua/longevity_ukraine.svg"
     }
       Future.successful{     Ok(logo)    }

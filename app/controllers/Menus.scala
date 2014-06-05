@@ -29,7 +29,6 @@ object Menus extends Controller with SimpleQueryController with PickleController
   // and a Cache for its result type
   val menuCache: Cache[Try[List[MenuItem]]] = LruCache(timeToLive = 5 minutes)
 
-  implicit def register = RegisterPicklers.registerPicklers
 
   type ModelType = MenuItem
 
@@ -77,8 +76,7 @@ object Menus extends Controller with SimpleQueryController with PickleController
 
       menuResult.map[Result]{
         case Success(res:List[MenuItem]) =>
-          RegisterPicklers.registerPicklers()
-          val pickle: JsValue = PicklerRegistry.pickle(res)
+          val pickle: JsValue = rp.pickle(res)
           Ok(pickle).as("application/json")
         case Failure(th)=>BadRequest(th.toString)
       }

@@ -6,7 +6,7 @@ import scalatags.HtmlTag
 import rx._
 import scala.scalajs.js.annotation.JSExport
 import org.denigma.extensions._
-import org.denigma.binding.models.{RegisterPicklers=>rp}
+import org.denigma.binding.models.{ rp}
 
 import org.scalajs.dom.{HTMLElement, MouseEvent, console}
 
@@ -18,7 +18,6 @@ import org.denigma.frontend.views._
 import org.denigma.views._
 import scala.util.{Success, Failure, Try}
 import scala.collection.immutable._
-import org.scalajs.spickling.{PicklerRegistry => pr}
 import org.scalajs.spickling.jsany._
 import scala.scalajs.js
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
@@ -50,7 +49,7 @@ object FrontEnd extends OrdinaryView("main",dom.document.body)  with scalajs.js.
     .register("paper", (el, params) =>Try(new PaperView(el,params)))
 
 
-  override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvens(this)
+  override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
 
   val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
 

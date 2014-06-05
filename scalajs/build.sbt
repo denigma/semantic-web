@@ -10,4 +10,7 @@ version := "0.2"
 
 ScalaJSKeys.relativeSourceMaps := true
 
-libraryDependencies += "org.denigma" %%% "binding" % "0.3.1"
+libraryDependencies += "org.denigma" %%% "binding-models" % Build.bindingVersion
+
+libraryDependencies += "org.denigma" %%% "binding" % Build.bindingVersion
+

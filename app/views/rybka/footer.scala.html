@@ -1,0 +1,8 @@
+@(implicit request: UserRequestHeader)
+<footer class="ui bottom attached segment">
+    <nav class="ui large inverted menu" id="bottommenu" data-view="menu" data-param-path="menu/top" data-param-domain="@{request.domain}">
+        <a data-template="true" class="blue active large item header" data-item-bind-href="uri" data-item-bind="label" data-load-into="main">
+            <i class="ui-icon-home"></i>
+        </a>
+    </nav>
+</footer>

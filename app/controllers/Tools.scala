@@ -1,15 +1,14 @@
 package controllers
 
-import org.denigma.semantic.controllers.sync.WithSyncWriter
 import org.denigma.semantic.controllers._
 import play.api.libs.json.{JsValue, Json, JsObject}
 import scala.collection.immutable.Map
-import play.api.mvc.SimpleResult
 import scala.concurrent.Future
 import scala.util.{Failure, Try}
 import org.denigma.semantic.reading.{SelectResult, QueryResultLike}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import auth.UserAction
+import play.api.mvc.Result
 
 /**
  * Tools like sparql and paper viewer
@@ -37,7 +36,7 @@ object Tools extends PJaxPlatformWith("tools") with UpdateController with JsQuer
 
   def toProps(mp:Map[String,String]): JsValue = Json.obj("id"->mp.hashCode(),"properties"->mp.map(toProp).toList)
 
-  def badQuery(q:String):PartialFunction[Throwable,SimpleResult] = {
+  def badQuery(q:String):PartialFunction[Throwable,Result] = {
     case e=>
       val er = e.getMessage
       play.Logger.info(s"Query failed \n $q \n with the following error $er")
@@ -52,7 +51,7 @@ object Tools extends PJaxPlatformWith("tools") with UpdateController with JsQuer
   /*
   turns sparql query json result in Future of Simple Result
    */
-  protected def handleQuery(q:String,result:Future[Try[QueryResultLike]]):Future[SimpleResult] = result.map{
+  protected def handleQuery(q:String,result:Future[Try[QueryResultLike]]):Future[Result] = result.map{
     case scala.util.Success(results:QueryResultLike)=>
       Ok(results.asJson).as("application/json")
     case Failure(e)=>this.badQuery(q)(e)

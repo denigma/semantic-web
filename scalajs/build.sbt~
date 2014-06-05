@@ -1,0 +1,20 @@
+scalaJSSettings
+
+name := "scala-js-frontend"
+
+Build.sameSettings
+
+scalacOptions ++= Seq( "-feature", "-language:_" )
+
+version := "0.2"
+
+ScalaJSKeys.relativeSourceMaps := true
+
+//unmanagedSourceDirectories in Compile += baseDirectory.value / ".." / "models" / "src" / "main" / "scala",
+resolvers +=  Dependencies.scalajsResolver
+
+resolvers += Dependencies.scalaxResolver
+
+resolvers +=  Dependencies.denigmaResolver
+
+libraryDependencies += "org.denigma" %%% "binding" % "0.3.1"

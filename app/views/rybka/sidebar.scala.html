@@ -1,0 +1,39 @@
+@(implicit request: UserRequestHeader)
+<section class="ui very wide left sidebar" data-view="sidebar">
+    <section class="ui blue circular segment">
+        <div class="ui secondary circular inverted segment">
+
+        <div class="item">
+                <img  class="ui medium circular image" data-bind-src="logo">
+            </div>
+        <nav class="ui large vertical inverted menu" id="rightmenu" data-view="menu" data-param-path="menu/top" data-param-domain="@{request.domain}">
+            <a data-template="true" class="blue active large item header" data-item-bind-href="uri" data-item-bind="label" data-load-into="main">
+                <i class="ui-icon-home"></i>
+            </a>
+        </nav>
+            </div>
+    </section>
+    <div class="ui horizontal icon divider">
+        <i class="circular mail outline icon"></i>
+    </div>
+
+    <aside class="ui secondary inverted circular segment">
+
+                    <div class="header">
+                        Our contacts:
+                    </div>
+                <div class="ui list">
+                    <div class="item">
+                            email : sensus.sextus at gmail.com
+                     </div>
+                    <div class="item">
+                        skype : sensus.sextus
+                    </div>
+
+              </div>
+
+    </aside>
+</section>
+
+
+

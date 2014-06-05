@@ -2,23 +2,20 @@ name                 := "semantic-web"
 
 version              := "0.06"
 
-Build.sameSettings
+organization := "org.denigma"
 
 scalacOptions ++= Seq("-feature", "-language:_")
 
-ScalaJSKeys.relativeSourceMaps := true //just in case as sourcemaps do not seem to work=(
-
 parallelExecution in Test := false
 
-includeFilter in (Assets, LessKeys.less) := "*.less"
+resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/"
 
-excludeFilter in (Assets, LessKeys.less) := "_*.less"
-
-libraryDependencies += "org.denigma" %% "binding-models" % Build.bindingVersion
 
 libraryDependencies += "com.typesafe.play" %% "play-json" % "2.2.1"
 
 libraryDependencies += "org.scalajs" %% "scalajs-pickling-play-json" % "0.3"
+
+libraryDependencies += "com.github.t3hnar" %% "scala-bcrypt" % "2.3"
 
 libraryDependencies += "com.typesafe" %% "play-plugins-mailer" % "2.2.0" //mailer for email confirmations
 

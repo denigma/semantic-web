@@ -5,14 +5,10 @@ import rx.{Rx, Var}
 
 import rx.core.Obs
 import org.denigma.extensions._
-import org.denigma.binding.models.{RegisterPicklers=>rp}
-import org.scalajs.spickling.{PicklerRegistry=>pr}
 import org.scalajs.dom
-import org.scalajs.spickling.{PicklerRegistry=>pr}
 import scalatags.HtmlTag
 import rx._
 
-import org.denigma.binding.models.{RegisterPicklers=>rp}
 
 import org.scalajs.dom.{TextEvent, MouseEvent}
 
@@ -47,7 +43,7 @@ class LoginView(element:HTMLElement, params:Map[String,Any]) extends OrdinaryVie
 
   lazy val textEvents: Map[String, rx.Var[TextEvent]] = this.extractTextEvents(this)
 
-  lazy val mouseEvents: Map[String, rx.Var[dom.MouseEvent]] = this.extractMouseEvens(this)
+  lazy val mouseEvents: Map[String, rx.Var[dom.MouseEvent]] = this.extractMouseEvents(this)
 
 
 
