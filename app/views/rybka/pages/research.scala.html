@@ -1,0 +1,54 @@
+@(implicit request: UserRequestHeader)
+<main id="main">
+    @rybka.header("/ Research outline")
+
+
+    <article class="ui raised secondary segment" >
+
+
+        <section class="ui secondary inverted segment">
+            <div class="ui segment content">
+
+
+                <img src="@routes.Assets.at(request.domain.toString+"/images/consolidation.jpg")" class="ui left floated image">
+
+                <p class="ui text">
+
+                    Memory consolidation is long-term memory formation from short-term memories.
+                    Despite of various studies the problem of memory storage in the brain is not solved yet.
+                    Molecular mechanisms of memory loading and reading (retrieval) are not fully discovered as well.
+                </p>
+                <img src="@routes.Assets.at(request.domain.toString+"/images/pathways.png")" class="ui right floated image">
+            <p class="text">
+
+                    The Rybka Project is dedicated to bring some more clarity to this area.
+                    Basic idea our studies is to research proteins ( CREB,  AP-2, zif268, etc. ) responsible for memory consolidation, reconsolidation, and learning,  as well as their expressions with Zebrafish model.
+                </p>
+                <p class="text">
+                    We are going  manage to make those proteins glow with help of green flourescent protein (GFP) transfection.
+                    Since we use transparent strain of the zebrafish we will be able to watch them glowing while and after fish learns something while solving some cognitive tasks.
+
+                </p>
+
+                <h3 class="header">
+                 References:</h3>
+                <div class="ui list">
+                    <div class="item">Garcia-Osta A. and Alberini C.M. (2009) Amyloid beta mediates memory formation. Learning and Memory. 16:267-272.</div>
+                    <div class="item">Alberini C.M. (2009) Transcription Factors in Long-Term Memory and Synaptic Plasticity. Physiol Rev. 89:121-45.</div>
+                    <div class="item">Chen DY, Stern SA, Garcia-Osta A, Saunier-Rebori B, Pollonini G, Bambah-Mukku D, Blitzer RD, Alberini CM. (2011) A critical role for IGF-II in memory consolidation and enhancement. Nature 469:491-497.</div>
+                    <div class="item">Milekic, Maria H., and Cristina M. Alberini. "Temporally graded requirement for protein synthesis following memory reactivation." Neuron 36.3 (2002): 521-525.</div>
+                    <div class="item">Kimberly Dooley, Leonard I Zon, Zebrafish: a model system for the study of human disease, Current Opinion in Genetics & Development, Volume 10, Issue 3, 1 June 2000, Pages 252-256, ISSN 0959-437X, http://dx.doi.org/10.1016/S0959-437X(00)00074-5.
+                    (http://www.sciencedirect.com/science/article/pii/S0959437X00000745)</div>
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+    </article>
+
+
+
+</main>

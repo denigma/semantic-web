@@ -41,16 +41,10 @@
 
 
 pgr:menu a pl:Menu;
-    pl:has_item pgr:About, pgr:Research, pgr:Importance, pgr:Collaboration .
+    pl:has_item pgr:Rybka_Project, pgr:Research_Outline, pgr:Action_Plan, pgr:Team, pgr:Collaboration .
 
-pgr:About pl:has_title "Rybka Project"@en .
-pgr:Research pl:has_title "Reasearch_Plan"@en .
-pgr:Importance pl:has_title "Why it matters"@en .
-
+pgr:Rybka_Project pl:has_title "Rybka Project"@en .
+pgr:Research_Outline pl:has_title "Research Outline"@en .
+pgr:Action_Plan pl:has_title "Action Plan"@en .
+pgr:Team pl:has_title "Team"@en .
 pgr:Collaboration pl:has_title "Collaboration"@en .
-
-pgr:About pl:has_text "Text about Rybka Project"@en .
-pgr:Research pl:has_text "Text about Reasearch_Plan"@en .
-pgr:Collaboration pl:has_text "Text about Collaboration"@en .
-pgr:Importance pl:has_text "Why it matters so much"@en .
-

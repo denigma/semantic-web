@@ -5,9 +5,10 @@ import org.scalajs.dom
 import scala.collection.immutable._
 import org.denigma.views._
 
-import scalatags.HtmlTag
+import scalatags.Text.Tag
 import org.scalajs.dom._
 import scala.scalajs.js
+import org.denigma.views.core.OrdinaryView
 
 /**
  * View for paper viewer
@@ -15,7 +16,7 @@ import scala.scalajs.js
 class PaperView(element:HTMLElement,params:Map[String,Any] = Map.empty[String,Any]) extends OrdinaryView("paper",element)
 {
 
-  override def tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
+  override def tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
 
   override def strings: Map[String, Rx[String]] = this.extractStringRx(this)
 

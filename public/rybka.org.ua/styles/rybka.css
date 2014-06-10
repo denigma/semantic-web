@@ -1,0 +1,14 @@
+body {
+  background-size: 100% auto;
+}
+p {
+    text-align: justify;
+}
+
+p {
+    font-size: 1.4vw ;
+}
+.ui.list .item {
+
+    font-size: 1.4vw ;
+}

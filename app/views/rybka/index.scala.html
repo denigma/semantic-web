@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
     <head>
-        <title>Denigma Knowledge Management System</title>
+        <title>The Rybka Project</title>
         @libs.libs()
 
 
@@ -11,27 +11,18 @@
         } else {
             <script src="@routes.Assets.at("javascripts/scalajs/scala-js-frontend-opt.js")" type="text/javascript"></script>
         }
+            <link rel="stylesheet" href="@routes.Assets.at(request.domain.toString+"/styles/rybka.css")" type="text/css">
 
             <style rel="stylesheet">
-                body {
-
-                background-image: url(@routes.Assets.at(request.domain.toString+"/dna2.jpg"));
-                background-size: 100% auto;
-                }
-                p{
-                    font-size: 1.6vw ;
-                }
+            body { background-image: url(@routes.Assets.at(request.domain.toString+"/images/dna2.jpg")); }
 
             </style>
 
         </head>
     <body>
 
-        @rybka.header(request)
 
-
-
-        @rybka.project(request)
+        @rybka.pages.project(request)
 
 
         @if(html.isDefined) {

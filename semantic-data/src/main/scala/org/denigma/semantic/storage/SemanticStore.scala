@@ -3,7 +3,7 @@ package org.denigma.semantic.storage
 import com.bigdata.rdf.sail._
 import java.io.File
 import com.bigdata.rdf.store.AbstractTripleStore
-import org.scalax.semweb.sesame.LogLike
+import org.scalax.semweb.commons.LogLike
 
 
 /**

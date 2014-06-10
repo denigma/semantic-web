@@ -6,7 +6,7 @@ import rx.{Rx, Var}
 import rx.core.Obs
 import org.denigma.extensions._
 import org.scalajs.dom
-import scalatags.HtmlTag
+import scalatags.Text.Tag
 import rx._
 
 
@@ -26,6 +26,8 @@ import scala.util.{Failure, Success}
 import org.denigma.binding._
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import org.denigma.views.core.OrdinaryView
+import scalatags.Text.Tag
 
 
 /**
@@ -33,7 +35,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  */
 class LoginView(element:HTMLElement, params:Map[String,Any]) extends OrdinaryView("login",element) with Login with Registration with Signed
 {
-  lazy val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
+  lazy val tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
 
   //val doubles: Map[String, Rx[Double]] = this.extractDoubles[this.type]
 

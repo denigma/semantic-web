@@ -1,0 +1,60 @@
+@(implicit request: UserRequestHeader)
+<main id="main">
+    @rybka.header()
+
+
+    <article class="ui raised secondary segment" >
+
+
+        <section class="ui secondary inverted segment">
+            <div class="ui segment content">
+
+
+                <p class="ui text">
+                    <small><i>The Space project opened the Space for the mankind, the Human Genome project unveiled the code of life...</i></small>
+                    Our Rybka (The “little Fish”) Project is much more modest. It is destined to clarify memory consolidation mechanisms and open animal genetic engineering for citizen scientists.</p>
+                <p class="ui text">
+
+                    <b>The Rybka project</b> is a research on molecular foundations of the memory and mechanism of long-term memory formation, storage and retrieval.
+                    Unlike similar existing projects we will study dynamics of learning and memory in the freely living animal without any surgical intervention.
+                    Such an animal will be able to learn and explore the environment in most natural way.
+                    This approach enables to reach many unknown aspects of consolidation and memory formation because the animal’s behaviour is left intact.
+                </p>
+                <p class="ui text">
+
+
+                For this purpose we chose Zebrafish (Danio Rerio) as an experimental animal because</p>
+                <div class="ui list">
+
+                    <div class="item">  <i class="asterisk icon"></i>it is clever enough for learning and some other forms of complex behaviour</div>
+                    <div class="item">  <i class="asterisk icon"></i>there is a transparent breed of the zebrafish called Casper. We can modify its genome by adding glowing proteins (GFP) and observe internal processes in its brain using ordinary high-resolution cameras</div>
+                    <div class="item">  <i class="asterisk icon"></i>the fish is relatively easy for transfection (adding transgenic DNA to the fertilized egg)</div>
+                    <div class="item">  <i class="asterisk icon"></i>its genome is fully sequenced and publicly available</div>
+                </div>
+                <div class="ui big images">
+                    <img src="@routes.Assets.at(request.domain.toString+"/images/two_fishes.jpg")">
+
+                    <img src="@routes.Assets.at(request.domain.toString+"/images/cancer.png")">
+
+                </div>
+
+                <p class="ui text">
+                Similar technique was used in <a href="http://www.mdpi.com/2072-6694/3/4/4102/htm">the cancer research</a>. The GFP was liked to promoter of the gene expressed in vessels. We cans see fluorescence of the growing  vessels (green) and the tumor (red) .
+                </p><img src="@routes.Assets.at(request.domain.toString+"/images/diy.jpg")" class="ui left floated image">
+
+                <p class="ui text">
+                The project will be run with broad involvement of the citizen scientists.
+                    The biohackers will train themselves in transfection technologies.  We will also study learning and synaptic plasticity. We will open-source all protocols, software and wetware and write a guide to let everybody reproduce the experiment at a low cost and adapt our methods for other research problems.
+                <br>    We hope that the fish will become a good model for studying genetic engineering and promoting science.
+                </p>
+
+
+            </div>
+        </section>
+
+
+    </article>
+
+
+
+</main>

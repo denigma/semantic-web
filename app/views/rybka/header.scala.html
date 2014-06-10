@@ -1,4 +1,4 @@
-@(implicit request: UserRequestHeader)
+@(title:String ="")(implicit request: UserRequestHeader)
 
 
 <div class="ui three column grid">
@@ -8,7 +8,7 @@
 
     <div class="column">
         <section class="ui float circular segment">
-            <header class="ui large purple secondary header">RYBKA PROJECT</header>
+            <header class="ui large secondary inverted center aligned circular segment">RYBKA PROJECT @title </header>
         </section>
 
     </div>
@@ -16,5 +16,6 @@
     <div class="column">
         <header class="ui label"> <i> Where genetic engineering meets<br> computation & neuroscience...</i></header>
     </div>
+
 </div>
 

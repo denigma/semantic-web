@@ -1,0 +1,40 @@
+@(implicit request: UserRequestHeader)
+
+<main id="main">
+
+    @rybka.header(" / Action Plan")
+
+
+    <article class="ui raised secondary segment">
+        <section class="ui secondary inverted segment">
+            <div class="ui segment content">
+                <p class="ui text">                    
+               Here is our action plan:</p>
+                    <div class="ui list">
+
+                    <div class="item"><i class="right triangle icon"></i>  Buy Caspers and import to Ukraine </div>
+                    <div class="item"><i class="right triangle icon"></i>Organize a facility for fish keeping and  breeding </div>
+                    <div class="item"><i class="right triangle icon"></i> Deployment of transfection technology </div>
+                    <div class="item"><i class="right triangle icon"></i> Vector design for target proteins</div>
+                    <div class="item"><i class="right triangle icon"></i>  Fish transfection</div>
+
+                        <img src="@routes.Assets.at(request.domain.toString+"/images/transfection.png")">
+
+                    <div class="item"><i class="right triangle icon"></i> Computer vision system for fish tracking and glowing brain imaging</div>
+                    <div class="item"><i class="right triangle icon"></i> Learning and memory experiments with video recording.</div>
+                        <img src="@routes.Assets.at(request.domain.toString+"/images/camera.jpg")">
+                    <div class="item"><i class="right triangle icon"></i> Result analysis and publication</div>
+
+                    </div>
+
+            </div>
+
+
+        </section>
+
+
+    </article>
+
+
+
+</main>

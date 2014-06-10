@@ -11,7 +11,12 @@ class PJaxPlatformWith(val name:String) extends Controller  {
 
   def index(): Action[AnyContent] =  UserAction {
     implicit request=>
-      Ok(views.html.index(request))
+      this.index(request)
+  }
+
+  def index[T<:UserRequestHeader](request:T,someHtml:Option[Html] = None) = {
+    Ok(views.html.index(request,someHtml))
+
   }
 
 
@@ -22,7 +27,7 @@ class PJaxPlatformWith(val name:String) extends Controller  {
 //    if(req.headers.keys("X-PJAX")) html  else views.html.webintelligence.index(controller,action,html)(req)
 
   def pj[T<:UserRequestHeader](html:Html)(implicit request:T): Result =
-    if(request.pjax.isEmpty) Ok(views.html.index(request,Some(html))) else  Ok(html)
+    if(request.pjax.isEmpty) this.index(request,Some(html)) else  Ok(html)
 
   def tellBad(message:String) = BadRequest(Json.obj("status" ->"KO","message"->message)).as("application/json")
 

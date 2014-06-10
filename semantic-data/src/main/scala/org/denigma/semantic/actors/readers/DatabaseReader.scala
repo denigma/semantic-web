@@ -3,7 +3,7 @@ package org.denigma.semantic.actors.readers
 import akka.actor.Actor
 import org.denigma.semantic.actors.{WatchProtocol, AkkaLog, NamedActor}
 import org.denigma.semantic.reading.CanReadBigData
-import org.scalax.semweb.sesame.LogLike
+import org.scalax.semweb.commons.LogLike
 
 /**
  * Database actor that works with readonly db connection

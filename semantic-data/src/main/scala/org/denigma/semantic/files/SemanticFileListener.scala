@@ -5,7 +5,7 @@ import org.{openrdf=>se}
 import org.openrdf.model._
 import com.bigdata.rdf.model.BigdataStatement
 import se.rio._
-import org.scalax.semweb.sesame.LogLike
+import org.scalax.semweb.commons.LogLike
 
 
 /**

@@ -7,6 +7,7 @@ import scala.Some
 import org.scalax.semweb.rdf.IRI
 import org.scalax.semweb.rdf.vocabulary.USERS
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import org.denigma.binding.play.UserAction
 /**
  * User actions that contain important info about auth inside
  */

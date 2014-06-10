@@ -6,7 +6,7 @@ import com.bigdata.rdf.store.AbstractTripleStore
 import com.bigdata.striterator.ChunkedArrayIterator
 import org.scalax.semweb.rdf.Quad
 import org.scalax.semweb.sesame
-import org.scalax.semweb.sesame.{Logged, LogLike}
+import org.scalax.semweb.commons.{Logged, LogLike}
 
 
 /*

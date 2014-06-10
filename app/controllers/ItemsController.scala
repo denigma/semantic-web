@@ -4,7 +4,8 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc._
 import play.api.libs.json.{Json, JsValue}
 import org.scalajs.spickling.playjson._
-import org.denigma.binding.models.rp
+import org.denigma.binding.picklers.rp
+
 
 trait ItemsController extends PickleController{
   self: Controller=>

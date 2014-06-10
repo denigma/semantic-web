@@ -14,7 +14,7 @@ parallelExecution in Test := false
 
 // excludeFilter in (Assets, LessKeys.less) := "_*.less"
 
-libraryDependencies += "org.denigma" %% "binding-models" % Build.bindingVersion
+libraryDependencies += "org.denigma" %% "binding-play" % Build.bindingVersion
 
 libraryDependencies += "com.typesafe.play" %% "play-json" % "2.2.1"
 

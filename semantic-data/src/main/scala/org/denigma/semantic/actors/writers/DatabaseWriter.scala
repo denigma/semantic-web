@@ -8,7 +8,7 @@ import java.io.File
 import scala.util.Try
 import org.denigma.semantic.actors.AkkaLog
 import org.scalax.semweb.sparql._
-import org.scalax.semweb.sesame.LogLike
+import org.scalax.semweb.commons.LogLike
 
 
 /**

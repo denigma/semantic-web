@@ -35,6 +35,15 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
         Ok(views.html.index(request))
   }
 
+  override def index[T<:UserRequestHeader](request:T,someHtml:Option[Html] = None) = {
+    if(request.domain.contains("rybka.org"))
+      Ok(views.html.rybka.index(request,someHtml))
+    else
+      Ok(views.html.index(request,someHtml))
+
+  }
+
+
 
   // and a Cache for its result type
   val queryCache: Cache[Try[List[Map[String, Value]]]] = LruCache(timeToLive = 5 minutes)
@@ -80,13 +89,29 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
       val title = ?("title")
       //val authors = ?("authors")
       //data-bind="title"
-      val pageHtml: Html = Html(
-        s"""
+      val pageHtml:Html =  if(request.domain.contains("rybka.org")) {
+        uri.toLowerCase() match {
+          case u if u.contains("project") => views.html.rybka.pages.project(request)
+          case u if u.contains("research") => views.html.rybka.pages.research(request)
+          case u if u.contains("collaboration") => views.html.rybka.pages.collaboration(request)
+          case u if u.contains("action_plan") => views.html.rybka.pages.action_plan(request)
+          case u if u.contains("team") => views.html.rybka.pages.team(request)
+          case _ =>
+            lg.info(s"some other request for rybka page $uri")
+              Html(s"404: page $uri not found")
+        }
+        }
+      else
+      {
+        Html(
+          s"""
             |<article id="main_article" data-view="ArticleView" class="ui teal piled segment">
             |<h1 id="title"  class="ui large header"> ${/*page.stringValue*/uri} </h1>
             |<div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text">$text</div>
             |</article>
             """.stripMargin)
+      }
+
 
       this.pj(pageHtml)(request)
 

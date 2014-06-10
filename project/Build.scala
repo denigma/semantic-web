@@ -55,7 +55,7 @@ object Build extends sbt.Build with SemanticData  with UniversalKeys{
 
   val scalaVer = "2.10.4"
 
-  val semWebVersion = "0.4.4"
+  val semWebVersion = "0.4.6"
 
   val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",  url("http://dl.bintray.com/content/scala-js/scala-js-releases"))( Resolver.ivyStylePatterns)
 
@@ -83,40 +83,26 @@ val sameSettings = Seq(
 	resolvers +=  denigmaResolver
 )
 
-  val bindingVersion = "0.3.3"
+  val bindingVersion = "0.3.7"
 
 
   lazy val sharedModels = unmanagedSourceDirectories in Compile += baseDirectory.value / "models" / "src" / "main" / "scala"
 
   lazy val semanticWebSettings = Seq(
 
-
-      //resolvers += Resolver.file("Local repo", file("~/.ivy2/local"))(Resolver.ivyStylePatterns) ,
-
       sharedModels,
 
-    //scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
-
       scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
-
-      //scalajsOutputDir     := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
 
       compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
 
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
-
-      //test in Test <<= (test in Test) dependsOn (test in (binding, Test)),
 
       watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get}
       //incOptions := incOptions.value.withNameHashing(true)
 
     ) ++ (   Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, /*packageLauncher,*/ fastOptJS, fullOptJS) map { packageJSKey =>
     crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value }   )
-
-  //play.Project.playScalaSettings ++ SassPlugin.sassSettings
-
-  //val main = play.Project(appName, appVersion, appDependencies).settings(semanticWebSettings: _*).dependsOn(semanticData).aggregate(scalajs)
-
 
   lazy val main = (project in file("."))
     .enablePlugins(PlayScala/*,SbtWeb*/)

@@ -3,7 +3,9 @@
 # ~~~~
 
 GET         /                            controllers.Application.index()
+GET         /menu/rybka                  controllers.Menus.rybkaMenu()
 GET         /menu/:name                  controllers.Menus.menu(name)
+
 GET         /pages/:page                 controllers.Application.page(page)
 GET         /logo/:variant               controllers.Application.logo(variant)
 

@@ -1,7 +1,5 @@
 package org.denigma.semantic.writing
 
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import scala.util.Try
 import org.scalax.semweb.sesame.SesameDataWriter
 
 

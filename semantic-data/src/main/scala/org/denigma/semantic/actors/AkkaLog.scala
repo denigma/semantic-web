@@ -1,6 +1,6 @@
 package org.denigma.semantic.actors
 
-import org.scalax.semweb.sesame.LogLike
+import org.scalax.semweb.commons.LogLike
 
 
 /**

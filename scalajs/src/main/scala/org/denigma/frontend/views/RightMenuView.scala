@@ -1,9 +1,10 @@
 package org.denigma.frontend.views
 
 import org.scalajs.dom.{MouseEvent, HTMLElement}
-import org.denigma.views.OrdinaryView
+import org.denigma.views.core.OrdinaryView
 import rx._
 import scalatags._
+import scalatags.Text.Tag
 
 /**
  * View that displayes sparql quering interface
@@ -13,7 +14,7 @@ import scalatags._
 class RightMenuView(element:HTMLElement,params:Map[String,Any] = Map.empty[String,Any]) extends OrdinaryView("righ-menu",element)
 {
 
-  override def tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
+  override def tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
 
   override def strings: Map[String, Rx[String]] = this.extractStringRx(this)
 

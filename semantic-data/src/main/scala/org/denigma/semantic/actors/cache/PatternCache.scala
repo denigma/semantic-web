@@ -11,7 +11,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 import akka.pattern.ask
 import org.scalax.semweb.rdf.{Quad, Res}
 import org.scalax.semweb.sparql._
-import org.scalax.semweb.sesame.Logged
+import org.scalax.semweb.commons.Logged
 
 /**
  * Makes decision based on union of patterns that it has

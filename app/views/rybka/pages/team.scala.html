@@ -1,0 +1,43 @@
+@(implicit request: UserRequestHeader)
+<main id="main">
+    @rybka.header("The Team")
+
+
+    <article class="ui raised secondary segment" >
+
+        <section class="ui secondary inverted segment">
+            <div class="ui segment content">
+
+                <div class="ui one column grid">
+                    <div class="row">
+
+                        <img src="@routes.Assets.at(request.domain.toString+"/images/Dimitri.jpg")">
+                        <p class="ui text">
+                            Dimitry Nowicki (principal investigator, computational neuroscientist) - PhD (Université de Toulouse, 2004), MSc in applied mathematics, Moscow Institute of Physics and Technology (2000). Worked in France (Toulouse, Grenoble), USA (Massachusetts, Harvard University). Researcher at the Institute of Mathematical Machines and Systems Problems NASU.
+                        </p>
+                    </div>
+                    <div class="row">
+                        <img src="@routes.Assets.at(request.domain.toString+"/images/pishel.jpg")">
+                        <p class="ui text">
+                    Iryna Pishel (principal investigator, biologist) - PhD, D. F. Chebotaryov State Institute of Gerontology of the Ukrainian National Academy of Sciences, Kiev
+                        </p>
+                        </div>
+                        <div class="ui divider"></div>
+                   <div class="one row">
+                        <p class="text">
+                    Kulaga Anton ( project manager, research fellow),   - PhD. candidate, KNEU, cofounder of International Longevity Alliance
+                        </p>
+                        <img src="@routes.Assets.at(request.domain.toString+"/images/antonkulaga.jpg")">
+                    </div>
+
+            </div>
+
+
+        </section>
+
+
+    </article>
+
+
+
+</main>

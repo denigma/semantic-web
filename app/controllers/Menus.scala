@@ -20,6 +20,7 @@ import spray.caching.{LruCache, Cache}
 import auth.UserAction
 import scala.concurrent.Future
 import org.denigma.binding.models._
+import org.denigma.binding.picklers.rp
 
 /**
  * Shows menus
@@ -34,6 +35,7 @@ object Menus extends Controller with SimpleQueryController with PickleController
 
 
   val dom =  IRI(s"http://domain")
+
 
 
   /**
@@ -80,6 +82,22 @@ object Menus extends Controller with SimpleQueryController with PickleController
           Ok(pickle).as("application/json")
         case Failure(th)=>BadRequest(th.toString)
       }
+  }
+
+  def rybkaMenu() = UserAction{
+    implicit request=>
+      val dom =  IRI(s"http://${request.domain}")
+
+      val res = List(
+        MenuItem(dom / "pages/Rybka_Project","The Rybka project"),
+        MenuItem(dom / "pages/Research_Outline","Research Outline"),
+        MenuItem(dom / "pages/Action_Plan","Action Plan"),
+        MenuItem(dom / "pages/Team","The Team"),
+        MenuItem(dom / "pages/Collaboration","Collaboration") )
+
+          val pickle: JsValue = rp.pickle(res)
+          Ok(pickle).as("application/json")
+
   }
 
 }

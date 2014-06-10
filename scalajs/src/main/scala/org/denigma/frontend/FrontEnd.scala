@@ -1,12 +1,9 @@
 package org.denigma.frontend
 
 import org.scalajs.dom
-import scalatags.all._
-import scalatags.HtmlTag
 import rx._
 import scala.scalajs.js.annotation.JSExport
 import org.denigma.extensions._
-import org.denigma.binding.models.{ rp}
 
 import org.scalajs.dom.{HTMLElement, MouseEvent, console}
 
@@ -28,11 +25,13 @@ import org.denigma.extensions.sq
 import org.scalajs.jquery.jQuery
 import org.denigma.extensions._
 import org.scalax.semweb.rdf.IRI
+import org.denigma.views.core.OrdinaryView
+import org.denigma.binding.picklers.rp
+import scalatags.Text.Tag
 
 @JSExport
 object FrontEnd extends OrdinaryView("main",dom.document.body)  with scalajs.js.JSApp
 {
-  rp.registerPicklers()
 
   val sidebarParams =  js.Dynamic.literal(exclusive = false)
 
@@ -47,11 +46,13 @@ object FrontEnd extends OrdinaryView("main",dom.document.body)  with scalajs.js.
     .register("sidebar", (el, params) =>Try(new SidebarView(el,params)))
     .register("query", (el, params) =>Try(new QueryView(el,params)))
     .register("paper", (el, params) =>Try(new PaperView(el,params)))
+    .register("page", (el, params) =>Try(new PageView(el,params)))
+
 
 
   override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
 
-  val tags: Map[String, Rx[HtmlTag]] = this.extractTagRx(this)
+  val tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
 
   //val doubles: Map[String, Rx[Double]] = this.extractDoubles[this.type]
 

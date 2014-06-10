@@ -1,7 +1,7 @@
 package org.denigma.semantic.commons
 
 import com.bigdata.rdf.changesets.IChangeLog
-import org.scalax.semweb.sesame.LogLike
+import org.scalax.semweb.commons.LogLike
 
 trait ChangeWatcher {
 

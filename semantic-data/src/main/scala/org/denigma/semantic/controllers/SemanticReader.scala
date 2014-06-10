@@ -1,7 +1,7 @@
 package org.denigma.semantic.controllers
 
 import akka.actor.ActorRef
-import org.scalax.semweb.sesame.{Logged, LogLike}
+import org.scalax.semweb.commons.{LogLike, Logged}
 
 
 object SemanticReader {
