@@ -4,6 +4,9 @@ body {
 p {
     text-align: justify;
 }
+#anno{
+    font-size: 1.2vw;
+}
 
 p {
     font-size: 1.4vw ;

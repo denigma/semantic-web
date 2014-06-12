@@ -72,7 +72,7 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
       case "transhuman.org.ua"=> "assets/transhuman.org.ua/ukranian_transhumanism.jpg"
       case "webintelligence.eu"=> "assets/webintelligence.eu/denigma.svg"
       case "denigma.org" | "denigma.denigma.de"=> "assets/webintelligence.eu/denigma.svg"
-      case "rybka.org.ua" => "assets/rybka.org.ua/rybka.jpg"
+      case r if r.contains("rybka.org") => "assets/rybka.org.ua/rybka.jpg"
 
       case _=> "assets/longevity.org.ua/longevity_ukraine.svg"
     }
