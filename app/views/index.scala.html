@@ -1,4 +1,4 @@
-@(implicit request: UserRequestHeader, html:Option[Html] = None,into:String = "main")
+@(implicit request: UserRequestHeader, html:Option[Html] = None)
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
     <head>
@@ -22,19 +22,15 @@
         <h1>WEBSITE IS UNDER CONSTRUCTION!</h1>
         <section class="ui divier"></section>
 
-        @main(request)
+        @main(html)(request)
 
         @sidebar(request)
 
-        @if(html.isDefined) {
-            <div id="insertMe">
-                @{html.get}
-            </div>
-        }
 
     </body>
 
-    @init(request,html,into)
+
+    @init(request)
 
 
 </html>

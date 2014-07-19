@@ -1,44 +1,34 @@
 package org.denigma.frontend
 
-import org.scalajs.dom
-import rx._
-import scala.scalajs.js.annotation.JSExport
-import org.denigma.extensions._
-
-import org.scalajs.dom.{HTMLElement, MouseEvent, console}
-
-
-
-import scalajs.js.Dynamic.{ global => g }
-import org.scalajs.jquery.{jQuery => jq, JQueryXHR}
-import org.denigma.frontend.views._
-import org.denigma.views._
-import scala.util.{Success, Failure, Try}
-import scala.collection.immutable._
-import org.scalajs.spickling.jsany._
-import scala.scalajs.js
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import org.scalajs.jquery.jQuery
-import org.scalajs.dom.extensions.{AjaxException, Ajax}
-import scala.concurrent.Promise
-import org.denigma.extensions.sq
-import org.scalajs.jquery.jQuery
-import org.denigma.extensions._
-import org.scalax.semweb.rdf.IRI
-import org.denigma.views.core.OrdinaryView
 import org.denigma.binding.picklers.rp
+import org.denigma.binding.views.OrdinaryView
+import org.denigma.frontend.views._
+import org.scalajs.dom
+import org.scalajs.dom.{HTMLElement, MouseEvent}
+import org.scalajs.jquery.{jQuery => jq}
+import rx._
+
+import scala.collection.immutable._
+import scala.scalajs.js
+import scala.scalajs.js.Dynamic.{global => g}
+import scala.scalajs.js.annotation.JSExport
+import scala.util.Try
 import scalatags.Text.Tag
+import org.denigma.binding.extensions._
 
 @JSExport
-object FrontEnd extends OrdinaryView("main",dom.document.body)  with scalajs.js.JSApp
+object FrontEnd extends OrdinaryView  with scalajs.js.JSApp
 {
+  override val params:Map[String,Any] = Map.empty
+
+  override val name = "main"
+  lazy val elem:HTMLElement = dom.document.body
 
   val sidebarParams =  js.Dynamic.literal(exclusive = false)
-
   /**
    * Register views
    */
-  org.denigma.views
+  org.denigma.binding.views
     .register("login", (el, params) =>Try(new LoginView(el,params)))
     .register("menu", (el, params) =>Try{ new MenuView(el,params) })
     .register("ArticleView", (el, params) =>Try(new ArticleView(el,params)))
@@ -47,7 +37,10 @@ object FrontEnd extends OrdinaryView("main",dom.document.body)  with scalajs.js.
     .register("query", (el, params) =>Try(new QueryView(el,params)))
     .register("paper", (el, params) =>Try(new PaperView(el,params)))
     .register("page", (el, params) =>Try(new PageView(el,params)))
-
+    .register("query", (el, params) =>Try(new QueryView(el,params)))
+    .register("sparql",(el, params) =>Try(new SelectQueryView(el,params)))
+    .register("ReportsView",(el, params) =>Try(new ReportsView(el,params)))
+    .register("report",(el, params) =>Try(new Report(el,params)))
 
 
   override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
@@ -62,10 +55,12 @@ object FrontEnd extends OrdinaryView("main",dom.document.body)  with scalajs.js.
 
   @JSExport
   def main(): Unit = {
-    rp.registerPicklers()
+
+    rp.register()
+
     this.bind(this.viewElement)
-    jQuery(".top.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
-    jQuery(".left.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
+    jq(".top.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
+    jq(".left.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
 
   }
 
@@ -74,13 +69,16 @@ object FrontEnd extends OrdinaryView("main",dom.document.body)  with scalajs.js.
     dom.document.getElementById(into).innerHTML = content
   }
 
-  @JSExport
-  def moveInto(from:String,into:String): Unit = {
-    val ins: HTMLElement = dom.document.getElementById(from)
-    dom.document.getElementById(into).innerHTML =ins.innerHTML
-
-    ins.parentNode.removeChild(ins)
-  }
+//  @JSExport
+//  def moveInto(from:String,into:String): Unit = {
+//
+//    val ins: HTMLElement = dom.document.getElementById(from)
+//    val into = dom.document.getElementById(into)
+//    this.switchInner()
+//    dom.document.getElementById(into).innerHTML =ins.innerHTML
+//
+//    ins.parentNode.removeChild(ins)
+//  }
 
   val toggle: Var[MouseEvent] = Var(this.createMouseEvent())
 

@@ -1,30 +1,34 @@
 @(implicit request: UserRequestHeader)
-<section data-view="QueryView">
+<section id="query" data-view="query" data-param-path="/tools/sparql/endpoint">
     <h1 class="ui header">Query page</h1>
     @files.uploader()
-    <section id="query" data-view="EditorView">
 
-    </section>
-    <section class="" data-showif="hasErrors">
+    <textarea class="ui textarea" data-view="sparql" id="code" name="code" data-param-mode="application/x-sparql-query" data-up-bind-code="query">
+
+    </textarea>
+
+
+    <section class="ui" data-showif="hasErrors">
         <div class="ui piled segment">
             <p data-bind="errors"></p>
         </div>
     </section>
-    <button data-event-click="reset" class="ui green button">Reset</button>
     <button data-event-click="submit" class="ui green button">Send Request</button>
+    <button data-event-click="reset" class="ui green button">Reset</button>
+
     <table class="ui table segment" border>
         <tr>
-            <th data-foreach-title="Result.head" data-bind="title">
-                </th>
+            <th  data-bind="title">
+            </th>
         </tr>
         <tr>
-            <th data-foreach-title="Result.head">
+            <th>
                 <input data-bind-placeholder="title" type="hidden" id="thisid" class="filter select2-container select2-container-multi populate" />
             </th>
         </tr>
 
-        <tr data-foreach-result="results">
-            <td data-foreach-key="result.bindings" data-bind="result.bindings[key].value"></td>
+        <tr>
+            <td ></td>
         </tr>
     </table>
 </section>

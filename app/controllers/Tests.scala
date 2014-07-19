@@ -1,23 +1,17 @@
 package controllers
 
-import org.scalax.semweb.rdf.vocabulary._
-import play.api.mvc._
-import org.scalajs.spickling.PicklerRegistry
-import org.scalajs.spickling.playjson._
-import models._
-import org.scalax.semweb.rdf.{Lit, IRI}
-import org.scalax.semweb.rdf.vocabulary.WI
-import org.scalax.semweb.sparql._
-import org.scalax.semweb.sparql.Pat
-import org.denigma.semantic.controllers.SimpleQueryController
-import org.openrdf.model.{Literal, URI}
-import scala.concurrent.Future
-import org.scalax.semweb.sesame._
-import scala.util._
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import scala.collection.immutable._
 import auth.UserAction
 import org.denigma.binding.models._
+import org.denigma.semantic.controllers.SimpleQueryController
+import org.openrdf.model.{Literal, URI}
+import org.scalax.semweb.rdf.IRI
+import org.scalax.semweb.rdf.vocabulary.{WI, _}
+import org.scalax.semweb.sesame._
+import org.scalax.semweb.sparql.{Pat, _}
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.mvc._
+
+import scala.util._
 
 
 /*
@@ -67,8 +61,8 @@ object Tests  extends Controller with SimpleQueryController{
   }
 
   def mailMe = Action {
-    import play.api.Play.current
     import com.typesafe.plugin._
+    import play.api.Play.current
     val mail = use[MailerPlugin].email
     mail.setSubject("Testing how email works")
     mail.setRecipient("Antonkulaga <antonkulaga@gmail.com>","antonkulaga@gmail.com")
@@ -89,21 +83,6 @@ object Tests  extends Controller with SimpleQueryController{
     else
       BadRequest("App is not in dev mode!")
   }
-
-
-//  def test = Action {
-//    implicit request=>
-//      request.body.asJson.map{case m=>
-//        PicklerRegistry.unpickle(m) match {
-//          case m:Message=>
-//            val pickle = PicklerRegistry.pickle(m)
-//            Ok(pickle)
-//          case _ => BadRequest(Json.obj("status"->"KO","message"->"wrong message"))
-//        }
-//      }.getOrElse{BadRequest(Json.obj("status"->"KO","message"->"wrong message")) }
-//
-//  }
-
 
 
 

@@ -8,7 +8,6 @@ import org.denigma.semantic.test.LoveHater
 import play.api.test.WithApplication
 import play.api.libs.concurrent.Akka
 import org.openrdf.model.impl.URIImpl
-import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 import org.denigma.semantic.controllers.{UpdateController, JsQueryController}
 import org.scalax.semweb.sesame._

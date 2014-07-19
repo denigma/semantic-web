@@ -9,7 +9,6 @@ import org.openrdf.query.TupleQueryResult
 import org.denigma.semantic.controllers._
 import scala.concurrent.Future
 import play.api.libs.concurrent.Akka
-import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.reading._
 
 import org.scalax.semweb.sesame._

@@ -1,10 +1,10 @@
 package org.denigma.frontend.views
 
+import org.denigma.controls.general.EditableMenuView
 import rx._
 import org.scalajs.dom._
 import scala.collection.immutable._
 import scalatags.Text.Tag
-import org.denigma.controls.EditableMenuView
 
 /**
  * Menu view, this view is devoted to displaying menus

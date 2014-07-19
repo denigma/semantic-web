@@ -10,18 +10,14 @@
     <!--dirty code-->
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("codemirror.js"))'></script>
     <link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("codemirror.css"))' type="text/css">
+    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("sparql.js"))'></script>
 
-    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery-ui.js"))'></script>
 
-    @defining("lib/"){
-        case (lib)=>{
-            <link rel="stylesheet" href="@routes.Assets.at(lib+"Smoothness/jquery.ui.all.css")" type="text/css">
-            <link rel="stylesheet" href="@routes.Assets.at(lib+"scrollbar/jquery.mCustomScrollbar.css")" type="text/css" />
-            <script src="@routes.Assets.at(lib+"scrollbar/jquery.mCustomScrollbar.js")"></script>
-        }
-    }
+    <script type="text/javascript" src="@routes.Assets.at("selectize/selectize.js")"></script>
+    <link rel="stylesheet" href='@routes.Assets.at("selectize/selectize.css")' type="text/css">
+    <link rel="stylesheet" href='@routes.Assets.at("selectize/selectize.default.css")' type="text/css">
 
-    @pdf()(request)
+
     @{ /*ckeditor()*/}
 }
 

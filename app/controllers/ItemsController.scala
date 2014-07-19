@@ -1,10 +1,11 @@
 package controllers
 
-import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import play.api.mvc._
-import play.api.libs.json.{Json, JsValue}
+import org.denigma.binding.picklers.{BindingPicklers, rp}
 import org.scalajs.spickling.playjson._
-import org.denigma.binding.picklers.rp
+import org.scalax.semweb.picklers.MapRegistry
+import play.api.libs.concurrent.Execution.Implicits.defaultContext
+import play.api.libs.json.{JsValue, Json}
+import play.api.mvc._
 
 
 trait ItemsController extends PickleController{
@@ -25,7 +26,7 @@ trait ItemsController extends PickleController{
 
 trait PickleController {
   self:Controller=>
-  /*
+ /*
   **
   * Generates body parser for required type
   * @param failMessage
@@ -33,12 +34,11 @@ trait PickleController {
     * @tparam T
     * @return
   */
-  def pickle[T](failMessage:String = "cannot unpickle json data")  = parse.tolerantJson.validate[T]{
+  def pickle[T](failMessage:String = "cannot unpickle json data")(implicit registry:MapRegistry with BindingPicklers = rp)  = parse.tolerantJson.validate[T]{
     case value: JsValue =>
-      rp.unpickle(value)
-      value match {
-        case data:T=>Right(data)
+      registry.unpickle(value)   match {
         case null=>Left(BadRequest(Json.obj("status" ->"KO","message"->failMessage)).as("application/json"))
+        case data:T=>Right(data)
         case _=>Left(BadRequest(Json.obj("status" ->"KO","message"->"some UFO data")).as("application/json"))
 
       }

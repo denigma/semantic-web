@@ -1,17 +1,38 @@
 package org.denigma.semantic.writing
 
-import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
-import org.openrdf.query.QueryLanguage
-import scala.util.Try
-import org.denigma.semantic.files.SemanticFileParser
+
+import com.bigdata.rdf.sail.{BigdataSailUpdate, BigdataSailRepositoryConnection}
+import org.scalax.semweb.sesame.{CanWriteSesame, SesameDataWriter}
+/**
+Trait that can provide writeConnection. It is used everywhere where we need to write something into the database
+  */
+trait CanWriteBigData extends CanWriteSesame{
+
+  type WriteConnection  = BigdataSailRepositoryConnection
+}
+/*
+interface for data writing
+ */
+trait DataWriter extends SesameDataWriter with CanWriteBigData
+
+
 import com.bigdata.rdf.changesets.IChangeLog
+import com.bigdata.rdf.sail.BigdataSailRepositoryConnection
+import org.denigma.semantic.files.SemanticFileParser
+import org.openrdf.query.QueryLanguage
 import org.scalax.semweb.rdf.vocabulary.WI
+
+import scala.util.Try
 
 
 /**
 class that provides updates to the database
- */
-trait Updater extends CanWriteBigData  with SemanticFileParser{
+  */
+trait Updater extends CanWriteBigData  with SemanticFileParser
+{
+
+  type UpdateQuery = BigdataSailUpdate
+  type UpdateHandler = (String,WriteConnection,UpdateQuery)=>Unit
 
   /**
    * Writed update to the database
@@ -24,16 +45,16 @@ trait Updater extends CanWriteBigData  with SemanticFileParser{
   def writeUpdate(queryStr:String,update:UpdateHandler,logger:IChangeLog = null)(implicit base:String = WI.RESOURCE) = {
     val con: BigdataSailRepositoryConnection = this.writeConnection
     con.setAutoCommit(false)
-   val res = Try{
-     if(logger!=null) {
-       con.addChangeLog(logger)
-       //lg.debug("WATCHED UPDATE WITH: "+queryStr)
-     }
-     else {
-       //lg.error("UNWATCHED UPDATE WITH: "+queryStr)
-     }
-     val u = con.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,queryStr,base)
-     update(queryStr,con,u)
+    val res = Try{
+      if(logger!=null) {
+        con.addChangeLog(logger)
+        //lg.debug("WATCHED UPDATE WITH: "+queryStr)
+      }
+      else {
+        //lg.error("UNWATCHED UPDATE WITH: "+queryStr)
+      }
+      val u = con.prepareNativeSPARQLUpdate(QueryLanguage.SPARQL,queryStr,base)
+      update(queryStr,con,u)
     }
     con.close()
     res.recoverWith{case
@@ -75,6 +96,28 @@ trait Updater extends CanWriteBigData  with SemanticFileParser{
       res
     }
 
+  }
+
+
+  /*
+ writes something and then closes the connection
+  */
+  def watchedWrite[T](logger:IChangeLog )(action:WriteConnection=>T):Try[T] =
+  {
+    val con = this.writeConnection
+    con.setAutoCommit(false)
+    val res = Try {
+      con.addChangeLog(logger)
+      val r = action(con)
+      con.commit()
+      r
+    }
+    con.close()
+    res.recoverWith{case
+      e=>
+      lg.error("read/write transaction from database failed because of \n"+e.getMessage)
+      res
+    }
   }
 
 

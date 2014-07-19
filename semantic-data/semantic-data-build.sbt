@@ -1,6 +1,6 @@
 Build.sameSettings
 
-version := "0.3.3"
+version := "0.3.4"
 
 resolvers += "Bigdata releases" at "http://systap.com/maven/releases/"
 
@@ -14,7 +14,7 @@ resolvers += "Sonatype snapshots" at "http://oss.sonatype.org/content/repositori
 
 resolvers += "spray repo" at "http://repo.spray.io"
 
-libraryDependencies += "com.github.t3hnar" %% "scala-bcrypt" % "2.3"
+libraryDependencies += "com.github.t3hnar" %% "scala-bcrypt" % "2.4"
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.7"
 
@@ -30,7 +30,5 @@ libraryDependencies += "org.scalax" %% "semweb" % Build.semWebVersion
 libraryDependencies += "org.scalax" %% "semweb-sesame" % Build.semWebVersion
 
 libraryDependencies += "com.assembla.scala-incubator" %% "graph-core" % "1.9.0"
-
-libraryDependencies += "com.assembla.scala-incubator" %% "graph-json" % "1.9.0"
 
 

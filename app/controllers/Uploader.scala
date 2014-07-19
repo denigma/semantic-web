@@ -1,17 +1,15 @@
 package controllers
 
-import org.scalajs.spickling.playjson._
-import play.api.mvc._
 import java.io.File
+
+import auth.UserAction
+import org.denigma.semantic.controllers.sync.WithSyncWriter
+import org.denigma.semantic.controllers.{SimpleQueryController, UpdateController}
+import org.denigma.semantic.files.SemanticFileParser
 import play.api.Play
 import play.api.Play.current
-import org.denigma.semantic.controllers.sync.WithSyncWriter
-import org.denigma.semantic.files.SemanticFileParser
-import play.api.libs.json.{Json, JsObject}
-
-
-import org.denigma.semantic.controllers.{UpdateController, SimpleQueryController}
-import auth.UserAction
+import play.api.libs.json.{JsObject, Json}
+import play.api.mvc._
 
 /**
  * Handler everything about uploading
@@ -30,7 +28,7 @@ object Uploader extends Controller with SemanticFileParser with WithSyncWriter  
    WARNING: NOT TESTED
     */
   def imageUpload = UserAction(parse.multipartFormData) { implicit request =>
-    import Json._
+    import play.api.libs.json.Json._
     val relativePath = "assets/users/" +  request.username.getOrElse("guest")
     val uploads = Play.getFile(relativePath)
     val p = uploads.getAbsolutePath
@@ -53,12 +51,14 @@ object Uploader extends Controller with SemanticFileParser with WithSyncWriter  
     Ok(res)
   }
 
+
+
   /*
    TODO: test upload code
    WARNING: NOT TESTED
     */
   def upload = UserAction(parse.multipartFormData) { implicit request =>
-    import Json._
+    import play.api.libs.json.Json._
     val uploads = Play.getFile("public/uploads/")
     val p = uploads.getAbsolutePath
     val files: scala.List[JsObject] = request.body.files.map{ f=>

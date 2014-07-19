@@ -1,4 +1,4 @@
-@(implicit request: UserRequestHeader, html:Option[Html] = None,into:String = "main")
+@(implicit request: UserRequestHeader, html:Option[Html] = None)
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
     <head>
@@ -22,21 +22,15 @@
     <body>
 
 
-        @rybka.pages.project(request)
+        @rybka.pages.project(request,html)
 
-
-        @if(html.isDefined) {
-            <div id="insertMe">
-            @{html.get}
-            </div>
-        }
 
         @rybka.sidebar(request)
         @rybka.footer(request)
 
     </body>
 
-    @init(request,html,into)
+    @init(request)
 
 
 </html>

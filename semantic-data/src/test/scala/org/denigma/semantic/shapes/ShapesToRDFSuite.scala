@@ -1,5 +1,5 @@
 package org.denigma.semantic.shapes
-
+/*
 import org.scalax.semweb.rdf._
 
 import utest._
@@ -132,3 +132,4 @@ object ShapesToRDFSuite extends TestSuite{
 
 }
 
+*/

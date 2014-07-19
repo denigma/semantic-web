@@ -1,7 +1,13 @@
-@(implicit request: UserRequestHeader)
+@(implicit request: UserRequestHeader,html:Option[Html] = None)
 <main id="main">
     @rybka.header()
 
+
+    @if(html.isDefined) {
+        <div id="insertMe">
+        @{html.get}
+        </div>
+    } else {
 
     <article class="ui raised secondary segment" >
 
@@ -60,7 +66,7 @@
 
 
     </article>
-
+    }
 
 
 </main>

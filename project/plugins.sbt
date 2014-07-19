@@ -19,16 +19,16 @@ addSbtPlugin("me.lessis" % "bintray-sbt" % "0.1.1")
 
 
 //scalajs plugin
-addSbtPlugin("org.scala-lang.modules.scalajs" % "scalajs-sbt-plugin" % "0.5.0-RC1")
+addSbtPlugin("org.scala-lang.modules.scalajs" % "scalajs-sbt-plugin" % "0.5.2")
 
 //dependency graph generation
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.4")
 
 
-addSbtPlugin("com.lihaoyi" % "utest-js-plugin" % "0.1.6-RC1")
+addSbtPlugin("com.lihaoyi" % "utest-js-plugin" % "0.1.8")
 
 // The Play plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.0")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.1")
 
 // web plugins
 

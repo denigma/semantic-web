@@ -1,5 +1,6 @@
 package org.denigma.semantic.quering
 
+import org.denigma.semantic.reading.SelectResult
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
@@ -8,7 +9,6 @@ import play.api.test.WithApplication
 
 import org.denigma.semantic.test.LoveHater
 import org.denigma.semantic.controllers.sync.{SyncSimpleController, SyncJsController}
-import org.denigma.semantic.reading.selections._
 import org.denigma.semantic.WithSemanticPlugin
 
 

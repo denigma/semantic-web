@@ -1,19 +1,18 @@
 package org.denigma.frontend.views
 
+import org.denigma.binding.views.OrdinaryView
 import rx._
 import org.scalajs.dom
 import scala.collection.immutable._
-import org.denigma.views._
 
 import scalatags.Text.Tag
 import org.scalajs.dom._
 import scala.scalajs.js
-import org.denigma.views.core.OrdinaryView
 
 /**
  * View for paper viewer
  */
-class PaperView(element:HTMLElement,params:Map[String,Any] = Map.empty[String,Any]) extends OrdinaryView("paper",element)
+class PaperView(val elem:HTMLElement,val params:Map[String,Any] = Map.empty[String,Any]) extends OrdinaryView
 {
 
   override def tags: Map[String, Rx[Tag]] = this.extractTagRx(this)

@@ -45,7 +45,7 @@ object Read {
 }
 
 
-trait Paginated extends QueryLike{
+trait Paginated{
   def offset:Long
   def limit:Long
   def isPaginated = offset>0 || (limit != Long.MaxValue && limit>0)

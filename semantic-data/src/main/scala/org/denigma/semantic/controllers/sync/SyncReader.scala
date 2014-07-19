@@ -15,6 +15,7 @@ object SyncReader extends CanReadBigData{
   def readConnection: ReadConnection = reader.readConnection
 
   def readEnabled = this.reader!=null
+
 }
 
 

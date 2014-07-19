@@ -2,39 +2,51 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET         /                            controllers.Application.index()
-GET         /menu/rybka                  controllers.Menus.rybkaMenu()
-GET         /menu/:name                  controllers.Menus.menu(name)
+GET         /                             controllers.Application.index()
+GET         /users                        controllers.Tools.users
+GET         /menu/rybka                   controllers.Menus.rybkaMenu()
+GET         /menu/:name                   controllers.Menus.menu(name)
 
-GET         /pages/:page                 controllers.Application.page(page)
-GET         /logo/:variant               controllers.Application.logo(variant)
+GET         /pages/:page                  controllers.Application.page(page)
+GET         /logo/:variant                controllers.Application.logo(variant)
 
-GET         /tools/sparql                controllers.Tools.sparql
-GET         /tools/paper                 controllers.Tools.paper
+GET         /tools/sparql                 controllers.Tools.sparql
+GET         /tools/paper                  controllers.Tools.paper
+POST        /tools/sparql/endpoint        controllers.Tools.sparqlEndpoint
+
+GET         /papers/reports               controllers.literature.Literature.reports()
+POST        /papers/explore               controllers.literature.Literature.exploreEndpoint()
+POST        /papers/crud                  controllers.literature.Literature.modelEndpoint()
+GET         /papers/                      controllers.literature.Literature.reports()
 
 
 
-GET         /users/login                 controllers.Login.login(username:String,password:String)
-GET         /users/register              controllers.Login.register(username:String,email,password:String)
-GET         /users/logout                controllers.Login.logout()
+#GET        /tools/sparql/endpoint/test        controllers.Tools.testSelect
+#POST        /tools/sparql/endpoint/test        controllers.Tools.testSelect
+
+
+
+GET         /users/login                  controllers.Login.login(username:String,password:String)
+GET         /users/register               controllers.Login.register(username:String,email,password:String)
+GET         /users/logout                 controllers.Login.logout()
 
 #GET         /schema                      controllers.Schema.sankey()
 #GET         /schema/sankey               controllers.Schema.sankey()
 
-GET         /images                      controllers.Uploader.images
-POST        /upload                      controllers.Uploader.upload
-POST        /image/upload                controllers.Uploader.imageUpload
+GET         /images                       controllers.Uploader.images
+POST        /upload                       controllers.Uploader.upload
+POST        /image/upload                 controllers.Uploader.imageUpload
 
 
-GET         /webjars/*file               controllers.WebJarAssets.at(file)
+GET         /webjars/*file                controllers.WebJarAssets.at(file)
 
-GET         /test/newdomain/:name        controllers.Tests.changeDomain(name)
-GET         /test/menu                   controllers.Tests.menu
-GET         /test/sigma                  controllers.Tests.sigma
-GET         /test/mail                   controllers.Tests.mailMe
+GET         /test/newdomain/:name         controllers.Tests.changeDomain(name)
+GET         /test/menu                    controllers.Tests.menu
+GET         /test/sigma                   controllers.Tests.sigma
+GET         /test/mail                    controllers.Tests.mailMe
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                controllers.Assets.at(path="/public", file)
+GET         /assets/*file                 controllers.Assets.at(path="/public", file)
 #GET         /public/*file                controllers.Assets.at(path="/public", file)
 #GET         /files/*file                 controllers.Assets.at(path="/public", file)

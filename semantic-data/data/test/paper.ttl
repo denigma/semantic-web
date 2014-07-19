@@ -1,0 +1,48 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix : <http://denigma.org/resource/> .
+@prefix pmid: <http://denigma.org/resource/Pubmed/> .
+
+# Finally!-Max2013.10.15
+
+:24124014 a :Article ;
+    rdfs:label "24124014" ;
+    dc:title "Distinct types of lipofuscin pigment in the hippocampus and cerebellum of aged cheirogaleid primates." ;
+    :journal "Anat Rec (Hoboken). 2013 Dec;296(12):1895-906. doi: 10.1002/ar.22809. Epub 2013 Oct 10." ;
+    :authors "Gilissen EP, Staneva-Dobrovski L." ;
+    :abstract """
+The formation of autofluorescent lipopigment or lipofuscin is a highly consistent and reliable cytological change that correlates with cellular aging in postmitotic cells......In mammals, dentate gyrus neurons and Purkinje cells are usually affected widely. In this study, we investigated the ultrastructure of lipofuscin deposits in large neurons of the dentate gyrus and in Purkinje cells of aged fat-tailed dwarf lemurs.....with electron and confocal microscopy and compared it with previous observations in other species. .....Our study revealed region-specific as well as species-specific characteristics of lipofuscin ultrastructure. This suggests differences in cellular metabolism and/or in organelles involved in lipofuscin production in cerebellar Purkinje cells and in hippocampal dentate gyrus neurons.
+""" ;
+    rdfs:comment """ (Neuronal Lipofuscin) I'm actually not highly confident that this has actionable data in it, but it might. They concluded that neuronal lipofuscin is variable both by brain region, and be species. The study may say something about whether neuronal lipofuscin can cause problems in aging *in general*, but given that it varies by species, may not anything about its relevance to *human* aging.""" .
+
+
+:24122288 a :Article ;
+    rdfs:label "24122288" ;
+    dc:title "Satellite cells in human skeletal muscle; from birth to old age." ;
+    :journal "Age (Dordr). 2013 Oct 12. [Epub ahead of print]" ;
+    :authors "Verdijk LB, Snijders T, Drost M, Delhaas T, Kadi F, van Loon LJ." ;
+    :abstract """
+.....The present study defines muscle fiber type-specific satellite cell content in human skeletal muscle tissue over the entire lifespan. Muscle biopsies were collected in 165 subjects, from different muscles of children undergoing surgery (<18 years; n = 13) and from the vastus lateralis muscle of young adult (18-49 years; n = 50), older (50-69 years; n = 53), and senescent subjects (70-86 years; n = 49). In a subgroup of 51 aged subjects (71 ± 6 years), additional biopsies were collected after 12 weeks of supervised resistance-type exercise training. Immunohistochemistry was applied to assess skeletal muscle fiber type-specific composition, size, and satellite cell content. From birth to adulthood, muscle fiber size increased tremendously with no major changes in muscle fiber satellite cell content, and no differences between type I and II muscle fibers. In contrast to type I muscle fibers, type II muscle fiber size was substantially smaller with increasing age in adults (r = -0.56; P < 0.001). This was accompanied by an age-related reduction in type II muscle fiber satellite cell content (r = -0.57; P < 0.001). Twelve weeks of resistance-type exercise training significantly increased type II muscle fiber size and satellite cell content. We conclude that type II muscle fiber atrophy with aging is accompanied by a specific decline in type II muscle fiber satellite cell content. Resistance-type exercise training represents an effective strategy to increase satellite cell content and reverse type II muscle fiber atrophy.
+""" ;
+    rdfs:comment """ (Sarcopenia) (Satellite Cells) One interesting and important conclusion: "use it or lose it!" Furthermore, they observed that type II fiber size decreased in age, as did satellite cell content. IMO, this may be seriously confounded by most people getting more sedentary as they get older. But if that's the case, the extent of this confound might be illustrated by the size of the effect of resistance exercise on increased satellite cell population in elderly people. So I looked into the full to see how close to "normalized" type II muscle fiber satellite cells could get with resistance training. So I looked into the full-text; forgive my "eyeballing" here, but looking at Figures 5a and 5b, it appears that there is no statistically significant difference between old (51+ yrs) and young (< 51 yrs) Type II, cross sectional area *or* satellite cell per muscle fiber,  *after the resistance training protocol*. In other words, if my "eyeballing" is accurate, and this study is representative of humans, then resistance training may go a long way in maintaining muscle fiber cross sectional area and satellite cell number. These results are relevant for our research because they suggest that sarcopenia treatments *may not reliably work* in the context of a long-term, sedentary lifestyle.""" .
+
+pmid:17210671 a :Article ;
+    :authors :Carlotta_Dellagnello, :Sara_Leo, :Alessandro_Agostino, :Gyorgy_Szabadkai, :Cecilia_Tiveron, :Alessandra_Zulian, :Alessandro_Prelle, :Pierre_Roubertoux, :Rosario_Rizzuto, :Massimo_Zeviani ;
+    :journal :Human_Molecular_Genetics ;
+    dc:title "Increased longevity and refractoriness to Ca(2+)-dependent neurodegeneration in Surf1 knockout mice" ;
+    :abstract """Leigh syndrome associated with cytochrome c oxidase (COX) deficiency is a mitochondrial disorder usually caused by mutations of SURF1, a gene encoding a putative COX assembly factor. We present here a Surf1-/- recombinant mouse obtained by inserting a loxP sequence in the open reading frame of the gene. The frequency of -/-, +/+ and +/- genotypes in newborn mice followed a mendelian distribution, indicating that the ablation of Surf1 is compatible with postnatal survival. The biochemical and assembly COX defect was present in Surf1(loxP)-/- mice, but milder than in humans. Surprisingly, not only these animals failed to show spontaneous neurodegeneration at any age, but they also displayed markedly prolonged lifespan, and complete protection from Ca(2+)-dependent neurotoxicity induced by kainic acid. Experiments on primary neuronal cultures showed markedly reduced rise of cytosolic and mitochondrial Ca(2+) in Surf1(loxP)-/- neurons, and reduced mortality, compared to controls. The mitochondrial membrane potential was unchanged in KO versus wild-type neurons, suggesting that the effects of the ablation of Surf1 on Ca(2+) homeostasis, and possibly on longevity, may be independent, at least in part, from those on COX assembly and mitochondrial bioenergetics.""" ;
+    :excerpt """Leigh syndrome associated with cytochrome c oxidase (COX)
+deficiency is a mitochondrial disorder usually caused by mutations of
+SURF1, a gene encoding a putative COX assembly factor. We present here a
+Surf1-/- recombinant mouse ... The biochemical and assembly COX defect
+was present in Surf1(loxP)-/- mice, but milder than in humans.
+Surprisingly, not only these animals failed to show spontaneous
+neurodegeneration at any age, but they also displayed markedly prolonged
+lifespan, and complete protection from Ca(2+)-dependent neurotoxicity
+induced by kainic acid.  ... The mitochondrial membrane potential was
+unchanged in KO vs. wt neurons, suggesting that the effects of the
+ablation of Surf1 on Ca(2+) homeostasis, and possibly on longevity, may
+be independent, at least in part, from those on COX assembly and
+mitochondrial bioenergetics.""" .

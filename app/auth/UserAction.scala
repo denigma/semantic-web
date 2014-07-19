@@ -1,13 +1,12 @@
 package auth
 
-import play.api.mvc._
 import org.denigma.semantic.platform.AppConfig
-import scala.concurrent.Future
-import scala.Some
 import org.scalax.semweb.rdf.IRI
 import org.scalax.semweb.rdf.vocabulary.USERS
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
-import org.denigma.binding.play.UserAction
+import play.api.mvc._
+
+import scala.concurrent.Future
 /**
  * User actions that contain important info about auth inside
  */

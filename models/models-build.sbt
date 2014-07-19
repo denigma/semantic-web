@@ -8,7 +8,7 @@ Build.sameSettings
 
 name := "models"
 
-version := "0.2"
+version := "0.2.1"
 
 scalacOptions ++= Seq( "-feature", "-language:_" )
 

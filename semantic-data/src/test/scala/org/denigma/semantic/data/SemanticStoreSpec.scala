@@ -1,5 +1,6 @@
 package org.denigma.semantic.data
 
+import org.denigma.semantic.reading.SelectResult
 import org.openrdf.model.impl.URIImpl
 import org.specs2.mutable._
 import org.specs2.runner._
@@ -7,7 +8,6 @@ import org.junit.runner._
 import play.api.test.{Helpers, FakeApplication, WithApplication}
 
 import org.denigma.semantic.test.LoveHater
-import org.denigma.semantic.reading.selections.SelectResult
 import org.denigma.semantic.platform.SP
 import org.denigma.semantic.controllers.sync.{SyncUpdateController, SyncJsController}
 import play.api.Configuration
@@ -68,7 +68,8 @@ class SemanticStoreSpec  extends Specification with LoveHater {
           |  { de:Genomic_Instability ?property ?object }
         """.stripMargin
 
-      //SP.platformParams.isEmpty should beTrue
+      //SP.platform
+      // Params.isEmpty should beTrue
       this.parseFileByName("data/test/test_aging_ontology.ttl")
       val res = query(q1)
       res.isSuccess should beTrue

@@ -1,40 +1,28 @@
 package org.denigma.frontend.views
 
-import org.scalajs.dom._
-import rx.{Rx, Var}
-
-import rx.core.Obs
-import org.denigma.extensions._
+import org.denigma.binding.extensions._
+import org.denigma.binding.views.OrdinaryView
 import org.scalajs.dom
-import scalatags.Text.Tag
-import rx._
-
-
-import org.scalajs.dom.{TextEvent, MouseEvent}
-
-
-import org.scalajs.spickling.jsany._
-
-import scala.scalajs.js
-import js.Dynamic.{ global => g }
+import org.scalajs.dom._
+import org.scalajs.dom.extensions.{Ajax, AjaxException}
 import org.scalajs.jquery.{jQuery => jq}
-import org.denigma.views._
-import scala.collection.immutable._
-import org.denigma.extensions._
-import org.scalajs.dom.extensions.{AjaxException, Ajax}
-import scala.util.{Failure, Success}
-import org.denigma.binding._
+import rx.{Rx, Var, _}
 
+import scala.collection.immutable._
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import org.denigma.views.core.OrdinaryView
+import scala.scalajs.js
+import scala.scalajs.js.Dynamic.{global => g}
+import scala.util.{Failure, Success}
 import scalatags.Text.Tag
 
 
 /**
  * Login view
  */
-class LoginView(element:HTMLElement, params:Map[String,Any]) extends OrdinaryView("login",element) with Login with Registration with Signed
+class LoginView(val elem:HTMLElement, val params:Map[String,Any]) extends OrdinaryView with Login with Registration with Signed
 {
+
+
   lazy val tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
 
   //val doubles: Map[String, Rx[Double]] = this.extractDoubles[this.type]
