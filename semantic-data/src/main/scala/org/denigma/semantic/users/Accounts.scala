@@ -15,6 +15,7 @@ import org.denigma.semantic.actors.cache.Cache.UpdateInfo
 import org.scalax.semweb.rdf.Trip
 import org.scalax.semweb.sparql._
 import org.scalax.semweb.rdf.vocabulary._
+
 /**
 * user watcher that keeps all users inmemory
 */

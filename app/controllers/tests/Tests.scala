@@ -1,10 +1,11 @@
-package controllers
+package controllers.tests
 
 import auth.UserAction
 import org.denigma.binding.models._
 import org.denigma.semantic.controllers.SimpleQueryController
+import org.denigma.semantic.users.Accounts
 import org.openrdf.model.{Literal, URI}
-import org.scalax.semweb.rdf.IRI
+import org.scalax.semweb.rdf.{Trip, IRI}
 import org.scalax.semweb.rdf.vocabulary.{WI, _}
 import org.scalax.semweb.sesame._
 import org.scalax.semweb.sparql.{Pat, _}
@@ -20,11 +21,6 @@ not working yet
  */
 object Tests  extends Controller with SimpleQueryController{
 
-
-  def sigma = Action {
-    implicit request =>
-      Ok(views.html.test.sigma()) //Ok(views.html.page("node","menu","0"))
-  }
 
   def menu =  UserAction.async{
     implicit request=>
@@ -83,6 +79,7 @@ object Tests  extends Controller with SimpleQueryController{
     else
       BadRequest("App is not in dev mode!")
   }
+
 
 
 

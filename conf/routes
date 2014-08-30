@@ -3,16 +3,20 @@
 # ~~~~
 
 GET         /                             controllers.Application.index()
-GET         /users                        controllers.Tools.users
+
+GET         /users                        controllers.schema.Schema.allUsers()
+
+
+GET         /users                        controllers.tools.Tools.users
 GET         /menu/rybka                   controllers.Menus.rybkaMenu()
 GET         /menu/:name                   controllers.Menus.menu(name)
 
 GET         /pages/:page                  controllers.Application.page(page)
 GET         /logo/:variant                controllers.Application.logo(variant)
 
-GET         /tools/sparql                 controllers.Tools.sparql
-GET         /tools/paper                  controllers.Tools.paper
-POST        /tools/sparql/endpoint        controllers.Tools.sparqlEndpoint
+GET         /tools/sparql                 controllers.tools.Tools.sparql
+GET         /tools/paper                  controllers.tools.Tools.paper
+POST        /tools/sparql/endpoint        controllers.tools.Tools.sparqlEndpoint
 
 GET         /papers/reports               controllers.literature.Literature.reports()
 POST        /papers/explore               controllers.literature.Literature.exploreEndpoint()
@@ -33,17 +37,16 @@ GET         /users/logout                 controllers.Login.logout()
 #GET         /schema                      controllers.Schema.sankey()
 #GET         /schema/sankey               controllers.Schema.sankey()
 
-GET         /images                       controllers.Uploader.images
-POST        /upload                       controllers.Uploader.upload
-POST        /image/upload                 controllers.Uploader.imageUpload
+GET         /images                       controllers.tools.Uploader.images
+POST        /upload                       controllers.tools.Uploader.upload
+POST        /image/upload                 controllers.tools.Uploader.imageUpload
 
 
 GET         /webjars/*file                controllers.WebJarAssets.at(file)
 
-GET         /test/newdomain/:name         controllers.Tests.changeDomain(name)
-GET         /test/menu                    controllers.Tests.menu
-GET         /test/sigma                   controllers.Tests.sigma
-GET         /test/mail                    controllers.Tests.mailMe
+GET         /test/newdomain/:name         controllers.tests.Tests.changeDomain(name)
+GET         /test/menu                    controllers.tests.Tests.menu
+GET         /test/mail                    controllers.tests.Tests.mailMe
 
 
 # Map static resources from the /public folder to the /assets URL path

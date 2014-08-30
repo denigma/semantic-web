@@ -15,20 +15,20 @@ resolvers += Resolver.url(
   url("http://dl.bintray.com/content/sbt/sbt-plugin-releases"))(
     Resolver.ivyStylePatterns)
 
-addSbtPlugin("me.lessis" % "bintray-sbt" % "0.1.1")
+addSbtPlugin("me.lessis" % "bintray-sbt" % "0.1.2")
 
 
 //scalajs plugin
-addSbtPlugin("org.scala-lang.modules.scalajs" % "scalajs-sbt-plugin" % "0.5.2")
+addSbtPlugin("org.scala-lang.modules.scalajs" % "scalajs-sbt-plugin" % "0.5.3")
 
 //dependency graph generation
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.7.4")
 
 
-addSbtPlugin("com.lihaoyi" % "utest-js-plugin" % "0.1.8")
+addSbtPlugin("com.lihaoyi" % "utest-js-plugin" % "0.2.2")
 
 // The Play plugin
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.1")
+addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.3")
 
 // web plugins
 

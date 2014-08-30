@@ -2,6 +2,7 @@ package org.denigma.frontend
 
 import org.denigma.binding.picklers.rp
 import org.denigma.binding.views.OrdinaryView
+import org.denigma.binding.views.utils.ViewInjector
 import org.denigma.frontend.views._
 import org.scalajs.dom
 import org.scalajs.dom.{HTMLElement, MouseEvent}
@@ -28,7 +29,7 @@ object FrontEnd extends OrdinaryView  with scalajs.js.JSApp
   /**
    * Register views
    */
-  org.denigma.binding.views
+  ViewInjector
     .register("login", (el, params) =>Try(new LoginView(el,params)))
     .register("menu", (el, params) =>Try{ new MenuView(el,params) })
     .register("ArticleView", (el, params) =>Try(new ArticleView(el,params)))

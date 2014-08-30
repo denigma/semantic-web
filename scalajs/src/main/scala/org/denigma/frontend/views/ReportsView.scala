@@ -2,7 +2,6 @@ package org.denigma.frontend.views
 
 import org.denigma.binding.extensions._
 import org.denigma.binding.messages.{Sort, Filters}
-import org.denigma.binding.storages.AjaxModelStorage
 import org.denigma.controls.semantic.{ExplorableCollection, AjaxModelCollection, SelectableModelView}
 import org.scalajs.dom.{HTMLElement, MouseEvent}
 import org.scalajs.jquery._

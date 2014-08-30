@@ -1,6 +1,7 @@
-package controllers
+package controllers.tools
 
 import auth.UserAction
+import controllers.{PJaxPlatformWith, PickleController}
 import org.denigma.binding.picklers.rp
 import org.denigma.semantic.controllers._
 import org.denigma.semantic.reading.{QueryResultLike, SelectResult}

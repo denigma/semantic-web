@@ -16,13 +16,13 @@ resolvers += "spray repo" at "http://repo.spray.io"
 
 libraryDependencies += "com.github.t3hnar" %% "scala-bcrypt" % "2.4"
 
-libraryDependencies += "org.scalatest" %% "scalatest" % "2.1.7"
+libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1"
 
 libraryDependencies += "com.typesafe.akka" %% "akka-testkit" %  "2.3.3"
 
 libraryDependencies += "com.bigdata" % "bigdata" % "1.3.1"
 
-libraryDependencies += "org.openrdf.sesame" % "sesame-model" % "2.7.11"
+libraryDependencies += "org.openrdf.sesame" % "sesame-model" % "2.7.13"
 
 libraryDependencies += "org.scalax" %% "semweb" % Build.semWebVersion
 
