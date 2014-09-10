@@ -1,39 +1,28 @@
 package org.denigma.frontend.views
 
+import org.denigma.binding.binders.extractors.EventBinding
 import org.denigma.binding.extensions._
-import org.denigma.binding.views.OrdinaryView
+import org.denigma.binding.views.BindableView
 import org.scalajs.dom
 import org.scalajs.dom._
 import org.scalajs.dom.extensions.{Ajax, AjaxException}
 import org.scalajs.jquery.{jQuery => jq}
-import rx.{Rx, Var, _}
+import rx.{Rx, Var}
 
 import scala.collection.immutable._
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js
 import scala.scalajs.js.Dynamic.{global => g}
 import scala.util.{Failure, Success}
-import scalatags.Text.Tag
 
 
 /**
  * Login view
  */
-class LoginView(val elem:HTMLElement, val params:Map[String,Any]) extends OrdinaryView with Login with Registration with Signed
+class LoginView(val elem:HTMLElement, val params:Map[String,Any]) extends BindableView with Login with Registration with Signed
 {
 
 
-  lazy val tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
-
-  //val doubles: Map[String, Rx[Double]] = this.extractDoubles[this.type]
-
-  lazy val strings: Map[String, Rx[String]] = this.extractStringRx(this)
-
-  lazy val bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
-
-  lazy val textEvents: Map[String, rx.Var[TextEvent]] = this.extractTextEvents(this)
-
-  lazy val mouseEvents: Map[String, rx.Var[dom.MouseEvent]] = this.extractMouseEvents(this)
 
 
 
@@ -50,7 +39,8 @@ class LoginView(val elem:HTMLElement, val params:Map[String,Any]) extends Ordina
   val clearMessage = anyChange.handler{
     message()=""
   }
-
+  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
+  override protected def attachBinders(): Unit = binders =  BindableView.defaultBinders(this)
 
 }
 
@@ -208,7 +198,7 @@ trait Registration extends BasicLogin{
 /**
  * Basic login varibales/events
  */
-trait BasicLogin extends OrdinaryView
+trait BasicLogin extends BindableView
 {
   /**
    * Extracts name from global
@@ -227,9 +217,9 @@ trait BasicLogin extends OrdinaryView
 
   val canLogin: Rx[Boolean] = Rx { login().length>4 && password().length>4 &&  password()!=login() && login()!="guest"}
 
-  val loginClick: Var[MouseEvent] = Var(this.createMouseEvent())
-  val logoutClick: Var[MouseEvent] = Var{this.createMouseEvent()}
-  val signupClick: Var[MouseEvent] = Var(this.createMouseEvent())
+  val loginClick: Var[MouseEvent] = Var(EventBinding.createMouseEvent())
+  val logoutClick: Var[MouseEvent] = Var{EventBinding.createMouseEvent()}
+  val signupClick: Var[MouseEvent] = Var(EventBinding.createMouseEvent())
 
   def report(req:org.scalajs.dom.XMLHttpRequest): String = req.response.dyn.message match {
       case m if m.isNullOrUndef=> this.report(req.responseText)

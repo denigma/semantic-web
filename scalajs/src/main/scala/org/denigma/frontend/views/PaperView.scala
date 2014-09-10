@@ -1,27 +1,18 @@
 package org.denigma.frontend.views
 
-import org.denigma.binding.views.OrdinaryView
-import rx._
+import org.denigma.binding.views.BindableView
 import org.scalajs.dom
-import scala.collection.immutable._
-
-import scalatags.Text.Tag
 import org.scalajs.dom._
+
+import scala.collection.immutable._
 import scala.scalajs.js
 
 /**
  * View for paper viewer
  */
-class PaperView(val elem:HTMLElement,val params:Map[String,Any] = Map.empty[String,Any]) extends OrdinaryView
+class PaperView(val elem:HTMLElement,val params:Map[String,Any] = Map.empty[String,Any]) extends BindableView
 {
 
-  override def tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
-
-  override def strings: Map[String, Rx[String]] = this.extractStringRx(this)
-
-  override def bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
-
-  override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
 
   override def bindView(element:HTMLElement) = {
     dom.alert("hello!")
@@ -108,6 +99,11 @@ class PaperView(val elem:HTMLElement,val params:Map[String,Any] = Map.empty[Stri
       """.stripMargin
     }
     super.bindView(element)
+
+
   }
+
+  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
+  override protected def attachBinders(): Unit = binders =  BindableView.defaultBinders(this)
 
 }

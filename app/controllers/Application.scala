@@ -18,7 +18,7 @@ import org.scalax.semweb.sparql._
 import scala.concurrent.duration._
 import spray.caching.{LruCache, Cache}
 import scala.concurrent.Future
-import auth.UserAction
+import auth.{AuthRequest, UserAction}
 
 
 /*
@@ -80,6 +80,33 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
   }
 
 
+  protected def getTemplate(uri:String,text:String)(implicit request:AuthRequest[AnyContent]): Html = if(request.domain.contains("rybka.org")) {
+    uri.toLowerCase() match {
+      case u if u.contains("project") => views.html.rybka.pages.project(request)
+      case u if u.contains("research") => views.html.rybka.pages.research(request)
+      case u if u.contains("collaboration") => views.html.rybka.pages.collaboration(request)
+      case u if u.contains("action_plan") => views.html.rybka.pages.action_plan(request)
+      case u if u.contains("team") => views.html.rybka.pages.team(request)
+      case _ =>
+        lg.info(s"some other request for rybka page $uri")
+        Html(s"404: page $uri not found")
+    }
+  }
+  else
+  {
+    Html(
+    s"""
+      |<article id="main_article" data-view="ArticleView" class="ui teal piled segment">
+      |<h1 id="title"  class="ui large header"> uri </h1>
+      |<div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text">$text</div>
+      |</article>
+    """.stripMargin
+    )
+
+
+  }
+
+
   def page(uri:String)= UserAction{
     implicit request=>
       val pg = IRI("http://"+request.domain)
@@ -89,29 +116,7 @@ object Application extends PJaxPlatformWith("index") with WithSyncWriter with Si
       val title = ?("title")
       //val authors = ?("authors")
       //data-bind="title"
-      val pageHtml:Html =  if(request.domain.contains("rybka.org")) {
-        uri.toLowerCase() match {
-          case u if u.contains("project") => views.html.rybka.pages.project(request)
-          case u if u.contains("research") => views.html.rybka.pages.research(request)
-          case u if u.contains("collaboration") => views.html.rybka.pages.collaboration(request)
-          case u if u.contains("action_plan") => views.html.rybka.pages.action_plan(request)
-          case u if u.contains("team") => views.html.rybka.pages.team(request)
-          case _ =>
-            lg.info(s"some other request for rybka page $uri")
-              Html(s"404: page $uri not found")
-        }
-        }
-      else
-      {
-        Html(
-          s"""
-            |<article id="main_article" data-view="ArticleView" class="ui teal piled segment">
-            |<h1 id="title"  class="ui large header"> ${/*page.stringValue*/uri} </h1>
-            |<div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text">$text</div>
-            |</article>
-            """.stripMargin)
-      }
-
+      val pageHtml:Html =  this.getTemplate(uri,text.toString())
 
       this.pj(pageHtml)(request)
 

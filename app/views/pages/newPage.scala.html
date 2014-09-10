@@ -1,0 +1,17 @@
+@(implicit request: UserRequestHeader)
+
+<div class="ui warning message">
+    <div class="header">
+        The page @{request.uri} does not exist yet.
+    </div>
+</div>
+@{if(request.isSigned)
+<b>new page</b>
+}
+<article id="main_article" data-view="NotFound" class="ui teal piled segment">
+
+
+
+<h1 id="title"  class="ui large header"> uri </h1>
+<div id="textfield" contenteditable="true" style="ui horizontal segment" data-html = "text">$text</div>
+</article>

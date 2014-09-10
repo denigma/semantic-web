@@ -1,6 +1,8 @@
 package org.denigma.frontend.views
 
+import org.denigma.binding.views.BindableView
 import org.denigma.controls.general.EditableMenuView
+import org.denigma.semantic.models.PropertyModelView
 import rx._
 import org.scalajs.dom._
 import scala.collection.immutable._
@@ -14,13 +16,7 @@ import scalatags.Text.Tag
 class MenuView(el:HTMLElement, params:Map[String,Any] = Map.empty) extends EditableMenuView("menu",el,params)
 {
 
-  override lazy val tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
 
-  override lazy val strings: Map[String, Rx[String]] = this.extractStringRx(this)
-
-  override lazy val bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
-
-  override lazy val mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
-
-  //override lazy val  lists: Map[String, Rx[scala.List[Map[String, Any]]]] = this.extractListRx(this)
+  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
+  override protected def attachBinders(): Unit = binders =  BindableView.defaultBinders(this)
 }

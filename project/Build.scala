@@ -33,7 +33,9 @@ object Build extends sbt.Build with SemanticData  with UniversalKeys{
 
   val scalaVer = "2.11.2"
 
-  val semWebVersion = "0.6.5"
+  val semWebVersion =  "0.6.10"
+
+  val macwireVersion = "0.7.1"
 
   val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",  url("http://dl.bintray.com/content/scala-js/scala-js-releases"))( Resolver.ivyStylePatterns)
 
@@ -61,7 +63,7 @@ val sameSettings = Seq(
 	resolvers +=  denigmaResolver
 )
 
-  val bindingVersion = "0.5.2"
+  val bindingVersion = "0.5.5"
 
 
   lazy val sharedModels = unmanagedSourceDirectories in Compile += baseDirectory.value / "models" / "src" / "main" / "scala"

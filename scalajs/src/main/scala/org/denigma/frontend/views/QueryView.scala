@@ -2,12 +2,14 @@ package org.denigma.frontend.views
 
 import java.util.Date
 
+import org.denigma.binding.binders.extractors.EventBinding
 import org.denigma.binding.extensions._
 import org.denigma.binding.picklers.rp
-import org.denigma.binding.semantic.ModelCollection
+import org.denigma.binding.views.BindableView
 import org.denigma.controls.general.CodeMirrorView
+import org.denigma.semantic.models.ModelCollection
 import org.scalajs.dom
-import org.scalajs.dom.{HTMLElement, MouseEvent}
+import org.scalajs.dom.HTMLElement
 import org.scalax.semweb.messages.Results.SelectResults
 import org.scalax.semweb.messages.StringQueryMessages
 import rx._
@@ -18,7 +20,6 @@ import scala.concurrent.Future
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js
 import scala.util.{Failure, Success}
-import scalatags.Text.Tag
 
 /**
  * View for paper viewer
@@ -26,14 +27,6 @@ import scalatags.Text.Tag
 class QueryView(val elem:HTMLElement,val params:Map[String,Any] = Map.empty[String,Any] ) extends ModelCollection
 {
 
-
-  override def tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
-
-  override def strings: Map[String, Rx[String]] = this.extractStringRx(this)
-
-  override def bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
-
-  override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
 
 
   val path = (params.get("path") map (_.toString)).get
@@ -67,7 +60,7 @@ class QueryView(val elem:HTMLElement,val params:Map[String,Any] = Map.empty[Stri
 
 
 
-  val submit = Var(this.createMouseEvent())
+  val submit = Var(EventBinding.createMouseEvent())
 
   submit.handler{
     val q = query.now
@@ -81,25 +74,23 @@ class QueryView(val elem:HTMLElement,val params:Map[String,Any] = Map.empty[Stri
 
   }
 
-  val reset = Var(this.createMouseEvent())
+  val reset = Var(EventBinding.createMouseEvent())
 
   reset handler {
     query() = default
     dom.console.log("reset click")
   }
 
-  val uploadClick = Var(this.createMouseEvent())
+  val uploadClick = Var(EventBinding.createMouseEvent())
+
+  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
+  override protected def attachBinders(): Unit = binders =  BindableView.defaultBinders(this)
 
 }
 
 class SelectQueryView(elem:HTMLElement, val params:Map[String,Any] = Map.empty[String,Any]) extends CodeMirrorView(elem,params){
-  override def bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
-
-  override def strings: Map[String, Rx[String]] = this extractStringRx this
-
-  override def tags: Map[String, Rx[Tag]] = this extractTagRx this
-
-  override def mouseEvents: Predef.Map[String, Var[MouseEvent]] = this extractMouseEvents this
+  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
+  override protected def attachBinders(): Unit = binders =  BindableView.defaultBinders(this)
 
   override val name = "select"
 

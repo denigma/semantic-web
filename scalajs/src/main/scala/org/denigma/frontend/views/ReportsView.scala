@@ -1,30 +1,29 @@
 package org.denigma.frontend.views
 
+import org.denigma.binding.binders.extractors.EventBinding
 import org.denigma.binding.extensions._
-import org.denigma.binding.messages.{Sort, Filters}
-import org.denigma.controls.semantic.{ExplorableCollection, AjaxModelCollection, SelectableModelView}
-import org.scalajs.dom.{HTMLElement, MouseEvent}
+import org.denigma.binding.messages.{Filters, Sort}
+import org.denigma.binding.views.BindableView
+import org.denigma.semantic.grids.ExplorableCollection
+import org.denigma.semantic.models.SelectableModelView
+import org.scalajs.dom.HTMLElement
 import org.scalajs.jquery._
-import org.scalax.semweb.rdf.{Res, IRI}
+import org.scalax.semweb.rdf.IRI
 import rx.{Rx, Var}
 
 import scala.collection.immutable.Map
 import scala.scalajs.js
-import scalatags.Text.Tag
+
 
 /**
  * Shows papers reports
  */
 class ReportsView(elem:HTMLElement, params:Map[String,Any]) extends ExplorableCollection("ReportsView",elem:HTMLElement,params:Map[String,Any]){
 
+  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
 
-  override def tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
 
-  override def mouseEvents: Predef.Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
-
-  override def strings: Map[String, Rx[String]] = this.extractStringRx(this)
-
-  override def bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
+  def attachBinders() = binders = ExplorableCollection.defaultBinders(this)
 
   val sidebarParams =  js.Dynamic.literal(exclusive = false)
 
@@ -46,13 +45,13 @@ class ReportsView(elem:HTMLElement, params:Map[String,Any]) extends ExplorableCo
   }
 
 
-  val filterClick = Var(this.createMouseEvent())
+  val filterClick = Var(EventBinding.createMouseEvent())
 
   this.filterClick handler {
     this.loadData(this.explorer.now)
   }
 
-  val clearClick = Var(this.createMouseEvent())
+  val clearClick = Var(EventBinding.createMouseEvent())
   clearClick handler {
     this.filters() = Map.empty[IRI,Filters.Filter]
     this.searchTerms() = Map.empty[IRI,String]
@@ -63,18 +62,75 @@ class ReportsView(elem:HTMLElement, params:Map[String,Any]) extends ExplorableCo
 
   val dirtyFilters = Rx( !(this.filters().isEmpty && this.sorts().isEmpty && this.searchTerms().isEmpty) )
 
+
 }
 
 class Report(val elem:HTMLElement,val params:Map[String,Any]) extends SelectableModelView{
 
   require(params.contains("shape"),"there is not shape")
 
-  override def tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
+  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
 
-  override def mouseEvents: Predef.Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
+  def attachBinders() = binders = SelectableModelView.defaultBinders(this)
 
-  override def strings: Map[String, Rx[String]] = this.extractStringRx(this)
-
-  override def bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
 
 }
+
+
+//
+///**
+// * Shows papers reports
+// */
+//class ReportsView(elem:HTMLElement, params:Map[String,Any]) extends ExplorableCollection("ReportsView",elem:HTMLElement,params:Map[String,Any]){
+//
+//
+//  val sidebarParams =  js.Dynamic.literal(exclusive = false)
+//
+//  val accordionParams = js.Dynamic.literal(
+//    exclusive = false
+//  )
+//
+//
+//  override def newItem(item:Item) = {
+//    val view = super.newItem(item)
+//
+//    def activateAccordion() =
+//    {
+//      jQuery(".ui.accordion",view.viewElement).dyn.accordion(accordionParams)
+//    }
+//
+//    org.scalajs.dom.setTimeout(activateAccordion _,1500)
+//    view
+//  }
+//
+//
+//  val filterClick = Var(EventBinding.createMouseEvent())
+//
+//  this.filterClick handler {
+//    this.loadData(this.explorer.now)
+//  }
+//
+//  val clearClick = Var(EventBinding.createMouseEvent())
+//  clearClick handler {
+//    this.filters() = Map.empty[IRI,Filters.Filter]
+//    this.searchTerms() = Map.empty[IRI,String]
+//    this.sorts() = Map.empty[IRI,Sort]
+//    this.loadData(this.explorer.now)
+//
+//  }
+//
+//  val dirtyFilters = Rx( !(this.filters().isEmpty && this.sorts().isEmpty && this.searchTerms().isEmpty) )
+//
+//  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
+//  override protected def attachBinders(): Unit = binders =  BindableView.defaultBinders(this)
+//
+//}
+//
+//class Report(val elem:HTMLElement,val params:Map[String,Any]) extends SelectableModelView{
+//
+//  require(params.contains("shape"),"there is not shape")
+//
+//  override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
+//  override protected def attachBinders(): Unit = binders =  SelectableModelView.defaultBinders(this)
+//
+//}

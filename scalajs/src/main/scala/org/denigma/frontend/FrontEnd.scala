@@ -1,7 +1,8 @@
 package org.denigma.frontend
 
+import org.denigma.binding.binders.extractors.EventBinding
 import org.denigma.binding.picklers.rp
-import org.denigma.binding.views.OrdinaryView
+import org.denigma.binding.views.{BindableView}
 import org.denigma.binding.views.utils.ViewInjector
 import org.denigma.frontend.views._
 import org.scalajs.dom
@@ -18,7 +19,7 @@ import scalatags.Text.Tag
 import org.denigma.binding.extensions._
 
 @JSExport
-object FrontEnd extends OrdinaryView  with scalajs.js.JSApp
+object FrontEnd extends BindableView  with scalajs.js.JSApp
 {
   override val params:Map[String,Any] = Map.empty
 
@@ -44,22 +45,19 @@ object FrontEnd extends OrdinaryView  with scalajs.js.JSApp
     .register("report",(el, params) =>Try(new Report(el,params)))
 
 
-  override def mouseEvents: Map[String, Var[MouseEvent]] = this.extractMouseEvents(this)
+  override def activateMacro(): Unit = {
+    extractors.foreach(_.extractEverything(this))
+  }
 
-  val tags: Map[String, Rx[Tag]] = this.extractTagRx(this)
+  def attachBinders() = {this.binders = BindableView.defaultBinders(this)}
 
-  //val doubles: Map[String, Rx[Double]] = this.extractDoubles[this.type]
-
-  val strings: Map[String, Rx[String]] = this.extractStringRx(this)
-
-  lazy val bools: Map[String, Rx[Boolean]] = this.extractBooleanRx(this)
 
   @JSExport
   def main(): Unit = {
 
     rp.register()
 
-    this.bind(this.viewElement)
+    this.bindView(this.viewElement)
     jq(".top.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
     jq(".left.sidebar").dyn.sidebar(sidebarParams).sidebar("show")
 
@@ -81,6 +79,6 @@ object FrontEnd extends OrdinaryView  with scalajs.js.JSApp
 //    ins.parentNode.removeChild(ins)
 //  }
 
-  val toggle: Var[MouseEvent] = Var(this.createMouseEvent())
+  val toggle: Var[MouseEvent] = Var(EventBinding.createMouseEvent())
 
 }
