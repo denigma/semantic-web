@@ -58,6 +58,8 @@ val sameSettings = Seq(
 
 	resolvers  += "Online Play Repository" at  "http://repo.typesafe.com/typesafe/simple/maven-releases/",
 
+  resolvers += "bintray-alexander_myltsev" at "http://dl.bintray.com/alexander-myltsev/maven/",
+
 	resolvers +=  scalajsResolver,
 
 	resolvers += scalaxResolver,
