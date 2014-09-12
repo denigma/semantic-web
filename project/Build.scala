@@ -1,9 +1,11 @@
 import bintray.Opts
 import com.typesafe.sbt.packager.universal.UniversalKeys
+import play.Play._
 import play._
 import sbt.Keys._
 import sbt._
 
+import scala.scalajs.sbtplugin.ScalaJSPlugin.ScalaJSKeys
 import scala.scalajs.sbtplugin.ScalaJSPlugin.ScalaJSKeys._
 
 
@@ -33,7 +35,7 @@ object Build extends sbt.Build with SemanticData  with UniversalKeys{
 
   val scalaVer = "2.11.2"
 
-  val semWebVersion =  "0.6.10"
+  val semWebVersion =  "0.6.11"
 
   val macwireVersion = "0.7.1"
 
@@ -63,18 +65,40 @@ val sameSettings = Seq(
 	resolvers +=  denigmaResolver
 )
 
-  val bindingVersion = "0.5.5"
+  val bindingVersion = "0.5.6"
 
 
   lazy val sharedModels = unmanagedSourceDirectories in Compile += baseDirectory.value / "models" / "src" / "main" / "scala"
+
+  // Use reflection to rename the 'start' command to 'play-start'
+  Option(play.Play.playStartCommand.getClass.getDeclaredField("name")) map { field =>
+    field.setAccessible(true)
+    field.set(playStartCommand, "play-start")
+  }
+
+  // The new 'start' command optimises the JS before calling the Play 'start' renamed 'play-start'
+  val preStartCommand = Command.args("start", "<port>") { (state: State, args: Seq[String]) =>
+    Project.runTask(fullOptJS in (scalajs, Compile), state)
+    state.copy(remainingCommands = ("play-start " + args.mkString(" ")) +: state.remainingCommands)
+  }
+
 
   lazy val semanticWebSettings = Seq(
 
       sharedModels,
 
-      scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
+    ScalaJSKeys.relativeSourceMaps := true, //just in case as sourcemaps do not seem to work=(
+
+      parallelExecution in Test := false,
+
+      scalajsOutputDir := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
+
+      //scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
 
       compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
+
+
+      stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
 
       dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
 
