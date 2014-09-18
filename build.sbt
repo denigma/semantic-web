@@ -24,15 +24,13 @@ libraryDependencies += "io.spray" % "spray-caching" % "1.3.1"
 
 libraryDependencies +=  "org.webjars" %% "webjars-play" % "2.3.0"
 
-libraryDependencies += "org.webjars" % "codemirror" % "4.3"
+libraryDependencies += "org.webjars" % "codemirror" % "4.5"
 
-libraryDependencies += "org.webjars" % "d3js" % "3.4.9"
-
-libraryDependencies += "org.webjars" % "d3-plugins" % "a3c809c322"
+libraryDependencies += "org.webjars" % "d3js" % "3.4.11"
 
 libraryDependencies += "org.webjars" % "jquery" % "2.1.1"
 
-libraryDependencies += "org.webjars" % "jquery-ui" % "1.10.4"
+libraryDependencies += "org.webjars" % "jquery-ui" % "1.11.1"
 
 libraryDependencies += "org.webjars" % "Semantic-UI" % "0.19"
 
@@ -41,6 +39,8 @@ libraryDependencies +="org.webjars" % "pdf-js" % "1.0.277"
 libraryDependencies +="org.webjars" % "requirejs" % "2.1.11-1"
 
 libraryDependencies +="org.webjars" % "ckeditor" % "4.4.1"
+
+libraryDependencies +="org.webjars" % "jquery-file-upload" % "9.5.7"
 
 libraryDependencies += filters
 

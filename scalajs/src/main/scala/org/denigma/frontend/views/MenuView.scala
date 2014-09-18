@@ -2,11 +2,9 @@ package org.denigma.frontend.views
 
 import org.denigma.binding.views.BindableView
 import org.denigma.controls.general.EditableMenuView
-import org.denigma.semantic.models.PropertyModelView
-import rx._
 import org.scalajs.dom._
+
 import scala.collection.immutable._
-import scalatags.Text.Tag
 
 /**
  * Menu view, this view is devoted to displaying menus

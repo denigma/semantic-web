@@ -67,7 +67,7 @@ val sameSettings = Seq(
 	resolvers +=  denigmaResolver
 )
 
-  val bindingVersion = "0.5.6"
+  val bindingVersion = "0.5.7"
 
 
   lazy val sharedModels = unmanagedSourceDirectories in Compile += baseDirectory.value / "models" / "src" / "main" / "scala"

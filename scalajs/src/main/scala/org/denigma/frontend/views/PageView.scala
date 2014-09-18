@@ -2,13 +2,13 @@ package org.denigma.frontend.views
 
 import org.denigma.binding.binders.extractors.EventBinding
 import org.denigma.binding.extensions._
-import org.denigma.semantic.models.{AjaxLoadView, PropertyModelView}
+import org.denigma.semantic.models.{RemoteModelView, RemoteLoadView}
 import org.scalajs.dom.{HTMLElement, MouseEvent}
 import rx.core.Var
 
 import scala.collection.immutable.Map
 
-class PageView(val elem:HTMLElement,val params:Map[String,Any]) extends  AjaxLoadView
+class PageView(val elem:HTMLElement,val params:Map[String,Any]) extends  RemoteLoadView
 {
   val saveClick: Var[MouseEvent] = Var(EventBinding.createMouseEvent())
 
@@ -21,5 +21,5 @@ class PageView(val elem:HTMLElement,val params:Map[String,Any]) extends  AjaxLoa
   //val doubles: Map[String, Rx[Double]] = this.extractDoubles[this.type]
 
   override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
-  override protected def attachBinders(): Unit = binders = PropertyModelView.defaultBinders(this)
+  override protected def attachBinders(): Unit = binders = RemoteModelView.defaultBinders(this)
 }
