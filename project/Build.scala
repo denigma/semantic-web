@@ -1,19 +1,42 @@
+import java.io.File
+
 import bintray.Opts
+import bintray.Plugin._
 import com.typesafe.sbt.packager.universal.UniversalKeys
+import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
 import play.Play._
 import play._
 import sbt.Keys._
 import sbt._
 
-import scala.scalajs.sbtplugin.ScalaJSPlugin.ScalaJSKeys
 import scala.scalajs.sbtplugin.ScalaJSPlugin.ScalaJSKeys._
+import scala.scalajs.sbtplugin.ScalaJSPlugin._
+import scala.scalajs.sbtplugin.env.phantomjs.PhantomJSEnv
 
+
+object Versions {
+  val scala = "2.11.2"
+
+  val semWeb =  "0.6.15"
+
+  val binding = "0.6.5"
+
+  val bindingModels = "0.6.2"
+
+
+  val bindingPLay = "0.6.3"
+
+
+  val macwire = "0.7.3"
+
+}
 
 /**
  * this files is intended to build the main project
  * it contains links to all dependencies that are needed
  * */
-object Build extends sbt.Build with SemanticData  with UniversalKeys{
+object Build extends sbt.Build with SemanticData  with UniversalKeys
+{
 
   override def semanticDataAppPath = "./semantic-data"
 
@@ -26,18 +49,8 @@ object Build extends sbt.Build with SemanticData  with UniversalKeys{
   lazy val scalajs = Project(
     id   = "scalajs",
     base = file("scalajs")
-  )  dependsOn models
-
-  lazy val models = Project(
-    id   = "models",
-    base = file("models")
   )
 
-  val scalaVer = "2.11.2"
-
-  val semWebVersion =  "0.6.11"
-
-  val macwireVersion = "0.7.1"
 
   val scalajsResolver: URLRepository = Resolver.url("scala-js-releases",  url("http://dl.bintray.com/content/scala-js/scala-js-releases"))( Resolver.ivyStylePatterns)
 
@@ -46,31 +59,60 @@ object Build extends sbt.Build with SemanticData  with UniversalKeys{
   val denigmaResolver = Opts.resolver.repo("denigma", "denigma-releases")
 
 
-val sameSettings = Seq(
+  val sameSettings = Seq(
 
-  scalaVersion := scalaVer,
+    scalaVersion := Versions.scala,
 
-  organization := "org.denigma",
+    organization := "org.denigma",
 
-	resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
+    resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/",
 
-	resolvers  += "Online Play Repository" at  "http://repo.typesafe.com/typesafe/simple/maven-releases/",
+    resolvers  += "Online Play Repository" at  "http://repo.typesafe.com/typesafe/simple/maven-releases/",
 
-	resolvers  += "Online Play Repository" at  "http://repo.typesafe.com/typesafe/simple/maven-releases/",
+    resolvers  += "Online Play Repository" at  "http://repo.typesafe.com/typesafe/simple/maven-releases/",
 
-  resolvers += "bintray-alexander_myltsev" at "http://dl.bintray.com/alexander-myltsev/maven/",
+    resolvers += "bintray-alexander_myltsev" at "http://dl.bintray.com/alexander-myltsev/maven/",
 
-	resolvers +=  scalajsResolver,
+    resolvers +=  scalajsResolver,
 
-	resolvers += scalaxResolver,
+    resolvers += scalaxResolver,
 
-	resolvers +=  denigmaResolver
-)
-
-  val bindingVersion = "0.5.7"
+    resolvers +=  denigmaResolver
+  )
 
 
-  lazy val sharedModels = unmanagedSourceDirectories in Compile += baseDirectory.value / "models" / "src" / "main" / "scala"
+
+  lazy val main = (project in file("."))
+    .enablePlugins(PlayScala/*,SbtWeb*/)
+    .settings(semanticWebSettings: _*)
+    .dependsOn(semanticData).aggregate(scalajs)
+
+
+  lazy val scalajsSettings =
+    scalaJSSettings ++ Seq(
+      relativeSourceMaps := true,
+      ScalaJSKeys.preLinkJSEnv := new PhantomJSEnv,
+      ScalaJSKeys.postLinkJSEnv := new PhantomJSEnv
+    )
+
+  lazy val semanticWebSettings = Seq(
+
+    parallelExecution in Test := false,
+
+    scalajsOutputDir := (classDirectory in Compile).value / "public" / "javascripts",
+
+    compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
+
+    dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
+
+    stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
+
+    EclipseKeys.skipParents in ThisBuild := false,
+
+    commands += preStartCommand
+
+  ) ++ (   Seq(packageLauncher, fastOptJS, fullOptJS) map { packageJSKey =>    crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value   }     )
+
 
   // Use reflection to rename the 'start' command to 'play-start'
   Option(play.Play.playStartCommand.getClass.getDeclaredField("name")) map { field =>
@@ -78,42 +120,13 @@ val sameSettings = Seq(
     field.set(playStartCommand, "play-start")
   }
 
+
   // The new 'start' command optimises the JS before calling the Play 'start' renamed 'play-start'
-  val preStartCommand = Command.args("start", "<port>") { (state: State, args: Seq[String]) =>
+  lazy val preStartCommand = Command.args("start", "<port>") { (state: State, args: Seq[String]) =>
     Project.runTask(fullOptJS in (scalajs, Compile), state)
     state.copy(remainingCommands = ("play-start " + args.mkString(" ")) +: state.remainingCommands)
   }
 
-
-  lazy val semanticWebSettings = Seq(
-
-      sharedModels,
-
-    ScalaJSKeys.relativeSourceMaps := true, //just in case as sourcemaps do not seem to work=(
-
-      parallelExecution in Test := false,
-
-      scalajsOutputDir := (crossTarget in Compile).value / "classes" / "public" / "javascripts",
-
-      //scalajsOutputDir     := baseDirectory.value / "public" / "javascripts" / "scalajs",
-
-      compile in Compile <<= (compile in Compile) dependsOn (fastOptJS in (scalajs, Compile)),
-
-
-      stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
-
-      dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
-
-      watchSources <++= (sourceDirectory in (scalajs, Compile)).map { path => (path ** "*.scala").get}
-      //incOptions := incOptions.value.withNameHashing(true)
-
-    ) ++ (   Seq(packageExternalDepsJS, packageInternalDepsJS, packageExportedProductsJS, /*packageLauncher,*/ fastOptJS, fullOptJS) map { packageJSKey =>
-    crossTarget in (scalajs, Compile, packageJSKey) := scalajsOutputDir.value }   )
-
-  lazy val main = (project in file("."))
-    .enablePlugins(PlayScala/*,SbtWeb*/)
-    .settings(semanticWebSettings: _*)
-    .dependsOn(semanticData).aggregate(scalajs)
 
 }
 

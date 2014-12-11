@@ -20,14 +20,9 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.1"
 
 libraryDependencies += "com.typesafe.akka" %% "akka-testkit" %  "2.3.3"
 
-libraryDependencies += "com.bigdata" % "bigdata" % "1.3.1"
+libraryDependencies += "com.bigdata" % "bigdata" % "1.4.0"
 
-libraryDependencies += "org.openrdf.sesame" % "sesame-model" % "2.7.13"
-
-libraryDependencies += "org.scalax" %% "semweb" % Build.semWebVersion
-
-
-libraryDependencies += "org.scalax" %% "semweb-sesame" % Build.semWebVersion
+libraryDependencies += "org.scalax" %% "semweb-sesame" % Versions.semWeb
 
 libraryDependencies += "com.assembla.scala-incubator" %% "graph-core" % "1.9.0"
 

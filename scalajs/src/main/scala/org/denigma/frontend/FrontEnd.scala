@@ -26,7 +26,11 @@ object FrontEnd extends BindableView  with scalajs.js.JSApp
   override val name = "main"
   lazy val elem:HTMLElement = dom.document.body
 
-  val sidebarParams =  js.Dynamic.literal(exclusive = false)
+  val sidebarParams =  js.Dynamic.literal(
+    exclusive = false,
+    dimPage = false,
+    closable =  false
+  )
   /**
    * Register views
    */

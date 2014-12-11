@@ -107,7 +107,7 @@ object QueryConsole {
 //    new StaticApplication(new java.io.File("."))
 //    val repo = SG.db.repo
 //    val con: BigdataSailRepositoryConnection = SG.db.repo.getConnection
-//    con.setAutoCommit(false)
+//    con.begin()
 //    val f = con.getValueFactory
 //
 //    val lex = con.getTripleStore.getLexiconRelation

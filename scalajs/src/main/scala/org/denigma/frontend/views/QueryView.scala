@@ -6,8 +6,8 @@ import org.denigma.binding.binders.extractors.EventBinding
 import org.denigma.binding.extensions._
 import org.denigma.binding.picklers.rp
 import org.denigma.binding.views.BindableView
-import org.denigma.controls.general.CodeMirrorView
-import org.denigma.semantic.models.ModelCollection
+import org.denigma.controls.binders.CodeBinder
+import org.denigma.semantic.models.collections.ModelCollection
 import org.scalajs.dom
 import org.scalajs.dom.HTMLElement
 import org.scalax.semweb.messages.Results.SelectResults
@@ -88,17 +88,11 @@ class QueryView(val elem:HTMLElement,val params:Map[String,Any] = Map.empty[Stri
 
 }
 
-class SelectQueryView(elem:HTMLElement, val params:Map[String,Any] = Map.empty[String,Any]) extends CodeMirrorView(elem,params){
+class SelectQueryView(val elem:HTMLElement, val params:Map[String,Any] = Map.empty[String,Any]) extends BindableView{
   override def activateMacro(): Unit = { extractors.foreach(_.extractEverything(this))}
-  override protected def attachBinders(): Unit = binders =  BindableView.defaultBinders(this)
 
   override val name = "select"
 
-
-  override def bindView(el:HTMLElement) {
-
-    super.bindView(el)
-
-  }
+  override protected def attachBinders(): Unit = this.withBinders(new CodeBinder(this))
 
 }

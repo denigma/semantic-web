@@ -44,7 +44,7 @@ trait Updater extends CanWriteBigData  with SemanticFileParser
    */
   def writeUpdate(queryStr:String,update:UpdateHandler,logger:IChangeLog = null)(implicit base:String = WI.RESOURCE) = {
     val con: BigdataSailRepositoryConnection = this.writeConnection
-    con.setAutoCommit(false)
+    con.begin()
     val res = Try{
       if(logger!=null) {
         con.addChangeLog(logger)
@@ -77,7 +77,7 @@ trait Updater extends CanWriteBigData  with SemanticFileParser
    */
   def writeConditionalUpdate(queryStr:String,condition:String,update:UpdateHandler,negation:Boolean=false,logger:IChangeLog = null)(implicit base:String = WI.RESOURCE): Try[Boolean] = {
     val con: BigdataSailRepositoryConnection = this.writeConnection
-    con.setAutoCommit(false)
+    con.begin()
     val res: Try[Boolean] = Try{
       val cond: Boolean = con.prepareBooleanQuery(QueryLanguage.SPARQL,condition).evaluate()
       val toWrite = if(negation) !cond else cond
@@ -105,7 +105,7 @@ trait Updater extends CanWriteBigData  with SemanticFileParser
   def watchedWrite[T](logger:IChangeLog )(action:WriteConnection=>T):Try[T] =
   {
     val con = this.writeConnection
-    con.setAutoCommit(false)
+    con.begin()
     val res = Try {
       con.addChangeLog(logger)
       val r = action(con)
