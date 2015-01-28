@@ -3,6 +3,9 @@ package org.denigma.semantic.writing
 
 import com.bigdata.rdf.sail.{BigdataSailUpdate, BigdataSailRepositoryConnection}
 import org.scalax.semweb.sesame.{CanWriteSesame, SesameDataWriter}
+
+import scala.util.Try
+
 /**
 Trait that can provide writeConnection. It is used everywhere where we need to write something into the database
   */
@@ -13,7 +16,29 @@ trait CanWriteBigData extends CanWriteSesame{
 /*
 interface for data writing
  */
-trait DataWriter extends SesameDataWriter with CanWriteBigData
+trait DataWriter extends SesameDataWriter with CanWriteBigData {
+
+  /*
+writes something and then closes the connection
+*/
+  override def write[T](action:WriteConnection=>T):Try[T] =
+  {
+    val con = this.writeConnection
+    //con.begin()
+    con.setAutoCommit(false)
+    val res = Try {
+      val r = action(con)
+      con.commit()
+      r
+    }
+    con.close()
+    res.recoverWith{case
+      e=>
+      lg.error("read/write transaction from database failed because of \n"+e.getMessage)
+      res
+    }
+  }
+}
 
 
 import com.bigdata.rdf.changesets.IChangeLog
@@ -44,7 +69,8 @@ trait Updater extends CanWriteBigData  with SemanticFileParser
    */
   def writeUpdate(queryStr:String,update:UpdateHandler,logger:IChangeLog = null)(implicit base:String = WI.RESOURCE) = {
     val con: BigdataSailRepositoryConnection = this.writeConnection
-    con.begin()
+    //con.begin()
+    con.setAutoCommit(false)
     val res = Try{
       if(logger!=null) {
         con.addChangeLog(logger)
@@ -77,7 +103,8 @@ trait Updater extends CanWriteBigData  with SemanticFileParser
    */
   def writeConditionalUpdate(queryStr:String,condition:String,update:UpdateHandler,negation:Boolean=false,logger:IChangeLog = null)(implicit base:String = WI.RESOURCE): Try[Boolean] = {
     val con: BigdataSailRepositoryConnection = this.writeConnection
-    con.begin()
+    //con.begin()
+    con.setAutoCommit(false)
     val res: Try[Boolean] = Try{
       val cond: Boolean = con.prepareBooleanQuery(QueryLanguage.SPARQL,condition).evaluate()
       val toWrite = if(negation) !cond else cond
@@ -105,7 +132,8 @@ trait Updater extends CanWriteBigData  with SemanticFileParser
   def watchedWrite[T](logger:IChangeLog )(action:WriteConnection=>T):Try[T] =
   {
     val con = this.writeConnection
-    con.begin()
+    //con.begin()
+    con.setAutoCommit(false)
     val res = Try {
       con.addChangeLog(logger)
       val r = action(con)

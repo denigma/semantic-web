@@ -2,7 +2,10 @@ import java.io.File
 
 import bintray.Opts
 import bintray.Plugin._
+import com.typesafe.sbt.digest.Import._
+import com.typesafe.sbt.gzip.Import._
 import com.typesafe.sbt.packager.universal.UniversalKeys
+import com.typesafe.sbt.web.SbtWeb
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
 import play.Play._
 import play._
@@ -12,24 +15,9 @@ import sbt._
 import scala.scalajs.sbtplugin.ScalaJSPlugin.ScalaJSKeys._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
 import scala.scalajs.sbtplugin.env.phantomjs.PhantomJSEnv
+import com.typesafe.sbt.web.SbtWeb.autoImport._
+import com.typesafe.sbt.less.Import.LessKeys
 
-
-object Versions {
-  val scala = "2.11.2"
-
-  val semWeb =  "0.6.15"
-
-  val binding = "0.6.5"
-
-  val bindingModels = "0.6.2"
-
-
-  val bindingPLay = "0.6.3"
-
-
-  val macwire = "0.7.3"
-
-}
 
 /**
  * this files is intended to build the main project
@@ -83,7 +71,7 @@ object Build extends sbt.Build with SemanticData  with UniversalKeys
 
 
   lazy val main = (project in file("."))
-    .enablePlugins(PlayScala/*,SbtWeb*/)
+    .enablePlugins(PlayScala,SbtWeb)
     .settings(semanticWebSettings: _*)
     .dependsOn(semanticData).aggregate(scalajs)
 
@@ -106,6 +94,12 @@ object Build extends sbt.Build with SemanticData  with UniversalKeys
     dist <<= dist dependsOn (fullOptJS in (scalajs, Compile)),
 
     stage <<= stage dependsOn (fullOptJS in (scalajs, Compile)),
+
+    includeFilter in (Assets, LessKeys.less) := "*.less",
+
+    excludeFilter in (Assets, LessKeys.less) := "_*.less",
+
+    pipelineStages := Seq(digest, gzip),
 
     EclipseKeys.skipParents in ThisBuild := false,
 

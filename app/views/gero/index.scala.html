@@ -1,0 +1,23 @@
+@(request: UserRequestHeader, html:Option[Html] = None)
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+
+    <title>Aging genes ontology</title>
+    @libs.libs(request)
+
+    </head>
+  <body id="body">
+
+    @gero.header(request)
+
+    @gero.main(html)(request)
+
+  </body>
+
+
+  @init(request)
+
+
+</html>
+

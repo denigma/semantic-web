@@ -11,9 +11,9 @@ class DBConfig(val dbConf:Configuration) {
   val truthMaintenance: Boolean = dbConf.getBoolean("com.bigdata.rdf.sail.truthMaintenance").getOrElse(false)
   val storeConf = dbConf.getConfig("com.bigdata.rdf.store.AbstractTripleStore").get
   val quads = storeConf.getBoolean("quadsMode").getOrElse(true)
-  val stsIds = storeConf.getBoolean("statementIdentifiers").getOrElse(false)
+  val stsIds = storeConf.getBoolean("statementIdentifiers").getOrElse(true)
   val textIndex = storeConf.getBoolean("textIndex").getOrElse(true)
-  val limit: Long = this.dbConf.getLong("limit").getOrElse(50)
+  val limit: Long = this.dbConf.getLong("limit").getOrElse(100)
   val url:String = dbConf.getString("url").get
   val dbFileName: String = dbConf.getString("name").getOrElse("bigdata.jnl")
 
@@ -28,6 +28,7 @@ class DBConfig(val dbConf:Configuration) {
     props.setProperty("com.bigdata.rdf.sail.truthMaintenance",truthMaintenance.toString)
     props.setProperty("com.bigdata.rdf.sail.statementIdentifiers",stsIds.toString)
     props.setProperty("com.bigdata.journal.AbstractJournal.file",url+"/"+dbFileName)
+    props.setProperty("com.bigdata.rdf.store.AbstractTripleStore.storeBlankNodes",true.toString)
     //props.setProperty("com.bigdata.journal.AbstractJournal.initialExtent","209715200")
     //props.setProperty("com.bigdata.journal.AbstractJournal.maximumExtent","209715200")
     props

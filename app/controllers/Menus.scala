@@ -65,6 +65,8 @@ object Menus extends Controller with SimpleQueryController with PickleController
           Pat( item, hasTitle, tlt)
           )
 
+        //play.api.Logger.info("s MENU = "+selMenu.stringValue)
+
         //lg.info(selMenu.stringValue)
 
         this.select(selMenu).map(v=>v.map{case r=>

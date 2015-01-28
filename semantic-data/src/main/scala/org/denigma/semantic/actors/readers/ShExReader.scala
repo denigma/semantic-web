@@ -3,11 +3,14 @@ package org.denigma.semantic.actors.readers
 
 import akka.actor.Actor
 import org.denigma.semantic.actors.NamedActor
-import org.denigma.semantic.actors.readers.protocols.ShapeRead
+import org.denigma.semantic.actors.readers.protocols.{StringShapeRead, ShapeRead}
 import org.denigma.semantic.reading._
-import org.openrdf.model.{Resource, URI}
+import org.openrdf.model.{Statement, Resource, URI}
 import org.openrdf.query.TupleQueryResult
-import org.scalax.semweb.rdf.Res
+import org.openrdf.repository.RepositoryResult
+import org.scalax.semweb.messages.Results.SelectResults
+import org.scalax.semweb.rdf.vocabulary.RDF
+import org.scalax.semweb.rdf.{RDFValue, Res}
 import org.scalax.semweb.sesame._
 import org.scalax.semweb.sesame.shapes.ShapeReader
 import org.scalax.semweb.shex._
@@ -17,15 +20,38 @@ import scala.util.{Success, Try}
 trait ShExReader {
   me:NamedActor with CanReadBigData with ShapeReader with SimpleReader=>
 
+  def loadQueryWithShape(query:String, shape:Shape, offset:Long,limit:Long,rewrite:Boolean): Try[Set[PropertyModel]] =
+  {
+    this.qsm.select(query,offset,limit,rewrite).flatMap{
+      case qr=>
+        val res: SelectResults = qr.toSelectResults
+        val rows: List[Map[String, RDFValue]] = res.rows
+        val resources = rows.map(r=>r.collectFirst{case (key,res:Res)=>res}.get:Resource).toSet
+        val models = this.loadPropertyModelsByShape(shape,resources)
+        models
+    }
+  }
 
-  /**
+
+
+    /**
    * reads pattern info for catcher
    * @return
    */
   def shapeRead:Actor.Receive = {
 
-    case ShapeRead.LoadProperties(shape,res,contexts)=>
-      val props: Try[PropertyModel] = this.loadPropertiesByShape(shape,res)(contexts.map(c=>c:Resource))
+    case ShapeRead.LoadArc(res,cts) =>
+        val arc = this.read{ case con=>
+          this.extractor.getArc(res:Resource,con)(cts.map(r => r:Resource)).get
+        }
+        sender ! arc
+
+    case ShapeRead.LoadAllShapes(cts) =>
+      val shapes= this.loadAllShapes(cts.map(c=>c:Resource))
+      sender ! shapes
+
+    case ShapeRead.LoadPropertyModels(shape,resources,contexts)=>
+      val props =    this.loadPropertyModelsByShape(shape,resources.map(r=>r:Resource))(contexts.map(c=>c:Resource))
       sender ! props
 
 
@@ -34,28 +60,36 @@ trait ShExReader {
       sender ! shape
 
 
-    case ShapeRead.LoadShapesForType(iri,context) =>
-      val shapes: Try[List[Shape]] = this.loadShapesForType(iri:URI)(context.map(c=>c:Resource)) map(_.toList)
+    case ShapeRead.LoadShapes(resources,cont)=>
+      val shapes =  this.read { con=>resources.map(sh=>extractor.getShape(sh,con)(cont.map(c=>c:Resource))).toList}
+        //this.loadShapes(resources:_*)(cont.map(r=>r:Resource))
+      sender ! shapes
+
+    case ShapeRead.LoadShapesForType(iri,cont) =>
+      val shapes: Try[List[Shape]] = this.loadShapesForType(iri:URI)(cont.map(c=>c:Resource)) map(_.toList)
       sender ! shapes
 
     case ShapeRead.SelectWithShape(query,shape,offset,limit,rewrite)=>
-      val res: Try[TupleQueryResult] = this.qsm.select(query.stringValue,offset,limit,rewrite)
 
-      val props: Try[List[PropertyModel]] = this.qsm.select(query.stringValue,offset,limit,rewrite).map{
-        case qr=>
-          val res = qr.toSelectResults
-          res.rows.map{r=>
-            val resource = r.collectFirst{case (key,res:Res)=>res}.get
-            val p = this.loadPropertiesByShape(shape,resource)
-            if(p.isFailure) this.log.error(s"failure loading property mode for resource ${resource.stringValue} and shape ${shape.toString}")
-            p
-          } collect{ case Success(p)=>p}
+      sender ! this.loadQueryWithShape(query.stringValue,shape,offset,limit,rewrite)
+
+    case ShapeRead.SelectWithShapeRes(query,shapeRes,offset,limit,rewrite) =>
+
+      sender ! this.loadShape(shapeRes).flatMap{
+        shape=> this.loadQueryWithShape(query.stringValue,shape,offset,limit,rewrite).map(res=>shape->res)
       }
 
-      sender ! props
+
+    case StringShapeRead.SelectWithShapeRes(query,shapeRes,offset,limit,rewrite)=>
+
+      //play.api.Logger.info(s"SHAPED recieved $query with $shapeRes")
+      val result: Try[(Shape, Set[PropertyModel])] = this.loadShape(shapeRes).flatMap{
+        shape=> this.loadQueryWithShape(query,shape,offset,limit,rewrite).map(res=>shape->res)
+      }
+      sender ! result
 
 
-//    case ShapeRead.SuggestWithShape(typed,prop,shape)=>
+      //    case ShapeRead.SuggestWithShape(typed,prop,shape)=>
       //shape.arcRules().find(r=>r.name)
       //val q = SELECT (?("sug")) WHERE Pat(?("sug"), ?("any"), ?("any"))
 

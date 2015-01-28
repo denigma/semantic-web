@@ -1,4 +1,5 @@
 package controllers.literature
+/*
 
 import auth.{UserAction, AuthRequest}
 import controllers.{PJaxPlatformWith, PickleController}
@@ -51,3 +52,4 @@ trait ModelPapers extends PickleController with ShapeController with ArticleShap
 
   }
 }
+*/

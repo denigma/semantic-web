@@ -1,6 +1,7 @@
 package org.denigma.semantic.platform
 
 import java.io._
+import org.openrdf.model.impl.URIImpl
 import org.scalax.semweb.rdf.vocabulary._
 import org.openrdf.repository.RepositoryResult
 import scala.util.Try
@@ -68,12 +69,18 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
     }
   }
 
+  def clear(context:URI*) = {
+    db.write{con=>
+      con.clear(context:_*)
+    }
+  }
 
   /*
   deletes local db file (used mostly in tests)
    */
   def cleanLocalDb()=  {
-    lg.info("cleaning local db...")
+    val path = dbConfig.url+"/"+dbConfig.dbFileName
+    lg.info(s"cleaning local db at $path ...")
     val f = new File(dbConfig.url+"/"+dbConfig.dbFileName)
     if(f.exists()) {
       if(FileUtils.deleteQuietly(f)) lg.debug("cleaning db files...")
@@ -135,8 +142,10 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
   Loads turtles with further configurations and vocabularies
    */
   def loadInitialData() ={
+    this.clear(new URIImpl(platformConfig.CONFIG_CONTEXT))
     this.loadPlatform()
-    if(this.platformParams.isEmpty) Try {
+    //if(this.platformParams.isEmpty)
+    Try {
       this.loadFiles(platformConfig.filesConf)
     }.recover{case e=>
       lg.error(s"error in loading files ${e.toString}")
@@ -155,9 +164,15 @@ abstract class SemanticPlatform extends JsQueryController with UpdateController 
             case Success(opt)=> for {
               names<-opt
               fileName<-names
-            } db.parseFileByName(folder+fileName,f.getString("context").getOrElse(WI.RESOURCE))
+            } {
+              val contextString = f.getString("context").getOrElse(WI.CONFIG.stringValue)
+              db.parseFileByName(folder+fileName,contextString)
+            }
 
-            case Failure(th)=> f.getString("name").foreach(fileName=>db.parseFileByName(folder+fileName,f.getString("context").getOrElse(WI.RESOURCE)))
+            case Failure(th)=>
+              f.getString("name")
+                .foreach(fileName=>db.parseFileByName(folder+fileName,f.getString("context")
+                .getOrElse(WI.CONFIG.stringValue)))
           }
 
       case other =>

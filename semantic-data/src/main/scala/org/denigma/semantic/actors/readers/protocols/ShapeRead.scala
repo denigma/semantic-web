@@ -6,7 +6,7 @@ import org.scalax.semweb.shex.Shape
 import org.scalax.semweb.sparql.SelectQuery
 
 
-object ShapeStringRead {
+object StringShapeRead {
 
   trait StringShExQuery
 
@@ -14,8 +14,8 @@ object ShapeStringRead {
 
   case class SelectWithShapeResources(query:String, shapeRes:Map[String,Res],offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated with StringShExQuery
 
-
   case class SelectWithShape(query:String, shape:Shape,offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated with StringShExQuery
+
   case class SelectWithShapes(query:String, shapes:Map[String,Shape],offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated with StringShExQuery
 
 }
@@ -23,15 +23,25 @@ object ShapeRead {
 
   trait ShExQuery
 
-  case class LoadShape(iri:IRI,contexts:List[Res] = List(IRI(WI.RESOURCE))) extends  ShExQuery
+  case class LoadArc(iri:Res,contexts:Seq[Res] = Seq.empty) extends ShExQuery
+
+  case class LoadShape(iri:Res,contexts:Seq[Res] = Seq.empty) extends  ShExQuery
+
+  case class LoadShapes(resources:Set[Res], contexts:Seq[Res] = Seq.empty) extends ShExQuery
+
+  case class LoadAllShapes(contexts:Seq[Res] = Seq.empty) extends ShExQuery
 
   case class LoadShapesForType(iri:IRI,contexts:List[Res] = List.empty) extends ShExQuery
 
-  case class LoadProperties(shape:Shape,iri:IRI,contexts:List[Res] = List.empty)
+  case class LoadPropertyModels(shape:Shape,prop:Set[Res],contexts:List[Res] = List.empty)
+
+  //case class SelectStringWithShapeRes(query:String, shapeRes:Res,offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated with ShExQuery
 
   case class SelectWithShapeRes(query:SelectQuery, shapeRes:Res,offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated with ShExQuery
 
   case class SelectWithShapeResources(query:SelectQuery, shapeRes:Map[String,Res],offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated with ShExQuery
+
+  //case class SelectStringWithShapeResources(query:String, shapeRes:Map[String,Res],offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated with ShExQuery
 
   case class SelectWithShape(query:SelectQuery, shape:Shape,offset:Long = 0, limit:Long = Long.MaxValue,rewrite:Boolean = false) extends Paginated with ShExQuery
 

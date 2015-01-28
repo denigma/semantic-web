@@ -10,5 +10,4 @@ version := "0.2.1"
 
 ScalaJSKeys.relativeSourceMaps := true
 
-
-libraryDependencies += "org.denigma" %%% "binding" % Versions.binding
+libraryDependencies ++=Dependencies.frontend.value

@@ -1,1 +1,0 @@
-org.denigma.semantic.classes package is deprecated but has not deleted yet as some code will be reused in future

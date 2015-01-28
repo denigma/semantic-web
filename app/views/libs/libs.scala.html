@@ -1,10 +1,15 @@
-@()(implicit request: RequestHeader)
+@(request: RequestHeader)
 
 <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("jquery.min.js"))'></script>
 
 <link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("semantic.css"))' type="text/css">
 <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("semantic.js"))'></script>
 
+    @isProd = @{
+        // This is true if we are running a production build, created using dist or stage. In that
+        // case, use the -opt.js file, which is much more optimized, instead of -fastopt.js.
+        play.api.Play.isProd(play.api.Play.current)
+    }
 
 @if(!request.domain.contains("rybka")) {
     <!--dirty code-->
@@ -12,10 +17,10 @@
     <link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("codemirror.css"))' type="text/css">
     <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("sparql.js"))'></script>
 
-
-    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("js/selectize.min.js"))'></script>
     <link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("css/selectize.css"))' type="text/css">
     <link rel="stylesheet" href='@routes.WebJarAssets.at(WebJarAssets.locate("css/selectize.default.css"))' type="text/css">
+    <script type='text/javascript' src='@routes.WebJarAssets.at(WebJarAssets.locate("js/standalone/selectize.js"))'></script>
+
 
     @{ /*ckeditor()*/}
 }

@@ -6,22 +6,27 @@ GET         /                             controllers.Application.index()
 
 GET         /users                        controllers.schema.Schema.allUsers()
 
-
-GET         /users                        controllers.tools.Tools.users
 GET         /menu/rybka                   controllers.Menus.rybkaMenu()
 GET         /menu/:name                   controllers.Menus.menu(name)
 
 GET         /pages/:page                  controllers.Application.page(page)
 GET         /logo/:variant                controllers.Application.logo(variant)
 
+POST        /models/explore               controllers.endpoints.MainEndpoint.exploreEndpoint()
+POST        /models/crud                  controllers.endpoints.MainEndpoint.modelEndpoint()
+
 GET         /tools/sparql                 controllers.tools.Tools.sparql
 GET         /tools/paper                  controllers.tools.Tools.paper
 POST        /tools/sparql/endpoint        controllers.tools.Tools.sparqlEndpoint
 
-GET         /papers/reports               controllers.literature.Literature.reports()
-POST        /papers/explore               controllers.literature.Literature.exploreEndpoint()
-POST        /papers/crud                  controllers.literature.Literature.modelEndpoint()
+GET         /field/*id                    controllers.schema.Schema.arcView(id)
+
+
+#GET         /papers/reports               controllers.literature.Literature.reports()
+#POST        /papers/explore               controllers.literature.Literature.exploreEndpoint()
+#POST        /papers/crud                  controllers.literature.Literature.modelEndpoint()
 GET         /papers/                      controllers.literature.Literature.reports()
+
 
 
 
@@ -44,9 +49,18 @@ POST        /image/upload                 controllers.tools.Uploader.imageUpload
 
 GET         /webjars/*file                controllers.WebJarAssets.at(file)
 
-GET         /test/newdomain/:name         controllers.tests.Tests.changeDomain(name)
-GET         /test/menu                    controllers.tests.Tests.menu
-GET         /test/mail                    controllers.tests.Tests.mailMe
+GET         /newdomain/:name              controllers.tests.Tests.changeDomain(name)
+#GET         /test/menu                    controllers.tests.Tests.menu
+GET         /test/test                    controllers.tests.Tests.test
+#GET         /test/mail                    controllers.tests.Tests.mailMe
+
+
+GET         /test/shapes                  controllers.endpoints.Tester.allShapes()
+GET         /test/all                     controllers.endpoints.Tester.allData
+GET         /test/query                   controllers.endpoints.Tester.query(res:String)
+GET         /test/shaped                  controllers.endpoints.Tester.shapedQuery(res:String,shape:String)
+
+
 
 
 # Map static resources from the /public folder to the /assets URL path

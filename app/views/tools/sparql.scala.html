@@ -3,7 +3,7 @@
     <h1 class="ui header">Query page</h1>
     @files.uploader()
 
-    <textarea class="ui textarea" data-view="sparql" id="code" name="code" data-param-mode="application/x-sparql-query" data-up-bind-code="query">
+    <textarea class="ui textarea" data-bind-code-sparql="query" id="code" name="code" data-param-mode="application/x-sparql-query">
 
     </textarea>
 
@@ -17,18 +17,13 @@
     <button data-event-click="reset" class="ui green button">Reset</button>
 
     <table class="ui table segment" border>
-        <tr>
-            <th  data-bind="title">
-            </th>
+        <tr data-view="query-headers">
+            <th data-template="true" data-bind="name"></th>
         </tr>
-        <tr>
-            <th>
-                <input data-bind-placeholder="title" type="hidden" id="thisid" class="filter select2-container select2-container-multi populate" />
-            </th>
-        </tr>
+        <tr data-template="true">
+            <td data-bind="value" data-template="true">
 
-        <tr>
-            <td ></td>
+            </td>
         </tr>
     </table>
 </section>

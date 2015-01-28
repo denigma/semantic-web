@@ -15,10 +15,17 @@ import org.scalax.semweb.commons.LogLike
 class that is responsible for writes into database. It does NOT process read queries
 @param writer just an object that can provide WriteConnection, can be db, can be anything else
  */
-class DatabaseWriter(writer:CanWriteBigData, val watcher:ChangeWatcher) extends  WatchedWriter with ConditionalWriter{
+class DatabaseWriter(writer:CanWriteBigData, val watcher:ChangeWatcher) extends
+WatchedWriter with ConditionalWriter with GridWriter
+{
 
 
-  override def receive: Actor.Receive = this.simpleUpdates.orElse(this.updatesOnlyIf).orElse(this.updatesUnless).orElse {
+  override def receive: Actor.Receive = this.simpleUpdates
+    .orElse(this.updatesOnlyIf)
+    .orElse(this.updatesUnless)
+    .orElse(this.updateShape)
+    .orElse(this.updateGrid)
+    .orElse {
 
     case v=>
         this.log.error(s"something strange received by writer: \n $v")

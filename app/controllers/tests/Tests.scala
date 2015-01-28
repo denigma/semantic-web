@@ -3,24 +3,37 @@ package controllers.tests
 import auth.UserAction
 import org.denigma.binding.models._
 import org.denigma.semantic.controllers.SimpleQueryController
+import org.denigma.semantic.controllers.sync.SyncSimpleController
 import org.denigma.semantic.users.Accounts
-import org.openrdf.model.{Literal, URI}
-import org.scalax.semweb.rdf.{Trip, IRI}
+import org.openrdf.model.{Resource, Literal, URI}
+import org.openrdf.query.TupleQueryResult
+import org.scalax.semweb.rdf.{BlankNode, Trip, IRI}
 import org.scalax.semweb.rdf.vocabulary.{WI, _}
 import org.scalax.semweb.sesame._
+import org.scalax.semweb.shex.ArcRule
 import org.scalax.semweb.sparql.{Pat, _}
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.mvc._
 
+import scala.concurrent.Future
 import scala.util._
-
+import org.scalax.semweb.sesame._
+import org.scalax.semweb.shex
 
 /*
 test controller
 not working yet
  */
-object Tests  extends Controller with SimpleQueryController{
+object Tests  extends Controller /*with SimpleQueryController */ with SyncSimpleController{
 
+  def test() = Action { request =>
+    val prop = ArcRule.property
+    val sts = this.read{con=>
+      con.getStatements(null,prop,null,true)
+    }.get
+    Ok(sts.map(s=>s.getObject) mkString("\n")).as("text/plain")
+  }
+/*
 
   def menu =  UserAction.async{
     implicit request=>
@@ -55,7 +68,9 @@ object Tests  extends Controller with SimpleQueryController{
     }
 
   }
+*/
 
+/*
   def mailMe = Action {
     import com.typesafe.plugin._
     import play.api.Play.current
@@ -67,6 +82,7 @@ object Tests  extends Controller with SimpleQueryController{
     //sends both text and html
     Ok("Mail send")
   }
+*/
 
   def changeDomain(name:String) = UserAction {
     implicit request=>

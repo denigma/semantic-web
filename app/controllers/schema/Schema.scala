@@ -2,9 +2,10 @@ package controllers.schema
 
 import _root_.controllers.PJaxPlatformWith
 import auth.UserAction
-import org.denigma.semantic.controllers.SimpleQueryController
+import org.denigma.binding.picklers.rp
+import org.denigma.semantic.controllers.{ShapeController, SimpleQueryController}
 import org.openrdf.query.TupleQueryResult
-import org.scalax.semweb.rdf.IRI
+import org.scalax.semweb.rdf.{BlankNode, Res, IRI}
 import org.scalax.semweb.rdf.vocabulary.{USERS, RDF}
 import org.scalax.semweb.sparql._
 import play.api.mvc.Result
@@ -14,8 +15,10 @@ import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
 import org.scalax.semweb.sparql
 import org.scalax.semweb.sesame._
+import org.scalax.semweb._
+import org.scalajs.spickling.playjson.builder
 
-object Schema  extends PJaxPlatformWith("schema") with SimpleQueryController{
+object Schema  extends PJaxPlatformWith("schema") with ShapeController{
 
 
   protected def selectByClass(cl:IRI): Future[Result] = {
@@ -38,6 +41,24 @@ object Schema  extends PJaxPlatformWith("schema") with SimpleQueryController{
   def instancesOfClass(cl:IRI)= UserAction.async {implicit request=>this.selectByClass(cl)  }
 
   def allUsers() = UserAction.async{ implicit request=> this.selectByClass(USERS.classes.User) }
+
+  def arcView(id:String) = UserAction.async{implicit request=>
+    val arc = id match {
+      case b if b.startsWith("_:") =>loadArc(BlankNode(b))
+      case uri if uri.contains(":")=>loadArc(IRI(uri))
+      case other=>loadArc(BlankNode(other))
+
+    }
+    arc.map{
+      case Success(a)=>
+        val js = rp.pickle(a)
+        Ok(js)
+      case Failure(ev)=>
+        this.tellBad(s"cannot load arc rule for id = $id")
+    }
+
+  }
+
 
 
 }

@@ -265,7 +265,7 @@ Experimental amelioration of one particular hallmark may impinge on others
 
 :Regenerative_Capacity rdfs:subClassOf :Capacity .
 
-:Short_Telomere rdfs:subClassOf:Telomere .
+:Short_Telomere rdfs:subClassOf :Telomere .
 
 # Epigenetic Alterations:
 :Alteration a owl:Class .

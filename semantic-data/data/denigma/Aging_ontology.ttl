@@ -18,8 +18,7 @@
     rdfs:label "Aging" ;
     :synonym "Ageing", "Senescence", "Aging Process", "Ageing Process", "Degenerative Aging Process", "Degenerative Ageing Process" ;
     :definition "The time-dependent progressive functional decline, or a gradual deterioration of physiological function with age hat affects most living organism." ;
-    :description """Aging is the consequence of development and the cause of age-related disease. In molecular terms it is the decline of homeostatic mechanisms that ensure the function of cells, tissue, organs and organs systems. Aging is characterized by a progressive loss of physiological integrity, leading to impaired function and increased vulnerability to health. Aging is part of the life of an organism. **Every** instance of aging is part of life of some organism. However not **every** instance of life of organism has as part aging, because a life may be cut short by early death or the organism is biological immortal. 
-
+    :description """Aging is the consequence of development and the cause of age-related disease. In molecular terms it is the decline of homeostatic mechanisms that ensure the function of cells, tissue, organs and organs systems. Aging is characterized by a progressive loss of physiological integrity, leading to impaired function and increased vulnerability to health. Aging is part of the life of an organism. **Every** instance of aging is part of life of some organism. However not **every** instance of life of organism has as part aging, because a life may be cut short by early death or the organism is biological immortal.
 Aging is the major risk factor for cardiovascular morbidity and mortality [Lakatta, Heart Failure Rev. 2002]. 
 """ ;
     :decreases :Homeostasis ;

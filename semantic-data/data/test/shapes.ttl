@@ -1,0 +1,217 @@
+
+_:0.14347096052850183 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/has_ref> .
+
+_:0.8103529156269687 <http://purl.org/dc/elements/1.1/title> "DB"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/IDA> .
+
+_:0.41123489270417346 <platform/priority> "11"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.061753828156846935 <http://open-services.net/ns/core#valueType> <http://www.w3.org/2001/XMLSchema#date> ;
+	<http://purl.org/dc/elements/1.1/title> "Date"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.9965439337092068 <platform/priority> "17"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.5930826143699726 .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Transcription_Factor> .
+
+_:0.07585457844930266 <platform/priority> "6"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> a <http://open-services.net/ns/core#ResourceShape> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/snoRNA> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Aging_Biomarker> ;
+	<http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> .
+
+_:0.46235119468418284 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/has_symbol> .
+
+_:0.14672736577385392 <http://open-services.net/ns/core#minoccurs> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Grows_Factor> .
+
+_:0.14672736577385392 <platform/priority> "12"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.14347096052850183 <http://purl.org/dc/elements/1.1/title> "Publication"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Longevity_Gene> .
+
+_:0.8103529156269687 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/from_db> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> ;
+	<http://purl.org/dc/elements/1.1/title> "Gene product type"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/protein> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/ND> .
+
+_:0.14347096052850183 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#One-or-many> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/IEP> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/tRNA> .
+
+_:0.8103529156269687 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> .
+
+_:0.5218511208456443 <http://www.w3.org/2013/ShEx/Definition#stem> <http://gero.longevityalliance.org/> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.8076820419310494 .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Autophagy_Gene> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.09833191567503474 .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/LON_Protease> .
+
+_:0.06794240875890434 <platform/priority> "1"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.061753828156846935 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> .
+
+_:0.8103529156269687 <http://open-services.net/ns/core#valueType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> .
+
+_:0.09833191567503474 <platform/priority> "3"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.06794240875890434 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> .
+
+_:0.8076820419310494 <http://open-services.net/ns/core#valueType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Unfolded_Protein_Response_Gene> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.06794240875890434 .
+
+_:0.5930826143699726 <http://purl.org/dc/elements/1.1/title> "Class"^^<http://www.w3.org/2001/XMLSchema#string> ;
+	<http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Cytokine> , <http://denigma.org/resource/Cell_Senescence_Gene> .
+
+_:0.06794240875890434 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/has_ENTREZID> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/IGI> .
+
+_:0.5218511208456443 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/has_name> ;
+	<http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Zero-or-one> ;
+	<http://purl.org/dc/elements/1.1/title> "DB object Name"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.8076820419310494 <http://purl.org/dc/elements/1.1/title> "Gene Product Form ID"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.07585457844930266 <http://purl.org/dc/elements/1.1/title> "Evidence Code"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.9965439337092068 , _:0.41123489270417346 .
+
+_:0.9965439337092068 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/pro> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Detoxification_phase_II> ;
+	<platform/priority> "16"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.14347096052850183 <http://www.w3.org/2013/ShEx/Definition#stem> <http://denigma.org/resource/Pubmed/> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Age_Related_Gene> .
+
+_:0.09833191567503474 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> .
+
+_:0.46235119468418284 <platform/priority> "4"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.14672736577385392 <http://purl.org/dc/elements/1.1/title> "Organism"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.9965439337092068 <http://purl.org/dc/elements/1.1/title> "Influence"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.8103529156269687 <platform/priority> "2"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.46235119468418284 .
+
+_:0.46235119468418284 <http://purl.org/dc/elements/1.1/title> "DB Object Symbol"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#propDefinition> <http://www.w3.org/2000/01/rdf-schema#subClassOf> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/transcript> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/has_code> .
+
+_:0.9965439337092068 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/has_influence> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/ncRNA> .
+
+_:0.8076820419310494 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/is_product> .
+
+_:0.46235119468418284 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> .
+
+_:0.14672736577385392 <http://open-services.net/ns/core#maxoccurs> "2"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.09833191567503474 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/is_DB_object> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/DNA_Repair_Gene> , <http://denigma.org/resource/Longevity_Effector> .
+
+_:0.06794240875890434 <http://purl.org/dc/elements/1.1/title> "ENTREZID"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.9965439337092068 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> .
+
+_:0.09833191567503474 <http://purl.org/dc/elements/1.1/title> "DB Object ID"^^<http://www.w3.org/2001/XMLSchema#string> .
+
+_:0.46235119468418284 <http://open-services.net/ns/core#valueType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> .
+
+_:0.061753828156846935 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/added_on> .
+
+_:0.14672736577385392 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/from_model_organism> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Longevity_Regulator> .
+
+_:0.06794240875890434 <http://www.w3.org/2013/ShEx/Definition#stem> <http://www.ncbi.nlm.nih.gov/gene/?term=> .
+
+_:0.9965439337092068 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/anti> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/IMP> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Anti-oxidant_Enzyme> , <http://denigma.org/resource/Detoxification_phase_I> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.14672736577385392 .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/House_Keeping_Gene> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/rRNA> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/NAS> .
+
+_:0.8076820419310494 <platform/priority> "15"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.14672736577385392 <http://www.w3.org/2013/ShEx/Definition#stem> <http://gero.longevityalliance.org/> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Circadian_Gene> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/snRNA> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.8103529156269687 .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Innate_Immunity_Gene> , <http://denigma.org/resource/Apoptosis_Gene> , <http://denigma.org/resource/Heat_Shocke_Protein> , <http://denigma.org/resource/microRNA> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/TAS> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.07585457844930266 .
+
+_:0.8076820419310494 <http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Zero-or-one> .
+
+_:0.14347096052850183 <platform/priority> "5"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.09833191567503474 <http://open-services.net/ns/core#valueType> <http://www.w3.org/1999/02/22-rdf-syntax-ns#value> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/microRNA> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/IC> ;
+	<http://open-services.net/ns/core#occurs> <http://open-services.net/ns/core#Exactly-one> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.061753828156846935 .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/gene_product> .
+
+_:0.5218511208456443 <platform/priority> "9"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.14347096052850183 .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#propDefinition> <http://gero.longevityalliance.org/of_type> .
+
+_:0.061753828156846935 <platform/priority> "13"^^<http://www.w3.org/2001/XMLSchema#integer> .
+
+_:0.41123489270417346 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/protein_complex> .
+
+_:0.5930826143699726 <http://open-services.net/ns/core#allowedValue> <http://denigma.org/resource/Deacetualases> .
+
+_:0.07585457844930266 <http://open-services.net/ns/core#allowedValue> <http://gero.longevityalliance.org/IPI> .
+
+<http://gero.longevityalliance.org/Evidence_Shape> <http://open-services.net/ns/core#property> _:0.5218511208456443 .

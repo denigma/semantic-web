@@ -1,6 +1,8 @@
 package org.denigma.semantic.controllers
 
 import akka.util.Timeout
+import org.scalax.semweb.rdf.vocabulary.USERS.props
+import org.scalax.semweb.shex.{Shape, PropertyModel}
 import scala.concurrent.{Await, Future}
 
 import akka.util.Timeout
@@ -13,13 +15,20 @@ import akka.pattern.ask
 import akka.pattern.ask
 import org.scalax.semweb.sparql._
 
+trait UpdateModelsController extends WithSemanticWriter {
+  implicit val writeTimeout:Timeout = Timeout(5 seconds)
+
+  def addModels(models:Set[PropertyModel],shapeOpt:Option[Shape] = None) = this.writer.ask(Update.AddModels(models,shapeOpt)).mapTo[Try[Unit]]
+
+
+}
 
 /*
 does updates
  */
-trait UpdateController extends WithSemanticWriter{
+trait UpdateController extends WithSemanticWriter with UpdateModelsController{
 
-  implicit val writeTimeout:Timeout = Timeout(5 seconds)
+
 
   /*
   for test purposes only

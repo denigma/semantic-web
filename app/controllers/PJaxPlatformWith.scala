@@ -16,7 +16,6 @@ class PJaxPlatformWith(val name:String) extends Controller  {
 
   def index[T<:UserRequestHeader](request:T,someHtml:Option[Html] = None) = {
     Ok(views.html.index(request,someHtml))
-
   }
 
 

@@ -27,9 +27,6 @@
 
 @prefix wif: <http://webintelligence.eu/files/webintelligence.eu/> .
 
-
-
-
 <http://webintelligence.eu> a pl:Site;
     pl:index pg:Webintelligence;
     #pl:has_logo <http://webintelligence.eu/assets/webintelligence.eu/denigma.svg>;

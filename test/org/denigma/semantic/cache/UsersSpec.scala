@@ -121,19 +121,19 @@ class UsersSpec extends Specification {
     "Provide REST right" in new WithTestApp {
 
       val Some(result1) = route(FakeRequest(GET, "/users/login?username=anton&password=wrong"))
-      status(result1)(defaultAwaitTimeout) shouldEqual(UNAUTHORIZED)
+      status(result1)(defaultAwaitTimeout) shouldEqual UNAUTHORIZED
       session(result1)(defaultAwaitTimeout).get("user").isDefined should beFalse
 
 
       val Some(result2) = route(FakeRequest(GET, "/users/register?username=antonkulaga&email=anton@email.com&password=rightpassword"))
-      status(result2)(defaultAwaitTimeout) shouldEqual(OK)
+      status(result2)(defaultAwaitTimeout) shouldEqual OK
       val ou = session(result2)(defaultAwaitTimeout).get("user")
       ou.isDefined should beTrue
       ou.get.contains("antonkulaga") should beTrue
 
 
       val Some(result3) = route(FakeRequest(GET, "/users/register?username=antonkulaga&email=anton@email.compassword=otherpassword"))
-      status(result3)(defaultAwaitTimeout) shouldEqual(BAD_REQUEST)
+      status(result3)(defaultAwaitTimeout) shouldEqual BAD_REQUEST
 
 //      val Some(result4) = route(FakeRequest(GET, "/users/login?username=antonkulaga&password=rightpassword"))
 //      session(result4)(defaultAwaitTimeout).get("user").isDefined should beTrue

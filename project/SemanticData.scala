@@ -40,10 +40,7 @@ trait SemanticData extends Publish {
     javaSource in Compile := baseDirectory.value / (src+"/main/java"),
     javaSource in Test:= baseDirectory.value / (src+"/test/java"),
 
-
     parallelExecution in Test := false,
-
     organization := "org.denigma"
-
-  ).settings(net.virtualvoid.sbt.graph.Plugin.graphSettings: _*)
+  )
 }

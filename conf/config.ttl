@@ -52,6 +52,10 @@
 @prefix ust: <http://transhuman.org.ua/users/> .
 @prefix pgt:  <http://transhuman.org.ua/pages/> .
 
+#gero.longevityalliance.org prefixes
+@prefix gero: <http://gero.longevityalliance.org/> .
+@prefix pgg: <http://gero.longevityalliance.org/pages/> .
+
 
 #########Dataset and config ontology metadata########
 
@@ -147,3 +151,4 @@ pl:index a owl:ObjectProperty;
 
 pl:Current_Platform a wi:Platform;
 	pl:root wi:Web_Intelligence .
+

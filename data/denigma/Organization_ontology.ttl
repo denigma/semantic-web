@@ -619,7 +619,7 @@ Mountain View, CA Fst94041""" ;
    :name "Fraunhofer-Gesellschaft" ;
     rdfs:seeAlso <http://en.wikipedia.org/wiki/Fraunhofer_Society> ;
    :country :Germany ;
-   :website <http://www.fraunhofer.de/en.html .
+   :website <http://www.fraunhofer.de/en.html> .
 
 :Translational_Centre_for_Regenerative_Medicine a :Translational_Centre ;
     :university :University_Leipzig ;
@@ -654,7 +654,7 @@ Mountain View, CA Fst94041""" ;
 :Humboldt_University_of_Berlin a :University ;
    :city :Berlin .
 
-:University_of_Valencia ;
+:University_of_Valencia
     :website <http://www.uv.es> ;
     :city :Valencia ;
     :country :Spain .

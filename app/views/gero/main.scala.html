@@ -1,0 +1,14 @@
+@(html:Option[Html] = None)(implicit request: UserRequestHeader)
+<main id="main" class="ui green segment">
+
+  @if(html.isDefined) {
+    <div id="insertMe">
+    @{html.get}
+    </div>
+  } else{
+      @grids.datagrid()
+
+  }
+
+  @*<button data-event-click="toggle" class="ui black huge launch right attached button"><i class="icon list layout"></i>Push sidebar</button>*@
+</main>

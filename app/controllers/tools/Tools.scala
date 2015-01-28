@@ -34,7 +34,7 @@ object Tools extends PJaxPlatformWith("tools") with UpdateController with Simple
        this.select(q) map {
          case Success(res: TupleQueryResult)=>
            val mp = res.toListMap
-           play.Logger.debug("mp = "+mp.toString)
+           play.Logger.debug(s"QUERY = \n $q \n WITH RESULTS: \n${res.toListMap}\n")
 
            val results:List[Map[String,RDFValue]] = mp.map(rv=>rv.map(kv=>(kv._1,kv._2:RDFValue)).toMap)
            val selectResults: SelectResults = SelectResults(res.getBindingNames.toList,  results)
@@ -45,31 +45,26 @@ object Tools extends PJaxPlatformWith("tools") with UpdateController with Simple
            this.badQuery(q)(th)
 
        }
-
   }
 
-//  def testSelect = UserAction.async {
-//    implicit request=>
-//      val q = "SELECT  ?subject ?property ?object WHERE  { ?subject ?property ?object }"
-//
-//      this.select(q) map {
-//        case Success(res: TupleQueryResult)=>
-//          val results:List[Map[String,RDFValue]] = res.toListMap.map(rv=>rv.map(kv=>(kv._1,kv._2:RDFValue)).toMap)
-//          val selectResults: SelectResults = SelectResults(res.getBindingNames.toList,  results)
-//          val p = SemanticRegistry.pickle(      selectResults       )
-//          Ok(p).as("application/json")
-//        case Failure(th)=>
-//          play.Logger.error(s"error in sparql query $q \n"+th.getMessage.toString)
-//          this.badQuery(q)(th)
-//
-//      }
-//
-//  }
+  def simpleQuery(q:String) = UserAction.async{implicit request=>
+    this.select(q) map {
+      case Success(res: TupleQueryResult)=>
+        val mp = res.toListMap
+        val results:List[Map[String,RDFValue]] = mp.map(rv=>rv.map(kv=>(kv._1,kv._2:RDFValue)).toMap)
+        val selectResults: SelectResults = SelectResults(res.getBindingNames.toList,  results)
+        val p = SemanticRegistry.pickle(      selectResults       )
+        Ok(p).as("application/json")
+      case Failure(th)=>
+        play.Logger.error(s"error in sparql query $q \n"+th.getMessage.toString)
+        this.badQuery(q)(th)
 
+    }
+  }
 
   def sparql = UserAction {
     implicit request=>
-      val pdf = views.html.tools.query(request)
+      val pdf = views.html.tools.sparql(request)
       this.pj(pdf)(request)
   }
 

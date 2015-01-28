@@ -81,8 +81,12 @@ class SemanticStoreSpec  extends Specification with LoveHater {
       SP.platformParams.isEmpty should beTrue
       val files: List[Configuration] = SP.platformConfig.filesConf
       files.isEmpty should beFalse
-     
+
+      lg.info("starting loading initial data")
       SP.loadInitialData()
+      //this.parseFileByName("data/denigma/Aging_ontology.ttl")
+      //this.parseFileByName("data/test/test_aging_ontology.ttl")
+
       val q1 =
         """
           |PREFIX  de: <http://denigma.org/resource/>

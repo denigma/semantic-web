@@ -1,0 +1,8 @@
+@(implicit request: UserRequestHeader)
+<nav class="ui huge green inverted main menu" id="topmenu" data-view="menu" data-param-path="menu/top" data-param-domain="@{request.domain}">
+  <a data-template="true" class="green item header" data-item-bind-href="uri" data-item-bind="label" data-load-into="main">
+    <i class="ui-icon-home"></i>
+  </a>
+  @gero.login(request)
+
+</nav>

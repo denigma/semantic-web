@@ -7,6 +7,8 @@ import com.bigdata.rdf.model.BigdataStatement
 import se.rio._
 import org.scalax.semweb.commons.LogLike
 
+import scala.util.{Success, Failure, Try}
+
 
 /**
 class that reads RDF
@@ -42,6 +44,7 @@ class SemanticFileListener(fileName:String,con:BigdataSailRepositoryConnection, 
 
   override def endRDF(): Unit = {
     con.commit()
+   // con.close()
   }
 
   override def startRDF(): Unit = {
@@ -52,6 +55,7 @@ class SemanticFileListener(fileName:String,con:BigdataSailRepositoryConnection, 
   override def fatalError(msg: String, lineNo: Int, colNo: Int): Unit = {
     lg.error(s"FATAL error $msg at LINE $lineNo COL $colNo occurred when parsing:  $fileName")
     con.rollback()
+    //con.close()
   }
 
   override def error(msg: String, lineNo: Int, colNo: Int): Unit = {

@@ -1,4 +1,5 @@
 package controllers.literature
+/*
 
 import java.util.Date
 
@@ -73,7 +74,7 @@ trait ExplorePapers extends PickleController with ShapeController with ArticleSh
     }
   }
 
-protected def exploreItems(items:List[PropertyModel],exploreMessage:ExploreMessages.Explore): List[PropertyModel] = {
+  protected def exploreItems(items:List[PropertyModel],exploreMessage:ExploreMessages.Explore): List[PropertyModel] = {
     val list: List[PropertyModel] = items.filter{case a=>
     val res = exploreMessage.filters.forall(_.matches(a))
     res
@@ -143,7 +144,7 @@ protected def exploreItems(items:List[PropertyModel],exploreMessage:ExploreMessa
             }
           }.flatten
 
-          val mes = ExploreMessages.ExploreSuggestion(suggestMessage.typed, result, suggestMessage.id, suggestMessage.channel, new Date())
+          val mes = ExploreMessages.ExploreSuggestion(suggestMessage.typed, result.toList, suggestMessage.id, suggestMessage.channel, new Date())
           val p = rp.pickle(mes)
           Ok(p).as("application/json")
 
@@ -163,4 +164,4 @@ protected def exploreItems(items:List[PropertyModel],exploreMessage:ExploreMessa
 
 
 
-}
+}*/

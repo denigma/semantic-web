@@ -11,6 +11,7 @@ import org.scalax.semweb.shex._
 import org.scalax.semweb.sparql._
 import org.specs2.mutable._
 
+import scala.concurrent.Future
 import scala.util._
 
 class ShapeSpec extends Specification {
@@ -72,7 +73,9 @@ class ShapeSpec extends Specification {
 
     SP.lg.error(paper.toString)
 
-    val aws = this.awaitRead[Try[List[PropertyModel]]] _
+    val aws = this.awaitRead[Try[Set[PropertyModel]]] _
+
+    val shapedResult: Future[Try[Set[PropertyModel]]] = this.selectWithShape(q,paper)
 
     val pt =  aws ( this.selectWithShape(q,paper) )
     pt.isSuccess should beTrue
@@ -89,12 +92,22 @@ class ShapeSpec extends Specification {
     excerp.size shouldEqual 1
     excerp.head.stringValue.contains("Leigh syndrome associated with cytochrome") should beTrue
 
-
-
-
-
     }
 
+    "get all shapes" in new WithTestApp {
+      SP.db.parseFileByName("data/test/shapes.ttl")
+      val res = IRI("http://gero.longevityalliance.org/Evidence_Shape")
+      val shop = awaitRead(this.loadShape(res))
+      shop.isSuccess shouldEqual true
+      shop.get.id.asResource shouldEqual res
+
+      /*val shapes = awaitRead(this.loadAllShapes())
+      shapes.isSuccess shouldEqual true
+      */
+      //val ss= shapes.get
+      //ss.size shouldEqual 1
+      //val shape = ss.head
+    }
   }
 
 }

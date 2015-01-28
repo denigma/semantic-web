@@ -265,7 +265,7 @@ Experimental amelioration of one particular hallmark may impinge on others
 
 :Regenerative_Capacity rdfs:subClassOf :Capacity .
 
-:Short_Telomere rdfs:subClassOf:Telomere .
+:Short_Telomere rdfs:subClassOf :Telomere .
 
 # Epigenetic Alterations:
 :Alteration a owl:Class .
@@ -448,4 +448,3 @@ High amount of AGE is bad""" ;
    :inibits :Tumor_Growth ;
    :may_prevent :Lung_Tumor_Growth . # in vitro in vivo
 :Carboxymehtylisine a :Advanced_Glycation_Endproduct .
-

@@ -5,6 +5,8 @@ import org.denigma.binding.picklers.rp
 import org.denigma.binding.views.{BindableView}
 import org.denigma.binding.views.utils.ViewInjector
 import org.denigma.frontend.views._
+//import org.denigma.semantic.shapes.HeadersView
+import org.denigma.frontend.views.datagrids._
 import org.scalajs.dom
 import org.scalajs.dom.{HTMLElement, MouseEvent}
 import org.scalajs.jquery.{jQuery => jq}
@@ -43,10 +45,24 @@ object FrontEnd extends BindableView  with scalajs.js.JSApp
     .register("query", (el, params) =>Try(new QueryView(el,params)))
     .register("paper", (el, params) =>Try(new PaperView(el,params)))
     .register("page", (el, params) =>Try(new PageView(el,params)))
-    .register("query", (el, params) =>Try(new QueryView(el,params)))
-    .register("sparql",(el, params) =>Try(new SelectQueryView(el,params)))
+
     .register("ReportsView",(el, params) =>Try(new ReportsView(el,params)))
-    .register("report",(el, params) =>Try(new Report(el,params)))
+    .register("report",(el, params)=>Try(new Report(el,params)))
+
+
+
+  ViewInjector //register quering
+    .register("query", (el, params) =>Try(new QueryView(el,params)))
+    .register("query-headers", (el, params,parent) =>Try(new QueryHeaderView(el,params,parent)))
+
+  //.register("sparql",(el, params) =>Try(new SelectQueryView(el,params)))
+
+  ViewInjector //register datagrids
+    .register("Headers",(el,params,parent)=>Try(new HeadersView(el,params,parent)))
+    .register("Label",(el,params)=>Try(new LabelView(el,params)))
+    .register("DataGrid",(el,params) => Try(new DataGrid(el,params)))
+    .register("GridRow",(el,params) => Try(new GridRow(el,params)))
+    .register("GridCell",(el,params) => Try(new GridCell(el,params)))
 
 
   override def activateMacro(): Unit = {
